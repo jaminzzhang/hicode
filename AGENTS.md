@@ -14,13 +14,29 @@ The current goal is to turn the requirement document `docs/研发 AI 工程化�
 
 This project is not an insurance core system implementation. It is the engineering harness used to standardize how Coding Agents assist work around those systems.
 
-## 2. Current Source Of Truth
+## 2. Required Project Context
+
+Before starting any Harness development task, read these files in order:
+
+1. `AGENTS.md`
+2. `CONTEXT.md`
+3. `docs/研发 AI 工程化方案V1.1.md`
+4. `docs/V1_IMPLEMENTATION_PLAN.md`
+5. `docs/PROGRESS.md`
+
+These files have different responsibilities:
+
+1. `AGENTS.md`: project entry rules, safety boundaries, working language, and execution expectations.
+2. `CONTEXT.md`: project glossary and concept boundaries only.
+3. `docs/研发 AI 工程化方案V1.1.md`: authoritative requirement input.
+4. `docs/V1_IMPLEMENTATION_PLAN.md`: V1 work packages, scope, dependencies, and acceptance criteria.
+5. `docs/PROGRESS.md`: current phase, current work package, status, blockers, and next actions.
 
 The authoritative requirement input is:
 
 1. `docs/研发 AI 工程化方案V1.1.md`
 
-Before making project-structure, documentation, prompt, skill, or governance changes, read this document first and align the work to it.
+Before making project-structure, documentation, prompt, skill, or governance changes, align the work to the requirement document and the V1 implementation plan.
 
 If the implementation later creates `docs/`, `.ai-harness/`, or other structured assets, those files may become the operational source of truth for their own area. Until then, the requirement document remains the main reference.
 
@@ -51,16 +67,28 @@ Agents should:
 
 ## 5. Expected Workflows
 
-### 5.1 Requirement Analysis
+### 5.1 Work Package Execution
+
+When asked to perform Harness development work:
+
+1. Read the required project context in section 2.
+2. Identify the relevant work package in `docs/V1_IMPLEMENTATION_PLAN.md`.
+3. Check its current status in `docs/PROGRESS.md`.
+4. Confirm the expected output, dependencies, and acceptance criteria before editing files.
+5. Keep detailed design out of the implementation plan unless the current work package explicitly requires detailed design.
+6. Update `docs/PROGRESS.md` when a work package starts, becomes blocked, is submitted for acceptance, is accepted, or is deferred.
+
+### 5.2 Requirement Analysis
 
 When asked to analyze or refine the Harness requirements:
 
 1. Read `docs/研发 AI 工程化方案V1.1.md`.
-2. Summarize the relevant requirement scope.
-3. Identify assumptions, risks, and unclear points.
-4. Propose concrete next actions or document updates.
+2. Read `docs/V1_IMPLEMENTATION_PLAN.md` and `docs/PROGRESS.md` to understand the current V1 execution context.
+3. Summarize the relevant requirement scope.
+4. Identify assumptions, risks, and unclear points.
+5. Propose concrete next actions or document updates.
 
-### 5.2 Harness Structure Design
+### 5.3 Harness Structure Design
 
 When asked to design or expand the project structure:
 
@@ -68,8 +96,9 @@ When asked to design or expand the project structure:
 2. Keep generated files focused and maintainable.
 3. Separate human-readable documents under `docs/` from machine-oriented Harness assets under `.ai-harness/`.
 4. Do not create broad scaffolding unless the user requests it.
+5. Keep `docs/PROGRESS.md` current when the structure work changes a work package status.
 
-### 5.3 Prompt And Skill Template Work
+### 5.4 Prompt And Skill Template Work
 
 When asked to create Prompt or Skill templates:
 
@@ -77,8 +106,9 @@ When asked to create Prompt or Skill templates:
 2. Define the input, processing rules, output format, and quality criteria.
 3. Include safety and review constraints where relevant.
 4. Avoid embedding large duplicate sections from the requirement document when a concise reference is enough.
+5. Check the relevant work package acceptance criteria before creating or changing templates.
 
-### 5.4 Review And Validation
+### 5.5 Review And Validation
 
 When asked to review generated Harness assets:
 
@@ -112,6 +142,7 @@ When new knowledge, decisions, risks, or workflow rules are discovered:
 3. Keep generated documents concise and structured.
 4. Avoid copying large sections from `docs/研发 AI 工程化方案V1.1.md` unless the target file is explicitly meant to be a template or reference.
 5. For architecture or governance decisions, create a draft and ask for confirmation before treating it as accepted.
+6. Update `docs/PROGRESS.md` whenever a work package status changes.
 
 ## 8. Output Requirements
 
@@ -128,17 +159,24 @@ Use Chinese as the primary output language and English as supplementary support,
 
 Keep outputs direct and actionable. Prefer concrete file paths, checklist items, and acceptance criteria over broad recommendations.
 
-## 9. Current Initialization State
+## 9. Current Project State
 
-The current initialization scope is intentionally minimal:
+The current project state is:
 
 1. `AGENTS.md` exists as the project-level Agent entry file.
-2. `docs/研发 AI 工程化方案V1.1.md` remains the only requirement source currently present under `docs/`.
-3. The full `.ai-harness/` structure and supporting Harness documents described in the requirement document have not yet been generated.
+2. `CONTEXT.md` exists as the project glossary and concept-boundary document.
+3. `docs/研发 AI 工程化方案V1.1.md` is the authoritative requirement source.
+4. `docs/V1_IMPLEMENTATION_PLAN.md` defines V1 phases and work packages.
+5. `docs/PROGRESS.md` tracks current progress and work package status.
+6. P1 work packages are currently submitted for acceptance in `docs/PROGRESS.md`.
+7. The full `.ai-harness/` structure and supporting Harness documents described in the requirement document have not yet been generated.
 
 When expanding the project, preserve this distinction:
 
 1. Requirement source: `docs/研发 AI 工程化方案V1.1.md`
 2. Agent entry and operating rules: `AGENTS.md`
-3. Human-readable requirements and future knowledge base: `docs/`
-4. Future Harness runtime/config assets: `.ai-harness/`
+3. Project glossary: `CONTEXT.md`
+4. V1 implementation plan: `docs/V1_IMPLEMENTATION_PLAN.md`
+5. Project progress ledger: `docs/PROGRESS.md`
+6. Human-readable requirements and future knowledge base: `docs/`
+7. Future Harness runtime/config assets: `.ai-harness/`
