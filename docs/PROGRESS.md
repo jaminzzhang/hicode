@@ -58,6 +58,8 @@
 34. 已创建 `harness-assets/prompts/README.md` 和 `_template.md`，并提交项目负责人验收。
 35. 已根据项目负责人调整，将 Harness 运行资产源目录改为 `harness-assets/prompts/`、`harness-assets/skills/`、`harness-assets/gates/`、`harness-assets/schemas/` 和 `harness-assets/examples/`，不在 `harness-assets/` 下直接维护隐藏 `.ai-harness/` 目录。
 36. 已优化根目录 `AGENTS.md`，将需求草案从默认必读调整为按需读取，并聚焦 Coding Agent 执行 Harness 工程资产建设。
+37. 已确认 Harness 工程体系默认服务对象为保险/金融核心系统研发，后续资产设计需按金融核心系统风险标准处理，并将保险核心业务逻辑严谨性列为默认必检项。
+38. 已将金融核心系统风险标准和保险核心业务逻辑严谨性补充到 `harness-assets/prompts/README.md` 和 `_template.md`，作为后续 Prompt 的固定检查基线。
 
 ## 4. 当前阻塞点
 
@@ -132,4 +134,6 @@
 | 2026-06-04 | Codex | 创建 `harness-assets/prompts/README.md` 和 `_template.md`，并将 P3-WP1 提交待验收 | P3-WP1 |
 | 2026-06-04 | Codex | 全局调整 Harness 源资产路径：本仓库使用可见目录维护，后续由安装脚本放入目标项目 `.ai-harness/` | P3-WP1 |
 | 2026-06-04 | Codex | 优化根目录 `AGENTS.md`，默认读取执行基准，需求草案改为按需读取 | 项目入口规则 |
+| 2026-06-04 | Codex | 记录 Harness 默认服务对象为保险/金融核心系统研发，并将金融核心系统风险标准和保险核心业务逻辑严谨性作为后续资产设计背景 | 项目背景 |
+| 2026-06-04 | Codex | 将金融核心系统风险标准和保险核心业务逻辑严谨性补入 Prompt 模板规范 | P3-WP1 |
 | 2026-06-03 | Codex | 根据项目负责人确认，将 P2-WP3 更新为已完成，并启动 P2-WP4 | P2-WP3、P2-WP4 |
