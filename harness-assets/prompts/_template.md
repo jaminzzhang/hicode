@@ -55,11 +55,12 @@
 5. `docs/CODING_RULES.md`
 6. `docs/TESTING_GUIDE.md`
 7. `docs/REVIEW_RULES.md`
-8. `docs/RELEASE_GUIDE.md`
-9. `docs/DEFECT_CASES.md`
-10. `<本场景额外需要的上下文>`
+8. `docs/review-rules/`（涉及 Review 时按需）
+9. `docs/RELEASE_GUIDE.md`
+10. `docs/DEFECT_CASES.md`
+11. `<本场景额外需要的上下文>`
 
-只读取本场景必要上下文。涉及发布时必须读取 `docs/RELEASE_GUIDE.md`；涉及 Review 或合并前检查时必须读取 `docs/REVIEW_RULES.md`；涉及编码和测试时必须读取 `docs/CODING_RULES.md` 和 `docs/TESTING_GUIDE.md`。
+只读取本场景必要上下文。涉及发布时必须读取 `docs/RELEASE_GUIDE.md`；涉及 Review 或合并前检查时必须读取 `docs/REVIEW_RULES.md`，并根据 diff 按需读取 `docs/review-rules/`；涉及编码和测试时必须读取 `docs/CODING_RULES.md` 和 `docs/TESTING_GUIDE.md`。
 
 ## 6. 输入
 

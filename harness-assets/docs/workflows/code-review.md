@@ -11,10 +11,14 @@
 3. `docs/PROJ_CONTEXT.md`
 4. `docs/CODING_RULES.md`
 5. `docs/REVIEW_RULES.md`
-6. `docs/TESTING_GUIDE.md`
-7. `docs/DEFECT_CASES.md`
-8. 编码计划
-9. 单测结果
+6. 根据 diff 按需读取 `docs/review-rules/java.md`
+7. 根据 diff 按需读取 `docs/review-rules/sql.md`
+8. 根据 diff 按需读取 `docs/review-rules/security.md`
+9. 根据 diff 按需读取 `docs/review-rules/insurance-domain.md`
+10. `docs/TESTING_GUIDE.md`
+11. `docs/DEFECT_CASES.md`
+12. 编码计划
+13. 单测结果
 
 ## 3. 输入材料
 
@@ -26,22 +30,25 @@
 
 ## 4. 执行步骤
 
-1. 检查需求一致性。
-2. 检查架构规范和分层职责。
-3. 检查业务逻辑，重点关注金额、日期、状态、权限、幂等。
-4. 检查异常处理、日志审计、性能和安全风险。
-5. 检查测试覆盖。
-6. 匹配历史缺陷模式。
-7. 按 P0/P1/P2/P3 输出问题清单。
+1. 先读取 `docs/REVIEW_RULES.md`，确认分级、结论口径和规则加载路由。
+2. 根据 diff 判断是否补充读取 Java、SQL、安全或保险业务细则，并在报告中列出已读取文件。
+3. 检查需求一致性。
+4. 检查架构规范和分层职责。
+5. 按金融核心系统风险标准检查保险核心业务逻辑严谨性、金额、交易一致性、状态流转、幂等、权限、审计、隐私、监管、生产变更和回滚。
+6. 检查异常处理、日志审计、性能和安全风险。
+7. 检查测试覆盖。
+8. 匹配历史缺陷模式。
+9. 按 P0/P1/P2/P3 输出问题清单。
 
 ## 5. 输出
 
 1. AI 代码审查报告。
-2. 需求一致性检查。
-3. P0/P1/P2/P3 问题清单。
-4. 测试补充建议。
-5. 修复建议。
-6. 是否建议进入提交检查。
+2. 已读取上下文和分场景规则文件。
+3. 需求一致性检查。
+4. P0/P1/P2/P3 问题清单。
+5. 测试补充建议。
+6. 修复建议。
+7. 是否建议进入提交检查。
 
 ## 6. 质量标准
 
@@ -60,4 +67,6 @@
 
 1. 修复 P0/P1 问题后重新 Review。
 2. Review 通过或有条件通过后，进入 `pre-commit-check.md`。
-3. 发现新规则时建议更新 `docs/REVIEW_RULES.md` 或 `docs/DEFECT_CASES.md`。
+3. 发现通用审查规则时，输出 `docs/REVIEW_RULES.md` 更新建议；经技术负责人确认后再沉淀。
+4. 发现 Java、SQL、安全或保险业务细则时，输出 `docs/review-rules/` 对应文件更新建议；经对应负责人确认后再沉淀。
+5. 发现历史缺陷模式时，输出 `docs/DEFECT_CASES.md` 更新建议；经测试和研发共同确认后再沉淀。

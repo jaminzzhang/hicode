@@ -70,12 +70,13 @@ Prompt 模板应优先引用目标项目中的以下文档：
 5. `docs/CODING_RULES.md`
 6. `docs/TESTING_GUIDE.md`
 7. `docs/REVIEW_RULES.md`
-8. `docs/RELEASE_GUIDE.md`
-9. `docs/DEFECT_CASES.md`
-10. `docs/ADR/`
-11. `docs/workflows/`
+8. `docs/review-rules/`
+9. `docs/RELEASE_GUIDE.md`
+10. `docs/DEFECT_CASES.md`
+11. `docs/ADR/`
+12. `docs/workflows/`
 
-具体 Prompt 只列出本场景需要的上下文，不要求每次读取所有文档。涉及发布时必须读取 `docs/RELEASE_GUIDE.md`；涉及 Review 或合并前检查时必须读取 `docs/REVIEW_RULES.md`；涉及编码和测试时必须读取 `docs/CODING_RULES.md` 和 `docs/TESTING_GUIDE.md`。
+具体 Prompt 只列出本场景需要的上下文，不要求每次读取所有文档。涉及发布时必须读取 `docs/RELEASE_GUIDE.md`；涉及 Review 或合并前检查时必须读取 `docs/REVIEW_RULES.md`，并根据 diff 按需读取 `docs/review-rules/`；涉及编码和测试时必须读取 `docs/CODING_RULES.md` 和 `docs/TESTING_GUIDE.md`。
 
 ## 6. 输入规则
 
