@@ -1,196 +1,117 @@
 # AGENTS.md
 
-## 1. Project Purpose
+本文件是本仓库 Coding Agent 的第一入口，用于指导 Agent 建设 AI Harness 工程资产。
 
-This project builds an AI Harness engineering system for the Yijianxian R&D team.
+## 1. 项目定位
 
-The current goal is to turn the requirement document `docs/研发 AI 工程化方案V1.1.md` into maintainable engineering assets for agent-assisted software delivery, including:
+本仓库用于为意健险研发团队建设 AI Harness 工程化体系，交付可复用的 Agent 入口规则、上下文文档、Prompt、Skill、门禁、Schema、示例和验收资产。
 
-1. Project-level agent entry rules.
-2. Context documents for business, architecture, coding, testing, review, release, and defects.
-3. Prompt and Skill templates for recurring R&D workflows.
-4. Gate rules for requirement, coding, test, merge, and release checkpoints.
-5. Security and governance rules for controlled AI-assisted development.
+本仓库不是保险核心系统或试点业务系统，不实现真实业务功能，不操作生产环境。
 
-This project is not an insurance core system implementation. It is the engineering harness used to standardize how Coding Agents assist work around those systems.
+## 2. 默认读取顺序
 
-## 2. Required Project Context
-
-Before starting any Harness development task, read these files in order:
+开始任何 Harness 开发任务前，默认按顺序读取：
 
 1. `AGENTS.md`
 2. `CONTEXT.md`
-3. `docs/研发 AI 工程化方案V1.1.md`
+3. `docs/PROGRESS.md`
 4. `docs/V1_IMPLEMENTATION_PLAN.md`
-5. `docs/PROGRESS.md`
 
-These files have different responsibilities:
+不要默认读取 `docs/研发 AI 工程化方案V1.1.md`。该文件是需求草案，后续可能持续调整。
 
-1. `AGENTS.md`: project entry rules, safety boundaries, working language, and execution expectations.
-2. `CONTEXT.md`: project glossary and concept boundaries only.
-3. `docs/研发 AI 工程化方案V1.1.md`: authoritative requirement input.
-4. `docs/V1_IMPLEMENTATION_PLAN.md`: V1 work packages, scope, dependencies, and acceptance criteria.
-5. `docs/PROGRESS.md`: current phase, current work package, status, blockers, and next actions.
+仅在以下场景按需读取需求草案：
 
-The authoritative requirement input is:
+1. 当前工作包明确把需求草案作为输入。
+2. 需要追溯某个资产设计是否来自原始方案。
+3. `docs/V1_IMPLEMENTATION_PLAN.md`、`docs/PROGRESS.md` 或已生成资产存在范围冲突。
+4. 用户明确要求分析、校对或更新需求草案。
 
-1. `docs/研发 AI 工程化方案V1.1.md`
+若需求草案与已确认的计划、进度或用户最新指令冲突，优先以用户最新指令和 `docs/PROGRESS.md` 为准，并在输出中说明冲突。
 
-Before making project-structure, documentation, prompt, skill, or governance changes, align the work to the requirement document and the V1 implementation plan.
+## 3. 工作包执行规则
 
-Generated Harness deliverables must be placed under `harness-assets/`, not mixed into the root `docs/` directory. Inside `harness-assets/`, use visible source directories such as `harness-assets/docs/`, `harness-assets/prompts/`, `harness-assets/skills/`, `harness-assets/gates/`, `harness-assets/schemas/`, and `harness-assets/examples/`. Do not create hidden source directories such as `harness-assets/.ai-harness/`; a later installation script will place runtime assets into the target project's `.ai-harness/` directory.
+执行 Harness 工作时：
 
-If the implementation later creates `harness-assets/docs/`, `harness-assets/prompts/`, `harness-assets/skills/`, or other structured deliverable assets, those files may become the operational source of truth for their own area. Until then, the requirement document remains the main reference.
+1. 从 `docs/PROGRESS.md` 确认当前阶段、当前工作包、状态和下一步。
+2. 从 `docs/V1_IMPLEMENTATION_PLAN.md` 确认该工作包的目标、输出、依赖和验收标准。
+3. 若当前工作包为 `待验收`，不要自动启动下一个工作包，除非用户明确确认。
+4. 只实现当前工作包要求的资产，不扩大范围。
+5. 产出完成后，把工作包标记为 `待验收`；只有用户确认后才能标记为 `已完成`。
+6. 工作包开始、阻塞、待验收、完成或暂缓时，必须更新 `docs/PROGRESS.md`。
 
-## 3. Agent Responsibilities
+## 4. 资产目录规则
 
-Agents working in this project may assist with:
+本仓库的交付资产统一放在 `harness-assets/` 下，不混入根目录 `docs/`。
 
-1. Extracting requirements and implementation scope from the requirement document.
-2. Designing the Harness directory structure.
-3. Creating and maintaining context documents.
-4. Creating Prompt and Skill templates for AI-assisted R&D workflows.
-5. Creating gate and checklist templates.
-6. Reviewing consistency between generated assets and the requirement document.
-7. Identifying gaps, risks, unclear requirements, and missing governance rules.
+目录边界：
 
-Agents must treat AI output as an engineering aid. Final decisions about process, architecture, security policy, and rollout remain with the project owner or responsible team lead.
+1. 根目录 `docs/`：项目管理文档，如 V1 计划、进度台账和需求草案。
+2. 根目录 `CONTEXT.md`：项目术语表，只记录概念边界。
+3. `harness-assets/AGENTS.md`：目标项目 Agent 入口模板。
+4. `harness-assets/docs/`：目标项目可读的知识、规范、ADR、workflow 和运营模板。
+5. `harness-assets/prompts/`：Prompt 源资产。
+6. `harness-assets/skills/`：Skill 源资产。
+7. `harness-assets/gates/`：门禁源资产。
+8. `harness-assets/schemas/`：Schema 源资产。
+9. `harness-assets/examples/`：示例源资产。
 
-## 4. Working Language
+不要在本仓库产出隐藏源目录 `harness-assets/.ai-harness/`。后续安装脚本会把可见源目录安装到目标项目的 `.ai-harness/` 运行目录。
 
-The project's primary working and output language is Chinese, with English used as supplementary support.
+## 5. Agent 职责
 
-Agents should:
+Agent 可以协助：
 
-1. Use Chinese as the default language for explanations, plans, reviews, summaries, and user-facing deliverables.
-2. Use English only when it improves precision, such as file names, code identifiers, protocol names, tool names, commit messages, or widely used technical terms.
-3. Preserve existing English names for project assets, paths, commands, schemas, and templates unless the user explicitly requests translation.
-4. Prefer bilingual wording only when a term is ambiguous or when English terminology is the accepted engineering convention.
+1. 拆解和执行 V1 工作包。
+2. 创建和维护 Harness 文档、Prompt、Skill、门禁、Schema、示例和验收清单。
+3. 检查资产之间的术语、路径、输入输出和安全规则是否一致。
+4. 识别待确认问题、风险、重复规则和不可验收表述。
+5. 在发现稳定术语时更新 `CONTEXT.md`。
 
-## 5. Expected Workflows
+Agent 不负责：
 
-### 5.1 Work Package Execution
+1. 实现试点项目业务代码。
+2. 安排试点人员、发布窗口或组织运营。
+3. 操作生产环境、生产配置或生产数据。
+4. 替代负责人做架构、合并、发布或安全最终决策。
 
-When asked to perform Harness development work:
+## 6. 文档与模板规则
 
-1. Read the required project context in section 2.
-2. Identify the relevant work package in `docs/V1_IMPLEMENTATION_PLAN.md`.
-3. Check its current status in `docs/PROGRESS.md`.
-4. Confirm the expected output, dependencies, and acceptance criteria before editing files.
-5. Keep detailed design out of the implementation plan unless the current work package explicitly requires detailed design.
-6. Update `docs/PROGRESS.md` when a work package starts, becomes blocked, is submitted for acceptance, is accepted, or is deferred.
+创建或修改 Harness 资产时：
 
-### 5.2 Requirement Analysis
+1. 使用中文为主，英文仅用于文件名、路径、代码标识、协议名和通用技术术语。
+2. 保持文档短、清晰、可维护，避免复制大段需求草案。
+3. 未确认内容标注 `待确认`。
+4. 每个模板应明确定位、适用场景、输入、处理规则、输出格式、质量标准和安全约束。
+5. 发现上下文缺口时，优先提出具体更新建议，不把推断写成事实。
+6. `CONTEXT.md` 只写术语和概念边界，不写计划、进度或详细设计。
+7. 重大且难逆的治理或架构选择，先形成草稿并等待用户确认。
 
-When asked to analyze or refine the Harness requirements:
+## 7. 安全规则
 
-1. Read `docs/研发 AI 工程化方案V1.1.md`.
-2. Read `docs/V1_IMPLEMENTATION_PLAN.md` and `docs/PROGRESS.md` to understand the current V1 execution context.
-3. Summarize the relevant requirement scope.
-4. Identify assumptions, risks, and unclear points.
-5. Propose concrete next actions or document updates.
+Agent 禁止：
 
-### 5.3 Harness Structure Design
+1. 读取或输出生产账号、密码、Token、Cookie、Session、连接串、生产 IP 或内部密钥。
+2. 读取 `.env`、密钥文件、生产配置文件或生产凭证。
+3. 处理未脱敏客户敏感信息或未脱敏生产数据。
+4. 向外部服务提交客户敏感信息、生产数据或密钥。
+5. 直接操作生产环境。
+6. 自动合并 MR / PR。
+7. 自动发布。
+8. 自动修改生产配置。
+9. 删除未确认的代码、测试、配置、脚本或文档。
+10. 用删除测试、降低断言、跳过 Review 或隐藏风险的方式推动通过。
 
-When asked to design or expand the project structure:
+敏感信息必须先脱敏，再进入 Prompt、报告、示例或测试数据。
 
-1. Prefer the structure recommended in the requirement document.
-2. Keep generated files focused and maintainable.
-3. Place generated Harness assets under `harness-assets/`.
-4. Preserve the distinction between human-readable documents under `harness-assets/docs/` and machine-oriented Harness assets under visible source directories such as `harness-assets/prompts/`, `harness-assets/skills/`, `harness-assets/gates/`, and `harness-assets/schemas/`.
-5. Do not create broad scaffolding unless the user requests it.
-6. Keep `docs/PROGRESS.md` current when the structure work changes a work package status.
+## 8. 输出要求
 
-### 5.4 Prompt And Skill Template Work
+分析、评审、计划、测试、发布类输出默认包含：
 
-When asked to create Prompt or Skill templates:
+1. 结论。
+2. 依据或证据来源。
+3. 风险等级。
+4. 建议动作。
+5. 待确认问题。
+6. 建议更新的上下文或 Harness 资产。
 
-1. Align each template to a specific R&D workflow.
-2. Define the input, processing rules, output format, and quality criteria.
-3. Include safety and review constraints where relevant.
-4. Avoid embedding large duplicate sections from the requirement document when a concise reference is enough.
-5. Check the relevant work package acceptance criteria before creating or changing templates.
-
-### 5.5 Review And Validation
-
-When asked to review generated Harness assets:
-
-1. Check consistency with the requirement document.
-2. Check whether the asset has a clear owner, scope, input, output, and update rule.
-3. Flag missing safety constraints.
-4. Flag vague language, duplicated rules, and untestable acceptance criteria.
-
-## 6. Safety Rules
-
-Agents must not:
-
-1. Read or output production accounts, passwords, tokens, keys, or secrets.
-2. Read `.env`, secret files, production configuration files, or credential files unless the user explicitly confirms a safe, non-production context.
-3. Submit customer-sensitive information to external services.
-4. Directly operate production environments.
-5. Automatically merge code.
-6. Automatically publish or release systems.
-7. Modify production configuration.
-8. Execute destructive commands without explicit user approval.
-9. Delete unconfirmed code, tests, configuration, scripts, or documents.
-
-Sensitive data must be masked before it appears in prompts, reports, examples, or generated assets. This includes names, identity numbers, phone numbers, bank card numbers, policy numbers, customer IDs, addresses, email addresses, tokens, cookies, sessions, database connection strings, production IPs, and internal keys.
-
-## 7. Documentation Rules
-
-When new knowledge, decisions, risks, or workflow rules are discovered:
-
-1. Prefer proposing a targeted document update instead of silently spreading the knowledge across unrelated files.
-2. Mark uncertain content as `待确认`.
-3. Keep generated documents concise and structured.
-4. Avoid copying large sections from `docs/研发 AI 工程化方案V1.1.md` unless the target file is explicitly meant to be a template or reference.
-5. For architecture or governance decisions, create a draft and ask for confirmation before treating it as accepted.
-6. Update `docs/PROGRESS.md` whenever a work package status changes.
-
-## 8. Output Requirements
-
-For analysis, review, planning, testing, or release-related work, include:
-
-1. Conclusion.
-2. Evidence or source basis.
-3. Risk level.
-4. Recommended actions.
-5. Questions requiring confirmation.
-6. Suggested context or Harness asset updates.
-
-Use Chinese as the primary output language and English as supplementary support, unless the user explicitly asks for another language.
-
-Keep outputs direct and actionable. Prefer concrete file paths, checklist items, and acceptance criteria over broad recommendations.
-
-## 9. Current Project State
-
-The current project state is:
-
-1. `AGENTS.md` exists as the project-level Agent entry file.
-2. `CONTEXT.md` exists as the project glossary and concept-boundary document.
-3. `docs/研发 AI 工程化方案V1.1.md` is the authoritative requirement source.
-4. `docs/V1_IMPLEMENTATION_PLAN.md` defines V1 phases and work packages.
-5. `docs/PROGRESS.md` tracks current progress and work package status.
-6. P1 work packages have been accepted in `docs/PROGRESS.md`.
-7. P2-WP1 through P2-WP5 have been accepted in `docs/PROGRESS.md`.
-8. P2-WP6 has been accepted in `docs/PROGRESS.md`.
-9. P3-WP1 is currently submitted for acceptance in `docs/PROGRESS.md`.
-10. Generated Harness deliverables must be created under `harness-assets/`.
-11. The initial `harness-assets/prompts/` specification has been generated.
-12. Hidden source directories such as `harness-assets/.ai-harness/` should not be used; installation scripts will later map visible source assets to target `.ai-harness/` paths.
-
-When expanding the project, preserve this distinction:
-
-1. Requirement source: `docs/研发 AI 工程化方案V1.1.md`
-2. Agent entry and operating rules: `AGENTS.md`
-3. Project glossary: `CONTEXT.md`
-4. V1 implementation plan: `docs/V1_IMPLEMENTATION_PLAN.md`
-5. Project progress ledger: `docs/PROGRESS.md`
-6. Project management documents: root `docs/`
-7. Harness deliverable root: `harness-assets/`
-8. Future human-readable Harness documents: `harness-assets/docs/`
-9. Prompt source assets: `harness-assets/prompts/`
-10. Skill source assets: `harness-assets/skills/`
-11. Gate source assets: `harness-assets/gates/`
-12. Schema source assets: `harness-assets/schemas/`
-13. Target project runtime/config install path: `.ai-harness/`
+输出应直接、可执行、可验收。涉及文件时给出明确路径；涉及验证时说明实际运行的检查和结果。
