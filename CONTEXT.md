@@ -8,9 +8,13 @@ This context defines the project language for building the AI Harness engineerin
 面向意健险研发团队的 AI 辅助研发工程体系，用于规范 Agent 如何读取上下文、使用模板、执行检查和沉淀资产。
 _Avoid_: 保险核心系统、业务系统实现、单一 Prompt 集合
 
-**需求文档**:
-项目的权威需求输入，当前指 `docs/研发 AI 工程化方案V1.1.md`。
-_Avoid_: 项目说明、详细设计、进度台账
+**需求草案**:
+项目原始方案输入，当前指 `docs/研发 AI 工程化方案V1.1.md`。该文件会持续调整，不作为 Agent 默认启动必读文件；只有工作包、冲突追溯或用户要求时才按需读取。
+_Avoid_: 默认执行基准、项目进度台账、已验收 Harness 资产
+
+**执行基准**:
+Agent 执行当前 Harness 工作时优先读取和对齐的文件组合，包括 `docs/PROGRESS.md` 和 `docs/V1_IMPLEMENTATION_PLAN.md`。
+_Avoid_: 需求草案、历史讨论、目标项目文档模板
 
 **项目术语上下文**:
 根目录 `CONTEXT.md`，只记录本项目的统一术语和概念边界，不记录实施计划、进度或详细设计。
@@ -114,7 +118,7 @@ _Avoid_: 生产运维 Agent、自动发布 Agent、最终决策人
 
 开发 Agent：我开始任务前应该先读哪些内容？
 
-项目负责人：先读 `AGENTS.md`，再读需求文档、V1 实施计划和项目进度台账。需求文档告诉你为什么做，V1 实施计划告诉你整体怎么分阶段做，项目进度台账告诉你现在做到哪里。
+项目负责人：默认先读 `AGENTS.md`、`CONTEXT.md`、`docs/PROGRESS.md` 和 `docs/V1_IMPLEMENTATION_PLAN.md`。需求草案不是默认必读，只有当前工作包需要追溯原始方案或用户要求时再读。
 
 开发 Agent：我拿到一个工作包后，是否需要直接写详细设计？
 

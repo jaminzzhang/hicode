@@ -57,6 +57,7 @@
 33. 已启动 P3-WP1：Prompt 模板规范。
 34. 已创建 `harness-assets/prompts/README.md` 和 `_template.md`，并提交项目负责人验收。
 35. 已根据项目负责人调整，将 Harness 运行资产源目录改为 `harness-assets/prompts/`、`harness-assets/skills/`、`harness-assets/gates/`、`harness-assets/schemas/` 和 `harness-assets/examples/`，不在 `harness-assets/` 下直接维护隐藏 `.ai-harness/` 目录。
+36. 已优化根目录 `AGENTS.md`，将需求草案从默认必读调整为按需读取，并聚焦 Coding Agent 执行 Harness 工程资产建设。
 
 ## 4. 当前阻塞点
 
@@ -130,4 +131,5 @@
 | 2026-06-04 | Codex | 根据项目负责人确认，将 P2-WP6 更新为已完成，并启动 P3-WP1 | P2-WP6、P3-WP1 |
 | 2026-06-04 | Codex | 创建 `harness-assets/prompts/README.md` 和 `_template.md`，并将 P3-WP1 提交待验收 | P3-WP1 |
 | 2026-06-04 | Codex | 全局调整 Harness 源资产路径：本仓库使用可见目录维护，后续由安装脚本放入目标项目 `.ai-harness/` | P3-WP1 |
+| 2026-06-04 | Codex | 优化根目录 `AGENTS.md`，默认读取执行基准，需求草案改为按需读取 | 项目入口规则 |
 | 2026-06-03 | Codex | 根据项目负责人确认，将 P2-WP3 更新为已完成，并启动 P2-WP4 | P2-WP3、P2-WP4 |
