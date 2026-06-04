@@ -22,9 +22,11 @@ V1 的目标是建立一套可被开发 Agent 持续读取、执行和更新的 
 
 1. Agent 入口规则和项目术语上下文。
 2. V1 实施计划和项目进度台账。
-3. `docs/` 下的上下文、规范、流程和模板文档。
-4. `.ai-harness/` 下的 Prompt、Skill、门禁、Schema 和示例资产。
+3. `harness-assets/docs/` 下的上下文、规范、流程和模板文档。
+4. `harness-assets/prompts/`、`harness-assets/skills/`、`harness-assets/gates/`、`harness-assets/schemas/` 和 `harness-assets/examples/` 下的 Prompt、Skill、门禁、Schema 和示例源资产。
 5. V1 验收检查清单和试点运营支撑模板。
+
+说明：本仓库使用可见目录维护源资产，暂不在 `harness-assets/` 下创建隐藏 `.ai-harness/` 目录；后续安装脚本再把这些源资产放入目标项目的 `.ai-harness/` 运行目录。
 
 ### 3.2 本仓库范围外
 
@@ -59,10 +61,10 @@ V1 的目标是建立一套可被开发 Agent 持续读取、执行和更新的 
 | 阶段 | 名称 | 目标 | 主要交付物 |
 |---|---|---|---|
 | P1 | 项目入口与进度机制 | 确保每次开发 Agent 都能了解项目全貌和当前进度 | `AGENTS.md`、`CONTEXT.md`、`docs/V1_IMPLEMENTATION_PLAN.md`、`docs/PROGRESS.md` |
-| P2 | 上下文与规范文档 | 建立人可读、Agent 可引用的知识和规范资产 | `docs/` 核心文档、ADR 模板、流程文档 |
-| P3 | Prompt 模板库 V1 | 为 V1 核心研发场景提供可复用 Prompt | `.ai-harness/prompts/` |
-| P4 | Skill 工程资产 V1 | 为 V1 核心能力沉淀 Skill 说明和输出模板 | `.ai-harness/skills/` |
-| P5 | 门禁与验收资产 | 建立节点门禁、结构化 Schema 和 V1 验收检查口径 | `.ai-harness/gates/`、`.ai-harness/schemas/`、验收清单 |
+| P2 | 上下文与规范文档 | 建立目标项目入口模板和人可读、Agent 可引用的知识规范资产 | `harness-assets/AGENTS.md`、`harness-assets/docs/` 核心文档、ADR 模板、流程文档 |
+| P3 | Prompt 模板库 V1 | 为 V1 核心研发场景提供可复用 Prompt | `harness-assets/prompts/` |
+| P4 | Skill 工程资产 V1 | 为 V1 核心能力沉淀 Skill 说明和输出模板 | `harness-assets/skills/` |
+| P5 | 门禁与验收资产 | 建立节点门禁、结构化 Schema 和 V1 验收检查口径 | `harness-assets/gates/`、`harness-assets/schemas/`、验收清单 |
 | P6 | 试点运营支撑 | 为真实试点运行提供清单、记录和复盘模板 | 试点项目清单、指标采集方案、试点记录、复盘模板 |
 
 ## 6. P1 项目入口与进度机制
@@ -87,7 +89,8 @@ V1 的目标是建立一套可被开发 Agent 持续读取、执行和更新的 
 
 1. `AGENTS.md` 明确项目目标、需求来源、工作语言、安全边界和输出要求。
 2. `CONTEXT.md` 只记录术语和概念边界，不混入实施计划或详细设计。
-3. 明确根目录 `CONTEXT.md` 与未来 `docs/PROJ_CONTEXT.md` 的区别。
+3. 明确根目录 `CONTEXT.md` 与未来 `harness-assets/docs/PROJ_CONTEXT.md` 的区别。
+4. 明确根目录 `docs/` 是项目管理文档目录，Harness 交付资产放入 `harness-assets/`。
 
 ### P1-WP2 V1 实施计划
 
@@ -140,9 +143,9 @@ V1 的目标是建立一套可被开发 Agent 持续读取、执行和更新的 
 
 ## 7. P2 上下文与规范文档
 
-### P2-WP1 `docs/` 目录与基础模板
+### P2-WP1 `harness-assets/` 目录与基础模板
 
-目标：建立需求文档推荐的核心文档结构。
+目标：在 `harness-assets/` 下建立需求文档推荐的目标项目入口和核心文档结构。
 
 输入：
 
@@ -151,17 +154,18 @@ V1 的目标是建立一套可被开发 Agent 持续读取、执行和更新的 
 
 输出：
 
-1. `docs/DOMAIN_KNOWLEDGE.md`
-2. `docs/PROJ_CONTEXT.md`
-3. `docs/PRD_CONTEXT.md`
-4. `docs/CODING_RULES.md`
-5. `docs/TESTING_GUIDE.md`
-6. `docs/REVIEW_RULES.md`
-7. `docs/RELEASE_GUIDE.md`
-8. `docs/DEFECT_CASES.md`
-9. `docs/ADR/README.md`
-10. `docs/ADR/ADR-template.md`
-11. `docs/workflows/`
+1. `harness-assets/AGENTS.md`
+2. `harness-assets/docs/DOMAIN_KNOWLEDGE.md`
+3. `harness-assets/docs/PROJ_CONTEXT.md`
+4. `harness-assets/docs/PRD_CONTEXT.md`
+5. `harness-assets/docs/CODING_RULES.md`
+6. `harness-assets/docs/TESTING_GUIDE.md`
+7. `harness-assets/docs/REVIEW_RULES.md`
+8. `harness-assets/docs/RELEASE_GUIDE.md`
+9. `harness-assets/docs/DEFECT_CASES.md`
+10. `harness-assets/docs/ADR/README.md`
+11. `harness-assets/docs/ADR/ADR-template.md`
+12. `harness-assets/docs/workflows/README.md`
 
 依赖：
 
@@ -169,9 +173,11 @@ V1 的目标是建立一套可被开发 Agent 持续读取、执行和更新的 
 
 验收标准：
 
-1. 文件结构与需求文档推荐目录一致。
-2. 每个文档有清晰定位、维护对象、更新时机和占位章节。
-3. 文档不复制大段需求正文，只保留可维护模板。
+1. 文件结构与需求文档推荐目录一致，并位于 `harness-assets/` 下。
+2. `harness-assets/AGENTS.md` 是目标项目入口模板，不替代根目录 `AGENTS.md`。
+3. 每个文档有清晰定位、维护对象、更新时机和占位章节。
+4. 文档不复制大段需求正文，只保留可维护模板。
+5. 不向根目录 `docs/` 写入 Harness 交付资产。
 
 ### P2-WP2 领域知识文档初版
 
@@ -184,7 +190,7 @@ V1 的目标是建立一套可被开发 Agent 持续读取、执行和更新的 
 
 输出：
 
-1. `docs/DOMAIN_KNOWLEDGE.md`
+1. `harness-assets/docs/DOMAIN_KNOWLEDGE.md`
 
 依赖：
 
@@ -207,8 +213,8 @@ V1 的目标是建立一套可被开发 Agent 持续读取、执行和更新的 
 
 输出：
 
-1. `docs/PRD_CONTEXT.md`
-2. `docs/PROJ_CONTEXT.md`
+1. `harness-assets/docs/PRD_CONTEXT.md`
+2. `harness-assets/docs/PROJ_CONTEXT.md`
 
 依赖：
 
@@ -216,8 +222,8 @@ V1 的目标是建立一套可被开发 Agent 持续读取、执行和更新的 
 
 验收标准：
 
-1. `docs/PRD_CONTEXT.md` 覆盖需求基本信息、目标、范围、规则、流程、数据、澄清点、风险、测试和发布关注点。
-2. `docs/PROJ_CONTEXT.md` 明确它是研发上下文文档，不替代根目录术语表。
+1. `harness-assets/docs/PRD_CONTEXT.md` 覆盖需求基本信息、目标、范围、规则、流程、数据、澄清点、风险、测试和发布关注点。
+2. `harness-assets/docs/PROJ_CONTEXT.md` 明确它是研发上下文文档，不替代根目录术语表。
 3. 两个模板都能直接被需求评审、编码计划、TDD 和代码审查工作包引用。
 
 ### P2-WP4 编码与测试规范文档
@@ -231,8 +237,8 @@ V1 的目标是建立一套可被开发 Agent 持续读取、执行和更新的 
 
 输出：
 
-1. `docs/CODING_RULES.md`
-2. `docs/TESTING_GUIDE.md`
+1. `harness-assets/docs/CODING_RULES.md`
+2. `harness-assets/docs/TESTING_GUIDE.md`
 
 依赖：
 
@@ -255,9 +261,9 @@ V1 的目标是建立一套可被开发 Agent 持续读取、执行和更新的 
 
 输出：
 
-1. `docs/REVIEW_RULES.md`
-2. `docs/RELEASE_GUIDE.md`
-3. `docs/DEFECT_CASES.md`
+1. `harness-assets/docs/REVIEW_RULES.md`
+2. `harness-assets/docs/RELEASE_GUIDE.md`
+3. `harness-assets/docs/DEFECT_CASES.md`
 
 依赖：
 
@@ -280,15 +286,15 @@ V1 的目标是建立一套可被开发 Agent 持续读取、执行和更新的 
 
 输出：
 
-1. `docs/ADR/README.md`
-2. `docs/ADR/ADR-template.md`
-3. `docs/workflows/requirement-review.md`
-4. `docs/workflows/coding-plan.md`
-5. `docs/workflows/tdd.md`
-6. `docs/workflows/code-review.md`
-7. `docs/workflows/pre-commit-check.md`
-8. `docs/workflows/core-scenario-test.md`
-9. `docs/workflows/release-check.md`
+1. `harness-assets/docs/ADR/README.md`
+2. `harness-assets/docs/ADR/ADR-template.md`
+3. `harness-assets/docs/workflows/requirement-review.md`
+4. `harness-assets/docs/workflows/coding-plan.md`
+5. `harness-assets/docs/workflows/tdd.md`
+6. `harness-assets/docs/workflows/code-review.md`
+7. `harness-assets/docs/workflows/pre-commit-check.md`
+8. `harness-assets/docs/workflows/core-scenario-test.md`
+9. `harness-assets/docs/workflows/release-check.md`
 
 依赖：
 
@@ -313,8 +319,8 @@ V1 的目标是建立一套可被开发 Agent 持续读取、执行和更新的 
 
 输出：
 
-1. `.ai-harness/prompts/README.md`
-2. `.ai-harness/prompts/_template.md`
+1. `harness-assets/prompts/README.md`
+2. `harness-assets/prompts/_template.md`
 
 依赖：
 
@@ -339,8 +345,8 @@ V1 的目标是建立一套可被开发 Agent 持续读取、执行和更新的 
 
 输出：
 
-1. `.ai-harness/prompts/requirement-review.md`
-2. `.ai-harness/prompts/coding-plan.md`
+1. `harness-assets/prompts/requirement-review.md`
+2. `harness-assets/prompts/coding-plan.md`
 
 依赖：
 
@@ -363,8 +369,8 @@ V1 的目标是建立一套可被开发 Agent 持续读取、执行和更新的 
 
 输出：
 
-1. `.ai-harness/prompts/tdd.md`
-2. `.ai-harness/prompts/coding-assistant.md`
+1. `harness-assets/prompts/tdd.md`
+2. `harness-assets/prompts/coding-assistant.md`
 
 依赖：
 
@@ -388,8 +394,8 @@ V1 的目标是建立一套可被开发 Agent 持续读取、执行和更新的 
 
 输出：
 
-1. `.ai-harness/prompts/code-review.md`
-2. `.ai-harness/prompts/pre-commit-check.md`
+1. `harness-assets/prompts/code-review.md`
+2. `harness-assets/prompts/pre-commit-check.md`
 
 依赖：
 
@@ -413,8 +419,8 @@ V1 的目标是建立一套可被开发 Agent 持续读取、执行和更新的 
 
 输出：
 
-1. `.ai-harness/prompts/core-scenario-test.md`
-2. `.ai-harness/prompts/release-check.md`
+1. `harness-assets/prompts/core-scenario-test.md`
+2. `harness-assets/prompts/release-check.md`
 
 依赖：
 
@@ -439,9 +445,9 @@ V1 的目标是建立一套可被开发 Agent 持续读取、执行和更新的 
 
 输出：
 
-1. `.ai-harness/skills/README.md`
-2. `.ai-harness/skills/_template/skill.md`
-3. `.ai-harness/skills/_template/output-template.md`
+1. `harness-assets/skills/README.md`
+2. `harness-assets/skills/_template/skill.md`
+3. `harness-assets/skills/_template/output-template.md`
 
 依赖：
 
@@ -458,14 +464,14 @@ V1 的目标是建立一套可被开发 Agent 持续读取、执行和更新的 
 
 输入：
 
-1. `.ai-harness/prompts/requirement-review.md`
+1. `harness-assets/prompts/requirement-review.md`
 2. 需求文档 4.1.2 章节
 3. P2 上下文文档
 
 输出：
 
-1. `.ai-harness/skills/requirement-review/skill.md`
-2. `.ai-harness/skills/requirement-review/output-template.md`
+1. `harness-assets/skills/requirement-review/skill.md`
+2. `harness-assets/skills/requirement-review/output-template.md`
 
 依赖：
 
@@ -483,14 +489,14 @@ V1 的目标是建立一套可被开发 Agent 持续读取、执行和更新的 
 
 输入：
 
-1. `.ai-harness/prompts/coding-plan.md`
+1. `harness-assets/prompts/coding-plan.md`
 2. 需求文档 4.2.1 章节
 3. P2 上下文和规范文档
 
 输出：
 
-1. `.ai-harness/skills/coding-plan/skill.md`
-2. `.ai-harness/skills/coding-plan/output-template.md`
+1. `harness-assets/skills/coding-plan/skill.md`
+2. `harness-assets/skills/coding-plan/output-template.md`
 
 依赖：
 
@@ -508,16 +514,16 @@ V1 的目标是建立一套可被开发 Agent 持续读取、执行和更新的 
 
 输入：
 
-1. `.ai-harness/prompts/tdd.md`
-2. `.ai-harness/prompts/coding-assistant.md`
+1. `harness-assets/prompts/tdd.md`
+2. `harness-assets/prompts/coding-assistant.md`
 3. 需求文档 4.2.2、4.2.3 章节
 
 输出：
 
-1. `.ai-harness/skills/tdd/skill.md`
-2. `.ai-harness/skills/tdd/output-template.md`
-3. `.ai-harness/skills/coding-assistant/skill.md`
-4. `.ai-harness/skills/coding-assistant/output-template.md`
+1. `harness-assets/skills/tdd/skill.md`
+2. `harness-assets/skills/tdd/output-template.md`
+3. `harness-assets/skills/coding-assistant/skill.md`
+4. `harness-assets/skills/coding-assistant/output-template.md`
 
 依赖：
 
@@ -535,16 +541,16 @@ V1 的目标是建立一套可被开发 Agent 持续读取、执行和更新的 
 
 输入：
 
-1. `.ai-harness/prompts/code-review.md`
-2. `.ai-harness/prompts/pre-commit-check.md`
+1. `harness-assets/prompts/code-review.md`
+2. `harness-assets/prompts/pre-commit-check.md`
 3. 需求文档 4.2.4、4.2.5 章节
 
 输出：
 
-1. `.ai-harness/skills/code-review/skill.md`
-2. `.ai-harness/skills/code-review/output-template.md`
-3. `.ai-harness/skills/pre-commit-check/skill.md`
-4. `.ai-harness/skills/pre-commit-check/output-template.md`
+1. `harness-assets/skills/code-review/skill.md`
+2. `harness-assets/skills/code-review/output-template.md`
+3. `harness-assets/skills/pre-commit-check/skill.md`
+4. `harness-assets/skills/pre-commit-check/output-template.md`
 
 依赖：
 
@@ -562,16 +568,16 @@ V1 的目标是建立一套可被开发 Agent 持续读取、执行和更新的 
 
 输入：
 
-1. `.ai-harness/prompts/core-scenario-test.md`
-2. `.ai-harness/prompts/release-check.md`
+1. `harness-assets/prompts/core-scenario-test.md`
+2. `harness-assets/prompts/release-check.md`
 3. 需求文档 4.3.1、4.4.1 章节
 
 输出：
 
-1. `.ai-harness/skills/core-scenario-test/skill.md`
-2. `.ai-harness/skills/core-scenario-test/output-template.md`
-3. `.ai-harness/skills/release-check/skill.md`
-4. `.ai-harness/skills/release-check/output-template.md`
+1. `harness-assets/skills/core-scenario-test/skill.md`
+2. `harness-assets/skills/core-scenario-test/output-template.md`
+3. `harness-assets/skills/release-check/skill.md`
+4. `harness-assets/skills/release-check/output-template.md`
 
 依赖：
 
@@ -593,11 +599,11 @@ V1 的目标是建立一套可被开发 Agent 持续读取、执行和更新的 
 
 输出：
 
-1. `.ai-harness/examples/requirement-review-example.md`
-2. `.ai-harness/examples/coding-plan-example.md`
-3. `.ai-harness/examples/tdd-example.md`
-4. `.ai-harness/examples/code-review-example.md`
-5. `.ai-harness/examples/release-check-example.md`
+1. `harness-assets/examples/requirement-review-example.md`
+2. `harness-assets/examples/coding-plan-example.md`
+3. `harness-assets/examples/tdd-example.md`
+4. `harness-assets/examples/code-review-example.md`
+5. `harness-assets/examples/release-check-example.md`
 
 依赖：
 
@@ -626,8 +632,8 @@ V1 的目标是建立一套可被开发 Agent 持续读取、执行和更新的 
 
 输出：
 
-1. `.ai-harness/gates/README.md`
-2. `.ai-harness/gates/_gate-template.md`
+1. `harness-assets/gates/README.md`
+2. `harness-assets/gates/_gate-template.md`
 
 依赖：
 
@@ -651,8 +657,8 @@ V1 的目标是建立一套可被开发 Agent 持续读取、执行和更新的 
 
 输出：
 
-1. `.ai-harness/gates/requirement-entry-gate.md`
-2. `.ai-harness/gates/coding-entry-gate.md`
+1. `harness-assets/gates/requirement-entry-gate.md`
+2. `harness-assets/gates/coding-entry-gate.md`
 
 依赖：
 
@@ -678,8 +684,8 @@ V1 的目标是建立一套可被开发 Agent 持续读取、执行和更新的 
 
 输出：
 
-1. `.ai-harness/gates/coding-to-test-gate.md`
-2. `.ai-harness/gates/merge-gate.md`
+1. `harness-assets/gates/coding-to-test-gate.md`
+2. `harness-assets/gates/merge-gate.md`
 
 依赖：
 
@@ -699,12 +705,12 @@ V1 的目标是建立一套可被开发 Agent 持续读取、执行和更新的 
 输入：
 
 1. 发布前检查 Skill
-2. `docs/RELEASE_GUIDE.md`
+2. `harness-assets/docs/RELEASE_GUIDE.md`
 3. 需求文档 4.5.1 发布准入门禁
 
 输出：
 
-1. `.ai-harness/gates/release-gate.md`
+1. `harness-assets/gates/release-gate.md`
 
 依赖：
 
@@ -727,9 +733,9 @@ V1 的目标是建立一套可被开发 Agent 持续读取、执行和更新的 
 
 输出：
 
-1. `.ai-harness/schemas/review-result.schema.json`
-2. `.ai-harness/schemas/gate-result.schema.json`
-3. `.ai-harness/schemas/risk-level.schema.json`
+1. `harness-assets/schemas/review-result.schema.json`
+2. `harness-assets/schemas/gate-result.schema.json`
+3. `harness-assets/schemas/risk-level.schema.json`
 
 依赖：
 
@@ -752,7 +758,7 @@ V1 的目标是建立一套可被开发 Agent 持续读取、执行和更新的 
 
 输出：
 
-1. `docs/V1_ACCEPTANCE_CHECKLIST.md`
+1. `harness-assets/docs/V1_ACCEPTANCE_CHECKLIST.md`
 
 依赖：
 
@@ -777,7 +783,7 @@ V1 的目标是建立一套可被开发 Agent 持续读取、执行和更新的 
 
 输出：
 
-1. `docs/pilot/PILOT_PROJECTS.md`
+1. `harness-assets/docs/pilot/PILOT_PROJECTS.md`
 
 依赖：
 
@@ -799,7 +805,7 @@ V1 的目标是建立一套可被开发 Agent 持续读取、执行和更新的 
 
 输出：
 
-1. `docs/pilot/BASELINE_METRICS_PLAN.md`
+1. `harness-assets/docs/pilot/BASELINE_METRICS_PLAN.md`
 
 依赖：
 
@@ -823,7 +829,7 @@ V1 的目标是建立一套可被开发 Agent 持续读取、执行和更新的 
 
 输出：
 
-1. `docs/pilot/PILOT_USAGE_LOG.md`
+1. `harness-assets/docs/pilot/PILOT_USAGE_LOG.md`
 
 依赖：
 
@@ -841,13 +847,13 @@ V1 的目标是建立一套可被开发 Agent 持续读取、执行和更新的 
 
 输入：
 
-1. `docs/pilot/PILOT_USAGE_LOG.md`
-2. `docs/pilot/BASELINE_METRICS_PLAN.md`
+1. `harness-assets/docs/pilot/PILOT_USAGE_LOG.md`
+2. `harness-assets/docs/pilot/BASELINE_METRICS_PLAN.md`
 3. 需求文档 6.4、7 章
 
 输出：
 
-1. `docs/pilot/V1_REVIEW_REPORT_TEMPLATE.md`
+1. `harness-assets/docs/pilot/V1_REVIEW_REPORT_TEMPLATE.md`
 
 依赖：
 
@@ -866,7 +872,7 @@ V1 的目标是建立一套可被开发 Agent 持续读取、执行和更新的 
 默认推进顺序：
 
 1. 完成 P1 的入口、计划和进度机制。
-2. 进入 P2，先建立 `docs/` 基础模板，再逐步补齐核心文档。
+2. 进入 P2，先建立 `harness-assets/docs/` 基础模板，再逐步补齐核心文档。
 3. 完成 P2 后再进入 P3，避免 Prompt 缺少上下文和规范依据。
 4. 完成 P3 后进入 P4，让 Skill 复用 Prompt 和输出模板。
 5. 完成 P4 后进入 P5，把 Skill 组合成节点门禁和验收资产。
@@ -874,10 +880,9 @@ V1 的目标是建立一套可被开发 Agent 持续读取、执行和更新的 
 
 ## 13. 当前优先级
 
-当前优先完成 P1：
+当前优先验收 P3-WP1：
 
-1. P1-WP1 项目入口与术语上下文。
-2. P1-WP2 V1 实施计划。
-3. P1-WP3 项目进度台账。
+1. `harness-assets/prompts/README.md`
+2. `harness-assets/prompts/_template.md`
 
-P1 通过后，再启动 P2-WP1。
+P3-WP1 验收通过后，再启动 P3-WP2 需求评审与编码计划 Prompt。

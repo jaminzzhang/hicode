@@ -38,7 +38,9 @@ The authoritative requirement input is:
 
 Before making project-structure, documentation, prompt, skill, or governance changes, align the work to the requirement document and the V1 implementation plan.
 
-If the implementation later creates `docs/`, `.ai-harness/`, or other structured assets, those files may become the operational source of truth for their own area. Until then, the requirement document remains the main reference.
+Generated Harness deliverables must be placed under `harness-assets/`, not mixed into the root `docs/` directory. Inside `harness-assets/`, use visible source directories such as `harness-assets/docs/`, `harness-assets/prompts/`, `harness-assets/skills/`, `harness-assets/gates/`, `harness-assets/schemas/`, and `harness-assets/examples/`. Do not create hidden source directories such as `harness-assets/.ai-harness/`; a later installation script will place runtime assets into the target project's `.ai-harness/` directory.
+
+If the implementation later creates `harness-assets/docs/`, `harness-assets/prompts/`, `harness-assets/skills/`, or other structured deliverable assets, those files may become the operational source of truth for their own area. Until then, the requirement document remains the main reference.
 
 ## 3. Agent Responsibilities
 
@@ -94,9 +96,10 @@ When asked to design or expand the project structure:
 
 1. Prefer the structure recommended in the requirement document.
 2. Keep generated files focused and maintainable.
-3. Separate human-readable documents under `docs/` from machine-oriented Harness assets under `.ai-harness/`.
-4. Do not create broad scaffolding unless the user requests it.
-5. Keep `docs/PROGRESS.md` current when the structure work changes a work package status.
+3. Place generated Harness assets under `harness-assets/`.
+4. Preserve the distinction between human-readable documents under `harness-assets/docs/` and machine-oriented Harness assets under visible source directories such as `harness-assets/prompts/`, `harness-assets/skills/`, `harness-assets/gates/`, and `harness-assets/schemas/`.
+5. Do not create broad scaffolding unless the user requests it.
+6. Keep `docs/PROGRESS.md` current when the structure work changes a work package status.
 
 ### 5.4 Prompt And Skill Template Work
 
@@ -168,8 +171,13 @@ The current project state is:
 3. `docs/研发 AI 工程化方案V1.1.md` is the authoritative requirement source.
 4. `docs/V1_IMPLEMENTATION_PLAN.md` defines V1 phases and work packages.
 5. `docs/PROGRESS.md` tracks current progress and work package status.
-6. P1 work packages are currently submitted for acceptance in `docs/PROGRESS.md`.
-7. The full `.ai-harness/` structure and supporting Harness documents described in the requirement document have not yet been generated.
+6. P1 work packages have been accepted in `docs/PROGRESS.md`.
+7. P2-WP1 through P2-WP5 have been accepted in `docs/PROGRESS.md`.
+8. P2-WP6 has been accepted in `docs/PROGRESS.md`.
+9. P3-WP1 is currently submitted for acceptance in `docs/PROGRESS.md`.
+10. Generated Harness deliverables must be created under `harness-assets/`.
+11. The initial `harness-assets/prompts/` specification has been generated.
+12. Hidden source directories such as `harness-assets/.ai-harness/` should not be used; installation scripts will later map visible source assets to target `.ai-harness/` paths.
 
 When expanding the project, preserve this distinction:
 
@@ -178,5 +186,11 @@ When expanding the project, preserve this distinction:
 3. Project glossary: `CONTEXT.md`
 4. V1 implementation plan: `docs/V1_IMPLEMENTATION_PLAN.md`
 5. Project progress ledger: `docs/PROGRESS.md`
-6. Human-readable requirements and future knowledge base: `docs/`
-7. Future Harness runtime/config assets: `.ai-harness/`
+6. Project management documents: root `docs/`
+7. Harness deliverable root: `harness-assets/`
+8. Future human-readable Harness documents: `harness-assets/docs/`
+9. Prompt source assets: `harness-assets/prompts/`
+10. Skill source assets: `harness-assets/skills/`
+11. Gate source assets: `harness-assets/gates/`
+12. Schema source assets: `harness-assets/schemas/`
+13. Target project runtime/config install path: `.ai-harness/`
