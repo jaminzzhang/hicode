@@ -2,9 +2,9 @@
 
 ## 1. 当前状态
 
-最近更新时间：2026-06-03  
-当前阶段：P1 项目入口与进度机制  
-当前工作包：P1-WP1、P1-WP2、P1-WP3  
+最近更新时间：2026-06-04
+当前阶段：P3 Prompt 模板库 V1
+当前工作包：P3-WP1
 总体状态：待验收
 
 本台账用于记录 V1 工作包推进状态。每次开发 Agent 开始、完成、阻塞、暂缓或提交工作包验收时，必须同步更新本文件。
@@ -33,6 +33,30 @@
 9. 已创建 `docs/V1_IMPLEMENTATION_PLAN.md`。
 10. 已创建 `docs/PROGRESS.md`。
 11. 已更新 `AGENTS.md`，要求后续开发 Agent 固定读取 `CONTEXT.md`、需求文档、V1 实施计划和项目进度台账。
+12. 项目负责人已确认 P1-WP1、P1-WP2、P1-WP3 验收通过。
+13. 已启动 P2-WP1：`harness-assets/` 目录与基础模板。
+14. 已确认 Harness 交付资产统一放入 `harness-assets/`，不混入根目录 `docs/`。
+15. 已确认目标项目入口模板为 `harness-assets/AGENTS.md`，根目录 `AGENTS.md` 只保留为本仓库 Agent 规则。
+16. 已创建 P2-WP1 基础模板文件，并提交项目负责人验收。
+17. 项目负责人已确认 P2-WP1 验收通过。
+18. 已启动 P2-WP2：领域知识文档初版。
+19. 已补充 `harness-assets/docs/DOMAIN_KNOWLEDGE.md` 初版，并提交项目负责人验收。
+20. 项目负责人已确认 P2-WP2 验收通过。
+21. 已启动 P2-WP3：需求与研发上下文模板。
+22. 已完善 `harness-assets/docs/PRD_CONTEXT.md` 和 `harness-assets/docs/PROJ_CONTEXT.md`，并提交项目负责人验收。
+23. 项目负责人已确认 P2-WP3 验收通过。
+24. 已启动 P2-WP4：编码与测试规范文档。
+25. 已完善 `harness-assets/docs/CODING_RULES.md` 和 `harness-assets/docs/TESTING_GUIDE.md`，并提交项目负责人验收。
+26. 项目负责人已确认 P2-WP4 验收通过。
+27. 已启动 P2-WP5：Review、发布和缺陷文档。
+28. 已完善 `harness-assets/docs/REVIEW_RULES.md`、`harness-assets/docs/RELEASE_GUIDE.md` 和 `harness-assets/docs/DEFECT_CASES.md`，并提交项目负责人验收。
+29. 项目负责人已确认 P2-WP5 验收通过。
+30. 已启动 P2-WP6：ADR 与流程文档。
+31. 已完善 `harness-assets/docs/ADR/` 和 `harness-assets/docs/workflows/`，并提交项目负责人验收。
+32. 项目负责人已确认 P2-WP6 验收通过，P2 上下文与规范文档阶段完成。
+33. 已启动 P3-WP1：Prompt 模板规范。
+34. 已创建 `harness-assets/prompts/README.md` 和 `_template.md`，并提交项目负责人验收。
+35. 已根据项目负责人调整，将 Harness 运行资产源目录改为 `harness-assets/prompts/`、`harness-assets/skills/`、`harness-assets/gates/`、`harness-assets/schemas/` 和 `harness-assets/examples/`，不在 `harness-assets/` 下直接维护隐藏 `.ai-harness/` 目录。
 
 ## 4. 当前阻塞点
 
@@ -40,25 +64,25 @@
 
 ## 5. 下一步建议
 
-1. 项目负责人验收 P1-WP1、P1-WP2、P1-WP3。
-2. 验收通过后，将 P1 工作包状态更新为 `已完成`。
-3. 启动 P2-WP1，创建 `docs/` 核心文档和基础模板。
+1. 项目负责人验收 P3-WP1。
+2. 验收通过后，将 P3-WP1 状态更新为 `已完成`。
+3. 启动 P3-WP2，建立需求评审与编码计划 Prompt。
 4. 每完成一个工作包后更新本台账。
 
 ## 6. 工作包状态表
 
 | 工作包编号 | 工作包名称 | 状态 | 当前产出 | 依赖 | 备注 |
 |---|---|---|---|---|---|
-| P1-WP1 | 项目入口与术语上下文 | 待验收 | `AGENTS.md`、`CONTEXT.md` | 无 | 已建立入口规则、强制读取顺序和术语边界 |
-| P1-WP2 | V1 实施计划 | 待验收 | `docs/V1_IMPLEMENTATION_PLAN.md` | P1-WP1 | 已拆到工作包粒度，未展开详细设计 |
-| P1-WP3 | 项目进度台账 | 待验收 | `docs/PROGRESS.md` | P1-WP2 | 已建立状态规则和当前进度 |
-| P2-WP1 | `docs/` 目录与基础模板 | 未开始 | 无 | P1-WP2、P1-WP3 | 下一建议启动项 |
-| P2-WP2 | 领域知识文档初版 | 未开始 | 无 | P2-WP1 | 需基于需求文档和后续业务输入 |
-| P2-WP3 | 需求与研发上下文模板 | 未开始 | 无 | P2-WP1 | 需区分根目录 `CONTEXT.md` 与 `docs/PROJ_CONTEXT.md` |
-| P2-WP4 | 编码与测试规范文档 | 未开始 | 无 | P2-WP1 | 后续 Prompt 和 Skill 的规则基础 |
-| P2-WP5 | Review、发布和缺陷文档 | 未开始 | 无 | P2-WP1 | 支撑代码审查、发布检查和缺陷复盘 |
-| P2-WP6 | ADR 与流程文档 | 未开始 | 无 | P2-WP1 | ADR 只做草稿和确认后记录 |
-| P3-WP1 | Prompt 模板规范 | 未开始 | 无 | P2-WP4、P2-WP5 | 统一 Prompt 结构、语言和安全约束 |
+| P1-WP1 | 项目入口与术语上下文 | 已完成 | `AGENTS.md`、`CONTEXT.md` | 无 | 项目负责人已确认验收通过 |
+| P1-WP2 | V1 实施计划 | 已完成 | `docs/V1_IMPLEMENTATION_PLAN.md` | P1-WP1 | 项目负责人已确认验收通过 |
+| P1-WP3 | 项目进度台账 | 已完成 | `docs/PROGRESS.md` | P1-WP2 | 项目负责人已确认验收通过 |
+| P2-WP1 | `harness-assets/` 目录与基础模板 | 已完成 | `harness-assets/AGENTS.md`、`harness-assets/docs/` 基础模板、`harness-assets/docs/ADR/`、`harness-assets/docs/workflows/README.md` | P1-WP2、P1-WP3 | 项目负责人已确认验收通过 |
+| P2-WP2 | 领域知识文档初版 | 已完成 | `harness-assets/docs/DOMAIN_KNOWLEDGE.md` | P2-WP1 | 项目负责人已确认验收通过 |
+| P2-WP3 | 需求与研发上下文模板 | 已完成 | `harness-assets/docs/PRD_CONTEXT.md`、`harness-assets/docs/PROJ_CONTEXT.md` | P2-WP1 | 项目负责人已确认验收通过 |
+| P2-WP4 | 编码与测试规范文档 | 已完成 | `harness-assets/docs/CODING_RULES.md`、`harness-assets/docs/TESTING_GUIDE.md` | P2-WP1 | 项目负责人已确认验收通过 |
+| P2-WP5 | Review、发布和缺陷文档 | 已完成 | `harness-assets/docs/REVIEW_RULES.md`、`harness-assets/docs/RELEASE_GUIDE.md`、`harness-assets/docs/DEFECT_CASES.md` | P2-WP1 | 项目负责人已确认验收通过 |
+| P2-WP6 | ADR 与流程文档 | 已完成 | `harness-assets/docs/ADR/README.md`、`harness-assets/docs/ADR/ADR-template.md`、`harness-assets/docs/workflows/` | P2-WP1 | 项目负责人已确认验收通过 |
+| P3-WP1 | Prompt 模板规范 | 待验收 | `harness-assets/prompts/README.md`、`harness-assets/prompts/_template.md` | P2-WP4、P2-WP5 | 已覆盖统一结构、语言规则和安全红线 |
 | P3-WP2 | 需求评审与编码计划 Prompt | 未开始 | 无 | P3-WP1 | 覆盖需求前置和编码启动 |
 | P3-WP3 | TDD 与辅助编码 Prompt | 未开始 | 无 | P3-WP1、P3-WP2 | 覆盖测试前置和辅助实现 |
 | P3-WP4 | 代码审查与提交检查 Prompt | 未开始 | 无 | P3-WP1、P3-WP3 | 覆盖 MR 前质量检查 |
@@ -89,4 +113,21 @@
 | 2026-06-03 | Codex | 通过 grill-with-docs 确认 V1 实施计划文档、进度台账、工作包粒度、范围、顺序、编号和状态规则 | P1-WP1、P1-WP2、P1-WP3 |
 | 2026-06-03 | Codex | 创建 `CONTEXT.md`、`docs/V1_IMPLEMENTATION_PLAN.md`、`docs/PROGRESS.md` | P1-WP1、P1-WP2、P1-WP3 |
 | 2026-06-03 | Codex | 更新 `AGENTS.md`，加入固定上下文读取顺序、工作包执行规则和进度台账更新要求 | P1-WP1、P1-WP3 |
-| 2026-06-03 | Codex | 明确未来研发上下文文档命名为 `docs/PROJ_CONTEXT.md`，避免与根目录术语表混淆 | P2-WP3 |
+| 2026-06-03 | Codex | 明确未来研发上下文文档命名为 `harness-assets/docs/PROJ_CONTEXT.md`，避免与根目录术语表混淆 | P2-WP3 |
+| 2026-06-03 | Codex | 根据项目负责人确认，将 P1-WP1、P1-WP2、P1-WP3 更新为已完成，并启动 P2-WP1 | P1-WP1、P1-WP2、P1-WP3、P2-WP1 |
+| 2026-06-03 | Codex | 确认 Harness 交付资产统一放入 `harness-assets/`，并同步更新入口规则、术语边界和实施计划路径 | P2-WP1 |
+| 2026-06-03 | Codex | 确认目标项目入口模板为 `harness-assets/AGENTS.md`，根目录 `AGENTS.md` 保留为本仓库规则 | P2-WP1 |
+| 2026-06-03 | Codex | 创建 `harness-assets/AGENTS.md` 和 P2-WP1 基础文档模板，并将 P2-WP1 提交待验收 | P2-WP1 |
+| 2026-06-03 | Codex | 根据项目负责人确认，将 P2-WP1 更新为已完成，并启动 P2-WP2 | P2-WP1、P2-WP2 |
+| 2026-06-03 | Codex | 补充 `harness-assets/docs/DOMAIN_KNOWLEDGE.md` 初版，并将 P2-WP2 提交待验收 | P2-WP2 |
+| 2026-06-03 | Codex | 根据项目负责人确认，将 P2-WP2 更新为已完成，并启动 P2-WP3 | P2-WP2、P2-WP3 |
+| 2026-06-03 | Codex | 完善 `harness-assets/docs/PRD_CONTEXT.md` 和 `harness-assets/docs/PROJ_CONTEXT.md`，并将 P2-WP3 提交待验收 | P2-WP3 |
+| 2026-06-03 | Codex | 完善 `harness-assets/docs/CODING_RULES.md` 和 `harness-assets/docs/TESTING_GUIDE.md`，并将 P2-WP4 提交待验收 | P2-WP4 |
+| 2026-06-03 | Codex | 根据项目负责人确认，将 P2-WP4 更新为已完成，并启动 P2-WP5 | P2-WP4、P2-WP5 |
+| 2026-06-03 | Codex | 完善 `harness-assets/docs/REVIEW_RULES.md`、`harness-assets/docs/RELEASE_GUIDE.md` 和 `harness-assets/docs/DEFECT_CASES.md`，并将 P2-WP5 提交待验收 | P2-WP5 |
+| 2026-06-03 | Codex | 根据项目负责人确认，将 P2-WP5 更新为已完成，并启动 P2-WP6 | P2-WP5、P2-WP6 |
+| 2026-06-04 | Codex | 完善 `harness-assets/docs/ADR/` 和 `harness-assets/docs/workflows/`，并将 P2-WP6 提交待验收 | P2-WP6 |
+| 2026-06-04 | Codex | 根据项目负责人确认，将 P2-WP6 更新为已完成，并启动 P3-WP1 | P2-WP6、P3-WP1 |
+| 2026-06-04 | Codex | 创建 `harness-assets/prompts/README.md` 和 `_template.md`，并将 P3-WP1 提交待验收 | P3-WP1 |
+| 2026-06-04 | Codex | 全局调整 Harness 源资产路径：本仓库使用可见目录维护，后续由安装脚本放入目标项目 `.ai-harness/` | P3-WP1 |
+| 2026-06-03 | Codex | 根据项目负责人确认，将 P2-WP3 更新为已完成，并启动 P2-WP4 | P2-WP3、P2-WP4 |
