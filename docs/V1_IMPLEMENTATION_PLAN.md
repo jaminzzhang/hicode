@@ -37,6 +37,21 @@ V1 的目标是建立一套可被开发 Agent 持续读取、执行和更新的 
 3. 生产环境操作、生产配置修改和生产数据处理。
 4. 平台化集成、自动化测试平台和监控预警能力，这些属于 V2/V3 或外部平台建设。
 
+### 3.3 与需求草案的对齐口径
+
+`docs/研发 AI 工程化方案V1.1.md` 是目标项目落地蓝图，本计划是本仓库的资产建设执行计划。两者不按阶段名称一一对应，按资产依赖拆分如下：
+
+| 需求草案阶段 | 本计划覆盖方式 | 说明 |
+|---|---|---|
+| 6.1 准备期 | P1、P2、P3-WP1、P6-WP1、P6-WP2 | 基础入口、上下文和规范由 P1/P2 覆盖；Prompt 规范由 P3-WP1 覆盖；试点项目清单和基线方案作为运营支撑模板放入 P6，不提前执行真实试点运营 |
+| 6.2 Skill 建设期 | P3、P4、P5-WP1 至 P5-WP8 | Prompt、Skill、门禁、Schema、权限审计矩阵和回归样例按依赖顺序建设 |
+| 6.3 试点运行期 | P6-WP1 至 P6-WP3 | 本仓库只提供试点清单、指标采集和使用记录模板，不记录真实试点数据 |
+| 6.4 评估推广期 | P6-WP4 | 本仓库只提供复盘报告模板，不编造推广结论 |
+
+需求草案中的“节点门禁 Agent”在 V1 中落为可人工执行、可审计的 Markdown 门禁资产和报告模板；不建设独立自动化门禁 Agent，不接入 CI/CD 或发布平台。
+
+需求草案中的“上线后验证门禁”在 V1 中纳入 `release-check` 和 `release-gate` 的生产验证点、上线后观察建议和异常反馈检查，不作为独立生产操作类工作包。
+
 ## 4. 工作包规则
 
 工作包编号使用 `P<阶段号>-WP<序号>`。
@@ -66,7 +81,7 @@ V1 的目标是建立一套可被开发 Agent 持续读取、执行和更新的 
 | P2 | 上下文与规范文档 | 建立目标项目入口模板和人可读、Agent 可引用的知识规范资产 | `harness-assets/AGENTS.md`、`harness-assets/docs/` 核心文档、ADR 模板、流程文档 |
 | P3 | Prompt 模板库 V1 | 为 V1 核心研发场景提供可复用 Prompt | `harness-assets/prompts/` |
 | P4 | Skill 工程资产 V1 | 为 V1 核心能力沉淀 Skill 说明和输出模板 | `harness-assets/skills/` |
-| P5 | 门禁与验收资产 | 建立节点门禁、结构化 Schema 和 V1 验收检查口径 | `harness-assets/gates/`、`harness-assets/schemas/`、验收清单 |
+| P5 | 门禁与验收资产 | 建立节点门禁、权限审计矩阵、结构化 Schema、回归样例和 V1 验收检查口径 | `harness-assets/gates/`、`harness-assets/schemas/`、`harness-assets/examples/`、验收清单 |
 | P6 | 试点运营支撑 | 为真实试点运行提供清单、记录和复盘模板 | 试点项目清单、指标采集方案、试点记录、复盘模板 |
 
 ## 6. P1 项目入口与进度机制
@@ -163,11 +178,15 @@ V1 的目标是建立一套可被开发 Agent 持续读取、执行和更新的 
 5. `harness-assets/docs/CODING_RULES.md`
 6. `harness-assets/docs/TESTING_GUIDE.md`
 7. `harness-assets/docs/REVIEW_RULES.md`
-8. `harness-assets/docs/RELEASE_GUIDE.md`
-9. `harness-assets/docs/DEFECT_CASES.md`
-10. `harness-assets/docs/ADR/README.md`
-11. `harness-assets/docs/ADR/ADR-template.md`
-12. `harness-assets/docs/workflows/README.md`
+8. `harness-assets/docs/review-rules/java.md`
+9. `harness-assets/docs/review-rules/sql.md`
+10. `harness-assets/docs/review-rules/security.md`
+11. `harness-assets/docs/review-rules/insurance-domain.md`
+12. `harness-assets/docs/RELEASE_GUIDE.md`
+13. `harness-assets/docs/DEFECT_CASES.md`
+14. `harness-assets/docs/ADR/README.md`
+15. `harness-assets/docs/ADR/ADR-template.md`
+16. `harness-assets/docs/workflows/README.md`
 
 依赖：
 
@@ -180,6 +199,7 @@ V1 的目标是建立一套可被开发 Agent 持续读取、执行和更新的 
 3. 每个文档有清晰定位、维护对象、更新时机和占位章节。
 4. 文档不复制大段需求正文，只保留可维护模板。
 5. 不向根目录 `docs/` 写入 Harness 交付资产。
+6. Review 细则使用 `harness-assets/docs/review-rules/` 分层维护，避免把长规则全部塞入入口文件或 Prompt。
 
 ### P2-WP2 领域知识文档初版
 
@@ -264,8 +284,12 @@ V1 的目标是建立一套可被开发 Agent 持续读取、执行和更新的 
 输出：
 
 1. `harness-assets/docs/REVIEW_RULES.md`
-2. `harness-assets/docs/RELEASE_GUIDE.md`
-3. `harness-assets/docs/DEFECT_CASES.md`
+2. `harness-assets/docs/review-rules/java.md`
+3. `harness-assets/docs/review-rules/sql.md`
+4. `harness-assets/docs/review-rules/security.md`
+5. `harness-assets/docs/review-rules/insurance-domain.md`
+6. `harness-assets/docs/RELEASE_GUIDE.md`
+7. `harness-assets/docs/DEFECT_CASES.md`
 
 依赖：
 
@@ -273,9 +297,10 @@ V1 的目标是建立一套可被开发 Agent 持续读取、执行和更新的 
 
 验收标准：
 
-1. Review 规则覆盖需求一致性、架构规范、业务逻辑、异常、日志、性能、安全、测试和可维护性。
-2. 发布指南覆盖需求、分支、提交、SQL、配置、测试、缺陷、验证点和回滚。
-3. 缺陷案例文档提供可持续追加的案例格式和防范规则字段。
+1. `REVIEW_RULES.md` 保持短总则，覆盖风险分级、必检项和分场景规则加载路由。
+2. Java、SQL、安全和保险业务 Review 细则分文件维护，能被代码审查 Prompt 和 Skill 按 diff 按需引用。
+3. 发布指南覆盖需求、分支、提交、SQL、配置、测试、缺陷、验证点和回滚。
+4. 缺陷案例文档提供可持续追加的案例格式和防范规则字段。
 
 ### P2-WP6 ADR 与流程文档
 
@@ -407,7 +432,8 @@ V1 的目标是建立一套可被开发 Agent 持续读取、执行和更新的 
 验收标准：
 
 1. 代码审查 Prompt 使用 P0/P1/P2/P3 分级。
-2. 提交检查 Prompt 覆盖需求关联、分支、单测、Review、覆盖率、SQL、配置、脚本和敏感信息。
+2. 代码审查 Prompt 只写规则引用路径和加载决策，不复制全部 Review 细则。
+3. 提交检查 Prompt 覆盖需求关联、分支、单测、Review、覆盖率、SQL、配置、脚本和敏感信息。
 
 ### P3-WP5 核心场景测试与发布检查 Prompt
 
@@ -724,7 +750,38 @@ V1 的目标是建立一套可被开发 Agent 持续读取、执行和更新的 
 1. 覆盖发布需求清单、分支、制品、测试、缺陷、SQL、配置、回滚和生产验证点。
 2. 明确 Agent 不自动发布，只提供检查结论和风险建议。
 
-### P5-WP5 结构化 Schema
+### P5-WP5 工具权限与操作审计矩阵
+
+目标：建立 V1 各类 Prompt、Skill 和门禁的权限边界与审计证据口径。
+
+输入：
+
+1. 需求文档第 5 章
+2. P3 Prompt 模板
+3. P4 Skill 资产
+4. P5 门禁资产
+
+输出：
+
+1. `harness-assets/docs/TOOL_PERMISSION_AUDIT_MATRIX.md`
+
+依赖：
+
+1. P5-WP1
+2. P4-WP2
+3. P4-WP3
+4. P4-WP4
+5. P4-WP5
+6. P4-WP6
+
+验收标准：
+
+1. 覆盖需求评审、编码计划、TDD、辅助编码、代码审查、提交检查、核心场景测试、发布检查和节点门禁。
+2. 区分只读分析、生成建议、本地修改、受限命令和禁止操作。
+3. 明确敏感信息、生产数据、密钥、生产配置、自动合并、自动发布和高风险命令的禁止或审批要求。
+4. 每个场景都有可归档审计证据，例如报告、测试结果、变更摘要或门禁结论。
+
+### P5-WP6 结构化 Schema
 
 目标：为后续工具化和平台化预留结构化输出约束。
 
@@ -732,6 +789,7 @@ V1 的目标是建立一套可被开发 Agent 持续读取、执行和更新的 
 
 1. P4 Skill 输出模板
 2. P5 门禁模板
+3. `harness-assets/docs/TOOL_PERMISSION_AUDIT_MATRIX.md`
 
 输出：
 
@@ -743,13 +801,49 @@ V1 的目标是建立一套可被开发 Agent 持续读取、执行和更新的 
 
 1. P4-WP5
 2. P5-WP1
+3. P5-WP5
 
 验收标准：
 
 1. Schema 覆盖风险等级、结论、问题清单、建议动作和待确认问题。
-2. 不绑定具体平台实现，保持 V1 可手工使用。
+2. Schema 能承载阻断建议、人工确认状态、审计证据和上下文更新建议。
+3. 不绑定具体平台实现，保持 V1 可手工使用。
 
-### P5-WP6 V1 验收检查清单
+### P5-WP7 Harness 资产回归样例
+
+目标：建立 Prompt、Skill、门禁和 Schema 修改后的轻量回归样例。
+
+输入：
+
+1. 需求文档 4.6 章节
+2. P3 Prompt 模板
+3. P4 Skill 资产
+4. P5 门禁资产
+5. P5-WP6 Schema
+
+输出：
+
+1. `harness-assets/examples/regression/README.md`
+2. `harness-assets/examples/regression/requirement-review-regression.md`
+3. `harness-assets/examples/regression/code-review-regression.md`
+4. `harness-assets/examples/regression/release-check-regression.md`
+5. `harness-assets/examples/regression/high-risk-cases.md`
+
+依赖：
+
+1. P4-WP7
+2. P5-WP4
+3. P5-WP6
+
+验收标准：
+
+1. 至少覆盖需求评审、代码审查、发布检查三个回归场景。
+2. 高风险样例覆盖金额精度、状态流转、幂等、权限、隐私、SQL、配置和回滚风险。
+3. 示例不得包含真实客户敏感信息、生产数据、密钥或生产配置。
+4. 每个样例说明输入摘要、期望输出结构、期望风险等级和人工复核关注点。
+5. 回归样例只验证资产质量，不冒充真实试点效果。
+
+### P5-WP8 V1 验收检查清单
 
 目标：把需求文档第 7 章验收标准转成可执行检查清单。
 
@@ -757,6 +851,8 @@ V1 的目标是建立一套可被开发 Agent 持续读取、执行和更新的 
 
 1. 需求文档第 7 章
 2. P2 至 P5 资产
+3. `harness-assets/docs/TOOL_PERMISSION_AUDIT_MATRIX.md`
+4. `harness-assets/examples/regression/`
 
 输出：
 
@@ -765,12 +861,15 @@ V1 的目标是建立一套可被开发 Agent 持续读取、执行和更新的 
 依赖：
 
 1. P5-WP5
+2. P5-WP6
+3. P5-WP7
 
 验收标准：
 
 1. 覆盖资产建设、需求、编码、测试、发布、质量、安全和运营验收项。
 2. 区分本仓库可验收项和依赖试点运行的数据项。
 3. 每个验收项有证据来源字段。
+4. 显式检查统一风险分级、权限审计矩阵、Review 分层规则和回归样例是否齐备。
 
 ## 11. P6 试点运营支撑
 
@@ -789,7 +888,7 @@ V1 的目标是建立一套可被开发 Agent 持续读取、执行和更新的 
 
 依赖：
 
-1. P5-WP6
+1. P5-WP8
 
 验收标准：
 
@@ -811,7 +910,7 @@ V1 的目标是建立一套可被开发 Agent 持续读取、执行和更新的 
 
 依赖：
 
-1. P5-WP6
+1. P5-WP8
 
 验收标准：
 

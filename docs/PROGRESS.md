@@ -4,8 +4,8 @@
 
 最近更新时间：2026-06-04
 当前阶段：P3 Prompt 模板库 V1
-当前工作包：P3-WP1
-总体状态：待验收
+当前工作包：P3-WP2
+总体状态：已完成
 
 本台账用于记录 V1 工作包推进状态。每次开发 Agent 开始、完成、阻塞、暂缓或提交工作包验收时，必须同步更新本文件。
 
@@ -61,6 +61,13 @@
 37. 已确认 Harness 工程体系默认服务对象为保险/金融核心系统研发，后续资产设计需按金融核心系统风险标准处理，并将保险核心业务逻辑严谨性列为默认必检项。
 38. 已将金融核心系统风险标准和保险核心业务逻辑严谨性补充到 `harness-assets/prompts/README.md` 和 `_template.md`，作为后续 Prompt 的固定检查基线。
 39. 已基于金融核心系统背景补强 P1/P2 文档，将统一风险基线和保险核心业务逻辑严谨性同步到目标项目入口、上下文、规范、ADR 和 workflow 文档。
+40. 已将 `docs/V1_IMPLEMENTATION_PLAN.md` 对齐需求草案和上下文，补充阶段映射、Review 分层规则、权限审计矩阵和资产回归样例工作包。
+41. 项目负责人已确认继续启动下一个工作包，P3-WP1 视为验收通过。
+42. 已启动 P3-WP2：需求评审与编码计划 Prompt。
+43. 已创建 `harness-assets/prompts/requirement-review.md` 和 `harness-assets/prompts/coding-plan.md`，并提交项目负责人验收。
+44. 已收到项目负责人关于 V1 Prompt 统一骨架的验收反馈，P3-WP2 进入返工调整。
+45. 已按统一 Prompt 骨架调整 `harness-assets/prompts/README.md`、`_template.md`、`requirement-review.md` 和 `coding-plan.md`，并重新提交 P3-WP2 验收。
+46. 项目负责人已确认采用八段式主骨架，并吸收十二段式语义作为子项，P3-WP2 验收通过。
 
 ## 4. 当前阻塞点
 
@@ -68,10 +75,9 @@
 
 ## 5. 下一步建议
 
-1. 项目负责人验收 P3-WP1。
-2. 验收通过后，将 P3-WP1 状态更新为 `已完成`。
-3. 启动 P3-WP2，建立需求评审与编码计划 Prompt。
-4. 每完成一个工作包后更新本台账。
+1. 启动 P3-WP3，建立 TDD 与辅助编码 Prompt。
+2. P3-WP3 应复用已确认的八段式 Prompt 主骨架。
+3. 每完成一个工作包后更新本台账。
 
 ## 6. 工作包状态表
 
@@ -84,10 +90,10 @@
 | P2-WP2 | 领域知识文档初版 | 已完成 | `harness-assets/docs/DOMAIN_KNOWLEDGE.md` | P2-WP1 | 项目负责人已确认验收通过 |
 | P2-WP3 | 需求与研发上下文模板 | 已完成 | `harness-assets/docs/PRD_CONTEXT.md`、`harness-assets/docs/PROJ_CONTEXT.md` | P2-WP1 | 项目负责人已确认验收通过 |
 | P2-WP4 | 编码与测试规范文档 | 已完成 | `harness-assets/docs/CODING_RULES.md`、`harness-assets/docs/TESTING_GUIDE.md` | P2-WP1 | 项目负责人已确认验收通过 |
-| P2-WP5 | Review、发布和缺陷文档 | 已完成 | `harness-assets/docs/REVIEW_RULES.md`、`harness-assets/docs/RELEASE_GUIDE.md`、`harness-assets/docs/DEFECT_CASES.md` | P2-WP1 | 项目负责人已确认验收通过 |
+| P2-WP5 | Review、发布和缺陷文档 | 已完成 | `harness-assets/docs/REVIEW_RULES.md`、`harness-assets/docs/review-rules/`、`harness-assets/docs/RELEASE_GUIDE.md`、`harness-assets/docs/DEFECT_CASES.md` | P2-WP1 | 项目负责人已确认验收通过 |
 | P2-WP6 | ADR 与流程文档 | 已完成 | `harness-assets/docs/ADR/README.md`、`harness-assets/docs/ADR/ADR-template.md`、`harness-assets/docs/workflows/` | P2-WP1 | 项目负责人已确认验收通过 |
-| P3-WP1 | Prompt 模板规范 | 待验收 | `harness-assets/prompts/README.md`、`harness-assets/prompts/_template.md` | P2-WP4、P2-WP5 | 已覆盖统一结构、语言规则和安全红线 |
-| P3-WP2 | 需求评审与编码计划 Prompt | 未开始 | 无 | P3-WP1 | 覆盖需求前置和编码启动 |
+| P3-WP1 | Prompt 模板规范 | 已完成 | `harness-assets/prompts/README.md`、`harness-assets/prompts/_template.md` | P2-WP4、P2-WP5 | 项目负责人已确认验收通过 |
+| P3-WP2 | 需求评审与编码计划 Prompt | 已完成 | `harness-assets/prompts/requirement-review.md`、`harness-assets/prompts/coding-plan.md` | P3-WP1 | 项目负责人已确认验收通过 |
 | P3-WP3 | TDD 与辅助编码 Prompt | 未开始 | 无 | P3-WP1、P3-WP2 | 覆盖测试前置和辅助实现 |
 | P3-WP4 | 代码审查与提交检查 Prompt | 未开始 | 无 | P3-WP1、P3-WP3 | 覆盖 MR 前质量检查 |
 | P3-WP5 | 核心场景测试与发布检查 Prompt | 未开始 | 无 | P3-WP1、P2-WP5 | 覆盖测试和发布阶段 |
@@ -102,10 +108,12 @@
 | P5-WP2 | 需求与编码准入门禁 | 未开始 | 无 | P5-WP1、P4-WP2、P4-WP3 | 覆盖需求和编码准入 |
 | P5-WP3 | 提测与合并门禁 | 未开始 | 无 | P5-WP1、P4-WP4、P4-WP5 | 覆盖提测和 MR 合并 |
 | P5-WP4 | 发布准入门禁 | 未开始 | 无 | P5-WP1、P4-WP6 | Agent 不自动发布 |
-| P5-WP5 | 结构化 Schema | 未开始 | 无 | P4-WP5、P5-WP1 | 为后续工具化预留 |
-| P5-WP6 | V1 验收检查清单 | 未开始 | 无 | P5-WP5 | 区分仓库可验收项和试点数据项 |
-| P6-WP1 | 试点项目清单模板 | 未开始 | 无 | P5-WP6 | 运营支撑，不展开人员排班 |
-| P6-WP2 | 基线指标采集方案 | 未开始 | 无 | P5-WP6 | 不编造基线值 |
+| P5-WP5 | 工具权限与操作审计矩阵 | 未开始 | 无 | P5-WP1、P4-WP2 至 P4-WP6 | 覆盖只读、建议、本地修改、受限命令和禁止操作 |
+| P5-WP6 | 结构化 Schema | 未开始 | 无 | P4-WP5、P5-WP1、P5-WP5 | 为后续工具化预留 |
+| P5-WP7 | Harness 资产回归样例 | 未开始 | 无 | P4-WP7、P5-WP4、P5-WP6 | 覆盖需求评审、代码审查、发布检查和高风险样例 |
+| P5-WP8 | V1 验收检查清单 | 未开始 | 无 | P5-WP5、P5-WP6、P5-WP7 | 区分仓库可验收项和试点数据项 |
+| P6-WP1 | 试点项目清单模板 | 未开始 | 无 | P5-WP8 | 运营支撑，不展开人员排班 |
+| P6-WP2 | 基线指标采集方案 | 未开始 | 无 | P5-WP8 | 不编造基线值 |
 | P6-WP3 | 试点使用记录模板 | 未开始 | 无 | P4-WP7、P5-WP4 | 不记录客户敏感信息 |
 | P6-WP4 | V1 复盘报告模板 | 未开始 | 无 | P6-WP2、P6-WP3 | 区分事实、分析和建议 |
 
@@ -139,3 +147,9 @@
 | 2026-06-04 | Codex | 将金融核心系统风险标准和保险核心业务逻辑严谨性补入 Prompt 模板规范 | P3-WP1 |
 | 2026-06-04 | Codex | 基于金融核心系统背景补强 P1/P2 文档，统一风险基线和保险核心业务逻辑严谨性检查口径 | P1、P2 |
 | 2026-06-03 | Codex | 根据项目负责人确认，将 P2-WP3 更新为已完成，并启动 P2-WP4 | P2-WP3、P2-WP4 |
+| 2026-06-04 | Codex | 对齐 V1 实施计划与需求草案和上下文，补充需求路线映射、Review 分层规则、P5 权限审计矩阵和回归样例工作包 | P1-WP2、P5 |
+| 2026-06-04 | Codex | 根据项目负责人确认，将 P3-WP1 更新为已完成，并启动 P3-WP2 | P3-WP1、P3-WP2 |
+| 2026-06-04 | Codex | 创建需求评审与编码计划 Prompt，并将 P3-WP2 提交待验收 | P3-WP2 |
+| 2026-06-04 | Codex | 收到项目负责人验收反馈，按统一 Prompt 骨架调整 P3-WP2 | P3-WP2 |
+| 2026-06-04 | Codex | 将 Prompt 模板规范和 P3-WP2 Prompt 调整为统一骨架，并重新提交待验收 | P3-WP1、P3-WP2 |
+| 2026-06-04 | Codex | 根据项目负责人确认，采用八段式主骨架并将十二段式语义收敛为子项，P3-WP2 更新为已完成 | P3-WP1、P3-WP2 |
