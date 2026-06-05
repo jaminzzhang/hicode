@@ -4,8 +4,8 @@
 
 最近更新时间：2026-06-05
 当前阶段：P3 Prompt 模板库 V1
-当前工作包：P3-WP3
-总体状态：待验收
+当前工作包：P3-WP4
+总体状态：已完成
 
 本台账用于记录 V1 工作包推进状态。每次开发 Agent 开始、完成、阻塞、暂缓或提交工作包验收时，必须同步更新本文件。
 
@@ -70,6 +70,10 @@
 46. 项目负责人已确认采用八段式主骨架，并吸收十二段式语义作为子项，P3-WP2 验收通过。
 47. 已启动 P3-WP3：TDD 与辅助编码 Prompt。
 48. 已创建 `harness-assets/prompts/tdd.md` 和 `harness-assets/prompts/coding-assistant.md`，并提交项目负责人验收。
+49. 项目负责人已确认 P3-WP3 验收通过。
+50. 已启动 P3-WP4：代码审查与提交检查 Prompt。
+51. 已创建 `harness-assets/prompts/code-review.md` 和 `harness-assets/prompts/pre-commit-check.md`，并提交项目负责人验收。
+52. 项目负责人已确认 P3-WP4 验收通过。
 
 ## 4. 当前阻塞点
 
@@ -77,10 +81,9 @@
 
 ## 5. 下一步建议
 
-1. 项目负责人验收 P3-WP3。
-2. 验收通过后，将 P3-WP3 状态更新为 `已完成`。
-3. 启动 P3-WP4，建立代码审查与提交检查 Prompt。
-4. 每完成一个工作包后更新本台账。
+1. 启动 P3-WP5，建立核心场景测试与发布检查 Prompt。
+2. P3-WP5 应复用已确认的八段式 Prompt 主骨架。
+3. 每完成一个工作包后更新本台账。
 
 ## 6. 工作包状态表
 
@@ -97,8 +100,8 @@
 | P2-WP6 | ADR 与流程文档 | 已完成 | `harness-assets/docs/ADR/README.md`、`harness-assets/docs/ADR/ADR-template.md`、`harness-assets/docs/workflows/` | P2-WP1 | 项目负责人已确认验收通过 |
 | P3-WP1 | Prompt 模板规范 | 已完成 | `harness-assets/prompts/README.md`、`harness-assets/prompts/_template.md` | P2-WP4、P2-WP5 | 项目负责人已确认验收通过 |
 | P3-WP2 | 需求评审与编码计划 Prompt | 已完成 | `harness-assets/prompts/requirement-review.md`、`harness-assets/prompts/coding-plan.md` | P3-WP1 | 项目负责人已确认验收通过 |
-| P3-WP3 | TDD 与辅助编码 Prompt | 待验收 | `harness-assets/prompts/tdd.md`、`harness-assets/prompts/coding-assistant.md` | P3-WP1、P3-WP2 | 已按统一 Prompt 骨架调整 |
-| P3-WP4 | 代码审查与提交检查 Prompt | 未开始 | 无 | P3-WP1、P3-WP3 | 覆盖 MR 前质量检查 |
+| P3-WP3 | TDD 与辅助编码 Prompt | 已完成 | `harness-assets/prompts/tdd.md`、`harness-assets/prompts/coding-assistant.md` | P3-WP1、P3-WP2 | 项目负责人已确认验收通过 |
+| P3-WP4 | 代码审查与提交检查 Prompt | 已完成 | `harness-assets/prompts/code-review.md`、`harness-assets/prompts/pre-commit-check.md` | P3-WP1、P3-WP3 | 项目负责人已确认验收通过 |
 | P3-WP5 | 核心场景测试与发布检查 Prompt | 未开始 | 无 | P3-WP1、P2-WP5 | 覆盖测试和发布阶段 |
 | P4-WP1 | Skill 目录规范 | 未开始 | 无 | P3-WP1 | 统一 Skill 结构 |
 | P4-WP2 | 需求评审 Skill | 未开始 | 无 | P4-WP1、P3-WP2 | 需求阶段核心 Skill |
@@ -158,3 +161,7 @@
 | 2026-06-04 | Codex | 根据项目负责人确认，采用八段式主骨架并将十二段式语义收敛为子项，P3-WP2 更新为已完成 | P3-WP1、P3-WP2 |
 | 2026-06-05 | Codex | 根据项目负责人确认，启动 P3-WP3 并明确 TDD、辅助编码、受限命令和任务模式边界 | P3-WP3 |
 | 2026-06-05 | Codex | 创建 TDD 与辅助编码 Prompt，并将 P3-WP3 提交待验收 | P3-WP3 |
+| 2026-06-05 | Codex | 根据项目负责人确认，将 P3-WP3 更新为已完成，并启动 P3-WP4 | P3-WP3、P3-WP4 |
+| 2026-06-05 | Codex | 参考 NIST、OWASP、CISA、GitHub、GitLab 和 Superpowers 代码审查资料，确认 P3-WP4 设计边界 | P3-WP4 |
+| 2026-06-05 | Codex | 创建代码审查与提交检查 Prompt，并将 P3-WP4 提交待验收 | P3-WP4 |
+| 2026-06-05 | Codex | 根据项目负责人确认，将 P3-WP4 更新为已完成 | P3-WP4 |

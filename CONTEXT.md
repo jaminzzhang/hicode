@@ -116,6 +116,10 @@ _Avoid_: Skill 实现、workflow 文档、自由聊天提示语
 `harness-assets/prompts/README.md` 和 `_template.md` 共同定义的 Prompt 通用结构、语言规则、安全红线和质量口径。
 _Avoid_: 单个场景 Prompt、Skill 输出模板、门禁报告模板
 
+**外部资料设计参考口径**:
+NIST、OWASP、CISA、GitHub、GitLab、Superpowers 等外部资料可作为本仓库设计 Prompt、Skill、门禁和规则资产的参考依据，但不作为目标项目 Prompt 的运行时必读上下文。需要强制执行的外部规则应先转化为本地 `harness-assets/docs/`、`harness-assets/prompts/`、`harness-assets/skills/` 或 `harness-assets/gates/` 源资产，再由目标项目引用。
+_Avoid_: 目标项目 Agent 每次联网读取外部资料、把外部网页当作已审计本地规则、因外部资料版本漂移影响 Prompt 输出
+
 **TDD Prompt**:
 `harness-assets/prompts/tdd.md`，用于在编码前基于需求上下文、编码计划、项目上下文、编码规范和测试规范生成测试设计、测试场景、Given-When-Then 用例、Mock 策略、断言规则和验证要求。V1 允许输出测试代码草案或示例片段，但必须标注为草案，不得声称直接可通过，不得访问真实数据库、真实外部系统、生产配置或敏感数据。
 _Avoid_: 只输出测试清单、替代测试负责人确认、自动声称测试通过、访问真实依赖的测试生成 Prompt
@@ -139,6 +143,22 @@ _Avoid_: 每个 Prompt 自定义章节体系、只写一句自然语言指令、
 **Review 规则分层引用**:
 代码审查规则采用短总则和分场景细则分离的上下文策略。`docs/REVIEW_RULES.md` 只作为通用总则、风险分级、必检项和加载路由，Java、SQL、安全、保险业务等细则放入 `docs/review-rules/`，由代码审查 Prompt 或 Skill 按 diff 和技术栈按需引用。
 _Avoid_: 把所有 Review 规范塞进一个超长文件、把细则全文复制进 Prompt、忽略短指令工具的读取限制
+
+**代码审查 Prompt**:
+`harness-assets/prompts/code-review.md`，用于在人工 Review 前基于需求、编码计划、TDD、代码 diff、本地 Review 总则和分场景细则输出 AI 代码审查报告。V1 保持本仓库的结论、依据、P0/P1/P2/P3 问题、测试建议、提交检查建议和上下文更新结构，同时吸收 Superpowers 代码审查纪律：基于明确 diff 范围和需求检查，问题必须有文件/位置、影响原因、修复建议和明确结论，严重程度必须校准。
+_Avoid_: 替代人工 Reviewer、复制全部 Review 细则、无 diff 范围审查、泛泛反馈、把风格问题标成 P0/P1
+
+**Review 范围标识**:
+代码审查 Prompt 首选使用 `BASE_SHA`、`HEAD_SHA`、`git diff --stat BASE..HEAD` 和 `git diff BASE..HEAD` 明确审查范围；也允许 MR/PR diff、当前工作区 diff、补丁文件或变更文件列表加关键片段作为降级输入。缺少明确 diff 范围时必须标注审查范围不完整，不得给出无条件通过结论。
+_Avoid_: 无范围审查、只看自然语言摘要就给通过、把局部片段审查结论扩展为完整 diff 结论
+
+**提交检查 Prompt**:
+`harness-assets/prompts/pre-commit-check.md`，用于在 Git 提交、创建 MR/PR 或进入提测前输出开发侧提醒型检查报告和建议动作。它可以读取 diff、分支、测试、覆盖率、静态扫描、代码审查和 SQL/配置/脚本清单，并可按条件执行本地单测、构建、静态检查、格式检查和敏感信息扫描；不得自动提交、推送、合并、发布、修改代码、连接生产、修改数据库或读取密钥。
+_Avoid_: 自动提交 Prompt、自动合并门禁、生产发布检查、替代 CI/CD、读取 `.env` 或密钥文件
+
+**提交检查建议结论**:
+提交检查 Prompt 只能输出建议性质的结论，包括建议提交、有条件提交、不建议提交和待确认。对敏感信息、密钥、未脱敏生产数据、P0 Review 问题、自动合并/发布或生产越权必须给出不建议提交和阻断建议；不得输出允许提交、批准提交或已通过最终门禁。
+_Avoid_: 把 Agent 建议写成最终审批、用允许提交替代负责人决策、把 MR 描述草稿当成正式提交动作
 
 **V1 核心 Skill 集合**:
 V1 阶段围绕需求评审、编码计划、TDD、辅助编码、代码审查、提交检查、核心场景测试和发布检查等少量核心研发节点建设的 Skill 集合。每个 Skill 应服务一个真实工程闭环节点，并通过上下文、Prompt、门禁和输出模板补足细节。
