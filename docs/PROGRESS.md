@@ -4,8 +4,8 @@
 
 最近更新时间：2026-06-05
 当前阶段：P3 Prompt 模板库 V1
-当前工作包：P3-WP4
-总体状态：已完成
+当前工作包：P3-WP5
+总体状态：待验收
 
 本台账用于记录 V1 工作包推进状态。每次开发 Agent 开始、完成、阻塞、暂缓或提交工作包验收时，必须同步更新本文件。
 
@@ -74,6 +74,8 @@
 50. 已启动 P3-WP4：代码审查与提交检查 Prompt。
 51. 已创建 `harness-assets/prompts/code-review.md` 和 `harness-assets/prompts/pre-commit-check.md`，并提交项目负责人验收。
 52. 项目负责人已确认 P3-WP4 验收通过。
+53. 已启动 P3-WP5：核心场景测试与发布检查 Prompt。
+54. 已创建 `harness-assets/prompts/core-scenario-test.md` 和 `harness-assets/prompts/release-check.md`，并同步修正相关 workflow 上下文。
 
 ## 4. 当前阻塞点
 
@@ -81,9 +83,9 @@
 
 ## 5. 下一步建议
 
-1. 启动 P3-WP5，建立核心场景测试与发布检查 Prompt。
-2. P3-WP5 应复用已确认的八段式 Prompt 主骨架。
-3. 每完成一个工作包后更新本台账。
+1. 项目负责人验收 P3-WP5。
+2. 验收通过后，将 P3-WP5 状态更新为 `已完成`。
+3. 启动 P4-WP1，建立 Skill 目录规范。
 
 ## 6. 工作包状态表
 
@@ -102,7 +104,7 @@
 | P3-WP2 | 需求评审与编码计划 Prompt | 已完成 | `harness-assets/prompts/requirement-review.md`、`harness-assets/prompts/coding-plan.md` | P3-WP1 | 项目负责人已确认验收通过 |
 | P3-WP3 | TDD 与辅助编码 Prompt | 已完成 | `harness-assets/prompts/tdd.md`、`harness-assets/prompts/coding-assistant.md` | P3-WP1、P3-WP2 | 项目负责人已确认验收通过 |
 | P3-WP4 | 代码审查与提交检查 Prompt | 已完成 | `harness-assets/prompts/code-review.md`、`harness-assets/prompts/pre-commit-check.md` | P3-WP1、P3-WP3 | 项目负责人已确认验收通过 |
-| P3-WP5 | 核心场景测试与发布检查 Prompt | 未开始 | 无 | P3-WP1、P2-WP5 | 覆盖测试和发布阶段 |
+| P3-WP5 | 核心场景测试与发布检查 Prompt | 待验收 | `harness-assets/prompts/core-scenario-test.md`、`harness-assets/prompts/release-check.md` | P3-WP1、P2-WP5 | 已按统一 Prompt 骨架调整 |
 | P4-WP1 | Skill 目录规范 | 未开始 | 无 | P3-WP1 | 统一 Skill 结构 |
 | P4-WP2 | 需求评审 Skill | 未开始 | 无 | P4-WP1、P3-WP2 | 需求阶段核心 Skill |
 | P4-WP3 | 编码计划辅助 Skill | 未开始 | 无 | P4-WP1、P3-WP2 | 编码启动核心 Skill |
@@ -165,3 +167,5 @@
 | 2026-06-05 | Codex | 参考 NIST、OWASP、CISA、GitHub、GitLab 和 Superpowers 代码审查资料，确认 P3-WP4 设计边界 | P3-WP4 |
 | 2026-06-05 | Codex | 创建代码审查与提交检查 Prompt，并将 P3-WP4 提交待验收 | P3-WP4 |
 | 2026-06-05 | Codex | 根据项目负责人确认，将 P3-WP4 更新为已完成 | P3-WP4 |
+| 2026-06-05 | Codex | 根据项目负责人指令，启动 P3-WP5：核心场景测试与发布检查 Prompt | P3-WP5 |
+| 2026-06-05 | Codex | 创建核心场景测试与发布检查 Prompt，并同步修正相关 workflow 上下文，将 P3-WP5 提交待验收 | P3-WP5 |
