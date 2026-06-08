@@ -4,7 +4,7 @@
 
 最近更新时间：2026-06-08
 当前阶段：P4 Skill 工程资产 V1
-当前工作包：P4-WP3
+当前工作包：P4-WP4
 总体状态：待验收
 
 本台账用于记录 V1 工作包推进状态。每次开发 Agent 开始、完成、阻塞、暂缓或提交工作包验收时，必须同步更新本文件。
@@ -86,6 +86,11 @@
 62. 项目负责人已确认 P4-WP2 验收通过。
 63. 已启动 P4-WP3：编码计划辅助 Skill，并参考 `grill-with-docs` 的文档驱动追问纪律强化代码实现前上下文清晰门槛。
 64. 已创建 `harness-assets/skills/coding-plan/SKILL.md` 和 `harness-assets/skills/coding-plan/output-template.md`，并提交项目负责人验收。
+65. 项目负责人已确认 P4-WP3 验收通过。
+66. 已启动 P4-WP4：TDD 与辅助编码 Skill。
+67. 已参考 Matt Pocock `tdd` Skill，将所有代码修改必须使用 TDD 或测试先行证据的口径沉淀到 `CONTEXT.md`。
+68. 已创建 `harness-assets/skills/tdd/SKILL.md`、`harness-assets/skills/tdd/output-template.md`、`harness-assets/skills/coding-assistant/SKILL.md` 和 `harness-assets/skills/coding-assistant/output-template.md`。
+69. 已对 `harness-assets/prompts/tdd.md`、`harness-assets/prompts/coding-assistant.md` 和 `harness-assets/docs/workflows/tdd.md` 做最小一致性修正，补充 RED-GREEN-REFACTOR、行为测试和测试先行准入。
 
 ## 4. 当前阻塞点
 
@@ -93,9 +98,9 @@
 
 ## 5. 下一步建议
 
-1. 项目负责人验收 P4-WP3。
-2. 验收通过后，将 P4-WP3 状态更新为 `已完成`。
-3. 启动 P4-WP4，建立 TDD 与辅助编码 Skill。
+1. 项目负责人验收 P4-WP4。
+2. 验收通过后，将 P4-WP4 状态更新为 `已完成`。
+3. 启动 P4-WP5，建立代码审查与提交检查 Skill。
 
 ## 6. 工作包状态表
 
@@ -117,8 +122,8 @@
 | P3-WP5 | 核心场景测试与发布检查 Prompt | 已完成 | `harness-assets/prompts/core-scenario-test.md`、`harness-assets/prompts/release-check.md` | P3-WP1、P2-WP5 | 项目负责人已确认验收通过 |
 | P4-WP1 | Skill 目录规范 | 已完成 | `harness-assets/skills/README.md`、`harness-assets/skills/_template/SKILL.md`、`harness-assets/skills/_template/output-template.md` | P3-WP1 | 项目负责人已确认继续下一工作包 |
 | P4-WP2 | 需求评审 Skill | 已完成 | `harness-assets/skills/requirement-review/SKILL.md`、`harness-assets/skills/requirement-review/output-template.md` | P4-WP1、P3-WP2 | 项目负责人已确认验收通过 |
-| P4-WP3 | 编码计划辅助 Skill | 待验收 | `harness-assets/skills/coding-plan/SKILL.md`、`harness-assets/skills/coding-plan/output-template.md` | P4-WP1、P3-WP2 | 已强化代码实现前上下文清晰门槛 |
-| P4-WP4 | TDD 与辅助编码 Skill | 未开始 | 无 | P4-WP1、P3-WP3 | 编码阶段核心 Skill |
+| P4-WP3 | 编码计划辅助 Skill | 已完成 | `harness-assets/skills/coding-plan/SKILL.md`、`harness-assets/skills/coding-plan/output-template.md` | P4-WP1、P3-WP2 | 项目负责人已确认验收通过 |
+| P4-WP4 | TDD 与辅助编码 Skill | 待验收 | `harness-assets/skills/tdd/SKILL.md`、`harness-assets/skills/tdd/output-template.md`、`harness-assets/skills/coding-assistant/SKILL.md`、`harness-assets/skills/coding-assistant/output-template.md` | P4-WP1、P3-WP3 | 已强化所有代码修改必须使用 TDD 或测试先行证据 |
 | P4-WP5 | 代码审查与提交检查 Skill | 未开始 | 无 | P4-WP1、P3-WP4 | 开发侧质量检查 Skill |
 | P4-WP6 | 核心场景测试与发布前检查 Skill | 未开始 | 无 | P4-WP1、P3-WP5 | 测试和发布阶段 Skill |
 | P4-WP7 | Skill 示例案例 | 未开始 | 无 | P4-WP2 至 P4-WP6 | 示例不得包含敏感信息 |
@@ -186,3 +191,5 @@
 | 2026-06-08 | Codex | 同步修正需求草案中的 Skill 入口路径，保持与 P4-WP1 `SKILL.md` 标准一致 | P4-WP1、P4-WP2 |
 | 2026-06-08 | Codex | 根据项目负责人确认，将 P4-WP2 更新为已完成，并启动 P4-WP3 | P4-WP2、P4-WP3 |
 | 2026-06-08 | Codex | 参考 `grill-with-docs` 的文档驱动追问纪律，创建编码计划辅助 Skill 和输出模板，并将 P4-WP3 提交待验收 | P4-WP3 |
+| 2026-06-08 | Codex | 根据项目负责人确认，将 P4-WP3 更新为已完成，并启动 P4-WP4 | P4-WP3、P4-WP4 |
+| 2026-06-08 | Codex | 参考 Matt Pocock `tdd` Skill，创建 TDD 与辅助编码 Skill，并将 P4-WP4 提交待验收 | P4-WP4 |
