@@ -630,8 +630,11 @@ V1 的目标是建立一套可被开发 Agent 持续读取、执行和更新的 
 1. `harness-assets/examples/requirement-review-example.md`
 2. `harness-assets/examples/coding-plan-example.md`
 3. `harness-assets/examples/tdd-example.md`
-4. `harness-assets/examples/code-review-example.md`
-5. `harness-assets/examples/release-check-example.md`
+4. `harness-assets/examples/coding-assistant-example.md`
+5. `harness-assets/examples/code-review-example.md`
+6. `harness-assets/examples/pre-commit-check-example.md`
+7. `harness-assets/examples/core-scenario-test-example.md`
+8. `harness-assets/examples/release-check-example.md`
 
 依赖：
 
