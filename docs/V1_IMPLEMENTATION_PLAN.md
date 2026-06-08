@@ -474,7 +474,7 @@ V1 的目标是建立一套可被开发 Agent 持续读取、执行和更新的 
 输出：
 
 1. `harness-assets/skills/README.md`
-2. `harness-assets/skills/_template/skill.md`
+2. `harness-assets/skills/_template/SKILL.md`
 3. `harness-assets/skills/_template/output-template.md`
 
 依赖：
@@ -498,7 +498,7 @@ V1 的目标是建立一套可被开发 Agent 持续读取、执行和更新的 
 
 输出：
 
-1. `harness-assets/skills/requirement-review/skill.md`
+1. `harness-assets/skills/requirement-review/SKILL.md`
 2. `harness-assets/skills/requirement-review/output-template.md`
 
 依赖：
@@ -523,7 +523,7 @@ V1 的目标是建立一套可被开发 Agent 持续读取、执行和更新的 
 
 输出：
 
-1. `harness-assets/skills/coding-plan/skill.md`
+1. `harness-assets/skills/coding-plan/SKILL.md`
 2. `harness-assets/skills/coding-plan/output-template.md`
 
 依赖：
@@ -548,9 +548,9 @@ V1 的目标是建立一套可被开发 Agent 持续读取、执行和更新的 
 
 输出：
 
-1. `harness-assets/skills/tdd/skill.md`
+1. `harness-assets/skills/tdd/SKILL.md`
 2. `harness-assets/skills/tdd/output-template.md`
-3. `harness-assets/skills/coding-assistant/skill.md`
+3. `harness-assets/skills/coding-assistant/SKILL.md`
 4. `harness-assets/skills/coding-assistant/output-template.md`
 
 依赖：
@@ -575,9 +575,9 @@ V1 的目标是建立一套可被开发 Agent 持续读取、执行和更新的 
 
 输出：
 
-1. `harness-assets/skills/code-review/skill.md`
+1. `harness-assets/skills/code-review/SKILL.md`
 2. `harness-assets/skills/code-review/output-template.md`
-3. `harness-assets/skills/pre-commit-check/skill.md`
+3. `harness-assets/skills/pre-commit-check/SKILL.md`
 4. `harness-assets/skills/pre-commit-check/output-template.md`
 
 依赖：
@@ -602,9 +602,9 @@ V1 的目标是建立一套可被开发 Agent 持续读取、执行和更新的 
 
 输出：
 
-1. `harness-assets/skills/core-scenario-test/skill.md`
+1. `harness-assets/skills/core-scenario-test/SKILL.md`
 2. `harness-assets/skills/core-scenario-test/output-template.md`
-3. `harness-assets/skills/release-check/skill.md`
+3. `harness-assets/skills/release-check/SKILL.md`
 4. `harness-assets/skills/release-check/output-template.md`
 
 依赖：
