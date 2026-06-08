@@ -4,8 +4,8 @@
 
 最近更新时间：2026-06-08
 当前阶段：P4 Skill 工程资产 V1
-当前工作包：P4-WP5
-总体状态：已完成
+当前工作包：P4-WP7
+总体状态：待验收
 
 本台账用于记录 V1 工作包推进状态。每次开发 Agent 开始、完成、阻塞、暂缓或提交工作包验收时，必须同步更新本文件。
 
@@ -96,6 +96,14 @@
 72. 已创建 `harness-assets/skills/code-review/SKILL.md`、`harness-assets/skills/code-review/output-template.md`、`harness-assets/skills/pre-commit-check/SKILL.md` 和 `harness-assets/skills/pre-commit-check/output-template.md`。
 73. 已对 `harness-assets/prompts/code-review.md` 和 `harness-assets/docs/workflows/code-review.md` 做最小一致性修正，补充固定基准点、三点 diff、双轴代码审查和需求轴降级口径。
 74. 项目负责人已确认 P4-WP5 验收通过。
+75. 已启动 P4-WP6：核心场景测试与发布前检查 Skill 设计。
+76. 已创建 `harness-assets/skills/core-scenario-test/SKILL.md`、`harness-assets/skills/core-scenario-test/output-template.md`、`harness-assets/skills/release-check/SKILL.md` 和 `harness-assets/skills/release-check/output-template.md`。
+77. 已对核心场景测试和发布检查 Prompt、workflow 及 `CONTEXT.md` 做最小一致性修正，补充证据分层准入、发布材料硬门槛、受限命令边界和生产验证计划边界。
+78. 已将 P4-WP6 提交项目负责人验收。
+79. 项目负责人已确认 P4-WP6 验收通过。
+80. 已启动 P4-WP7：Skill 示例案例，并确认示例覆盖 P4 全链路 8 个 Skill。
+81. 已创建 P4-WP7 的 8 个脱敏 Skill 示例案例，覆盖需求评审、编码计划、TDD、辅助编码、代码审查、提交检查、核心场景测试和发布检查。
+82. 已同步 `docs/V1_IMPLEMENTATION_PLAN.md` 和 `CONTEXT.md` 中的 Skill 示例覆盖口径，并将 P4-WP7 提交项目负责人验收。
 
 ## 4. 当前阻塞点
 
@@ -103,9 +111,9 @@
 
 ## 5. 下一步建议
 
-1. 启动 P4-WP6，建立核心场景测试与发布前检查 Skill。
-2. 继续创建 `core-scenario-test` 与 `release-check` Skill 资产。
-3. 完成后将 P4-WP6 提交项目负责人验收。
+1. 项目负责人验收 P4-WP7：Skill 示例案例。
+2. 验收通过后，将 P4-WP7 标记为已完成。
+3. P4-WP7 完成后，启动 P5-WP1：门禁目录与报告模板。
 
 ## 6. 工作包状态表
 
@@ -130,8 +138,8 @@
 | P4-WP3 | 编码计划辅助 Skill | 已完成 | `harness-assets/skills/coding-plan/SKILL.md`、`harness-assets/skills/coding-plan/output-template.md` | P4-WP1、P3-WP2 | 项目负责人已确认验收通过 |
 | P4-WP4 | TDD 与辅助编码 Skill | 已完成 | `harness-assets/skills/tdd/SKILL.md`、`harness-assets/skills/tdd/output-template.md`、`harness-assets/skills/coding-assistant/SKILL.md`、`harness-assets/skills/coding-assistant/output-template.md` | P4-WP1、P3-WP3 | 项目负责人已确认验收通过 |
 | P4-WP5 | 代码审查与提交检查 Skill | 已完成 | `harness-assets/skills/code-review/SKILL.md`、`harness-assets/skills/code-review/output-template.md`、`harness-assets/skills/pre-commit-check/SKILL.md`、`harness-assets/skills/pre-commit-check/output-template.md` | P4-WP1、P3-WP4 | 项目负责人已确认验收通过 |
-| P4-WP6 | 核心场景测试与发布前检查 Skill | 未开始 | 无 | P4-WP1、P3-WP5 | 测试和发布阶段 Skill |
-| P4-WP7 | Skill 示例案例 | 未开始 | 无 | P4-WP2 至 P4-WP6 | 示例不得包含敏感信息 |
+| P4-WP6 | 核心场景测试与发布前检查 Skill | 已完成 | `harness-assets/skills/core-scenario-test/SKILL.md`、`harness-assets/skills/core-scenario-test/output-template.md`、`harness-assets/skills/release-check/SKILL.md`、`harness-assets/skills/release-check/output-template.md` | P4-WP1、P3-WP5 | 项目负责人已确认验收通过 |
+| P4-WP7 | Skill 示例案例 | 待验收 | `harness-assets/examples/requirement-review-example.md`、`harness-assets/examples/coding-plan-example.md`、`harness-assets/examples/tdd-example.md`、`harness-assets/examples/coding-assistant-example.md`、`harness-assets/examples/code-review-example.md`、`harness-assets/examples/pre-commit-check-example.md`、`harness-assets/examples/core-scenario-test-example.md`、`harness-assets/examples/release-check-example.md` | P4-WP2 至 P4-WP6 | 已覆盖 8 个核心 Skill，示例均为脱敏结构示例 |
 | P5-WP1 | 门禁目录与报告模板 | 未开始 | 无 | P4-WP5、P4-WP6 | V1 初期提醒型门禁为主 |
 | P5-WP2 | 需求与编码准入门禁 | 未开始 | 无 | P5-WP1、P4-WP2、P4-WP3 | 覆盖需求和编码准入 |
 | P5-WP3 | 提测与合并门禁 | 未开始 | 无 | P5-WP1、P4-WP4、P4-WP5 | 覆盖提测和 MR 合并 |
@@ -201,3 +209,8 @@
 | 2026-06-08 | Codex | 根据项目负责人确认，将 P4-WP4 更新为已完成，并启动 P4-WP5 设计 | P4-WP4、P4-WP5 |
 | 2026-06-08 | Codex | 参考 Matt Pocock `review` Skill，创建代码审查与提交检查 Skill，并将 P4-WP5 提交待验收 | P4-WP5 |
 | 2026-06-08 | Codex | 根据项目负责人确认，将 P4-WP5 更新为已完成 | P4-WP5 |
+| 2026-06-08 | Codex | 根据项目负责人继续下一工作包的指令，启动 P4-WP6 设计 | P4-WP6 |
+| 2026-06-08 | Codex | 创建核心场景测试与发布前检查 Skill，补齐 Prompt、workflow 和上下文一致性，并将 P4-WP6 提交待验收 | P4-WP6 |
+| 2026-06-08 | Codex | 根据项目负责人确认，将 P4-WP6 更新为已完成 | P4-WP6 |
+| 2026-06-08 | Codex | 根据项目负责人指令，启动 P4-WP7 并确认覆盖 P4 全链路 8 个 Skill 示例 | P4-WP7 |
+| 2026-06-08 | Codex | 创建 8 个脱敏 Skill 示例案例，同步计划和上下文口径，并将 P4-WP7 提交待验收 | P4-WP7 |
