@@ -2,10 +2,10 @@
 
 ## 1. 当前状态
 
-最近更新时间：2026-06-08
-当前阶段：P4 Skill 工程资产 V1
-当前工作包：P4-WP7
-总体状态：已完成
+最近更新时间：2026-06-09
+当前阶段：P5 门禁与验收资产
+当前工作包：P5-WP5
+总体状态：待验收
 
 本台账用于记录 V1 工作包推进状态。每次开发 Agent 开始、完成、阻塞、暂缓或提交工作包验收时，必须同步更新本文件。
 
@@ -105,6 +105,25 @@
 81. 已创建 P4-WP7 的 8 个脱敏 Skill 示例案例，覆盖需求评审、编码计划、TDD、辅助编码、代码审查、提交检查、核心场景测试和发布检查。
 82. 已同步 `docs/V1_IMPLEMENTATION_PLAN.md` 和 `CONTEXT.md` 中的 Skill 示例覆盖口径，并将 P4-WP7 提交项目负责人验收。
 83. 项目负责人已确认 P4-WP7 验收通过，P4 Skill 工程资产 V1 阶段完成。
+84. 已启动 P5-WP1：门禁目录与报告模板，并通过 grill-with-docs 确认 V1 门禁采用建议性质结论、阻断建议项与风险提示项分离、默认不执行命令和审计证据记录口径。
+85. 已创建 `harness-assets/gates/README.md` 和 `harness-assets/gates/_gate-template.md`。
+86. 已同步 `CONTEXT.md` 的门禁建议结论、阻断建议项与风险提示项、门禁审计证据等术语口径，并将 P5-WP1 提交项目负责人验收。
+87. 项目负责人已确认 P5-WP1 验收通过。
+88. 已启动 P5-WP2：需求与编码准入门禁。
+89. 已创建 `harness-assets/gates/requirement-entry-gate.md` 和 `harness-assets/gates/coding-entry-gate.md`。
+90. 已同步 `CONTEXT.md` 的需求准入门禁和编码准入门禁术语口径，并将 P5-WP2 提交项目负责人验收。
+91. 项目负责人已确认 P5-WP2 验收通过。
+92. 已启动 P5-WP3：提测与合并门禁。
+93. 已创建 `harness-assets/gates/coding-to-test-gate.md` 和 `harness-assets/gates/merge-gate.md`。
+94. 已同步 `CONTEXT.md` 的提测门禁和合并门禁术语口径，并将 P5-WP3 提交项目负责人验收。
+95. 项目负责人已确认 P5-WP3 验收通过。
+96. 已启动 P5-WP4：发布准入门禁。
+97. 已创建 `harness-assets/gates/release-gate.md`。
+98. 已同步 `CONTEXT.md` 的发布准入门禁术语口径，并将 P5-WP4 提交项目负责人验收。
+99. 项目负责人已确认 P5-WP4 验收通过。
+100. 已启动 P5-WP5：工具权限与操作审计矩阵，并通过 grill-with-docs 确认矩阵边界、权限分级、场景粒度、本地修改权限和高风险操作禁止边界。
+101. 已创建 `harness-assets/docs/TOOL_PERMISSION_AUDIT_MATRIX.md`。
+102. 已同步 `CONTEXT.md` 的工具权限与操作审计矩阵、V1 工具权限等级、本地修改权限和高风险操作禁止边界术语口径，并将 P5-WP5 提交项目负责人验收。
 
 ## 4. 当前阻塞点
 
@@ -112,9 +131,9 @@
 
 ## 5. 下一步建议
 
-1. 启动 P5-WP1：门禁目录与报告模板。
-2. 设计提醒型门禁的目录结构、通用报告模板和节点门禁输出口径。
-3. 明确门禁报告不替代负责人最终审批，不自动合并、发布或操作生产环境。
+1. 项目负责人验收 P5-WP5：工具权限与操作审计矩阵。
+2. 验收通过后，将 P5-WP5 标记为已完成。
+3. P5-WP5 完成后，启动 P5-WP6：结构化 Schema。
 
 ## 6. 工作包状态表
 
@@ -141,11 +160,11 @@
 | P4-WP5 | 代码审查与提交检查 Skill | 已完成 | `harness-assets/skills/code-review/SKILL.md`、`harness-assets/skills/code-review/output-template.md`、`harness-assets/skills/pre-commit-check/SKILL.md`、`harness-assets/skills/pre-commit-check/output-template.md` | P4-WP1、P3-WP4 | 项目负责人已确认验收通过 |
 | P4-WP6 | 核心场景测试与发布前检查 Skill | 已完成 | `harness-assets/skills/core-scenario-test/SKILL.md`、`harness-assets/skills/core-scenario-test/output-template.md`、`harness-assets/skills/release-check/SKILL.md`、`harness-assets/skills/release-check/output-template.md` | P4-WP1、P3-WP5 | 项目负责人已确认验收通过 |
 | P4-WP7 | Skill 示例案例 | 已完成 | `harness-assets/examples/requirement-review-example.md`、`harness-assets/examples/coding-plan-example.md`、`harness-assets/examples/tdd-example.md`、`harness-assets/examples/coding-assistant-example.md`、`harness-assets/examples/code-review-example.md`、`harness-assets/examples/pre-commit-check-example.md`、`harness-assets/examples/core-scenario-test-example.md`、`harness-assets/examples/release-check-example.md` | P4-WP2 至 P4-WP6 | 项目负责人已确认验收通过 |
-| P5-WP1 | 门禁目录与报告模板 | 未开始 | 无 | P4-WP5、P4-WP6 | V1 初期提醒型门禁为主 |
-| P5-WP2 | 需求与编码准入门禁 | 未开始 | 无 | P5-WP1、P4-WP2、P4-WP3 | 覆盖需求和编码准入 |
-| P5-WP3 | 提测与合并门禁 | 未开始 | 无 | P5-WP1、P4-WP4、P4-WP5 | 覆盖提测和 MR 合并 |
-| P5-WP4 | 发布准入门禁 | 未开始 | 无 | P5-WP1、P4-WP6 | Agent 不自动发布 |
-| P5-WP5 | 工具权限与操作审计矩阵 | 未开始 | 无 | P5-WP1、P4-WP2 至 P4-WP6 | 覆盖只读、建议、本地修改、受限命令和禁止操作 |
+| P5-WP1 | 门禁目录与报告模板 | 已完成 | `harness-assets/gates/README.md`、`harness-assets/gates/_gate-template.md` | P4-WP5、P4-WP6 | 项目负责人已确认验收通过 |
+| P5-WP2 | 需求与编码准入门禁 | 已完成 | `harness-assets/gates/requirement-entry-gate.md`、`harness-assets/gates/coding-entry-gate.md` | P5-WP1、P4-WP2、P4-WP3 | 项目负责人已确认验收通过 |
+| P5-WP3 | 提测与合并门禁 | 已完成 | `harness-assets/gates/coding-to-test-gate.md`、`harness-assets/gates/merge-gate.md` | P5-WP1、P4-WP4、P4-WP5 | 项目负责人已确认验收通过 |
+| P5-WP4 | 发布准入门禁 | 已完成 | `harness-assets/gates/release-gate.md` | P5-WP1、P4-WP6 | 项目负责人已确认验收通过 |
+| P5-WP5 | 工具权限与操作审计矩阵 | 待验收 | `harness-assets/docs/TOOL_PERMISSION_AUDIT_MATRIX.md` | P5-WP1、P4-WP2 至 P4-WP6 | 已覆盖只读、建议、本地修改、受限命令和禁止操作 |
 | P5-WP6 | 结构化 Schema | 未开始 | 无 | P4-WP5、P5-WP1、P5-WP5 | 为后续工具化预留 |
 | P5-WP7 | Harness 资产回归样例 | 未开始 | 无 | P4-WP7、P5-WP4、P5-WP6 | 覆盖需求评审、代码审查、发布检查和高风险样例 |
 | P5-WP8 | V1 验收检查清单 | 未开始 | 无 | P5-WP5、P5-WP6、P5-WP7 | 区分仓库可验收项和试点数据项 |
@@ -216,3 +235,13 @@
 | 2026-06-08 | Codex | 根据项目负责人指令，启动 P4-WP7 并确认覆盖 P4 全链路 8 个 Skill 示例 | P4-WP7 |
 | 2026-06-08 | Codex | 创建 8 个脱敏 Skill 示例案例，同步计划和上下文口径，并将 P4-WP7 提交待验收 | P4-WP7 |
 | 2026-06-08 | Codex | 根据项目负责人确认，将 P4-WP7 更新为已完成，P4 Skill 工程资产 V1 阶段完成 | P4-WP7 |
+| 2026-06-08 | Codex | 根据项目负责人指令，启动 P5-WP1 并确认门禁目录与报告模板设计口径 | P5-WP1 |
+| 2026-06-08 | Codex | 创建门禁目录规范和通用报告模板，同步门禁术语上下文，并将 P5-WP1 提交待验收 | P5-WP1 |
+| 2026-06-08 | Codex | 根据项目负责人确认，将 P5-WP1 更新为已完成，并启动 P5-WP2 | P5-WP1、P5-WP2 |
+| 2026-06-08 | Codex | 创建需求准入门禁和编码准入门禁，同步门禁术语上下文，并将 P5-WP2 提交待验收 | P5-WP2 |
+| 2026-06-08 | Codex | 根据项目负责人确认，将 P5-WP2 更新为已完成，并启动 P5-WP3 | P5-WP2、P5-WP3 |
+| 2026-06-08 | Codex | 创建提测门禁和合并门禁，同步门禁术语上下文，并将 P5-WP3 提交待验收 | P5-WP3 |
+| 2026-06-09 | Codex | 根据项目负责人确认，将 P5-WP3 更新为已完成，并启动 P5-WP4 | P5-WP3、P5-WP4 |
+| 2026-06-09 | Codex | 创建发布准入门禁，同步门禁术语上下文，并将 P5-WP4 提交待验收 | P5-WP4 |
+| 2026-06-09 | Codex | 根据项目负责人确认，将 P5-WP4 更新为已完成，并启动 P5-WP5 | P5-WP4、P5-WP5 |
+| 2026-06-09 | Codex | 通过 grill-with-docs 确认工具权限矩阵边界，创建工具权限与操作审计矩阵，并将 P5-WP5 提交待验收 | P5-WP5 |
