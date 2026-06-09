@@ -6,7 +6,7 @@
 | 适用阶段 | 测试阶段 / 提测前 / 发布检查前 |
 | 关联 workflow | `docs/workflows/core-scenario-test.md` |
 | 关联 Skill 源目录 | `harness-assets/skills/core-scenario-test/` |
-| 目标安装路径 | `.ai-harness/prompts/core-scenario-test.md` |
+| 目标安装路径 | `.hicode/prompts/core-scenario-test.md` |
 | 主要使用者 | 测试人员、开发人员、核心场景测试 Agent、测试负责人、研发负责人 |
 | 维护人 | AI 工程化小组、测试负责人、研发负责人 |
 | 版本 | V1 |
@@ -250,9 +250,9 @@
 5. `docs/DEFECT_CASES.md`
 6. `docs/RELEASE_GUIDE.md`
 7. `docs/ADR/`
-8. `.ai-harness/prompts/core-scenario-test.md`
-9. `.ai-harness/skills/core-scenario-test/`
-10. `.ai-harness/gates/`
+8. `.hicode/prompts/core-scenario-test.md`
+9. `.hicode/skills/core-scenario-test/`
+10. `.hicode/gates/`
 11. 本仓库 `harness-assets/prompts/core-scenario-test.md` 源资产
 
 上下文更新建议必须区分新增、修改、废弃、已确认事实、基于输入的推断和待确认内容。正式沉淀前必须由对应负责人确认。

@@ -42,7 +42,7 @@ description: Use when a scoped implementation, repair, refactor, or code explana
 1. `AGENTS.md`
 2. `docs/workflows/coding-plan.md`
 3. `docs/workflows/tdd.md`
-4. `.ai-harness/prompts/coding-assistant.md`
+4. `.hicode/prompts/coding-assistant.md`
 5. `docs/PRD_CONTEXT.md`
 6. `docs/PROJ_CONTEXT.md`
 7. `docs/CODING_RULES.md`
@@ -153,7 +153,7 @@ description: Use when a scoped implementation, repair, refactor, or code explana
 4. 修改文件是否都在允许范围内。
 5. RED、GREEN、重构和最终验证命令是否实际执行；如未执行，说明原因和风险。
 6. 是否存在测试、Review、发布或负责人确认缺口。
-7. 是否需要更新目标项目 `docs/`、目标项目 `.ai-harness/` 或本仓库 `harness-assets/` 源资产。
+7. 是否需要更新目标项目 `docs/`、目标项目 `.hicode/` 或本仓库 `harness-assets/` 源资产。
 
 ## 11. 上下文更新
 

@@ -38,7 +38,7 @@ description: Use when a tested change needs core business scenarios, regression 
 1. `AGENTS.md`
 2. `CONTEXT.md`
 3. `docs/workflows/core-scenario-test.md`
-4. `.ai-harness/prompts/core-scenario-test.md`
+4. `.hicode/prompts/core-scenario-test.md`
 5. `docs/PRD_CONTEXT.md`
 6. `docs/PROJ_CONTEXT.md`
 7. `docs/DOMAIN_KNOWLEDGE.md`
@@ -178,7 +178,7 @@ description: Use when a tested change needs core business scenarios, regression 
 4. 实际执行的受限命令、结果、失败摘要和未执行原因。
 5. 是否存在测试数据、Mock、环境、自动化、核心场景或负责人确认缺口。
 6. 是否需要测试负责人、研发负责人、模块 Owner、安全负责人或发布负责人确认。
-7. 是否需要更新目标项目 `docs/`、目标项目 `.ai-harness/`、目标项目 `.ai-harness/gates/` 或本仓库 `harness-assets/` 源资产。
+7. 是否需要更新目标项目 `docs/`、目标项目 `.hicode/`、目标项目 `.hicode/gates/` 或本仓库 `harness-assets/` 源资产。
 
 ## 13. 上下文更新
 

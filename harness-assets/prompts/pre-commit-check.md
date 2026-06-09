@@ -6,7 +6,7 @@
 | 适用阶段 | Git 提交前 / 创建 MR 或 PR 前 / 提测前 |
 | 关联 workflow | `docs/workflows/pre-commit-check.md` |
 | 关联 Skill 源目录 | `harness-assets/skills/pre-commit-check/` |
-| 目标安装路径 | `.ai-harness/prompts/pre-commit-check.md` |
+| 目标安装路径 | `.hicode/prompts/pre-commit-check.md` |
 | 主要使用者 | 开发人员、提交检查 Agent、研发负责人、Review 人 |
 | 维护人 | AI 工程化小组、研发负责人、质量负责人 |
 | 版本 | V1 |
@@ -220,9 +220,9 @@
 7. `docs/RELEASE_GUIDE.md`
 8. `docs/DEFECT_CASES.md`
 9. `docs/ADR/`
-10. `.ai-harness/prompts/pre-commit-check.md`
-11. `.ai-harness/skills/pre-commit-check/`
-12. `.ai-harness/gates/`
+10. `.hicode/prompts/pre-commit-check.md`
+11. `.hicode/skills/pre-commit-check/`
+12. `.hicode/gates/`
 13. 本仓库 `harness-assets/prompts/pre-commit-check.md` 源资产
 
 上下文更新建议必须区分新增、修改、废弃、已确认事实、基于输入的推断和待确认内容。正式沉淀前必须由对应负责人确认。

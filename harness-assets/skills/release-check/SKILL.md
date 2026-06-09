@@ -39,7 +39,7 @@ description: Use when a release candidate needs readiness review across release 
 1. `AGENTS.md`
 2. `CONTEXT.md`
 3. `docs/workflows/release-check.md`
-4. `.ai-harness/prompts/release-check.md`
+4. `.hicode/prompts/release-check.md`
 5. `docs/RELEASE_GUIDE.md`
 6. `docs/PRD_CONTEXT.md`
 7. `docs/PROJ_CONTEXT.md`
@@ -205,7 +205,7 @@ description: Use when a release candidate needs readiness review across release 
 4. 是否存在代码审查、提交检查、测试、缺陷、SQL、配置、脚本、接口、回滚或生产验证计划证据缺口。
 5. 实际执行的受限命令、结果、失败摘要和未执行原因。
 6. 是否需要发布负责人、研发负责人、测试负责人、安全负责人、业务负责人或运维/发布平台负责人确认。
-7. 是否需要更新目标项目 `docs/`、目标项目 `.ai-harness/`、目标项目 `.ai-harness/gates/` 或本仓库 `harness-assets/` 源资产。
+7. 是否需要更新目标项目 `docs/`、目标项目 `.hicode/`、目标项目 `.hicode/gates/` 或本仓库 `harness-assets/` 源资产。
 
 ## 14. 上下文更新
 

@@ -6,7 +6,7 @@
 | 适用阶段 | 编码实现 / 修复 / 小范围重构 / 代码解释 |
 | 关联 workflow | 引用 `docs/workflows/coding-plan.md` 和 `docs/workflows/tdd.md`，V1 不单独维护辅助编码 workflow |
 | 关联 Skill 源目录 | `harness-assets/skills/coding-assistant/` |
-| 目标安装路径 | `.ai-harness/prompts/coding-assistant.md` |
+| 目标安装路径 | `.hicode/prompts/coding-assistant.md` |
 | 主要使用者 | 开发人员、辅助编码 Agent、研发负责人、模块 Owner |
 | 维护人 | AI 工程化小组、研发负责人、质量负责人 |
 | 版本 | V1 |
@@ -216,8 +216,8 @@
 5. `docs/TESTING_GUIDE.md`
 6. `docs/DEFECT_CASES.md`
 7. `docs/ADR/`
-8. `.ai-harness/prompts/coding-assistant.md`
-9. `.ai-harness/skills/coding-assistant/`
+8. `.hicode/prompts/coding-assistant.md`
+9. `.hicode/skills/coding-assistant/`
 10. 本仓库 `harness-assets/prompts/coding-assistant.md` 源资产
 
 上下文更新建议必须区分新增、修改、废弃、已确认事实、基于输入的推断和待确认内容。正式沉淀前必须由对应负责人确认。
