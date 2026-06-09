@@ -4,8 +4,8 @@
 
 最近更新时间：2026-06-09
 当前阶段：P5 门禁与验收资产
-当前工作包：P5-WP5
-总体状态：待验收
+当前工作包：P5-WP7
+总体状态：进行中
 
 本台账用于记录 V1 工作包推进状态。每次开发 Agent 开始、完成、阻塞、暂缓或提交工作包验收时，必须同步更新本文件。
 
@@ -124,6 +124,12 @@
 100. 已启动 P5-WP5：工具权限与操作审计矩阵，并通过 grill-with-docs 确认矩阵边界、权限分级、场景粒度、本地修改权限和高风险操作禁止边界。
 101. 已创建 `harness-assets/docs/TOOL_PERMISSION_AUDIT_MATRIX.md`。
 102. 已同步 `CONTEXT.md` 的工具权限与操作审计矩阵、V1 工具权限等级、本地修改权限和高风险操作禁止边界术语口径，并将 P5-WP5 提交项目负责人验收。
+103. 项目负责人已确认 P5-WP5 验收通过。
+104. 已启动 P5-WP6：结构化 Schema。
+105. 已确认 P5-WP6 的 V1 结构化输出 Schema、稳定枚举代码、Schema 引用结构和问题分层口径。
+106. 已创建 `harness-assets/schemas/review-result.schema.json`、`harness-assets/schemas/gate-result.schema.json` 和 `harness-assets/schemas/risk-level.schema.json`，并将 P5-WP6 提交项目负责人验收。
+107. 项目负责人已确认 P5-WP6 验收通过。
+108. 已启动 P5-WP7：Harness 资产回归样例。
 
 ## 4. 当前阻塞点
 
@@ -131,9 +137,9 @@
 
 ## 5. 下一步建议
 
-1. 项目负责人验收 P5-WP5：工具权限与操作审计矩阵。
-2. 验收通过后，将 P5-WP5 标记为已完成。
-3. P5-WP5 完成后，启动 P5-WP6：结构化 Schema。
+1. 实施 P5-WP7：Harness 资产回归样例。
+2. P5-WP7 完成后，实施 P5-WP8：V1 验收检查清单。
+3. P5-WP8 完成后，P5 门禁与验收资产阶段提交项目负责人整体验收。
 
 ## 6. 工作包状态表
 
@@ -164,9 +170,9 @@
 | P5-WP2 | 需求与编码准入门禁 | 已完成 | `harness-assets/gates/requirement-entry-gate.md`、`harness-assets/gates/coding-entry-gate.md` | P5-WP1、P4-WP2、P4-WP3 | 项目负责人已确认验收通过 |
 | P5-WP3 | 提测与合并门禁 | 已完成 | `harness-assets/gates/coding-to-test-gate.md`、`harness-assets/gates/merge-gate.md` | P5-WP1、P4-WP4、P4-WP5 | 项目负责人已确认验收通过 |
 | P5-WP4 | 发布准入门禁 | 已完成 | `harness-assets/gates/release-gate.md` | P5-WP1、P4-WP6 | 项目负责人已确认验收通过 |
-| P5-WP5 | 工具权限与操作审计矩阵 | 待验收 | `harness-assets/docs/TOOL_PERMISSION_AUDIT_MATRIX.md` | P5-WP1、P4-WP2 至 P4-WP6 | 已覆盖只读、建议、本地修改、受限命令和禁止操作 |
-| P5-WP6 | 结构化 Schema | 未开始 | 无 | P4-WP5、P5-WP1、P5-WP5 | 为后续工具化预留 |
-| P5-WP7 | Harness 资产回归样例 | 未开始 | 无 | P4-WP7、P5-WP4、P5-WP6 | 覆盖需求评审、代码审查、发布检查和高风险样例 |
+| P5-WP5 | 工具权限与操作审计矩阵 | 已完成 | `harness-assets/docs/TOOL_PERMISSION_AUDIT_MATRIX.md` | P5-WP1、P4-WP2 至 P4-WP6 | 项目负责人已确认验收通过 |
+| P5-WP6 | 结构化 Schema | 已完成 | `harness-assets/schemas/review-result.schema.json`、`harness-assets/schemas/gate-result.schema.json`、`harness-assets/schemas/risk-level.schema.json` | P4-WP5、P5-WP1、P5-WP5 | 项目负责人已确认验收通过 |
+| P5-WP7 | Harness 资产回归样例 | 进行中 | 无 | P4-WP7、P5-WP4、P5-WP6 | 覆盖需求评审、代码审查、发布检查和高风险样例 |
 | P5-WP8 | V1 验收检查清单 | 未开始 | 无 | P5-WP5、P5-WP6、P5-WP7 | 区分仓库可验收项和试点数据项 |
 | P6-WP1 | 试点项目清单模板 | 未开始 | 无 | P5-WP8 | 运营支撑，不展开人员排班 |
 | P6-WP2 | 基线指标采集方案 | 未开始 | 无 | P5-WP8 | 不编造基线值 |
@@ -245,3 +251,6 @@
 | 2026-06-09 | Codex | 创建发布准入门禁，同步门禁术语上下文，并将 P5-WP4 提交待验收 | P5-WP4 |
 | 2026-06-09 | Codex | 根据项目负责人确认，将 P5-WP4 更新为已完成，并启动 P5-WP5 | P5-WP4、P5-WP5 |
 | 2026-06-09 | Codex | 通过 grill-with-docs 确认工具权限矩阵边界，创建工具权限与操作审计矩阵，并将 P5-WP5 提交待验收 | P5-WP5 |
+| 2026-06-09 | Codex | 根据项目负责人确认，将 P5-WP5 更新为已完成，并启动 P5-WP6 | P5-WP5、P5-WP6 |
+| 2026-06-09 | Codex | 创建 Review、门禁和共享风险等级结构化 Schema，并将 P5-WP6 提交待验收 | P5-WP6 |
+| 2026-06-09 | Codex | 根据项目负责人确认，将 P5-WP6 更新为已完成，并启动 P5-WP7 | P5-WP6、P5-WP7 |
