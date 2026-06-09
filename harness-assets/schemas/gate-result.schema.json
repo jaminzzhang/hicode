@@ -1,0 +1,349 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "gate-result.schema.json",
+  "title": "V1 节点门禁结果 Schema",
+  "description": "约束需求准入、编码准入、提测、合并和发布准入等节点门禁的结构化输出。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "gate_name",
+    "gate_node",
+    "checked_at",
+    "report_status",
+    "checker",
+    "check_object",
+    "conclusion",
+    "highest_risk_level",
+    "input_materials",
+    "check_items",
+    "blocking_recommendations",
+    "risk_notes",
+    "pending_questions",
+    "recommended_actions",
+    "audit_evidence",
+    "command_records",
+    "human_confirmations",
+    "context_update_suggestions",
+    "extensions"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+      "description": "Schema 版本，V1 建议使用 1.0.0。"
+    },
+    "gate_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "gate_node": {
+      "$ref": "#/$defs/gateNode"
+    },
+    "checked_at": {
+      "type": "string",
+      "description": "门禁检查时间；建议使用 ISO 8601。"
+    },
+    "report_status": {
+      "$ref": "#/$defs/reportStatusCode"
+    },
+    "checker": {
+      "type": "string",
+      "minLength": 1
+    },
+    "check_object": {
+      "$ref": "#/$defs/checkObject"
+    },
+    "conclusion": {
+      "$ref": "#/$defs/gateConclusion"
+    },
+    "highest_risk_level": {
+      "$ref": "risk-level.schema.json#/$defs/riskLevelCode"
+    },
+    "input_materials": {
+      "type": "array",
+      "items": {
+        "$ref": "risk-level.schema.json#/$defs/sourceReference"
+      }
+    },
+    "check_items": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/gateCheckItem"
+      }
+    },
+    "blocking_recommendations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/blockingRecommendation"
+      }
+    },
+    "risk_notes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/riskNote"
+      }
+    },
+    "pending_questions": {
+      "type": "array",
+      "items": {
+        "$ref": "risk-level.schema.json#/$defs/pendingQuestion"
+      }
+    },
+    "recommended_actions": {
+      "type": "array",
+      "items": {
+        "$ref": "risk-level.schema.json#/$defs/recommendedAction"
+      }
+    },
+    "audit_evidence": {
+      "type": "array",
+      "items": {
+        "$ref": "risk-level.schema.json#/$defs/auditEvidence"
+      }
+    },
+    "command_records": {
+      "type": "array",
+      "items": {
+        "$ref": "risk-level.schema.json#/$defs/commandRecord"
+      }
+    },
+    "human_confirmations": {
+      "type": "array",
+      "items": {
+        "$ref": "risk-level.schema.json#/$defs/humanConfirmation"
+      }
+    },
+    "context_update_suggestions": {
+      "type": "array",
+      "items": {
+        "$ref": "risk-level.schema.json#/$defs/contextUpdateSuggestion"
+      }
+    },
+    "extensions": {
+      "$ref": "risk-level.schema.json#/$defs/extensionObject"
+    }
+  },
+  "$defs": {
+    "reportStatusCode": {
+      "type": "string",
+      "enum": [
+        "DRAFT",
+        "PENDING_CONFIRMATION",
+        "ARCHIVED"
+      ]
+    },
+    "gateNode": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "native_label"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "enum": [
+            "REQUIREMENT_ENTRY",
+            "CODING_ENTRY",
+            "CODING_TO_TEST",
+            "MERGE",
+            "RELEASE",
+            "OTHER"
+          ]
+        },
+        "native_label": {
+          "type": "string",
+          "minLength": 1,
+          "description": "原始中文流程节点，例如需求进入开发前或 MR 合并前。"
+        }
+      }
+    },
+    "checkObject": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "object_type",
+        "title",
+        "reference",
+        "scope_completeness"
+      ],
+      "properties": {
+        "object_type": {
+          "type": "string",
+          "enum": [
+            "REQUIREMENT",
+            "BRANCH_COMMIT_MR",
+            "VERSION_ARTIFACT",
+            "RELEASE_REQUEST",
+            "OTHER"
+          ]
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reference": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scope_completeness": {
+          "type": "string",
+          "enum": [
+            "COMPLETE",
+            "PARTIAL",
+            "INCOMPLETE",
+            "PENDING"
+          ]
+        },
+        "summary": {
+          "type": "string"
+        }
+      }
+    },
+    "gateConclusion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "native_label",
+        "summary",
+        "suggested_confirmer"
+      ],
+      "properties": {
+        "code": {
+          "$ref": "risk-level.schema.json#/$defs/conclusionCode"
+        },
+        "native_label": {
+          "type": "string",
+          "minLength": 1,
+          "description": "原始中文门禁结论，例如建议通过、有条件通过、建议阻断或待确认。"
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "suggested_confirmer": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "gateCheckItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "result",
+        "basis",
+        "risk_level",
+        "recommended_action",
+        "confirmation_status"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "result": {
+          "$ref": "risk-level.schema.json#/$defs/checkResultCode"
+        },
+        "native_result_label": {
+          "type": "string",
+          "description": "原始中文检查结果，例如通过、不通过、待确认或不适用。"
+        },
+        "basis": {
+          "type": "string",
+          "minLength": 1
+        },
+        "risk_level": {
+          "$ref": "risk-level.schema.json#/$defs/riskLevelCode"
+        },
+        "recommended_action": {
+          "type": "string",
+          "minLength": 1
+        },
+        "confirmation_status": {
+          "$ref": "risk-level.schema.json#/$defs/confirmationStatusCode"
+        }
+      }
+    },
+    "blockingRecommendation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "problem",
+        "risk_level",
+        "blocking_reason",
+        "release_condition",
+        "suggested_owner",
+        "confirmation_status"
+      ],
+      "properties": {
+        "check_item_name": {
+          "type": "string"
+        },
+        "problem": {
+          "type": "string",
+          "minLength": 1
+        },
+        "risk_level": {
+          "$ref": "risk-level.schema.json#/$defs/riskLevelCode"
+        },
+        "blocking_reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "release_condition": {
+          "type": "string",
+          "minLength": 1
+        },
+        "suggested_owner": {
+          "type": "string",
+          "minLength": 1
+        },
+        "confirmation_status": {
+          "$ref": "risk-level.schema.json#/$defs/confirmationStatusCode"
+        }
+      }
+    },
+    "riskNote": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "risk",
+        "risk_level",
+        "impact",
+        "recommended_action",
+        "requires_human_acceptance",
+        "confirmation_status"
+      ],
+      "properties": {
+        "risk": {
+          "type": "string",
+          "minLength": 1
+        },
+        "risk_level": {
+          "$ref": "risk-level.schema.json#/$defs/riskLevelCode"
+        },
+        "impact": {
+          "type": "string",
+          "minLength": 1
+        },
+        "recommended_action": {
+          "type": "string",
+          "minLength": 1
+        },
+        "requires_human_acceptance": {
+          "type": "boolean"
+        },
+        "suggested_owner": {
+          "type": "string"
+        },
+        "confirmation_status": {
+          "$ref": "risk-level.schema.json#/$defs/confirmationStatusCode"
+        }
+      }
+    }
+  }
+}
