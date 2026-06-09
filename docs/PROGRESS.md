@@ -5,7 +5,7 @@
 最近更新时间：2026-06-09
 当前阶段：P5 门禁与验收资产
 当前工作包：P5-WP8
-总体状态：待验收
+总体状态：已完成
 
 本台账用于记录 V1 工作包推进状态。每次开发 Agent 开始、完成、阻塞、暂缓或提交工作包验收时，必须同步更新本文件。
 
@@ -134,6 +134,8 @@
 110. 已将 P5-WP7 提交项目负责人验收，并按项目负责人同轮实施 P5 剩余工作要求启动 P5-WP8。
 111. 已创建 `harness-assets/docs/V1_ACCEPTANCE_CHECKLIST.md`。
 112. 已将 P5-WP8 提交项目负责人验收。
+113. 项目负责人已确认 P5-WP7 和 P5-WP8 验收通过。
+114. P5 门禁与验收资产阶段已完成。
 
 ## 4. 当前阻塞点
 
@@ -141,9 +143,9 @@
 
 ## 5. 下一步建议
 
-1. 项目负责人验收 P5-WP7：Harness 资产回归样例。
-2. 项目负责人验收 P5-WP8：V1 验收检查清单。
-3. 验收通过后，将 P5-WP7、P5-WP8 标记为已完成，并收口 P5 门禁与验收资产阶段。
+1. 可启动 P6-WP1：试点项目清单模板。
+2. P6 阶段属于试点运营支撑资产，启动前需确认仍按 V1 实施计划顺序推进。
+3. 不得把 P5 仓库资产验收结论写成真实试点运行效果已达成。
 
 ## 6. 工作包状态表
 
@@ -176,8 +178,8 @@
 | P5-WP4 | 发布准入门禁 | 已完成 | `harness-assets/gates/release-gate.md` | P5-WP1、P4-WP6 | 项目负责人已确认验收通过 |
 | P5-WP5 | 工具权限与操作审计矩阵 | 已完成 | `harness-assets/docs/TOOL_PERMISSION_AUDIT_MATRIX.md` | P5-WP1、P4-WP2 至 P4-WP6 | 项目负责人已确认验收通过 |
 | P5-WP6 | 结构化 Schema | 已完成 | `harness-assets/schemas/review-result.schema.json`、`harness-assets/schemas/gate-result.schema.json`、`harness-assets/schemas/risk-level.schema.json` | P4-WP5、P5-WP1、P5-WP5 | 项目负责人已确认验收通过 |
-| P5-WP7 | Harness 资产回归样例 | 待验收 | `harness-assets/examples/regression/README.md`、`requirement-review-regression.md`、`code-review-regression.md`、`release-check-regression.md`、`high-risk-cases.md` | P4-WP7、P5-WP4、P5-WP6 | 覆盖需求评审、代码审查、发布检查和高风险样例 |
-| P5-WP8 | V1 验收检查清单 | 待验收 | `harness-assets/docs/V1_ACCEPTANCE_CHECKLIST.md` | P5-WP5、P5-WP6、P5-WP7 | 区分仓库可验收项和试点运行数据项 |
+| P5-WP7 | Harness 资产回归样例 | 已完成 | `harness-assets/examples/regression/README.md`、`requirement-review-regression.md`、`code-review-regression.md`、`release-check-regression.md`、`high-risk-cases.md` | P4-WP7、P5-WP4、P5-WP6 | 项目负责人已确认验收通过 |
+| P5-WP8 | V1 验收检查清单 | 已完成 | `harness-assets/docs/V1_ACCEPTANCE_CHECKLIST.md` | P5-WP5、P5-WP6、P5-WP7 | 项目负责人已确认验收通过 |
 | P6-WP1 | 试点项目清单模板 | 未开始 | 无 | P5-WP8 | 运营支撑，不展开人员排班 |
 | P6-WP2 | 基线指标采集方案 | 未开始 | 无 | P5-WP8 | 不编造基线值 |
 | P6-WP3 | 试点使用记录模板 | 未开始 | 无 | P4-WP7、P5-WP4 | 不记录客户敏感信息 |
@@ -260,3 +262,4 @@
 | 2026-06-09 | Codex | 根据项目负责人确认，将 P5-WP6 更新为已完成，并启动 P5-WP7 | P5-WP6、P5-WP7 |
 | 2026-06-09 | Codex | 创建 Harness 资产回归样例，并将 P5-WP7 提交待验收 | P5-WP7 |
 | 2026-06-09 | Codex | 创建 V1 验收检查清单，并将 P5-WP8 提交待验收 | P5-WP8 |
+| 2026-06-09 | Codex | 根据项目负责人确认，将 P5-WP7 和 P5-WP8 更新为已完成，P5 阶段收口 | P5-WP7、P5-WP8 |
