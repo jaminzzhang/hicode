@@ -28,7 +28,7 @@ description: Use when a reviewed requirement needs a coding plan, implementation
 不要使用本 Skill 的场景：
 
 1. 需求评审未完成，或 P0/P1 澄清问题仍未关闭；应先回到 `requirement-review` Skill。
-2. 目标是直接生成测试用例或执行 TDD；应使用 `tdd` Skill 或 `.ai-harness/prompts/tdd.md`。
+2. 目标是直接生成测试用例或执行 TDD；应使用 `tdd` Skill 或 `.hicode/prompts/tdd.md`。
 3. 目标是直接修改代码、修复缺陷或重构；应先有本 Skill 的编码计划，再进入辅助编码 Skill。
 4. 目标是代码 diff 审查、提交检查、核心场景测试或发布检查；应使用对应 Skill 或 Prompt。
 5. 输入包含未脱敏客户敏感信息、生产数据、密钥、`.env`、生产配置或生产凭证。
@@ -40,7 +40,7 @@ description: Use when a reviewed requirement needs a coding plan, implementation
 
 1. `AGENTS.md`
 2. `docs/workflows/coding-plan.md`
-3. `.ai-harness/prompts/coding-plan.md`
+3. `.hicode/prompts/coding-plan.md`
 4. `docs/PRD_CONTEXT.md`
 5. 需求评审报告，如已有
 6. `docs/PROJ_CONTEXT.md`
@@ -79,7 +79,7 @@ description: Use when a reviewed requirement needs a coding plan, implementation
    - 业务规则、流程、状态、金额、日期、权限、审计和异常处理是否有冲突。
    - 能从本地上下文、代码检索或负责人确认回答的问题是否已经有证据。
 5. 若上下文不清晰，输出澄清问题、推荐答案、建议确认人和补齐材料；不得建议直接启动编码。
-6. 若上下文达到准入门槛，按 `.ai-harness/prompts/coding-plan.md` 的检查维度输出编码计划。
+6. 若上下文达到准入门槛，按 `.hicode/prompts/coding-plan.md` 的检查维度输出编码计划。
 7. 识别影响范围，包括系统、模块、类、方法、接口、数据库、配置、SQL、脚本、批处理、外部依赖、权限、日志、测试和发布材料。
 8. 输出 TDD 测试重点和核心场景测试建议，确保后续实现受测试和风险边界约束。
 9. 判断是否需要新增或更新 ADR。ADR 只输出判断和草稿建议，不自动创建、确认或合入。
@@ -148,7 +148,7 @@ description: Use when a reviewed requirement needs a coding plan, implementation
 4. 是否检索或读取了相关代码、接口、表、配置或 ADR。
 5. 是否存在无法判断的需求范围、业务规则、系统影响、测试或发布证据缺口。
 6. 是否需要业务负责人、产品/BA、研发负责人、测试负责人、安全负责人、架构师或模块负责人确认。
-7. 是否需要更新目标项目 `docs/`、目标项目 `.ai-harness/` 或本仓库 `harness-assets/` 源资产。
+7. 是否需要更新目标项目 `docs/`、目标项目 `.hicode/` 或本仓库 `harness-assets/` 源资产。
 
 ## 11. 上下文更新
 

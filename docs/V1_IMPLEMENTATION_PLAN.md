@@ -8,7 +8,7 @@
 
 ## 2. 目标
 
-V1 的目标是建立一套可被开发 Agent 持续读取、执行和更新的 AI Harness 工程化资产，让后续 Agent 能快速理解：
+V1 的目标是建立一套可被开发 Agent 持续读取、执行和更新的 hicode 工程化资产，让后续 Agent 能快速理解：
 
 1. 项目为什么建设。
 2. V1 要交付哪些资产。
@@ -28,7 +28,7 @@ V1 的目标是建立一套可被开发 Agent 持续读取、执行和更新的 
 4. `harness-assets/prompts/`、`harness-assets/skills/`、`harness-assets/gates/`、`harness-assets/schemas/` 和 `harness-assets/examples/` 下的 Prompt、Skill、门禁、Schema 和示例源资产。
 5. V1 验收检查清单和试点运营支撑模板。
 
-说明：本仓库使用可见目录维护源资产，暂不在 `harness-assets/` 下创建隐藏 `.ai-harness/` 目录；后续安装脚本再把这些源资产放入目标项目的 `.ai-harness/` 运行目录。
+说明：本仓库使用可见目录维护源资产，暂不在 `harness-assets/` 下创建隐藏 `.hicode/` 目录；后续安装脚本再把这些源资产放入目标项目的 `.hicode/` 运行目录。
 
 ### 3.2 本仓库范围外
 

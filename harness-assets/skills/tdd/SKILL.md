@@ -39,7 +39,7 @@ description: Use when a coding task needs test-first design, RED-GREEN-REFACTOR 
 
 1. `AGENTS.md`
 2. `docs/workflows/tdd.md`
-3. `.ai-harness/prompts/tdd.md`
+3. `.hicode/prompts/tdd.md`
 4. `docs/PRD_CONTEXT.md`
 5. `docs/PROJ_CONTEXT.md`
 6. `docs/CODING_RULES.md`
@@ -142,7 +142,7 @@ description: Use when a coding task needs test-first design, RED-GREEN-REFACTOR 
 3. 每个测试行为的依据来源。
 4. RED、GREEN 和重构验证命令是否实际执行；如未执行，说明原因和风险。
 5. 是否存在测试框架、代码上下文、Mock 依赖、测试数据或负责人确认缺口。
-6. 是否需要更新目标项目 `docs/`、目标项目 `.ai-harness/` 或本仓库 `harness-assets/` 源资产。
+6. 是否需要更新目标项目 `docs/`、目标项目 `.hicode/` 或本仓库 `harness-assets/` 源资产。
 
 ## 11. 上下文更新
 

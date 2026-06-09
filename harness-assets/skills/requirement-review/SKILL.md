@@ -24,8 +24,8 @@ description: Use when a requirement, PRD, story, meeting note, prototype, or pro
 
 不要使用本 Skill 的场景：
 
-1. 目标是生成编码任务、实现方案或 ADR 判断；应使用 `coding-plan` Skill 或 `.ai-harness/prompts/coding-plan.md`。
-2. 目标是设计测试用例、生成测试草案或执行 TDD；应使用 `tdd` Skill 或 `.ai-harness/prompts/tdd.md`。
+1. 目标是生成编码任务、实现方案或 ADR 判断；应使用 `coding-plan` Skill 或 `.hicode/prompts/coding-plan.md`。
+2. 目标是设计测试用例、生成测试草案或执行 TDD；应使用 `tdd` Skill 或 `.hicode/prompts/tdd.md`。
 3. 目标是代码 diff 审查、提交检查、核心场景测试或发布检查；应使用对应 Skill 或 Prompt。
 4. 输入包含未脱敏客户敏感信息、生产数据、密钥、`.env`、生产配置或生产凭证。
 5. 用户要求本 Skill 修改业务代码、自动通过需求、自动进入开发、自动合并、自动发布或操作生产环境。
@@ -36,7 +36,7 @@ description: Use when a requirement, PRD, story, meeting note, prototype, or pro
 
 1. `AGENTS.md`
 2. `docs/workflows/requirement-review.md`
-3. `.ai-harness/prompts/requirement-review.md`
+3. `.hicode/prompts/requirement-review.md`
 4. `docs/DOMAIN_KNOWLEDGE.md`
 5. `docs/PROJ_CONTEXT.md`
 6. `docs/PRD_CONTEXT.md`，如已有
@@ -62,7 +62,7 @@ description: Use when a requirement, PRD, story, meeting note, prototype, or pro
 1. 判断本 Skill 是否适用；不适用时说明原因并路由到正确 Prompt、Skill 或人工流程。
 2. 检查输入是否包含敏感信息、生产数据、密钥或生产越权诉求；如存在，停止评审并要求先脱敏或改走人工安全流程。
 3. 读取必需上下文，列出已读取材料、缺失材料和缺失影响。
-4. 按 `.ai-harness/prompts/requirement-review.md` 的检查维度执行需求评审，覆盖完整性、一致性、明确性、可开发性、可测试性、业务风险、系统影响、非功能要求和历史缺陷匹配。
+4. 按 `.hicode/prompts/requirement-review.md` 的检查维度执行需求评审，覆盖完整性、一致性、明确性、可开发性、可测试性、业务风险、系统影响、非功能要求和历史缺陷匹配。
 5. 对保险/金融核心系统风险按 P0/P1/P2/P3 分级；P0 澄清问题未关闭时，不得建议直接进入开发。
 6. 使用本目录 `output-template.md` 生成需求评审报告。
 7. 输出 `docs/PRD_CONTEXT.md`、`docs/DOMAIN_KNOWLEDGE.md`、`docs/PROJ_CONTEXT.md`、`docs/DEFECT_CASES.md` 或 Harness 资产的更新建议；正式沉淀前必须由对应负责人确认。
@@ -124,7 +124,7 @@ description: Use when a requirement, PRD, story, meeting note, prototype, or pro
 3. 是否匹配过历史缺陷或领域高风险主题。
 4. 是否存在无法判断的需求范围、规则、系统影响或测试证据缺口。
 5. 是否需要业务负责人、产品/BA、研发负责人、测试负责人、安全负责人或架构师确认。
-6. 是否需要更新目标项目 `docs/`、目标项目 `.ai-harness/` 或本仓库 `harness-assets/` 源资产。
+6. 是否需要更新目标项目 `docs/`、目标项目 `.hicode/` 或本仓库 `harness-assets/` 源资产。
 
 ## 11. 上下文更新
 

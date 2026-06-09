@@ -6,7 +6,7 @@
 | 适用阶段 | 开发完成后 / 人工 Review 前 / 提交检查前 |
 | 关联 workflow | `docs/workflows/code-review.md` |
 | 关联 Skill 源目录 | `harness-assets/skills/code-review/` |
-| 目标安装路径 | `.ai-harness/prompts/code-review.md` |
+| 目标安装路径 | `.hicode/prompts/code-review.md` |
 | 主要使用者 | 开发人员、Review Agent、人工 Reviewer、研发负责人、测试负责人 |
 | 维护人 | AI 工程化小组、研发负责人、质量负责人 |
 | 版本 | V1 |
@@ -249,8 +249,8 @@
 10. `docs/review-rules/insurance-domain.md`
 11. `docs/DEFECT_CASES.md`
 12. `docs/ADR/`
-13. `.ai-harness/prompts/code-review.md`
-14. `.ai-harness/skills/code-review/`
+13. `.hicode/prompts/code-review.md`
+14. `.hicode/skills/code-review/`
 15. 本仓库 `harness-assets/prompts/code-review.md` 源资产
 
 上下文更新建议必须区分新增、修改、废弃、已确认事实、基于输入的推断和待确认内容。正式沉淀前必须由对应负责人确认。

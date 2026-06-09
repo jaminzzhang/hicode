@@ -6,7 +6,7 @@
 | 适用阶段 | `<需求 / 设计 / 编码 / 测试 / Review / 提交 / 发布>` |
 | 关联 workflow | `docs/workflows/<workflow-name>.md` |
 | 关联 Skill 源目录 | `harness-assets/skills/<skill-name>/` |
-| 目标安装路径 | `.ai-harness/prompts/<prompt-name>.md` |
+| 目标安装路径 | `.hicode/prompts/<prompt-name>.md` |
 | 主要使用者 | `<开发人员 / 测试人员 / Review Agent / 发布检查 Agent>` |
 | 维护人 | `<角色或团队>` |
 | 版本 | `V1` |
@@ -152,9 +152,9 @@
 3. `docs/PRD_CONTEXT.md`
 4. `docs/DEFECT_CASES.md`
 5. `docs/ADR/`
-6. `.ai-harness/prompts/`
-7. `.ai-harness/skills/`
-8. `.ai-harness/gates/`
+6. `.hicode/prompts/`
+7. `.hicode/skills/`
+8. `.hicode/gates/`
 9. 本仓库 `harness-assets/` 源资产
 
 上下文更新建议必须区分新增、修改、废弃、已确认事实、基于输入的推断和待确认内容。正式沉淀前必须由对应负责人确认。

@@ -6,7 +6,7 @@
 | 适用阶段 | 需求进入开发前 |
 | 关联 workflow | `docs/workflows/requirement-review.md` |
 | 关联 Skill 源目录 | `harness-assets/skills/requirement-review/` |
-| 目标安装路径 | `.ai-harness/prompts/requirement-review.md` |
+| 目标安装路径 | `.hicode/prompts/requirement-review.md` |
 | 主要使用者 | 开发人员、需求评审 Agent、研发负责人、测试负责人 |
 | 维护人 | AI 工程化小组、研发负责人、质量负责人 |
 | 版本 | V1 |
@@ -187,7 +187,7 @@
 3. `docs/PRD_CONTEXT.md`
 4. `docs/DEFECT_CASES.md`
 5. `docs/ADR/`
-6. `.ai-harness/prompts/requirement-review.md`
+6. `.hicode/prompts/requirement-review.md`
 7. 本仓库 `harness-assets/prompts/requirement-review.md` 源资产
 
 上下文更新建议必须区分新增、修改、废弃、已确认事实、基于输入的推断和待确认内容。正式沉淀前必须由对应负责人确认。

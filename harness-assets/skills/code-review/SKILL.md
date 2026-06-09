@@ -39,7 +39,7 @@ description: Use when a diff, branch, PR, MR, patch, or work-in-progress change 
 1. `AGENTS.md`
 2. `CONTEXT.md`
 3. `docs/workflows/code-review.md`
-4. `.ai-harness/prompts/code-review.md`
+4. `.hicode/prompts/code-review.md`
 5. `docs/REVIEW_RULES.md`
 6. `docs/CODING_RULES.md`
 7. `docs/TESTING_GUIDE.md`
@@ -143,7 +143,7 @@ description: Use when a diff, branch, PR, MR, patch, or work-in-progress change 
 3. 规范轴和需求轴是否完整执行；需求轴是否降级。
 4. 是否存在无法判断的测试、CI、覆盖率、扫描、SQL、配置、脚本或发布影响证据缺口。
 5. 是否需要人工 Reviewer、研发负责人、测试负责人、安全负责人、架构师、业务负责人或发布负责人确认。
-6. 是否需要更新目标项目 `docs/`、目标项目 `.ai-harness/` 或本仓库 `harness-assets/` 源资产。
+6. 是否需要更新目标项目 `docs/`、目标项目 `.hicode/` 或本仓库 `harness-assets/` 源资产。
 
 ## 11. 上下文更新
 

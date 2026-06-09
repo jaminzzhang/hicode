@@ -34,7 +34,7 @@ description: Use when the user needs a reusable Harness workflow for a specific 
 
 1. `AGENTS.md`
 2. `docs/workflows/【workflow-name】.md`
-3. `.ai-harness/prompts/【prompt-name】.md`
+3. `.hicode/prompts/【prompt-name】.md`
 4. `docs/PRD_CONTEXT.md`
 5. `docs/PROJ_CONTEXT.md`
 6. `docs/DOMAIN_KNOWLEDGE.md`
@@ -117,7 +117,7 @@ description: Use when the user needs a reusable Harness workflow for a specific 
 2. 实际执行的验证动作或未执行原因。
 3. 是否存在证据缺口。
 4. 是否需要人工确认。
-5. 是否需要更新目标项目 `docs/`、目标项目 `.ai-harness/` 或本仓库 `harness-assets/` 源资产。
+5. 是否需要更新目标项目 `docs/`、目标项目 `.hicode/` 或本仓库 `harness-assets/` 源资产。
 
 ## 11. 上下文更新
 

@@ -2,7 +2,7 @@
 
 ## 1. 目录定位
 
-本目录保存 V1 AI Harness Skill 源资产，用于把已确认的 Prompt、workflow、上下文文档和输出模板组织成可被 Agent 读取和执行的工程化能力。
+本目录保存 V1 hicode Skill 源资产，用于把已确认的 Prompt、workflow、上下文文档和输出模板组织成可被 Agent 读取和执行的工程化能力。
 
 Skill 不替代 Prompt、门禁、人工负责人或发布审批。Skill 的职责是完成入口路由、上下文读取、执行步骤、权限边界、验证记录和输出模板引用。
 
@@ -37,7 +37,7 @@ harness-assets/skills/
 1. Skill 目录名使用 kebab-case，例如 `requirement-review`。
 2. `SKILL.md` 是标准入口文件，必须大写。
 3. `output-template.md` 是该 Skill 的默认输出结构。
-4. 后续安装到目标项目后，路径为 `.ai-harness/skills/skill-name/SKILL.md`。
+4. 后续安装到目标项目后，路径为 `.hicode/skills/skill-name/SKILL.md`。
 
 ## 4. 可选支撑目录
 
@@ -97,7 +97,7 @@ V1 Skill 采用三层关系：
 | 层级 | 文件 | 职责 |
 |---|---|---|
 | Skill 入口 | `SKILL.md` | 触发、路由、上下文读取、执行步骤、权限边界 |
-| 场景 Prompt | 源资产为 `harness-assets/prompts/*.md`，安装后为 `.ai-harness/prompts/*.md` | 详细任务目标、检查维度、输出要求和约束 |
+| 场景 Prompt | 源资产为 `harness-assets/prompts/*.md`，安装后为 `.hicode/prompts/*.md` | 详细任务目标、检查维度、输出要求和约束 |
 | 输出模板 | `output-template.md` | 固定报告结构，便于复用和检查 |
 
 禁止把对应 Prompt 全文复制进 `SKILL.md`。Skill 应按需引用 Prompt、workflow、规范文档和输出模板。
