@@ -3,11 +3,11 @@
 ## 1. 当前状态
 
 最近更新时间：2026-06-09
-当前阶段：P6 试点运营支撑
-当前工作包：P6-WP4
-总体状态：已完成
+当前阶段：V2 子 Agent 基础资产
+当前工作包：V2-P1-WP1
+总体状态：V1 已完成；V2 实施计划已完成；V2-P1-WP1 未开始
 
-本台账用于记录 V1 工作包推进状态。每次开发 Agent 开始、完成、阻塞、暂缓或提交工作包验收时，必须同步更新本文件。
+本台账用于记录 V1 工作包推进状态和后续 V2 规划状态。每次开发 Agent 开始、完成、阻塞、暂缓或提交工作包验收时，必须同步更新本文件。
 
 ## 2. 状态规则
 
@@ -56,7 +56,7 @@
 32. 项目负责人已确认 P2-WP6 验收通过，P2 上下文与规范文档阶段完成。
 33. 已启动 P3-WP1：Prompt 模板规范。
 34. 已创建 `harness-assets/prompts/README.md` 和 `_template.md`，并提交项目负责人验收。
-35. 已根据项目负责人调整，将 Harness 运行资产源目录改为 `harness-assets/prompts/`、`harness-assets/skills/`、`harness-assets/gates/`、`harness-assets/schemas/` 和 `harness-assets/examples/`，不在 `harness-assets/` 下直接维护隐藏 `.ai-harness/` 目录。
+35. 已根据项目负责人调整，将 Harness 运行资产源目录改为 `harness-assets/prompts/`、`harness-assets/skills/`、`harness-assets/gates/`、`harness-assets/schemas/` 和 `harness-assets/examples/`，不在 `harness-assets/` 下直接维护隐藏 `.hicode/` 目录。
 36. 已优化根目录 `AGENTS.md`，将需求草案从默认必读调整为按需读取，并聚焦 Coding Agent 执行 Harness 工程资产建设。
 37. 已确认 Harness 工程体系默认服务对象为保险/金融核心系统研发，后续资产设计需按金融核心系统风险标准处理，并将保险核心业务逻辑严谨性列为默认必检项。
 38. 已将金融核心系统风险标准和保险核心业务逻辑严谨性补充到 `harness-assets/prompts/README.md` 和 `_template.md`，作为后续 Prompt 的固定检查基线。
@@ -154,6 +154,12 @@
 130. 已将 P6-WP4 提交项目负责人验收。
 131. 项目负责人已确认 P6-WP4 验收通过。
 132. P6 试点运营支撑阶段已完成。
+133. 已根据项目负责人指令，将项目名称统一调整为 `hicode`。
+134. 已根据项目负责人指令，将目标项目运行目录统一调整为 `.hicode/`；`harness-assets/` 作为本仓库源资产目录暂不变更。
+135. 已通过 ECC 对标确认 V2 演进方向：引入 `harness-assets/agents/` 子 Agent、Agent 与 Prompt 整合、`DAILY/LIBRARY` 选择性安装、`harness-assets/install/` 和门禁 Hook 化。
+136. 已创建 `docs/adr/0001-adopt-ecc-inspired-hicode-v2-architecture.md`，记录采用 ECC 启发但不复制 ECC 全量通用体系的架构决策。
+137. 已创建 `docs/V2_IMPLEMENTATION_PLAN.md`，将 V2 拆分为子 Agent、整合规范、选择性安装、Hook 化和回归验收五个阶段，并提交项目负责人验收。
+138. 项目负责人已确认 `V2-PLAN` 验收通过，并允许后续从 `V2-P1-WP1` 子 Agent 目录规范开始实施。
 
 ## 4. 当前阻塞点
 
@@ -161,9 +167,12 @@
 
 ## 5. 下一步建议
 
-1. P6 试点运营支撑阶段已完成。
-2. 后续若进入真实试点运行效果验收，必须基于真实试点数据补充，不能用本仓库模板资产替代。
-3. 不得把 P6 模板资产验收写成真实试点运行效果已达成。
+1. V1 仓库资产建设和 P6 试点运营支撑阶段已完成。
+2. `docs/V2_IMPLEMENTATION_PLAN.md` 已确认验收通过。
+3. 后续可从 `V2-P1-WP1` 子 Agent 目录规范开始实施。
+4. 后续若启动 V2 工作包，必须以 V2 计划为准，并保持 V1 已完成基线不回改。
+5. 后续若进入真实试点运行效果验收，必须基于真实试点数据补充，不能用本仓库模板资产替代。
+6. 不得把 P6 模板资产验收写成真实试点运行效果已达成。
 
 ## 6. 工作包状态表
 
@@ -203,10 +212,28 @@
 | P6-WP3 | 试点使用记录模板 | 已完成 | `harness-assets/docs/pilot/PILOT_USAGE_LOG.md` | P4-WP7、P5-WP4 | 项目负责人已确认验收通过 |
 | P6-WP4 | V1 复盘报告模板 | 已完成 | `harness-assets/docs/pilot/V1_REVIEW_REPORT_TEMPLATE.md` | P6-WP2、P6-WP3 | 项目负责人已确认验收通过 |
 
-## 7. 最近变更记录
+## 7. V2 规划状态表
+
+| 工作包编号 | 工作包名称 | 状态 | 当前产出 | 依赖 | 备注 |
+|---|---|---|---|---|---|
+| V2-PLAN | V2 实施计划 | 已完成 | `docs/V2_IMPLEMENTATION_PLAN.md`、`docs/adr/0001-adopt-ecc-inspired-hicode-v2-architecture.md`、`CONTEXT.md` V2 术语 | V1 已完成、ECC 对标确认 | 项目负责人已确认验收通过 |
+| V2-P1-WP1 | 子 Agent 目录规范 | 未开始 | 待创建 | V2-PLAN | 已允许后续启动 |
+| V2-P1-WP2 | 首批 8 个子 Agent | 未开始 | 待创建 | V2-P1-WP1 | 不自动启动，需项目负责人确认 |
+| V2-P2-WP1 | Agent-Prompt-Skill-Gate 整合规范 | 未开始 | 待创建 | V2-P1 | 不自动启动，需项目负责人确认 |
+| V2-P2-WP2 | 目标项目入口更新 | 未开始 | 待创建 | V2-P2-WP1 | 不自动启动，需项目负责人确认 |
+| V2-P3-WP1 | 安装规划目录 | 未开始 | 待创建 | V2-P1、V2-P2 | 不自动启动，需项目负责人确认 |
+| V2-P3-WP2 | manifests 与 profiles 初版 | 未开始 | 待创建 | V2-P3-WP1 | 不自动启动，需项目负责人确认 |
+| V2-P4-WP1 | Hook 规范 | 未开始 | 待创建 | V2-P3 | 不自动启动，需项目负责人确认 |
+| V2-P4-WP2 | 核心 Hook 示例 | 未开始 | 待创建 | V2-P4-WP1 | 不自动启动，需项目负责人确认 |
+| V2-P5-WP1 | V2 回归样例 | 未开始 | 待创建 | V2-P1 至 V2-P4 | 不自动启动，需项目负责人确认 |
+| V2-P5-WP2 | V2 验收检查清单 | 未开始 | 待创建 | V2-P5-WP1 | 不自动启动，需项目负责人确认 |
+
+## 8. 最近变更记录
 
 | 日期 | 操作者 | 变更 | 关联工作包 |
 |---|---|---|---|
+| 2026-06-09 | Codex | 根据项目负责人确认，将 `V2-PLAN` 更新为已完成，并记录后续可从 `V2-P1-WP1` 子 Agent 目录规范开始实施 | V2-PLAN、V2-P1-WP1 |
+| 2026-06-09 | Codex | 参考本地 ECC 确认 V2 采用子 Agent、Agent-Prompt 整合、DAILY/LIBRARY 选择性安装、门禁 Hook 化和自动化红线；创建 V2 ADR 和 V2 实施计划，并提交待验收 | V2-PLAN |
 | 2026-06-03 | Codex | 创建 `AGENTS.md`，初始化 git，移动需求文档到 `docs/`，补充中文为主的语言规则 | P1-WP1 |
 | 2026-06-03 | Codex | 通过 grill-with-docs 确认 V1 实施计划文档、进度台账、工作包粒度、范围、顺序、编号和状态规则 | P1-WP1、P1-WP2、P1-WP3 |
 | 2026-06-03 | Codex | 创建 `CONTEXT.md`、`docs/V1_IMPLEMENTATION_PLAN.md`、`docs/PROGRESS.md` | P1-WP1、P1-WP2、P1-WP3 |
@@ -227,7 +254,7 @@
 | 2026-06-04 | Codex | 完善 `harness-assets/docs/ADR/` 和 `harness-assets/docs/workflows/`，并将 P2-WP6 提交待验收 | P2-WP6 |
 | 2026-06-04 | Codex | 根据项目负责人确认，将 P2-WP6 更新为已完成，并启动 P3-WP1 | P2-WP6、P3-WP1 |
 | 2026-06-04 | Codex | 创建 `harness-assets/prompts/README.md` 和 `_template.md`，并将 P3-WP1 提交待验收 | P3-WP1 |
-| 2026-06-04 | Codex | 全局调整 Harness 源资产路径：本仓库使用可见目录维护，后续由安装脚本放入目标项目 `.ai-harness/` | P3-WP1 |
+| 2026-06-04 | Codex | 全局调整 Harness 源资产路径：本仓库使用可见目录维护，后续由安装脚本放入目标项目 `.hicode/` | P3-WP1 |
 | 2026-06-04 | Codex | 优化根目录 `AGENTS.md`，默认读取执行基准，需求草案改为按需读取 | 项目入口规则 |
 | 2026-06-04 | Codex | 记录 Harness 默认服务对象为保险/金融核心系统研发，并将金融核心系统风险标准和保险核心业务逻辑严谨性作为后续资产设计背景 | 项目背景 |
 | 2026-06-04 | Codex | 将金融核心系统风险标准和保险核心业务逻辑严谨性补入 Prompt 模板规范 | P3-WP1 |
@@ -286,3 +313,5 @@
 | 2026-06-09 | Codex | 根据项目负责人确认，将 P6-WP2 更新为已完成，并创建试点使用记录模板提交 P6-WP3 待验收 | P6-WP2、P6-WP3 |
 | 2026-06-09 | Codex | 根据项目负责人确认，将 P6-WP3 更新为已完成，并创建 V1 复盘报告模板提交 P6-WP4 待验收 | P6-WP3、P6-WP4 |
 | 2026-06-09 | Codex | 根据项目负责人确认，将 P6-WP4 更新为已完成，P6 试点运营支撑阶段完成 | P6-WP4 |
+| 2026-06-09 | Codex | 根据项目负责人指令，将项目名称统一调整为 `hicode` | 项目命名维护 |
+| 2026-06-09 | Codex | 根据项目负责人指令，将目标项目运行目录统一调整为 `.hicode/`，本仓库源资产目录 `harness-assets/` 暂不变更 | 项目命名维护 |
