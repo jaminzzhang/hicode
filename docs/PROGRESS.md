@@ -3,8 +3,8 @@
 ## 1. 当前状态
 
 最近更新时间：2026-06-09
-当前阶段：P5 门禁与验收资产
-当前工作包：P5-WP8
+当前阶段：P6 试点运营支撑
+当前工作包：P6-WP4
 总体状态：已完成
 
 本台账用于记录 V1 工作包推进状态。每次开发 Agent 开始、完成、阻塞、暂缓或提交工作包验收时，必须同步更新本文件。
@@ -136,6 +136,24 @@
 112. 已将 P5-WP8 提交项目负责人验收。
 113. 项目负责人已确认 P5-WP7 和 P5-WP8 验收通过。
 114. P5 门禁与验收资产阶段已完成。
+115. 已启动 P6-WP1：试点项目清单模板。
+116. 已通过 grill-with-docs 确认 P6 阶段只交付试点运营支撑模板，不记录真实试点结果；P6-WP1 定位为候选评估和选择建议模板，不作为真实试点执行台账。
+117. 已创建 `harness-assets/docs/pilot/PILOT_PROJECTS.md`，覆盖候选项目、风险等级、团队角色、适用场景、排除原因和敏感信息禁止边界。
+118. 已将 P6-WP1 提交项目负责人验收。
+119. 项目负责人已确认 P6-WP1 验收通过。
+120. 已启动 P6-WP2：基线指标采集方案。
+121. 已创建 `harness-assets/docs/pilot/BASELINE_METRICS_PLAN.md`，覆盖效率、质量、过程和安全指标，并明确数据来源、采集周期、统计口径、责任角色和缺失数据处理方式。
+122. 已将 P6-WP2 提交项目负责人验收。
+123. 项目负责人已确认 P6-WP2 验收通过。
+124. 已启动 P6-WP3：试点使用记录模板。
+125. 已创建 `harness-assets/docs/pilot/PILOT_USAGE_LOG.md`，覆盖使用场景、输入来源、输出结论、采纳情况、问题和改进建议，并禁止记录客户敏感信息、生产密钥和原始交互全文。
+126. 已将 P6-WP3 提交项目负责人验收。
+127. 项目负责人已确认 P6-WP3 验收通过。
+128. 已启动 P6-WP4：V1 复盘报告模板。
+129. 已创建 `harness-assets/docs/pilot/V1_REVIEW_REPORT_TEMPLATE.md`，覆盖有效场景、无效场景、Prompt 优化、规则优化、安全问题、V2 建议和推广计划，并区分事实数据、分析判断和建议动作。
+130. 已将 P6-WP4 提交项目负责人验收。
+131. 项目负责人已确认 P6-WP4 验收通过。
+132. P6 试点运营支撑阶段已完成。
 
 ## 4. 当前阻塞点
 
@@ -143,9 +161,9 @@
 
 ## 5. 下一步建议
 
-1. 可启动 P6-WP1：试点项目清单模板。
-2. P6 阶段属于试点运营支撑资产，启动前需确认仍按 V1 实施计划顺序推进。
-3. 不得把 P5 仓库资产验收结论写成真实试点运行效果已达成。
+1. P6 试点运营支撑阶段已完成。
+2. 后续若进入真实试点运行效果验收，必须基于真实试点数据补充，不能用本仓库模板资产替代。
+3. 不得把 P6 模板资产验收写成真实试点运行效果已达成。
 
 ## 6. 工作包状态表
 
@@ -180,10 +198,10 @@
 | P5-WP6 | 结构化 Schema | 已完成 | `harness-assets/schemas/review-result.schema.json`、`harness-assets/schemas/gate-result.schema.json`、`harness-assets/schemas/risk-level.schema.json` | P4-WP5、P5-WP1、P5-WP5 | 项目负责人已确认验收通过 |
 | P5-WP7 | Harness 资产回归样例 | 已完成 | `harness-assets/examples/regression/README.md`、`requirement-review-regression.md`、`code-review-regression.md`、`release-check-regression.md`、`high-risk-cases.md` | P4-WP7、P5-WP4、P5-WP6 | 项目负责人已确认验收通过 |
 | P5-WP8 | V1 验收检查清单 | 已完成 | `harness-assets/docs/V1_ACCEPTANCE_CHECKLIST.md` | P5-WP5、P5-WP6、P5-WP7 | 项目负责人已确认验收通过 |
-| P6-WP1 | 试点项目清单模板 | 未开始 | 无 | P5-WP8 | 运营支撑，不展开人员排班 |
-| P6-WP2 | 基线指标采集方案 | 未开始 | 无 | P5-WP8 | 不编造基线值 |
-| P6-WP3 | 试点使用记录模板 | 未开始 | 无 | P4-WP7、P5-WP4 | 不记录客户敏感信息 |
-| P6-WP4 | V1 复盘报告模板 | 未开始 | 无 | P6-WP2、P6-WP3 | 区分事实、分析和建议 |
+| P6-WP1 | 试点项目清单模板 | 已完成 | `harness-assets/docs/pilot/PILOT_PROJECTS.md` | P5-WP8 | 项目负责人已确认验收通过 |
+| P6-WP2 | 基线指标采集方案 | 已完成 | `harness-assets/docs/pilot/BASELINE_METRICS_PLAN.md` | P5-WP8 | 项目负责人已确认验收通过 |
+| P6-WP3 | 试点使用记录模板 | 已完成 | `harness-assets/docs/pilot/PILOT_USAGE_LOG.md` | P4-WP7、P5-WP4 | 项目负责人已确认验收通过 |
+| P6-WP4 | V1 复盘报告模板 | 已完成 | `harness-assets/docs/pilot/V1_REVIEW_REPORT_TEMPLATE.md` | P6-WP2、P6-WP3 | 项目负责人已确认验收通过 |
 
 ## 7. 最近变更记录
 
@@ -263,3 +281,8 @@
 | 2026-06-09 | Codex | 创建 Harness 资产回归样例，并将 P5-WP7 提交待验收 | P5-WP7 |
 | 2026-06-09 | Codex | 创建 V1 验收检查清单，并将 P5-WP8 提交待验收 | P5-WP8 |
 | 2026-06-09 | Codex | 根据项目负责人确认，将 P5-WP7 和 P5-WP8 更新为已完成，P5 阶段收口 | P5-WP7、P5-WP8 |
+| 2026-06-09 | Codex | 启动 P6-WP1，创建试点项目候选评估和选择建议模板，并将 P6-WP1 提交待验收 | P6-WP1 |
+| 2026-06-09 | Codex | 根据项目负责人确认，将 P6-WP1 更新为已完成，并创建基线指标采集方案提交 P6-WP2 待验收 | P6-WP1、P6-WP2 |
+| 2026-06-09 | Codex | 根据项目负责人确认，将 P6-WP2 更新为已完成，并创建试点使用记录模板提交 P6-WP3 待验收 | P6-WP2、P6-WP3 |
+| 2026-06-09 | Codex | 根据项目负责人确认，将 P6-WP3 更新为已完成，并创建 V1 复盘报告模板提交 P6-WP4 待验收 | P6-WP3、P6-WP4 |
+| 2026-06-09 | Codex | 根据项目负责人确认，将 P6-WP4 更新为已完成，P6 试点运营支撑阶段完成 | P6-WP4 |
