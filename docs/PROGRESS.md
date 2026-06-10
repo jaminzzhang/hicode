@@ -5,7 +5,7 @@
 最近更新时间：2026-06-10
 当前阶段：V2 门禁 Hook 化设计
 当前工作包：无进行中工作包
-总体状态：V1 已完成；V2-P1 已完成；V2-P2 已完成；V2-P3 已完成；V2-P4-WP1 已完成
+总体状态：V1 已完成；V2-P1 已完成；V2-P2 已完成；V2-P3 已完成；V2-P4 已完成
 
 本台账用于记录 V1 工作包推进状态和后续 V2 规划状态。每次开发 Agent 开始、完成、阻塞、暂缓或提交工作包验收时，必须同步更新本文件。
 
@@ -185,6 +185,9 @@
 161. 已根据项目负责人指令启动 `V2-P4-WP1` Hook 规范，并通过 grill-with-docs 确认 `hook.json` 为 hicode 自定义可安装 Hook 规划格式，目标路径为 `.hicode/hooks/hook.json`，首批只覆盖编码准入门禁 Hook 和合并门禁 Hook。
 162. 已创建 `harness-assets/hooks/README.md`、`harness-assets/hooks/_hook-template.md` 和 `harness-assets/hooks/hook.json`，并更新 `harness-assets/install/manifests/hooks.json`、V2 计划和术语上下文，将 `V2-P4-WP1` 提交项目负责人验收。
 163. 项目负责人已确认 `V2-P4-WP1` 验收通过，Hook 规范工作包完成。
+164. 已根据项目负责人指令启动 `V2-P4-WP2` 核心 Hook 示例，并通过 grill-with-docs 确认示例文件定位为可审查执行说明，分别给出 Claude 原生 `hooks` JSON 示例和 OpenCode 插件式 TypeScript 示例。
+165. 已创建 `harness-assets/hooks/coding-entry-gate-hook.md` 和 `harness-assets/hooks/merge-gate-hook.md`，覆盖 hicode 追溯关系、Claude 原生配置示例、OpenCode 插件式示例、blocking 条件、禁止动作和审计证据，并将 `V2-P4-WP2` 提交项目负责人验收。
+166. 项目负责人已确认 `V2-P4-WP2` 验收通过，V2 门禁 Hook 化设计阶段完成。
 
 ## 4. 当前阻塞点
 
@@ -202,10 +205,11 @@
 8. `V2-P3-WP1` 安装规划目录已确认验收通过。
 9. `V2-P3-WP2` manifests 与 profiles 初版已确认验收通过，V2-P3 选择性安装规划阶段完成。
 10. `V2-P4-WP1` Hook 规范已确认验收通过。
-11. 下一步可由项目负责人明确启动 `V2-P4-WP2` 核心 Hook 示例。
-12. 后续若启动 V2 工作包，必须以 V2 计划为准，并保持 V1 已完成基线不回改。
-13. 后续若进入真实试点运行效果验收，必须基于真实试点数据补充，不能用本仓库模板资产替代。
-14. 不得把 P6 模板资产验收写成真实试点运行效果已达成。
+11. `V2-P4-WP2` 核心 Hook 示例已确认验收通过，V2-P4 门禁 Hook 化设计阶段完成。
+12. 下一步可由项目负责人明确启动 `V2-P5-WP1` V2 回归样例。
+13. 后续若启动 V2 工作包，必须以 V2 计划为准，并保持 V1 已完成基线不回改。
+14. 后续若进入真实试点运行效果验收，必须基于真实试点数据补充，不能用本仓库模板资产替代。
+15. 不得把 P6 模板资产验收写成真实试点运行效果已达成。
 
 ## 6. 工作包状态表
 
@@ -257,7 +261,7 @@
 | V2-P3-WP1 | 安装规划目录 | 已完成 | `harness-assets/install/README.md`、`harness-assets/install/manifests/`、`harness-assets/install/profiles/` | V2-P1、V2-P2 | 项目负责人已确认验收通过 |
 | V2-P3-WP2 | manifests 与 profiles 初版 | 已完成 | `harness-assets/install/manifests/agents.json`、`prompts.json`、`skills.json`、`gates.json`、`hooks.json`、`schemas.json`、`docs.json`、`examples.json`；`harness-assets/install/profiles/core.json`、`java-insurance-core.json`、`full-library.json` | V2-P3-WP1 | 项目负责人已确认验收通过 |
 | V2-P4-WP1 | Hook 规范 | 已完成 | `harness-assets/hooks/README.md`、`harness-assets/hooks/_hook-template.md`、`harness-assets/hooks/hook.json`、更新后的 `harness-assets/install/manifests/hooks.json` | V2-P3 | 项目负责人已确认验收通过 |
-| V2-P4-WP2 | 核心 Hook 示例 | 未开始 | 待创建 | V2-P4-WP1 | 不自动启动，需项目负责人确认 |
+| V2-P4-WP2 | 核心 Hook 示例 | 已完成 | `harness-assets/hooks/coding-entry-gate-hook.md`、`harness-assets/hooks/merge-gate-hook.md` | V2-P4-WP1 | 项目负责人已确认验收通过 |
 | V2-P5-WP1 | V2 回归样例 | 未开始 | 待创建 | V2-P1 至 V2-P4 | 不自动启动，需项目负责人确认 |
 | V2-P5-WP2 | V2 验收检查清单 | 未开始 | 待创建 | V2-P5-WP1 | 不自动启动，需项目负责人确认 |
 
@@ -265,6 +269,9 @@
 
 | 日期 | 操作者 | 变更 | 关联工作包 |
 |---|---|---|---|
+| 2026-06-10 | Codex | 根据项目负责人确认，将 `V2-P4-WP2` 核心 Hook 示例更新为已完成 | V2-P4-WP2 |
+| 2026-06-10 | Codex | 创建编码准入和合并门禁 Hook 的可审查执行说明，并提交 `V2-P4-WP2` 待验收 | V2-P4-WP2 |
+| 2026-06-10 | Codex | 根据项目负责人指令启动 `V2-P4-WP2` 核心 Hook 示例 | V2-P4-WP2 |
 | 2026-06-10 | Codex | 根据项目负责人确认，将 `V2-P4-WP1` Hook 规范更新为已完成 | V2-P4-WP1 |
 | 2026-06-10 | Codex | 创建 Hook 规范、模板和 `hook.json`，更新 hooks manifest，并提交 `V2-P4-WP1` 待验收 | V2-P4-WP1 |
 | 2026-06-10 | Codex | 根据项目负责人指令启动 `V2-P4-WP1` Hook 规范 | V2-P4-WP1 |
