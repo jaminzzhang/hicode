@@ -5,7 +5,7 @@
 最近更新时间：2026-06-10
 当前阶段：V2 选择性安装规划
 当前工作包：无进行中工作包
-总体状态：V1 已完成；V2-P1 已完成；V2-P2 已完成；V2-P3-WP1 已完成
+总体状态：V1 已完成；V2-P1 已完成；V2-P2 已完成；V2-P3 已完成
 
 本台账用于记录 V1 工作包推进状态和后续 V2 规划状态。每次开发 Agent 开始、完成、阻塞、暂缓或提交工作包验收时，必须同步更新本文件。
 
@@ -179,6 +179,9 @@
 155. 已根据项目负责人继续指令启动 `V2-P3-WP1` 安装规划目录，参考 ECC `agent-sort` 和 manifests 口径确认 `DAILY/LIBRARY`、manifest/profile 和源到目标路径规划边界。
 156. 已创建 `harness-assets/install/README.md`、`harness-assets/install/manifests/` 和 `harness-assets/install/profiles/`，明确安装规划只描述源资产到目标项目路径，不代表真实安装结果，并将 `V2-P3-WP1` 提交项目负责人验收。
 157. 项目负责人已确认 `V2-P3-WP1` 验收通过，安装规划目录工作包完成。
+158. 已根据项目负责人指令启动 `V2-P3-WP2` manifests 与 profiles 初版，并通过 grill-with-docs 确认 manifest 范围补齐 Schema 和示例、Hook 只保留规划占位、`core` 为完整轻量闭环、`java-insurance-core` 默认加载专项审查资产、`full-library` 不改写资产加载分层。
+159. 已创建 `agents.json`、`prompts.json`、`skills.json`、`gates.json`、`hooks.json`、`schemas.json`、`docs.json`、`examples.json` 8 个 manifest 和 `core.json`、`java-insurance-core.json`、`full-library.json` 3 个 profile，并将 `V2-P3-WP2` 提交项目负责人验收。
+160. 项目负责人已确认 `V2-P3-WP2` 验收通过，V2 选择性安装规划阶段完成。
 
 ## 4. 当前阻塞点
 
@@ -194,10 +197,11 @@
 6. `V2-P2-WP1` Agent-Prompt-Skill-Gate 整合规范已确认验收通过。
 7. `V2-P2-WP2` 目标项目入口更新已确认验收通过。
 8. `V2-P3-WP1` 安装规划目录已确认验收通过。
-9. 下一步可由项目负责人明确启动 `V2-P3-WP2` manifests 与 profiles 初版。
-10. 后续若启动 V2 工作包，必须以 V2 计划为准，并保持 V1 已完成基线不回改。
-11. 后续若进入真实试点运行效果验收，必须基于真实试点数据补充，不能用本仓库模板资产替代。
-12. 不得把 P6 模板资产验收写成真实试点运行效果已达成。
+9. `V2-P3-WP2` manifests 与 profiles 初版已确认验收通过，V2-P3 选择性安装规划阶段完成。
+10. 下一步可由项目负责人明确启动 `V2-P4-WP1` Hook 规范。
+11. 后续若启动 V2 工作包，必须以 V2 计划为准，并保持 V1 已完成基线不回改。
+12. 后续若进入真实试点运行效果验收，必须基于真实试点数据补充，不能用本仓库模板资产替代。
+13. 不得把 P6 模板资产验收写成真实试点运行效果已达成。
 
 ## 6. 工作包状态表
 
@@ -247,7 +251,7 @@
 | V2-P2-WP1 | Agent-Prompt-Skill-Gate 整合规范 | 已完成 | `harness-assets/docs/AGENT_PROMPT_INTEGRATION.md`、`harness-assets/docs/workflows/agent-delegation.md` | V2-P1 | 项目负责人已确认验收通过 |
 | V2-P2-WP2 | 目标项目入口更新 | 已完成 | 更新后的 `harness-assets/AGENTS.md` | V2-P2-WP1 | 项目负责人已确认验收通过 |
 | V2-P3-WP1 | 安装规划目录 | 已完成 | `harness-assets/install/README.md`、`harness-assets/install/manifests/`、`harness-assets/install/profiles/` | V2-P1、V2-P2 | 项目负责人已确认验收通过 |
-| V2-P3-WP2 | manifests 与 profiles 初版 | 未开始 | 待创建 | V2-P3-WP1 | 不自动启动，需项目负责人确认 |
+| V2-P3-WP2 | manifests 与 profiles 初版 | 已完成 | `harness-assets/install/manifests/agents.json`、`prompts.json`、`skills.json`、`gates.json`、`hooks.json`、`schemas.json`、`docs.json`、`examples.json`；`harness-assets/install/profiles/core.json`、`java-insurance-core.json`、`full-library.json` | V2-P3-WP1 | 项目负责人已确认验收通过 |
 | V2-P4-WP1 | Hook 规范 | 未开始 | 待创建 | V2-P3 | 不自动启动，需项目负责人确认 |
 | V2-P4-WP2 | 核心 Hook 示例 | 未开始 | 待创建 | V2-P4-WP1 | 不自动启动，需项目负责人确认 |
 | V2-P5-WP1 | V2 回归样例 | 未开始 | 待创建 | V2-P1 至 V2-P4 | 不自动启动，需项目负责人确认 |
@@ -257,6 +261,9 @@
 
 | 日期 | 操作者 | 变更 | 关联工作包 |
 |---|---|---|---|
+| 2026-06-10 | Codex | 根据项目负责人确认，将 `V2-P3-WP2` manifests 与 profiles 初版更新为已完成 | V2-P3-WP2 |
+| 2026-06-10 | Codex | 创建 8 个 manifest 和 3 个 profile，并提交 `V2-P3-WP2` 待验收 | V2-P3-WP2 |
+| 2026-06-10 | Codex | 根据项目负责人指令启动 `V2-P3-WP2` manifests 与 profiles 初版 | V2-P3-WP2 |
 | 2026-06-10 | Codex | 根据项目负责人确认，将 `V2-P3-WP1` 安装规划目录更新为已完成 | V2-P3-WP1 |
 | 2026-06-10 | Codex | 创建安装规划目录 README、manifests 和 profiles 占位目录，并提交 `V2-P3-WP1` 待验收 | V2-P3-WP1 |
 | 2026-06-10 | Codex | 根据项目负责人继续指令启动 `V2-P3-WP1` 安装规划目录 | V2-P3-WP1 |

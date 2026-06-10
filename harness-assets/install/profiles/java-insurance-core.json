@@ -1,0 +1,29 @@
+{
+  "schema_version": "hicode.install-profile.v1",
+  "id": "java-insurance-core",
+  "description": "面向 Java 保险核心系统的默认组合，在 core 基础上强化 Java、SQL、安全和保险业务专项审查。",
+  "target_context": "Java、Spring、SQL、批处理、消息、交易一致性和保险核心业务规则相关目标项目。",
+  "extends": "core",
+  "selection": [
+    {
+      "manifest": "agents",
+      "ids": ["security-reviewer", "java-reviewer"]
+    },
+    {
+      "manifest": "docs",
+      "ids": ["java-review-rules", "sql-review-rules", "security-review-rules", "insurance-domain-review-rules"]
+    }
+  ],
+  "daily_emphasis": [
+    "security-reviewer",
+    "java-reviewer",
+    "java-review-rules",
+    "sql-review-rules",
+    "security-review-rules",
+    "insurance-domain-review-rules"
+  ],
+  "notes": [
+    "本 profile 将 Java、SQL、安全和保险业务专项 Agent 与规则视为 DAILY 资产。",
+    "本 profile 不授权自动合并、自动发布、生产操作或生产配置修改。"
+  ]
+}

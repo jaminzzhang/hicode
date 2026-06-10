@@ -1,0 +1,45 @@
+{
+  "schema_version": "hicode.install-profile.v1",
+  "id": "full-library",
+  "description": "完整可检索资产库，保留全部 manifest 条目，不改写资产原始 load_tier。",
+  "target_context": "需要完整 hicode 资产库用于检索、学习、维护或迁移的目标项目。",
+  "selection": [
+    {
+      "manifest": "agents",
+      "ids": "*"
+    },
+    {
+      "manifest": "prompts",
+      "ids": "*"
+    },
+    {
+      "manifest": "skills",
+      "ids": "*"
+    },
+    {
+      "manifest": "gates",
+      "ids": "*"
+    },
+    {
+      "manifest": "hooks",
+      "ids": "*"
+    },
+    {
+      "manifest": "schemas",
+      "ids": "*"
+    },
+    {
+      "manifest": "docs",
+      "ids": "*"
+    },
+    {
+      "manifest": "examples",
+      "ids": "*"
+    }
+  ],
+  "notes": [
+    "full-library 表示全量可检索安装或保留，不表示全量默认加载。",
+    "profile 不改写 manifest 条目的 load_tier；DAILY 与 LIBRARY 以各 manifest 为准。",
+    "hooks manifest 当前为规划占位，直到 V2-P4 创建 Hook 源资产后才会包含具体条目。"
+  ]
+}
