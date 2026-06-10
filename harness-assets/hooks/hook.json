@@ -164,6 +164,47 @@
         "human_confirmations",
         "command_records"
       ]
+    },
+    {
+      "id": "context-capture-hook",
+      "name": "上下文捕获 Hook",
+      "status": "active",
+      "default_mode": "advisory",
+      "documentation": "harness-assets/hooks/context-capture-hook.md",
+      "gate": null,
+      "schema": null,
+      "trigger": {
+        "description": "Agent 会话结束时触发，提出上下文更新建议。",
+        "suggested_adapter_events": ["after_session_end", "stop"],
+        "target_actions": ["session_end", "session_stop"]
+      },
+      "required_inputs": [
+        "session_modified_files",
+        "session_search_patterns",
+        "session_commands_run"
+      ],
+      "advisory_outputs": [
+        "context_update_recommendations"
+      ],
+      "blocking_conditions": [],
+      "allowed_commands": [],
+      "prohibited_actions": [
+        "auto_write_to_long_term_context",
+        "auto_modify_agents_md",
+        "auto_modify_proj_context",
+        "auto_commit",
+        "auto_push",
+        "auto_merge",
+        "auto_release",
+        "connect_production"
+      ],
+      "audit_evidence": [
+        "session_read_files",
+        "session_modified_files",
+        "session_search_patterns",
+        "context_update_recommendations",
+        "human_confirmation_records"
+      ]
     }
   ]
 }

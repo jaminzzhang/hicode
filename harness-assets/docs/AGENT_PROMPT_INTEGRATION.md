@@ -48,12 +48,13 @@
 
 1. 入口规则：`AGENTS.md`。
 2. 当前任务相关长期上下文：`docs/DOMAIN_KNOWLEDGE.md`、`docs/PROJ_CONTEXT.md`、`docs/PRD_CONTEXT.md`。
-3. 角色入口：对应 `.hicode/agents/*.md`。
-4. 规则源：对应 `.hicode/prompts/*.md`。
-5. 流程源：对应 `.hicode/skills/*/SKILL.md`。
-6. 准入建议源：对应 `.hicode/gates/*.md`。
-7. 结构化约束：对应 `.hicode/schemas/*.json`。
-8. 专项规则：按 diff 或任务风险读取 `docs/review-rules/`、`docs/RELEASE_GUIDE.md`、`docs/DEFECT_CASES.md` 等。
+3. 大型代码库或陌生模块任务：按需读取 `docs/LARGE_CODEBASE_AGENT_GUIDE.md`，并优先使用 `docs/PROJ_CONTEXT.md` 的模块地图、局部命令和排除路径。
+4. 角色入口：对应 `.hicode/agents/*.md`。
+5. 规则源：对应 `.hicode/prompts/*.md`。
+6. 流程源：对应 `.hicode/skills/*/SKILL.md`。
+7. 准入建议源：对应 `.hicode/gates/*.md`。
+8. 结构化约束：对应 `.hicode/schemas/*.json`。
+9. 专项规则：按 diff 或任务风险读取 `docs/review-rules/`、`docs/RELEASE_GUIDE.md`、`docs/DEFECT_CASES.md` 等。
 
 只读取当前任务必要上下文。缺少资产时按降级口径处理，不补编事实。
 
@@ -152,4 +153,6 @@ Agent 不得绕过门禁或人工确认。
 2. 新增 Prompt、Skill、Gate 或 Schema 时，应检查是否影响现有 Agent 引用关系。
 3. 修改门禁建议结论时，必须同步检查 Agent 层建议结论转换。
 4. 修改安全红线、生产操作边界或自动化边界时，必须同步检查所有 Agent、Prompt、Skill、Gate 和 workflow。
-5. 真实目标项目安装差异由后续 `harness-assets/install/` manifest/profile 描述，不在本文件维护。
+5. 大型代码库导航、局部命令、排除路径、LSP/MCP 和治理 Owner 变化时，应同步检查 `docs/PROJ_CONTEXT.md`、`docs/LARGE_CODEBASE_AGENT_GUIDE.md` 和目标项目入口。
+6. 真实目标项目安装差异由后续 `harness-assets/install/` manifest/profile 描述，不在本文件维护。
+7. `context-capture-hook`（上下文捕获 Hook）在 Agent 会话结束时提出上下文更新建议，属于纯 advisory 模式，不自动写入任何长期上下文文件。建议归档后由 hicode Owner 人工确认归并。

@@ -104,6 +104,16 @@
       "risk_tags": ["agent-governance", "workflow", "audit"]
     },
     {
+      "id": "large-codebase-agent-guide",
+      "source": "harness-assets/docs/LARGE_CODEBASE_AGENT_GUIDE.md",
+      "target": "docs/LARGE_CODEBASE_AGENT_GUIDE.md",
+      "load_tier": "LIBRARY",
+      "scenarios": ["large-codebase-navigation", "agent-governance", "project-context-setup"],
+      "requires": ["docs:proj-context", "docs:agent-prompt-integration"],
+      "description": "大型代码库 Agent 工作方法论。",
+      "risk_tags": ["large-codebase", "agent-governance", "context-management"]
+    },
+    {
       "id": "java-review-rules",
       "source": "harness-assets/docs/review-rules/java.md",
       "target": "docs/review-rules/java.md",
