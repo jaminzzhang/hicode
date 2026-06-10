@@ -3,9 +3,9 @@
 ## 1. 当前状态
 
 最近更新时间：2026-06-10
-当前阶段：V2 门禁 Hook 化设计
+当前阶段：V2 回归验收
 当前工作包：无进行中工作包
-总体状态：V1 已完成；V2-P1 已完成；V2-P2 已完成；V2-P3 已完成；V2-P4 已完成
+总体状态：V1 已完成；V2-P1 已完成；V2-P2 已完成；V2-P3 已完成；V2-P4 已完成；V2-P5 已完成
 
 本台账用于记录 V1 工作包推进状态和后续 V2 规划状态。每次开发 Agent 开始、完成、阻塞、暂缓或提交工作包验收时，必须同步更新本文件。
 
@@ -188,6 +188,11 @@
 164. 已根据项目负责人指令启动 `V2-P4-WP2` 核心 Hook 示例，并通过 grill-with-docs 确认示例文件定位为可审查执行说明，分别给出 Claude 原生 `hooks` JSON 示例和 OpenCode 插件式 TypeScript 示例。
 165. 已创建 `harness-assets/hooks/coding-entry-gate-hook.md` 和 `harness-assets/hooks/merge-gate-hook.md`，覆盖 hicode 追溯关系、Claude 原生配置示例、OpenCode 插件式示例、blocking 条件、禁止动作和审计证据，并将 `V2-P4-WP2` 提交项目负责人验收。
 166. 项目负责人已确认 `V2-P4-WP2` 验收通过，V2 门禁 Hook 化设计阶段完成。
+167. 已根据项目负责人确认启动 `V2-P5-WP1` V2 回归样例，并通过 grill-with-docs 确认 V2 回归样例按场景集组织，采用可人工执行验收结构。
+168. 已创建 `agent-delegation-regression.md`、`install-profile-regression.md` 和 `hook-gate-regression.md`，并补充回归样例索引和 examples manifest，将 `V2-P5-WP1` 提交项目负责人验收。
+169. 已根据项目负责人快速完成 V2-P5 的指令启动并完成 `V2-P5-WP2` V2 验收检查清单。
+170. 已创建 `harness-assets/docs/V2_ACCEPTANCE_CHECKLIST.md`，并补充 docs manifest，将 `V2-P5-WP2` 提交项目负责人验收。
+171. 项目负责人已确认 `V2-P5-WP1` 和 `V2-P5-WP2` 验收通过，V2 回归与验收阶段完成。
 
 ## 4. 当前阻塞点
 
@@ -206,10 +211,11 @@
 9. `V2-P3-WP2` manifests 与 profiles 初版已确认验收通过，V2-P3 选择性安装规划阶段完成。
 10. `V2-P4-WP1` Hook 规范已确认验收通过。
 11. `V2-P4-WP2` 核心 Hook 示例已确认验收通过，V2-P4 门禁 Hook 化设计阶段完成。
-12. 下一步可由项目负责人明确启动 `V2-P5-WP1` V2 回归样例。
-13. 后续若启动 V2 工作包，必须以 V2 计划为准，并保持 V1 已完成基线不回改。
-14. 后续若进入真实试点运行效果验收，必须基于真实试点数据补充，不能用本仓库模板资产替代。
-15. 不得把 P6 模板资产验收写成真实试点运行效果已达成。
+12. `V2-P5-WP1` V2 回归样例已确认验收通过。
+13. `V2-P5-WP2` V2 验收检查清单已确认验收通过，V2-P5 回归与验收阶段完成。
+14. 后续可由项目负责人确认是否进入 V2 收尾、整体复核或新的 V3 规划。
+15. 后续若进入真实试点运行效果验收，必须基于真实试点数据补充，不能用本仓库模板资产替代。
+16. 不得把 P6 模板资产验收写成真实试点运行效果已达成。
 
 ## 6. 工作包状态表
 
@@ -262,13 +268,17 @@
 | V2-P3-WP2 | manifests 与 profiles 初版 | 已完成 | `harness-assets/install/manifests/agents.json`、`prompts.json`、`skills.json`、`gates.json`、`hooks.json`、`schemas.json`、`docs.json`、`examples.json`；`harness-assets/install/profiles/core.json`、`java-insurance-core.json`、`full-library.json` | V2-P3-WP1 | 项目负责人已确认验收通过 |
 | V2-P4-WP1 | Hook 规范 | 已完成 | `harness-assets/hooks/README.md`、`harness-assets/hooks/_hook-template.md`、`harness-assets/hooks/hook.json`、更新后的 `harness-assets/install/manifests/hooks.json` | V2-P3 | 项目负责人已确认验收通过 |
 | V2-P4-WP2 | 核心 Hook 示例 | 已完成 | `harness-assets/hooks/coding-entry-gate-hook.md`、`harness-assets/hooks/merge-gate-hook.md` | V2-P4-WP1 | 项目负责人已确认验收通过 |
-| V2-P5-WP1 | V2 回归样例 | 未开始 | 待创建 | V2-P1 至 V2-P4 | 不自动启动，需项目负责人确认 |
-| V2-P5-WP2 | V2 验收检查清单 | 未开始 | 待创建 | V2-P5-WP1 | 不自动启动，需项目负责人确认 |
+| V2-P5-WP1 | V2 回归样例 | 已完成 | `harness-assets/examples/regression/agent-delegation-regression.md`、`install-profile-regression.md`、`hook-gate-regression.md`；更新后的回归 README 和 examples manifest | V2-P1 至 V2-P4 | 项目负责人已确认验收通过 |
+| V2-P5-WP2 | V2 验收检查清单 | 已完成 | `harness-assets/docs/V2_ACCEPTANCE_CHECKLIST.md`；更新后的 docs manifest | V2-P5-WP1 | 项目负责人已确认验收通过 |
 
 ## 8. 最近变更记录
 
 | 日期 | 操作者 | 变更 | 关联工作包 |
 |---|---|---|---|
+| 2026-06-10 | Codex | 根据项目负责人确认，将 `V2-P5-WP1` 和 `V2-P5-WP2` 更新为已完成 | V2-P5 |
+| 2026-06-10 | Codex | 创建 V2 验收检查清单并补充 docs manifest，提交 `V2-P5-WP2` 待验收 | V2-P5-WP2 |
+| 2026-06-10 | Codex | 创建 V2 Agent、install、Hook 三类回归样例并补充 examples manifest，提交 `V2-P5-WP1` 待验收 | V2-P5-WP1 |
+| 2026-06-10 | Codex | 根据项目负责人确认启动 `V2-P5-WP1` V2 回归样例，并确认场景集与可人工执行验收结构口径 | V2-P5-WP1 |
 | 2026-06-10 | Codex | 根据项目负责人确认，将 `V2-P4-WP2` 核心 Hook 示例更新为已完成 | V2-P4-WP2 |
 | 2026-06-10 | Codex | 创建编码准入和合并门禁 Hook 的可审查执行说明，并提交 `V2-P4-WP2` 待验收 | V2-P4-WP2 |
 | 2026-06-10 | Codex | 根据项目负责人指令启动 `V2-P4-WP2` 核心 Hook 示例 | V2-P4-WP2 |

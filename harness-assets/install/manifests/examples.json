@@ -132,6 +132,36 @@
       "requires": ["docs:review-rules", "schemas:risk-level"],
       "description": "高风险场景回归样例。",
       "risk_tags": ["example", "regression", "p0", "p1"]
+    },
+    {
+      "id": "agent-delegation-regression",
+      "source": "harness-assets/examples/regression/agent-delegation-regression.md",
+      "target": ".hicode/examples/regression/agent-delegation-regression.md",
+      "load_tier": "LIBRARY",
+      "scenarios": ["asset-regression", "agent-delegation"],
+      "requires": ["docs:agent-prompt-integration", "docs:agent-delegation-workflow"],
+      "description": "V2 Agent 委托链路回归样例。",
+      "risk_tags": ["example", "regression", "agent", "p0", "p1"]
+    },
+    {
+      "id": "install-profile-regression",
+      "source": "harness-assets/examples/regression/install-profile-regression.md",
+      "target": ".hicode/examples/regression/install-profile-regression.md",
+      "load_tier": "LIBRARY",
+      "scenarios": ["asset-regression", "install-profile", "daily-library"],
+      "requires": ["docs:agent-prompt-integration"],
+      "description": "V2 选择性安装 profile 回归样例。",
+      "risk_tags": ["example", "regression", "install"]
+    },
+    {
+      "id": "hook-gate-regression",
+      "source": "harness-assets/examples/regression/hook-gate-regression.md",
+      "target": ".hicode/examples/regression/hook-gate-regression.md",
+      "load_tier": "LIBRARY",
+      "scenarios": ["asset-regression", "hook-gate"],
+      "requires": ["gates:coding-entry-gate", "gates:merge-gate", "schemas:gate-result"],
+      "description": "V2 Hook 门禁边界回归样例。",
+      "risk_tags": ["example", "regression", "hook", "p0", "p1"]
     }
   ]
 }

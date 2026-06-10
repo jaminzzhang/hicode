@@ -164,6 +164,16 @@
       "risk_tags": ["acceptance", "regression"]
     },
     {
+      "id": "v2-acceptance-checklist",
+      "source": "harness-assets/docs/V2_ACCEPTANCE_CHECKLIST.md",
+      "target": "docs/V2_ACCEPTANCE_CHECKLIST.md",
+      "load_tier": "LIBRARY",
+      "scenarios": ["asset-acceptance", "v2-regression"],
+      "requires": ["hicode-v2-assets", "docs:v1-acceptance-checklist"],
+      "description": "V2 仓库资产验收检查清单。",
+      "risk_tags": ["acceptance", "regression", "v2"]
+    },
+    {
       "id": "adr-readme",
       "source": "harness-assets/docs/ADR/README.md",
       "target": "docs/ADR/README.md",
