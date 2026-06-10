@@ -5,7 +5,7 @@
 最近更新时间：2026-06-10
 当前阶段：V2 子 Agent 基础资产
 当前工作包：无进行中工作包
-总体状态：V1 已完成；V2 实施计划已完成；V2-P1-WP1 已完成
+总体状态：V1 已完成；V2 实施计划已完成；V2-P1-WP2 已完成
 
 本台账用于记录 V1 工作包推进状态和后续 V2 规划状态。每次开发 Agent 开始、完成、阻塞、暂缓或提交工作包验收时，必须同步更新本文件。
 
@@ -164,6 +164,10 @@
 140. 已通过 grill-with-docs 确认 Agent frontmatter、单文件平铺结构、Prompt 防护基线、10 段式模板结构和 README 范围边界。
 141. 已创建 `harness-assets/agents/README.md` 和 `harness-assets/agents/_template.md`，并将 `V2-P1-WP1` 提交项目负责人验收。
 142. 项目负责人已确认 `V2-P1-WP1` 验收通过，子 Agent 目录规范工作包完成。
+143. 已根据项目负责人指令启动 `V2-P1-WP2` 首批 8 个子 Agent 设计和实施，进入 grill-with-docs 设计确认。
+144. 已通过 grill-with-docs 确认首批 8 个 Agent 名单、规则源引用、短角色入口、受控修改权限、专项审查触发和建议结论口径。
+145. 已创建 `requirement-reviewer`、`coding-planner`、`tdd-guide`、`coding-assistant`、`code-reviewer`、`security-reviewer`、`java-reviewer` 和 `release-reviewer` 8 个 Agent 文件，并将 `V2-P1-WP2` 提交项目负责人验收。
+146. 项目负责人已确认 `V2-P1-WP2` 验收通过，首批 8 个子 Agent 工作包完成。
 
 ## 4. 当前阻塞点
 
@@ -175,10 +179,11 @@
 2. `docs/V2_IMPLEMENTATION_PLAN.md` 已确认验收通过。
 3. `V2-P1-WP1` 子 Agent 目录规范已确认验收通过。
 4. 本工作包只创建 `harness-assets/agents/README.md` 和 `_template.md`，未创建首批 8 个子 Agent。
-5. 下一步可由项目负责人明确启动 `V2-P1-WP2` 首批 8 个子 Agent。
-6. 后续若启动 V2 工作包，必须以 V2 计划为准，并保持 V1 已完成基线不回改。
-7. 后续若进入真实试点运行效果验收，必须基于真实试点数据补充，不能用本仓库模板资产替代。
-8. 不得把 P6 模板资产验收写成真实试点运行效果已达成。
+5. `V2-P1-WP2` 首批 8 个子 Agent 已确认验收通过。
+6. 下一步可由项目负责人明确启动 `V2-P2-WP1` Agent-Prompt-Skill-Gate 整合规范。
+7. 后续若启动 V2 工作包，必须以 V2 计划为准，并保持 V1 已完成基线不回改。
+8. 后续若进入真实试点运行效果验收，必须基于真实试点数据补充，不能用本仓库模板资产替代。
+9. 不得把 P6 模板资产验收写成真实试点运行效果已达成。
 
 ## 6. 工作包状态表
 
@@ -224,7 +229,7 @@
 |---|---|---|---|---|---|
 | V2-PLAN | V2 实施计划 | 已完成 | `docs/V2_IMPLEMENTATION_PLAN.md`、`docs/adr/0001-adopt-ecc-inspired-hicode-v2-architecture.md`、`CONTEXT.md` V2 术语 | V1 已完成、ECC 对标确认 | 项目负责人已确认验收通过 |
 | V2-P1-WP1 | 子 Agent 目录规范 | 已完成 | `harness-assets/agents/README.md`、`harness-assets/agents/_template.md` | V2-PLAN | 项目负责人已确认验收通过 |
-| V2-P1-WP2 | 首批 8 个子 Agent | 未开始 | 待创建 | V2-P1-WP1 | 不自动启动，需项目负责人确认 |
+| V2-P1-WP2 | 首批 8 个子 Agent | 已完成 | `harness-assets/agents/requirement-reviewer.md`、`harness-assets/agents/coding-planner.md`、`harness-assets/agents/tdd-guide.md`、`harness-assets/agents/coding-assistant.md`、`harness-assets/agents/code-reviewer.md`、`harness-assets/agents/security-reviewer.md`、`harness-assets/agents/java-reviewer.md`、`harness-assets/agents/release-reviewer.md` | V2-P1-WP1 | 项目负责人已确认验收通过 |
 | V2-P2-WP1 | Agent-Prompt-Skill-Gate 整合规范 | 未开始 | 待创建 | V2-P1 | 不自动启动，需项目负责人确认 |
 | V2-P2-WP2 | 目标项目入口更新 | 未开始 | 待创建 | V2-P2-WP1 | 不自动启动，需项目负责人确认 |
 | V2-P3-WP1 | 安装规划目录 | 未开始 | 待创建 | V2-P1、V2-P2 | 不自动启动，需项目负责人确认 |
@@ -238,6 +243,9 @@
 
 | 日期 | 操作者 | 变更 | 关联工作包 |
 |---|---|---|---|
+| 2026-06-10 | Codex | 根据项目负责人确认，将 `V2-P1-WP2` 首批 8 个子 Agent 更新为已完成 | V2-P1-WP2 |
+| 2026-06-10 | Codex | 创建首批 8 个子 Agent，覆盖需求评审、编码计划、TDD、辅助编码、代码审查、安全审查、Java 专项审查和发布审查，并提交 `V2-P1-WP2` 待验收 | V2-P1-WP2 |
+| 2026-06-10 | Codex | 根据项目负责人指令启动 `V2-P1-WP2` 首批 8 个子 Agent 设计和实施 | V2-P1-WP2 |
 | 2026-06-10 | Codex | 根据项目负责人确认，将 `V2-P1-WP1` 子 Agent 目录规范更新为已完成 | V2-P1-WP1 |
 | 2026-06-10 | Codex | 创建子 Agent 目录规范和模板，覆盖 frontmatter、单文件平铺、Prompt 防护基线、10 段式模板、安全红线和 README 范围边界，并提交 `V2-P1-WP1` 待验收 | V2-P1-WP1 |
 | 2026-06-09 | Codex | 根据项目负责人确认，将 `V2-PLAN` 更新为已完成，并记录后续可从 `V2-P1-WP1` 子 Agent 目录规范开始实施 | V2-PLAN、V2-P1-WP1 |
