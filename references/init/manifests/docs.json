@@ -1,0 +1,327 @@
+{
+  "schema_version": "hicode.install-manifest.v1",
+  "asset_type": "doc",
+  "description": "hicode 人读文档、规则文档和 workflow 到目标项目 docs/ 或 .hicode/docs/ 的初始化规划。",
+  "items": [
+    {
+      "id": "domain-knowledge",
+      "source": "references/docs/DOMAIN_KNOWLEDGE.md",
+      "target": "docs/DOMAIN_KNOWLEDGE.md",
+      "load_tier": "DAILY",
+      "scenarios": ["domain-context", "requirement-review", "core-scenario-test"],
+      "requires": ["target-project-domain-evidence"],
+      "description": "领域知识文档模板。",
+      "risk_tags": ["insurance-domain", "business-rule"]
+    },
+    {
+      "id": "prd-context",
+      "source": "references/docs/PRD_CONTEXT.md",
+      "target": "docs/PRD_CONTEXT.md",
+      "load_tier": "DAILY",
+      "scenarios": ["requirement-context", "coding-plan", "review"],
+      "requires": ["target-project-requirement-material"],
+      "description": "单需求上下文模板。",
+      "risk_tags": ["requirement", "scope", "business-rule"]
+    },
+    {
+      "id": "proj-context",
+      "source": "references/docs/PROJ_CONTEXT.md",
+      "target": "docs/PROJ_CONTEXT.md",
+      "load_tier": "DAILY",
+      "scenarios": ["project-context", "coding-plan", "code-review"],
+      "requires": ["target-project-architecture-evidence"],
+      "description": "项目研发上下文模板。",
+      "risk_tags": ["architecture", "interface", "data-boundary"]
+    },
+    {
+      "id": "coding-rules",
+      "source": "references/docs/CODING_RULES.md",
+      "target": "docs/CODING_RULES.md",
+      "load_tier": "DAILY",
+      "scenarios": ["coding-plan", "controlled-coding", "code-review"],
+      "requires": ["target-project-tech-stack"],
+      "description": "编码规则文档。",
+      "risk_tags": ["coding", "transaction", "idempotency", "audit"]
+    },
+    {
+      "id": "testing-guide",
+      "source": "references/docs/TESTING_GUIDE.md",
+      "target": "docs/TESTING_GUIDE.md",
+      "load_tier": "DAILY",
+      "scenarios": ["tdd", "core-scenario-test", "release-evidence"],
+      "requires": ["target-project-test-tooling"],
+      "description": "测试规则文档。",
+      "risk_tags": ["testing", "tdd", "regression"]
+    },
+    {
+      "id": "review-rules",
+      "source": "references/docs/REVIEW_RULES.md",
+      "target": "docs/REVIEW_RULES.md",
+      "load_tier": "DAILY",
+      "scenarios": ["code-review", "pre-commit-check", "merge-gate"],
+      "requires": ["target-project-review-process"],
+      "description": "代码审查总则。",
+      "risk_tags": ["review", "risk-level", "audit"]
+    },
+    {
+      "id": "release-guide",
+      "source": "references/docs/RELEASE_GUIDE.md",
+      "target": "docs/RELEASE_GUIDE.md",
+      "load_tier": "DAILY",
+      "scenarios": ["release-check", "release-gate"],
+      "requires": ["target-project-release-process"],
+      "description": "发布检查规则文档。",
+      "risk_tags": ["release", "rollback", "production-boundary"]
+    },
+    {
+      "id": "defect-cases",
+      "source": "references/docs/DEFECT_CASES.md",
+      "target": "docs/DEFECT_CASES.md",
+      "load_tier": "DAILY",
+      "scenarios": ["regression", "requirement-review", "code-review", "release-check"],
+      "requires": ["confirmed-defect-history"],
+      "description": "历史缺陷与防范规则模板。",
+      "risk_tags": ["defect", "regression", "risk-prevention"]
+    },
+    {
+      "id": "agent-prompt-integration",
+      "source": "references/docs/AGENT_PROMPT_INTEGRATION.md",
+      "target": "docs/AGENT_PROMPT_INTEGRATION.md",
+      "load_tier": "DAILY",
+      "scenarios": ["agent-delegation", "asset-routing"],
+      "requires": ["agents:core", "prompts:core", "skills:core", "gates:core"],
+      "description": "Agent-Prompt-Skill-Gate 整合规范。",
+      "risk_tags": ["agent-governance", "routing", "degradation"]
+    },
+    {
+      "id": "agent-delegation-workflow",
+      "source": "references/docs/workflows/agent-delegation.md",
+      "target": "docs/workflows/agent-delegation.md",
+      "load_tier": "DAILY",
+      "scenarios": ["agent-delegation", "workflow-routing"],
+      "requires": ["docs:agent-prompt-integration"],
+      "description": "子 Agent 委托工作流。",
+      "risk_tags": ["agent-governance", "workflow", "audit"]
+    },
+    {
+      "id": "large-codebase-agent-guide",
+      "source": "references/docs/LARGE_CODEBASE_AGENT_GUIDE.md",
+      "target": "docs/LARGE_CODEBASE_AGENT_GUIDE.md",
+      "load_tier": "LIBRARY",
+      "scenarios": ["large-codebase-navigation", "agent-governance", "project-context-setup"],
+      "requires": ["docs:proj-context", "docs:agent-prompt-integration"],
+      "description": "大型代码库 Agent 工作方法论。",
+      "risk_tags": ["large-codebase", "agent-governance", "context-management"]
+    },
+    {
+      "id": "java-review-rules",
+      "source": "references/docs/review-rules/java.md",
+      "target": "docs/review-rules/java.md",
+      "load_tier": "DAILY",
+      "scenarios": ["java-review", "insurance-core-backend-review"],
+      "requires": ["docs:review-rules", "agents:java-reviewer"],
+      "description": "Java 专项审查规则。",
+      "risk_tags": ["java", "spring", "transaction", "audit"]
+    },
+    {
+      "id": "sql-review-rules",
+      "source": "references/docs/review-rules/sql.md",
+      "target": "docs/review-rules/sql.md",
+      "load_tier": "DAILY",
+      "scenarios": ["sql-review", "data-change-review"],
+      "requires": ["docs:review-rules", "agents:java-reviewer"],
+      "description": "SQL 专项审查规则。",
+      "risk_tags": ["sql", "transaction", "amount", "rollback"]
+    },
+    {
+      "id": "security-review-rules",
+      "source": "references/docs/review-rules/security.md",
+      "target": "docs/review-rules/security.md",
+      "load_tier": "DAILY",
+      "scenarios": ["security-review", "privacy-review"],
+      "requires": ["docs:review-rules", "agents:security-reviewer"],
+      "description": "安全专项审查规则。",
+      "risk_tags": ["security", "privacy", "secret", "audit"]
+    },
+    {
+      "id": "insurance-domain-review-rules",
+      "source": "references/docs/review-rules/insurance-domain.md",
+      "target": "docs/review-rules/insurance-domain.md",
+      "load_tier": "DAILY",
+      "scenarios": ["insurance-domain-review", "core-business-review"],
+      "requires": ["docs:review-rules", "docs:domain-knowledge", "agents:java-reviewer"],
+      "description": "保险核心业务专项审查规则。",
+      "risk_tags": ["insurance-domain", "amount", "state-transition", "customer-rights"]
+    },
+    {
+      "id": "tool-permission-audit-matrix",
+      "source": "references/docs/TOOL_PERMISSION_AUDIT_MATRIX.md",
+      "target": "docs/TOOL_PERMISSION_AUDIT_MATRIX.md",
+      "load_tier": "LIBRARY",
+      "scenarios": ["tool-permission-review", "hook-design", "audit"],
+      "requires": ["security-boundary-review"],
+      "description": "工具权限与操作审计矩阵。",
+      "risk_tags": ["tool-permission", "audit", "production-boundary"]
+    },
+    {
+      "id": "v1-acceptance-checklist",
+      "source": "references/docs/V1_ACCEPTANCE_CHECKLIST.md",
+      "target": "docs/V1_ACCEPTANCE_CHECKLIST.md",
+      "load_tier": "LIBRARY",
+      "scenarios": ["asset-acceptance", "regression"],
+      "requires": ["hicode-v1-assets"],
+      "description": "V1 仓库资产验收检查清单。",
+      "risk_tags": ["acceptance", "regression"]
+    },
+    {
+      "id": "v2-acceptance-checklist",
+      "source": "references/docs/V2_ACCEPTANCE_CHECKLIST.md",
+      "target": "docs/V2_ACCEPTANCE_CHECKLIST.md",
+      "load_tier": "LIBRARY",
+      "scenarios": ["asset-acceptance", "v2-regression"],
+      "requires": ["hicode-v2-assets", "docs:v1-acceptance-checklist"],
+      "description": "V2 仓库资产验收检查清单。",
+      "risk_tags": ["acceptance", "regression", "v2"]
+    },
+    {
+      "id": "adr-readme",
+      "source": "references/docs/ADR/README.md",
+      "target": "docs/ADR/README.md",
+      "load_tier": "LIBRARY",
+      "scenarios": ["adr-authoring"],
+      "requires": ["architecture-decision-needed"],
+      "description": "ADR 目录说明。",
+      "risk_tags": ["architecture", "decision-record"]
+    },
+    {
+      "id": "adr-template",
+      "source": "references/docs/ADR/ADR-template.md",
+      "target": "docs/ADR/ADR-template.md",
+      "load_tier": "LIBRARY",
+      "scenarios": ["adr-authoring"],
+      "requires": ["docs:adr-readme"],
+      "description": "ADR 模板。",
+      "risk_tags": ["architecture", "decision-record"]
+    },
+    {
+      "id": "workflows-readme",
+      "source": "references/docs/workflows/README.md",
+      "target": "docs/workflows/README.md",
+      "load_tier": "LIBRARY",
+      "scenarios": ["workflow-reference"],
+      "requires": ["workflow-maintenance"],
+      "description": "workflow 目录说明。",
+      "risk_tags": ["workflow"]
+    },
+    {
+      "id": "workflow-requirement-review",
+      "source": "references/docs/workflows/requirement-review.md",
+      "target": "docs/workflows/requirement-review.md",
+      "load_tier": "LIBRARY",
+      "scenarios": ["workflow-reference", "requirement-review"],
+      "requires": ["skills:requirement-review"],
+      "description": "需求评审 workflow。",
+      "risk_tags": ["workflow", "requirement"]
+    },
+    {
+      "id": "workflow-coding-plan",
+      "source": "references/docs/workflows/coding-plan.md",
+      "target": "docs/workflows/coding-plan.md",
+      "load_tier": "LIBRARY",
+      "scenarios": ["workflow-reference", "coding-plan"],
+      "requires": ["skills:coding-plan"],
+      "description": "编码计划 workflow。",
+      "risk_tags": ["workflow", "coding"]
+    },
+    {
+      "id": "workflow-tdd",
+      "source": "references/docs/workflows/tdd.md",
+      "target": "docs/workflows/tdd.md",
+      "load_tier": "LIBRARY",
+      "scenarios": ["workflow-reference", "tdd"],
+      "requires": ["skills:tdd"],
+      "description": "TDD workflow。",
+      "risk_tags": ["workflow", "tdd"]
+    },
+    {
+      "id": "workflow-code-review",
+      "source": "references/docs/workflows/code-review.md",
+      "target": "docs/workflows/code-review.md",
+      "load_tier": "LIBRARY",
+      "scenarios": ["workflow-reference", "code-review"],
+      "requires": ["skills:code-review"],
+      "description": "代码审查 workflow。",
+      "risk_tags": ["workflow", "review"]
+    },
+    {
+      "id": "workflow-pre-commit-check",
+      "source": "references/docs/workflows/pre-commit-check.md",
+      "target": "docs/workflows/pre-commit-check.md",
+      "load_tier": "LIBRARY",
+      "scenarios": ["workflow-reference", "pre-commit-check"],
+      "requires": ["skills:pre-commit-check"],
+      "description": "提交检查 workflow。",
+      "risk_tags": ["workflow", "review"]
+    },
+    {
+      "id": "workflow-core-scenario-test",
+      "source": "references/docs/workflows/core-scenario-test.md",
+      "target": "docs/workflows/core-scenario-test.md",
+      "load_tier": "LIBRARY",
+      "scenarios": ["workflow-reference", "core-scenario-test"],
+      "requires": ["skills:core-scenario-test"],
+      "description": "核心场景测试 workflow。",
+      "risk_tags": ["workflow", "regression"]
+    },
+    {
+      "id": "workflow-release-check",
+      "source": "references/docs/workflows/release-check.md",
+      "target": "docs/workflows/release-check.md",
+      "load_tier": "LIBRARY",
+      "scenarios": ["workflow-reference", "release-check"],
+      "requires": ["skills:release-check"],
+      "description": "发布检查 workflow。",
+      "risk_tags": ["workflow", "release"]
+    },
+    {
+      "id": "pilot-projects",
+      "source": "references/docs/pilot/PILOT_PROJECTS.md",
+      "target": "docs/pilot/PILOT_PROJECTS.md",
+      "load_tier": "LIBRARY",
+      "scenarios": ["pilot-planning"],
+      "requires": ["pilot-governance"],
+      "description": "试点项目清单模板。",
+      "risk_tags": ["pilot", "operation-template"]
+    },
+    {
+      "id": "baseline-metrics-plan",
+      "source": "references/docs/pilot/BASELINE_METRICS_PLAN.md",
+      "target": "docs/pilot/BASELINE_METRICS_PLAN.md",
+      "load_tier": "LIBRARY",
+      "scenarios": ["pilot-metrics"],
+      "requires": ["pilot-governance"],
+      "description": "基线指标采集方案。",
+      "risk_tags": ["pilot", "metrics"]
+    },
+    {
+      "id": "pilot-usage-log",
+      "source": "references/docs/pilot/PILOT_USAGE_LOG.md",
+      "target": "docs/pilot/PILOT_USAGE_LOG.md",
+      "load_tier": "LIBRARY",
+      "scenarios": ["pilot-usage-tracking"],
+      "requires": ["pilot-governance"],
+      "description": "试点使用记录模板。",
+      "risk_tags": ["pilot", "operation-template"]
+    },
+    {
+      "id": "v1-review-report-template",
+      "source": "references/docs/pilot/V1_REVIEW_REPORT_TEMPLATE.md",
+      "target": "docs/pilot/V1_REVIEW_REPORT_TEMPLATE.md",
+      "load_tier": "LIBRARY",
+      "scenarios": ["pilot-review-report"],
+      "requires": ["pilot-governance"],
+      "description": "V1 复盘报告模板。",
+      "risk_tags": ["pilot", "review-report"]
+    }
+  ]
+}
