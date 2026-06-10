@@ -19,6 +19,7 @@
 | 提交检查 | `pre-commit-check.md` | 已创建 |
 | 核心场景测试 | `core-scenario-test.md` | 已创建 |
 | 发布检查 | `release-check.md` | 已创建 |
+| 子 Agent 委托 | `agent-delegation.md` | 已创建 |
 
 ## 3. 单个工作流文档结构
 
