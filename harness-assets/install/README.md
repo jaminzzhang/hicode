@@ -51,7 +51,7 @@ harness-assets/install/
 7. `manifests/docs.json`
 8. `manifests/examples.json`
 
-`manifests/hooks.json` 在 V2-P4 Hook 源资产创建前只保留规划占位，不提前创建虚假 Hook 条目，也不提前创建 `harness-assets/hooks/`。
+`manifests/hooks.json` 描述 `harness-assets/hooks/hook.json` 中的可安装 Hook 条目。Hook 安装由用户在安装 hicode 资产时选择，不强制进入 `core` 或 `java-insurance-core` profile。
 
 计划中的 profile 文件包括：
 

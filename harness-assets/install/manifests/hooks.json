@@ -1,12 +1,33 @@
 {
   "schema_version": "hicode.install-manifest.v1",
   "asset_type": "hook",
-  "status": "planned",
-  "description": "Hook 源资产将在 V2-P4 创建；本文件只保留选择性安装规划占位。",
-  "items": [],
+  "status": "active",
+  "description": "hicode 门禁 Hook 源资产到目标项目 .hicode/hooks/ 的安装规划。",
+  "items": [
+    {
+      "id": "coding-entry-gate-hook",
+      "source": "harness-assets/hooks/hook.json",
+      "target": ".hicode/hooks/hook.json",
+      "load_tier": "DAILY",
+      "scenarios": ["coding-entry-gate", "before-code-edit", "before-write", "before-patch"],
+      "requires": ["gates:coding-entry-gate", "schemas:gate-result", "skills:coding-plan", "skills:tdd", "docs:tool-permission-audit-matrix"],
+      "description": "Coding Agent 修改生产代码前的编码准入门禁 Hook。",
+      "risk_tags": ["coding-entry", "tdd", "controlled-change", "production-boundary"]
+    },
+    {
+      "id": "merge-gate-hook",
+      "source": "harness-assets/hooks/hook.json",
+      "target": ".hicode/hooks/hook.json",
+      "load_tier": "DAILY",
+      "scenarios": ["merge-gate", "before-commit", "before-push", "before-merge-request"],
+      "requires": ["gates:merge-gate", "schemas:gate-result", "skills:code-review", "skills:pre-commit-check", "docs:tool-permission-audit-matrix"],
+      "description": "Coding Agent 提交、推送或请求合并前的合并门禁 Hook。",
+      "risk_tags": ["merge", "review", "ci", "security", "audit"]
+    }
+  ],
   "notes": [
-    "V2-P3-WP2 不提前创建 harness-assets/hooks/。",
-    "V2-P3-WP2 不为尚未创建的 Hook 编造 source 或 target。",
-    "后续 V2-P4 创建 Hook 源资产后，应补充每条 Hook 的 id、source、target、load_tier、scenarios 和 requires。"
+    "Hook 安装由用户在安装 hicode 资产时选择，不强制进入 core 或 java-insurance-core profile。",
+    "hook.json 是 hicode 自定义可安装 Hook 规划格式，不等同于任一平台原生配置。",
+    "平台适配层可将 .hicode/hooks/hook.json 转换为 Claude、OpenCode、Cursor、Kiro 或其他平台的原生 Hook 配置。"
   ]
 }

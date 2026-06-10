@@ -244,7 +244,8 @@ V2 必须遵守已确认的设计基线：
 
 1. `harness-assets/hooks/README.md`
 2. `harness-assets/hooks/_hook-template.md`
-3. Hook 触发点与门禁映射表
+3. `harness-assets/hooks/hook.json`
+4. Hook 触发点与门禁映射表
 
 依赖：V2-P3。
 
@@ -254,10 +255,12 @@ V2 必须遵守已确认的设计基线：
 2. 默认使用 `advisory`。
 3. `blocking` 只用于安全红线、生产越权和流程绕行。
 4. 明确 Hook 不执行发布、回滚、生产连接、生产 SQL 或生产日志读取。
+5. 首批 Hook 只覆盖编码准入门禁 Hook 和合并门禁 Hook。
+6. `hook.json` 使用 hicode 自定义可安装 Hook 规划格式，目标安装路径为 `.hicode/hooks/hook.json`。
 
 ### V2-P4-WP2 核心 Hook 示例
 
-目标：为核心门禁提供可审查的 Hook 示例配置或伪配置。
+目标：为首批编码准入门禁 Hook 和合并门禁 Hook 提供可审查的示例配置或伪配置。
 
 输入：
 
@@ -267,9 +270,8 @@ V2 必须遵守已确认的设计基线：
 
 输出：
 
-1. `harness-assets/hooks/pre-commit-check.md`
-2. `harness-assets/hooks/pre-merge-check.md`
-3. `harness-assets/hooks/pre-release-check.md`
+1. `harness-assets/hooks/coding-entry-gate-hook.md`
+2. `harness-assets/hooks/merge-gate-hook.md`
 
 依赖：V2-P4-WP1。
 
@@ -278,6 +280,7 @@ V2 必须遵守已确认的设计基线：
 1. Hook 示例只描述触发、输入、输出、风险结论和禁止动作。
 2. Hook 示例不包含真实 CI/CD 平台密钥、生产配置或生产命令。
 3. Hook 示例能追溯到对应门禁和 Schema。
+4. Hook 示例不覆盖需求准入、提测准入或发布准入。
 
 ## 10. V2-P5 回归与验收
 
