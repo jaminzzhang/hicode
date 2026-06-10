@@ -23,6 +23,17 @@
       "requires": ["gates:merge-gate", "schemas:gate-result", "skills:code-review", "skills:pre-commit-check", "docs:tool-permission-audit-matrix"],
       "description": "Coding Agent 提交、推送或请求合并前的合并门禁 Hook。",
       "risk_tags": ["merge", "review", "ci", "security", "audit"]
+    },
+    {
+      "id": "context-capture-hook",
+      "source": "harness-assets/hooks/hook.json",
+      "documentation": "harness-assets/hooks/context-capture-hook.md",
+      "target": ".hicode/hooks/hook.json",
+      "load_tier": "LIBRARY",
+      "scenarios": ["session-end", "context-maintenance", "continuous-improvement"],
+      "requires": ["docs:proj-context", "docs:large-codebase-agent-guide"],
+      "description": "Agent 会话结束时的上下文更新建议 Hook，纯 advisory 模式。",
+      "risk_tags": ["context-maintenance", "continuous-improvement"]
     }
   ],
   "notes": [

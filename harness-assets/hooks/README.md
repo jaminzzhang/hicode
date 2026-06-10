@@ -2,11 +2,11 @@
 
 ## 1. 定位
 
-`harness-assets/hooks/` 维护 hicode 门禁 Hook 源资产，用于把已稳定的 Markdown 门禁、Schema 和权限边界转成目标项目可选择安装的 Hook 规划。
+`harness-assets/hooks/` 维护 hicode Hook 源资产，用于把已稳定的 Markdown 门禁、Schema、上下文维护规则和权限边界转成目标项目可选择安装的 Hook 规划。
 
 本目录不是平台原生 Hook 配置目录。`hook.json` 是 hicode 自定义可安装 Hook 规划格式，默认安装目标为 `.hicode/hooks/hook.json`，后续由安装器或平台适配层转换为具体 Coding Agent 平台支持的配置。
 
-Hook 只改变门禁触发和执行载体，不改变门禁建议性质，不替代人工 Review、负责人审批、CI/CD、发布平台或生产流程。
+门禁类 Hook 只改变门禁触发和执行载体，不改变门禁建议性质，不替代人工 Review、负责人审批、CI/CD、发布平台或生产流程。持续改进类 Hook 只提出上下文更新建议，不自动写入长期上下文。
 
 ## 2. 首批范围
 
@@ -23,6 +23,8 @@ V2-P4 首批 Hook 只覆盖 Coding Agent 可在本地研发流程中合理约束
 2. 提测门禁：暂不在首批本地 Hook 中约束，保留为 Markdown 门禁或后续平台集成。
 3. 发布准入门禁：发布审批、发布验证和回滚不得由 Coding Agent Hook 执行或限制。
 
+V2 后续增强可加入持续改进类 Hook，例如 `context-capture-hook`。该 Hook 不属于门禁 Hook，不关联 Gate，不产生 blocking，只在会话结束时提出 `AGENTS.md`、`docs/PROJ_CONTEXT.md`、子目录上下文文件和排除路径的更新建议，等待 hicode Owner 人工确认后归并。
+
 ## 3. Hook 模式
 
 | 模式 | 含义 | 使用边界 |
@@ -32,12 +34,13 @@ V2-P4 首批 Hook 只覆盖 Coding Agent 可在本地研发流程中合理约束
 
 `blocking` 只能阻断当前 Coding Agent 动作，不代表负责人审批结论，也不授权自动修复、自动提交、自动合并或自动发布。
 
-## 4. Hook 触发点与门禁映射
+## 4. Hook 触发点映射
 
 | Hook | 建议适配事件 | 必需输入 | 关联 Gate | 关联 Schema | Blocking 条件 |
 |---|---|---|---|---|---|
 | `coding-entry-gate-hook` | `before_code_edit`、`before_write`、`before_patch` | 需求准入结果、编码计划、TDD 或测试先行证据、允许修改范围、目标文件 | `.hicode/gates/coding-entry-gate.md` | `.hicode/schemas/gate-result.schema.json` | 无编码计划仍要改生产代码；无 TDD 证据仍要改生产代码；试图改生产配置、数据库脚本或发布脚本；命中密钥、未脱敏客户信息、未脱敏生产数据或生产越权 |
 | `merge-gate-hook` | `before_commit`、`before_push`、`before_merge_request` | diff 范围、测试证据、AI Review、人工 Review 状态、P0/P1 状态、敏感信息扫描结果 | `.hicode/gates/merge-gate.md` | `.hicode/schemas/gate-result.schema.json` | 自动合并或自动发布诉求；未关闭 P0/P1；跳过 Review；删除测试或降低断言；敏感信息、密钥、未脱敏生产数据或生产越权 |
+| `context-capture-hook` | `after_session_end`、`stop` | 已读取文件、已修改文件、搜索模式、命令摘要、发现项 | 无 | 无 | 无，纯 advisory-only |
 
 适配事件是平台适配建议，不是单一平台事实。安装器可按目标平台能力映射成 Claude、OpenCode、Cursor、Kiro 或其他 Coding Agent 平台的原生事件。
 
@@ -79,4 +82,3 @@ Hook 禁止：
 2. 修改 Hook blocking 条件时，必须同步检查对应 Gate、`CONTEXT.md` 和安装 manifest。
 3. Hook 安装必须可选，不强制进入 `core` 或 `java-insurance-core` profile。
 4. 目标平台适配文件不得反向覆盖本目录源资产语义。
-

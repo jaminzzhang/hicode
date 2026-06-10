@@ -26,11 +26,11 @@
     },
     {
       "manifest": "docs",
-      "ids": ["domain-knowledge", "prd-context", "proj-context", "coding-rules", "testing-guide", "review-rules", "release-guide", "defect-cases", "agent-prompt-integration", "agent-delegation-workflow"]
+      "ids": ["domain-knowledge", "prd-context", "proj-context", "coding-rules", "testing-guide", "review-rules", "release-guide", "defect-cases", "agent-prompt-integration", "agent-delegation-workflow", "large-codebase-agent-guide"]
     }
   ],
   "notes": [
-    "core 是完整轻量闭环，不包含示例、pilot 模板、ADR 模板和维护模板。",
+    "core 是完整轻量闭环，不包含示例、pilot 模板、ADR 模板和维护模板；大型代码库方法论随 core 安装但按 LIBRARY 口径按需读取。",
     "core 不代表审批通过、真实安装结果或生产可用承诺。"
   ]
 }
