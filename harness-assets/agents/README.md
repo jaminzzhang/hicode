@@ -64,7 +64,7 @@ description: Use when code changes need delegated review against hicode standard
 1. `name` 使用文件名同名 kebab-case。
 2. `description` 必须以 `Use when` 开头，只描述触发条件和委托场景。
 3. 不在源资产中强制 `tools`、`model`、`allowed-tools`、`hooks` 等平台专属字段。
-4. 工具权限、模型建议和 Hook 配置后续由 `harness-assets/install/` 或目标平台适配层处理。
+4. 工具权限、模型建议和 Hook 配置后续由 `harness-assets/init/` 或目标平台适配层处理。
 5. 正文必须明确权限边界和受限命令，不得让 frontmatter 替代治理规则。
 
 ## 5. Agent 模板结构

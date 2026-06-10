@@ -1,0 +1,19 @@
+{
+  "name": "hicode",
+  "version": "0.1.0",
+  "description": "hicode entry skill for insurance and financial core system Coding Agent workflows",
+  "author": {
+    "name": "hicode"
+  },
+  "license": "UNLICENSED",
+  "keywords": [
+    "hicode",
+    "insurance-core",
+    "financial-core",
+    "coding-agent",
+    "skills"
+  ],
+  "skills": [
+    "./skills/"
+  ]
+}

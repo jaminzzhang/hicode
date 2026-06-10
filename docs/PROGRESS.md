@@ -3,9 +3,9 @@
 ## 1. 当前状态
 
 最近更新时间：2026-06-10
-当前阶段：V2 回归验收
-当前工作包：无进行中工作包
-总体状态：V1 已完成；V2-P1 已完成；V2-P2 已完成；V2-P3 已完成；V2-P4 已完成；V2-P5 已完成
+当前阶段：V2 插件安装器设计
+当前工作包：V2-P6-WP1 Claude Code / OpenCode 原生 plugin 安装器
+总体状态：V1 已完成；V2-P1 已完成；V2-P2 已完成；V2-P3 已完成；V2-P4 已完成；V2-P5 已完成；V2-P6-WP1 待验收
 
 本台账用于记录 V1 工作包推进状态和后续 V2 规划状态。每次开发 Agent 开始、完成、阻塞、暂缓或提交工作包验收时，必须同步更新本文件。
 
@@ -156,9 +156,9 @@
 132. P6 试点运营支撑阶段已完成。
 133. 已根据项目负责人指令，将项目名称统一调整为 `hicode`。
 134. 已根据项目负责人指令，将目标项目运行目录统一调整为 `.hicode/`；`harness-assets/` 作为本仓库源资产目录暂不变更。
-135. 已通过 ECC 对标确认 V2 演进方向：引入 `harness-assets/agents/` 子 Agent、Agent 与 Prompt 整合、`DAILY/LIBRARY` 选择性安装、`harness-assets/install/` 和门禁 Hook 化。
+135. 已通过 ECC 对标确认 V2 演进方向：引入 `harness-assets/agents/` 子 Agent、Agent 与 Prompt 整合、`DAILY/LIBRARY` 选择性初始化、`harness-assets/init/` 和门禁 Hook 化。
 136. 已创建 `docs/adr/0001-adopt-ecc-inspired-hicode-v2-architecture.md`，记录采用 ECC 启发但不复制 ECC 全量通用体系的架构决策。
-137. 已创建 `docs/V2_IMPLEMENTATION_PLAN.md`，将 V2 拆分为子 Agent、整合规范、选择性安装、Hook 化和回归验收五个阶段，并提交项目负责人验收。
+137. 已创建 `docs/V2_IMPLEMENTATION_PLAN.md`，将 V2 拆分为子 Agent、整合规范、选择性初始化、Hook 化和回归验收五个阶段，并提交项目负责人验收。
 138. 项目负责人已确认 `V2-PLAN` 验收通过，并允许后续从 `V2-P1-WP1` 子 Agent 目录规范开始实施。
 139. 已根据项目负责人指令启动 `V2-P1-WP1` 子 Agent 目录规范，开始对照 V2 计划、`CONTEXT.md` 和 ECC Agent 结构确认目录规范。
 140. 已通过 grill-with-docs 确认 Agent frontmatter、单文件平铺结构、Prompt 防护基线、10 段式模板结构和 README 范围边界。
@@ -176,14 +176,14 @@
 152. 已通过 grill-with-docs 确认 `V2-P2-WP2` 采用轻量入口路由，不复制完整整合规范；高风险/复杂任务优先委托子 Agent，低风险任务可直接使用 Prompt/Skill；入口输出统一升级为 Agent 层建议结论，不保留通过/不通过兼容口径；路由表包含 Gate 但不包含 Schema。
 153. 已更新 `harness-assets/AGENTS.md`，增加子 Agent 委托路由、推荐 Agent 路由表、整合规范和委托 workflow 引用、统一 Agent 层建议结论，并将 `V2-P2-WP2` 提交项目负责人验收。
 154. 项目负责人已确认 `V2-P2-WP2` 验收通过，目标项目入口更新工作包完成。
-155. 已根据项目负责人继续指令启动 `V2-P3-WP1` 安装规划目录，参考 ECC `agent-sort` 和 manifests 口径确认 `DAILY/LIBRARY`、manifest/profile 和源到目标路径规划边界。
-156. 已创建 `harness-assets/install/README.md`、`harness-assets/install/manifests/` 和 `harness-assets/install/profiles/`，明确安装规划只描述源资产到目标项目路径，不代表真实安装结果，并将 `V2-P3-WP1` 提交项目负责人验收。
-157. 项目负责人已确认 `V2-P3-WP1` 验收通过，安装规划目录工作包完成。
+155. 已根据项目负责人继续指令启动 `V2-P3-WP1` 初始化规划目录，参考 ECC `agent-sort` 和 manifests 口径确认 `DAILY/LIBRARY`、manifest/profile 和源到目标路径规划边界。
+156. 已创建 `harness-assets/init/README.md`、`harness-assets/init/manifests/` 和 `harness-assets/init/profiles/`，明确初始化规划只描述源资产到目标项目路径，不代表真实初始化结果，并将 `V2-P3-WP1` 提交项目负责人验收。
+157. 项目负责人已确认 `V2-P3-WP1` 验收通过，初始化规划目录工作包完成。
 158. 已根据项目负责人指令启动 `V2-P3-WP2` manifests 与 profiles 初版，并通过 grill-with-docs 确认 manifest 范围补齐 Schema 和示例、Hook 只保留规划占位、`core` 为完整轻量闭环、`java-insurance-core` 默认加载专项审查资产、`full-library` 不改写资产加载分层。
 159. 已创建 `agents.json`、`prompts.json`、`skills.json`、`gates.json`、`hooks.json`、`schemas.json`、`docs.json`、`examples.json` 8 个 manifest 和 `core.json`、`java-insurance-core.json`、`full-library.json` 3 个 profile，并将 `V2-P3-WP2` 提交项目负责人验收。
-160. 项目负责人已确认 `V2-P3-WP2` 验收通过，V2 选择性安装规划阶段完成。
+160. 项目负责人已确认 `V2-P3-WP2` 验收通过，V2 选择性初始化规划阶段完成。
 161. 已根据项目负责人指令启动 `V2-P4-WP1` Hook 规范，并通过 grill-with-docs 确认 `hook.json` 为 hicode 自定义可安装 Hook 规划格式，目标路径为 `.hicode/hooks/hook.json`，首批只覆盖编码准入门禁 Hook 和合并门禁 Hook。
-162. 已创建 `harness-assets/hooks/README.md`、`harness-assets/hooks/_hook-template.md` 和 `harness-assets/hooks/hook.json`，并更新 `harness-assets/install/manifests/hooks.json`、V2 计划和术语上下文，将 `V2-P4-WP1` 提交项目负责人验收。
+162. 已创建 `harness-assets/hooks/README.md`、`harness-assets/hooks/_hook-template.md` 和 `harness-assets/hooks/hook.json`，并更新 `harness-assets/init/manifests/hooks.json`、V2 计划和术语上下文，将 `V2-P4-WP1` 提交项目负责人验收。
 163. 项目负责人已确认 `V2-P4-WP1` 验收通过，Hook 规范工作包完成。
 164. 已根据项目负责人指令启动 `V2-P4-WP2` 核心 Hook 示例，并通过 grill-with-docs 确认示例文件定位为可审查执行说明，分别给出 Claude 原生 `hooks` JSON 示例和 OpenCode 插件式 TypeScript 示例。
 165. 已创建 `harness-assets/hooks/coding-entry-gate-hook.md` 和 `harness-assets/hooks/merge-gate-hook.md`，覆盖 hicode 追溯关系、Claude 原生配置示例、OpenCode 插件式示例、blocking 条件、禁止动作和审计证据，并将 `V2-P4-WP2` 提交项目负责人验收。
@@ -207,8 +207,8 @@
 5. `V2-P1-WP2` 首批 8 个子 Agent 已确认验收通过。
 6. `V2-P2-WP1` Agent-Prompt-Skill-Gate 整合规范已确认验收通过。
 7. `V2-P2-WP2` 目标项目入口更新已确认验收通过。
-8. `V2-P3-WP1` 安装规划目录已确认验收通过。
-9. `V2-P3-WP2` manifests 与 profiles 初版已确认验收通过，V2-P3 选择性安装规划阶段完成。
+8. `V2-P3-WP1` 初始化规划目录已确认验收通过。
+9. `V2-P3-WP2` manifests 与 profiles 初版已确认验收通过，V2-P3 选择性初始化规划阶段完成。
 10. `V2-P4-WP1` Hook 规范已确认验收通过。
 11. `V2-P4-WP2` 核心 Hook 示例已确认验收通过，V2-P4 门禁 Hook 化设计阶段完成。
 12. `V2-P5-WP1` V2 回归样例已确认验收通过。
@@ -264,17 +264,20 @@
 | V2-P1-WP2 | 首批 8 个子 Agent | 已完成 | `harness-assets/agents/requirement-reviewer.md`、`harness-assets/agents/coding-planner.md`、`harness-assets/agents/tdd-guide.md`、`harness-assets/agents/coding-assistant.md`、`harness-assets/agents/code-reviewer.md`、`harness-assets/agents/security-reviewer.md`、`harness-assets/agents/java-reviewer.md`、`harness-assets/agents/release-reviewer.md` | V2-P1-WP1 | 项目负责人已确认验收通过 |
 | V2-P2-WP1 | Agent-Prompt-Skill-Gate 整合规范 | 已完成 | `harness-assets/docs/AGENT_PROMPT_INTEGRATION.md`、`harness-assets/docs/workflows/agent-delegation.md` | V2-P1 | 项目负责人已确认验收通过 |
 | V2-P2-WP2 | 目标项目入口更新 | 已完成 | 更新后的 `harness-assets/AGENTS.md` | V2-P2-WP1 | 项目负责人已确认验收通过 |
-| V2-P3-WP1 | 安装规划目录 | 已完成 | `harness-assets/install/README.md`、`harness-assets/install/manifests/`、`harness-assets/install/profiles/` | V2-P1、V2-P2 | 项目负责人已确认验收通过 |
-| V2-P3-WP2 | manifests 与 profiles 初版 | 已完成 | `harness-assets/install/manifests/agents.json`、`prompts.json`、`skills.json`、`gates.json`、`hooks.json`、`schemas.json`、`docs.json`、`examples.json`；`harness-assets/install/profiles/core.json`、`java-insurance-core.json`、`full-library.json` | V2-P3-WP1 | 项目负责人已确认验收通过 |
-| V2-P4-WP1 | Hook 规范 | 已完成 | `harness-assets/hooks/README.md`、`harness-assets/hooks/_hook-template.md`、`harness-assets/hooks/hook.json`、更新后的 `harness-assets/install/manifests/hooks.json` | V2-P3 | 项目负责人已确认验收通过 |
+| V2-P3-WP1 | 初始化规划目录 | 已完成 | `harness-assets/init/README.md`、`harness-assets/init/manifests/`、`harness-assets/init/profiles/` | V2-P1、V2-P2 | 项目负责人已确认验收通过 |
+| V2-P3-WP2 | manifests 与 profiles 初版 | 已完成 | `harness-assets/init/manifests/agents.json`、`prompts.json`、`skills.json`、`gates.json`、`hooks.json`、`schemas.json`、`docs.json`、`examples.json`；`harness-assets/init/profiles/core.json`、`java-insurance-core.json`、`full-library.json` | V2-P3-WP1 | 项目负责人已确认验收通过 |
+| V2-P4-WP1 | Hook 规范 | 已完成 | `harness-assets/hooks/README.md`、`harness-assets/hooks/_hook-template.md`、`harness-assets/hooks/hook.json`、更新后的 `harness-assets/init/manifests/hooks.json` | V2-P3 | 项目负责人已确认验收通过 |
 | V2-P4-WP2 | 核心 Hook 示例 | 已完成 | `harness-assets/hooks/coding-entry-gate-hook.md`、`harness-assets/hooks/merge-gate-hook.md` | V2-P4-WP1 | 项目负责人已确认验收通过 |
 | V2-P5-WP1 | V2 回归样例 | 已完成 | `harness-assets/examples/regression/agent-delegation-regression.md`、`install-profile-regression.md`、`hook-gate-regression.md`；更新后的回归 README 和 examples manifest | V2-P1 至 V2-P4 | 项目负责人已确认验收通过 |
 | V2-P5-WP2 | V2 验收检查清单 | 已完成 | `harness-assets/docs/V2_ACCEPTANCE_CHECKLIST.md`；更新后的 docs manifest | V2-P5-WP1 | 项目负责人已确认验收通过 |
+| V2-P6-WP1 | Claude Code / OpenCode 原生 plugin 安装器 | 待验收 | `harness-assets/plugins/README.md`、`install.sh`、Claude Code plugin、OpenCode plugin；目标项目初始化规划目录已调整为 `harness-assets/init/` | V2-P1 至 V2-P5 | 只安装 Coding Agent 平台 plugin，不扫描代码、不生成 `CLAUDE.md`、`AGENTS.md` 或 `.hicode/` |
 
 ## 8. 最近变更记录
 
 | 日期 | 操作者 | 变更 | 关联工作包 |
 |---|---|---|---|
+| 2026-06-10 | Codex | 创建 Claude Code / OpenCode 原生 plugin 安装器和 hicode 入口 plugin，并提交 `V2-P6-WP1` 待验收 | V2-P6-WP1 |
+| 2026-06-10 | Codex | 启动 Claude Code / OpenCode 原生 plugin 安装器设计，确认 `plugins` 与 `init` 目录边界 | V2-P6-WP1 |
 | 2026-06-10 | Codex | 根据项目负责人确认，将 `V2-P5-WP1` 和 `V2-P5-WP2` 更新为已完成 | V2-P5 |
 | 2026-06-10 | Codex | 创建 V2 验收检查清单并补充 docs manifest，提交 `V2-P5-WP2` 待验收 | V2-P5-WP2 |
 | 2026-06-10 | Codex | 创建 V2 Agent、install、Hook 三类回归样例并补充 examples manifest，提交 `V2-P5-WP1` 待验收 | V2-P5-WP1 |
@@ -288,9 +291,9 @@
 | 2026-06-10 | Codex | 根据项目负责人确认，将 `V2-P3-WP2` manifests 与 profiles 初版更新为已完成 | V2-P3-WP2 |
 | 2026-06-10 | Codex | 创建 8 个 manifest 和 3 个 profile，并提交 `V2-P3-WP2` 待验收 | V2-P3-WP2 |
 | 2026-06-10 | Codex | 根据项目负责人指令启动 `V2-P3-WP2` manifests 与 profiles 初版 | V2-P3-WP2 |
-| 2026-06-10 | Codex | 根据项目负责人确认，将 `V2-P3-WP1` 安装规划目录更新为已完成 | V2-P3-WP1 |
-| 2026-06-10 | Codex | 创建安装规划目录 README、manifests 和 profiles 占位目录，并提交 `V2-P3-WP1` 待验收 | V2-P3-WP1 |
-| 2026-06-10 | Codex | 根据项目负责人继续指令启动 `V2-P3-WP1` 安装规划目录 | V2-P3-WP1 |
+| 2026-06-10 | Codex | 根据项目负责人确认，将 `V2-P3-WP1` 初始化规划目录更新为已完成 | V2-P3-WP1 |
+| 2026-06-10 | Codex | 创建初始化规划目录 README、manifests 和 profiles 占位目录，并提交 `V2-P3-WP1` 待验收 | V2-P3-WP1 |
+| 2026-06-10 | Codex | 根据项目负责人继续指令启动 `V2-P3-WP1` 初始化规划目录 | V2-P3-WP1 |
 | 2026-06-10 | Codex | 根据项目负责人确认，将 `V2-P2-WP2` 目标项目入口更新为已完成 | V2-P2-WP2 |
 | 2026-06-10 | Codex | 更新目标项目入口模板，增加子 Agent 委托路由和统一 Agent 层建议结论，并提交 `V2-P2-WP2` 待验收 | V2-P2-WP2 |
 | 2026-06-10 | Codex | 根据项目负责人指令启动 `V2-P2-WP2` 目标项目入口更新 | V2-P2-WP2 |
@@ -304,7 +307,7 @@
 | 2026-06-10 | Codex | 创建子 Agent 目录规范和模板，覆盖 frontmatter、单文件平铺、Prompt 防护基线、10 段式模板、安全红线和 README 范围边界，并提交 `V2-P1-WP1` 待验收 | V2-P1-WP1 |
 | 2026-06-09 | Codex | 根据项目负责人确认，将 `V2-PLAN` 更新为已完成，并记录后续可从 `V2-P1-WP1` 子 Agent 目录规范开始实施 | V2-PLAN、V2-P1-WP1 |
 | 2026-06-09 | Codex | 根据项目负责人指令启动 `V2-P1-WP1`，开始确认子 Agent 目录规范 | V2-P1-WP1 |
-| 2026-06-09 | Codex | 参考本地 ECC 确认 V2 采用子 Agent、Agent-Prompt 整合、DAILY/LIBRARY 选择性安装、门禁 Hook 化和自动化红线；创建 V2 ADR 和 V2 实施计划，并提交待验收 | V2-PLAN |
+| 2026-06-09 | Codex | 参考本地 ECC 确认 V2 采用子 Agent、Agent-Prompt 整合、DAILY/LIBRARY 选择性初始化、门禁 Hook 化和自动化红线；创建 V2 ADR 和 V2 实施计划，并提交待验收 | V2-PLAN |
 | 2026-06-03 | Codex | 创建 `AGENTS.md`，初始化 git，移动需求文档到 `docs/`，补充中文为主的语言规则 | P1-WP1 |
 | 2026-06-03 | Codex | 通过 grill-with-docs 确认 V1 实施计划文档、进度台账、工作包粒度、范围、顺序、编号和状态规则 | P1-WP1、P1-WP2、P1-WP3 |
 | 2026-06-03 | Codex | 创建 `CONTEXT.md`、`docs/V1_IMPLEMENTATION_PLAN.md`、`docs/PROGRESS.md` | P1-WP1、P1-WP2、P1-WP3 |

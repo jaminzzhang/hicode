@@ -1,7 +1,7 @@
 {
   "schema_version": "hicode.install-manifest.v1",
   "asset_type": "example",
-  "description": "hicode 脱敏示例和回归样例到目标项目 .hicode/examples/ 的安装规划。",
+  "description": "hicode 脱敏示例和回归样例到目标项目 .hicode/examples/ 的初始化规划。",
   "items": [
     {
       "id": "requirement-review-example",
@@ -150,7 +150,7 @@
       "load_tier": "LIBRARY",
       "scenarios": ["asset-regression", "install-profile", "daily-library"],
       "requires": ["docs:agent-prompt-integration"],
-      "description": "V2 选择性安装 profile 回归样例。",
+      "description": "V2 选择性初始化 profile 回归样例。",
       "risk_tags": ["example", "regression", "install"]
     },
     {

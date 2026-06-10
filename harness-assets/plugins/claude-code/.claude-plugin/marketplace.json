@@ -1,0 +1,22 @@
+{
+  "name": "hicode",
+  "owner": {
+    "name": "hicode"
+  },
+  "metadata": {
+    "description": "Local hicode plugin marketplace for Claude Code",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "hicode",
+      "description": "hicode entry skill for insurance and financial core system Coding Agent workflows",
+      "source": "./",
+      "version": "0.1.0",
+      "strict": false,
+      "skills": [
+        "./skills/hicode"
+      ]
+    }
+  ]
+}

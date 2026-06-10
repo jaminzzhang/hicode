@@ -1,7 +1,7 @@
 {
   "schema_version": "hicode.install-manifest.v1",
   "asset_type": "agent",
-  "description": "hicode 子 Agent 源资产到目标项目 .hicode/agents/ 的安装规划。",
+  "description": "hicode 子 Agent 源资产到目标项目 .hicode/agents/ 的初始化规划。",
   "items": [
     {
       "id": "agents-readme",

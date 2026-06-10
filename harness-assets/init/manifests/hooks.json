@@ -2,7 +2,7 @@
   "schema_version": "hicode.install-manifest.v1",
   "asset_type": "hook",
   "status": "active",
-  "description": "hicode 门禁 Hook 源资产到目标项目 .hicode/hooks/ 的安装规划。",
+  "description": "hicode 门禁 Hook 源资产到目标项目 .hicode/hooks/ 的初始化规划。",
   "items": [
     {
       "id": "coding-entry-gate-hook",
@@ -37,7 +37,7 @@
     }
   ],
   "notes": [
-    "Hook 安装由用户在安装 hicode 资产时选择，不强制进入 core 或 java-insurance-core profile。",
+    "Hook 安装由用户在初始化 hicode 资产时选择，不强制进入 core 或 java-insurance-core profile。",
     "hook.json 是 hicode 自定义可安装 Hook 规划格式，不等同于任一平台原生配置。",
     "平台适配层可将 .hicode/hooks/hook.json 转换为 Claude、OpenCode、Cursor、Kiro 或其他平台的原生 Hook 配置。"
   ]

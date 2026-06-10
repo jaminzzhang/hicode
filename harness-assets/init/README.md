@@ -1,10 +1,10 @@
-# 安装规划目录
+# 初始化规划目录
 
 ## 1. 定位
 
-`harness-assets/install/` 用于维护 hicode 源资产到目标项目的选择性安装和加载规划。
+`harness-assets/init/` 用于维护 hicode 源资产到目标项目的选择性初始化和加载规划。
 
-该目录只描述规划，不代表真实安装结果，不执行安装动作，也不保存目标项目运行副本。
+该目录只描述规划，不代表真实初始化结果，不执行初始化动作，也不保存目标项目运行副本。
 
 目标项目的运行目录是 `.hicode/`。本仓库只维护 `harness-assets/` 下的可见源资产目录，不维护 `harness-assets/.hicode/`。
 
@@ -13,7 +13,7 @@
 V2-P3-WP1 只建立目录规范和空目录：
 
 ```text
-harness-assets/install/
+harness-assets/init/
 ├── README.md
 ├── manifests/
 │   └── .gitkeep
@@ -21,11 +21,11 @@ harness-assets/install/
     └── .gitkeep
 ```
 
-后续 V2-P3-WP2 再创建具体 JSON 清单和安装 profile。
+后续 V2-P3-WP2 再创建具体 JSON 清单和初始化 profile。
 
 ## 3. DAILY 与 LIBRARY
 
-`DAILY` 与 `LIBRARY` 是目标项目安装 hicode 资产后的加载分层，用于降低上下文噪音和误触发风险。
+`DAILY` 与 `LIBRARY` 是目标项目初始化 hicode 资产后的加载分层，用于降低上下文噪音和误触发风险。
 
 | 分层 | 含义 | 适用资产 | 使用边界 |
 |---|---|---|---|
@@ -38,7 +38,7 @@ harness-assets/install/
 
 `manifest` 是资产清单，描述某一类源资产如何映射到目标项目路径，以及建议加载分层。它不是安装日志，不表示文件已经被安装。
 
-`profile` 是安装组合，引用多个 manifest 条目，表达某类目标项目应选择哪些资产。
+`profile` 是初始化组合，引用多个 manifest 条目，表达某类目标项目应选择哪些资产。
 
 计划中的 manifest 文件包括：
 
@@ -51,7 +51,7 @@ harness-assets/install/
 7. `manifests/docs.json`
 8. `manifests/examples.json`
 
-`manifests/hooks.json` 描述 `harness-assets/hooks/hook.json` 中的可安装 Hook 条目。Hook 安装由用户在安装 hicode 资产时选择，不强制进入 `core` 或 `java-insurance-core` profile。
+`manifests/hooks.json` 描述 `harness-assets/hooks/hook.json` 中的可初始化 Hook 条目。Hook 初始化由用户在初始化 hicode 资产时选择，不强制进入 `core` 或 `java-insurance-core` profile。
 
 计划中的 profile 文件包括：
 
@@ -99,7 +99,7 @@ V2-P3-WP2 创建具体 manifest 时，每条资产记录至少应包含：
 
 ## 7. 安全与自动化边界
 
-安装规划必须遵守以下边界：
+初始化规划必须遵守以下边界：
 
 1. 不读取、记录或输出生产账号、密码、Token、Cookie、Session、连接串、生产 IP 或内部密钥。
 2. 不读取 `.env`、密钥文件、生产配置文件或生产凭证。
@@ -108,7 +108,7 @@ V2-P3-WP2 创建具体 manifest 时，每条资产记录至少应包含：
 5. 不直接操作生产环境。
 6. 不自动合并 MR / PR。
 7. 不自动发布、自动回滚或修改生产配置。
-8. 不把 manifest/profile 写成审批结果或真实安装证明。
+8. 不把 manifest/profile 写成审批结果或真实初始化证明。
 
 ## 8. 与 ECC 的参考关系
 
@@ -118,13 +118,13 @@ hicode 只吸收 ECC 中适合本项目的思路：
 2. 用 manifest 描述资产到目标路径的规划。
 3. 用 profile 组合目标项目需要的资产集合。
 
-hicode 不复制 ECC 的全量通用组件、安装脚本、自动发布能力或生产操作能力。保险/金融核心系统风险标准始终优先。
+hicode 不复制 ECC 的全量通用组件、自动发布能力或生产操作能力。保险/金融核心系统风险标准始终优先。
 
 ## 9. 本工作包验收口径
 
 V2-P3-WP1 只在以下条件满足时视为可提交验收：
 
-1. `harness-assets/install/README.md` 已说明目录定位、`DAILY/LIBRARY`、manifest/profile 和路径规划边界。
-2. `harness-assets/install/manifests/` 已存在，但不包含具体 JSON 清单。
-3. `harness-assets/install/profiles/` 已存在，但不包含具体 profile JSON。
+1. `harness-assets/init/README.md` 已说明目录定位、`DAILY/LIBRARY`、manifest/profile 和路径规划边界。
+2. `harness-assets/init/manifests/` 已存在，但不包含具体 JSON 清单。
+3. `harness-assets/init/profiles/` 已存在，但不包含具体 profile JSON。
 4. 本仓库未创建 `harness-assets/.hicode/`。
