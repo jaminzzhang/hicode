@@ -22,7 +22,7 @@ V2 验收不包含：
 | Agent 源目录存在 | 目录、README 和模板齐备 | `harness-assets/agents/` | 待验收 |
 | init 源目录存在 | README、manifests、profiles 齐备 | `harness-assets/init/` | 待验收 |
 | Hook 源目录存在 | README、模板、`hook.json` 和核心 Hook 示例齐备 | `harness-assets/hooks/` | 待验收 |
-| Plugin 源目录存在 | Claude Code / OpenCode plugin 源资产和安装器齐备 | `harness-assets/plugins/` | 待验收 |
+| Plugin 源目录存在 | Claude Code plugin 源资产和安装器齐备 | `harness-assets/plugins/` | 待验收 |
 | V2 回归样例存在 | Agent、init、Hook 三类回归样例齐备 | `harness-assets/examples/regression/` | 待验收 |
 
 ## 3. 子 Agent 验收
@@ -71,11 +71,11 @@ V2 验收不包含：
 
 | 检查项 | 期望结果 | 证据路径 | 状态 |
 |---|---|---|---|
-| 安装器参数齐备 | 支持 `--dry-run`、`--yes`、`--all`、`--claude-code`、`--opencode` | `harness-assets/plugins/install.sh` | 待验收 |
-| Claude Code 原生格式有效 | marketplace 和 plugin manifest 可通过 Claude Code validate | `harness-assets/plugins/claude-code/.claude-plugin/` | 待验收 |
-| OpenCode plugin 可加载 | 提供 `@opencode-ai/plugin` 格式的 `hicode` 工具入口 | `harness-assets/plugins/opencode/hicode.ts` | 待验收 |
+| 安装器参数齐备 | 支持 `--dry-run`、`--yes`、`--claude-code` | `harness-assets/plugins/install.sh` | 待验收 |
+| Claude Code 原生格式有效 | marketplace 和 plugin manifest 可通过 Claude Code validate | `harness-assets/plugins/.claude-plugin/` | 待验收 |
+| 能力 Skill 齐备 | 提供 `hicode`、`scope`、`tdd`、`review`、`release` 五个 Skill | `harness-assets/plugins/skills/` | 待验收 |
 | 只安装平台 plugin | 不扫描代码、不生成 `CLAUDE.md`、`AGENTS.md` 或 `.hicode/` | `harness-assets/plugins/README.md`、`install.sh` | 待验收 |
-| 用户级安装可审计 | OpenCode 复制到用户级 plugins 目录且不修改 `opencode.json`；Claude Code 使用本地 marketplace | `harness-assets/plugins/install.sh` | 待验收 |
+| 用户级安装可审计 | Claude Code 使用本地 marketplace；安装器不修改业务仓库 | `harness-assets/plugins/install.sh` | 待验收 |
 
 ## 8. 回归样例验收
 

@@ -4,7 +4,7 @@
 
 最近更新时间：2026-06-10
 当前阶段：V2 插件安装器设计
-当前工作包：V2-P6-WP1 Claude Code / OpenCode 原生 plugin 安装器
+当前工作包：V2-P6-WP1 Claude Code 原生 plugin 安装器
 总体状态：V1 已完成；V2-P1 已完成；V2-P2 已完成；V2-P3 已完成；V2-P4 已完成；V2-P5 已完成；V2-P6-WP1 待验收
 
 本台账用于记录 V1 工作包推进状态和后续 V2 规划状态。每次开发 Agent 开始、完成、阻塞、暂缓或提交工作包验收时，必须同步更新本文件。
@@ -270,12 +270,13 @@
 | V2-P4-WP2 | 核心 Hook 示例 | 已完成 | `harness-assets/hooks/coding-entry-gate-hook.md`、`harness-assets/hooks/merge-gate-hook.md` | V2-P4-WP1 | 项目负责人已确认验收通过 |
 | V2-P5-WP1 | V2 回归样例 | 已完成 | `harness-assets/examples/regression/agent-delegation-regression.md`、`install-profile-regression.md`、`hook-gate-regression.md`；更新后的回归 README 和 examples manifest | V2-P1 至 V2-P4 | 项目负责人已确认验收通过 |
 | V2-P5-WP2 | V2 验收检查清单 | 已完成 | `harness-assets/docs/V2_ACCEPTANCE_CHECKLIST.md`；更新后的 docs manifest | V2-P5-WP1 | 项目负责人已确认验收通过 |
-| V2-P6-WP1 | Claude Code / OpenCode 原生 plugin 安装器 | 待验收 | `harness-assets/plugins/README.md`、`install.sh`、Claude Code plugin、OpenCode plugin；目标项目初始化规划目录已调整为 `harness-assets/init/` | V2-P1 至 V2-P5 | 只安装 Coding Agent 平台 plugin，不扫描代码、不生成 `CLAUDE.md`、`AGENTS.md` 或 `.hicode/` |
+| V2-P6-WP1 | Claude Code 原生 plugin 安装器 | 待验收 | `harness-assets/plugins/README.md`、`install.sh`、Claude Code plugin root、`hicode/scope/tdd/review/release` Skills、`references/`；目标项目初始化规划目录已调整为 `harness-assets/init/` | V2-P1 至 V2-P5 | 只安装 Claude Code plugin，不扫描代码、不生成 `CLAUDE.md`、`AGENTS.md` 或 `.hicode/` |
 
 ## 8. 最近变更记录
 
 | 日期 | 操作者 | 变更 | 关联工作包 |
 |---|---|---|---|
+| 2026-06-10 | Codex | 根据项目负责人确认，将 `harness-assets/plugins/` 调整为 Claude Code plugin root，移除 OpenCode 第一版适配，并新增 `scope`、`tdd`、`review`、`release` 能力 Skill | V2-P6-WP1 |
 | 2026-06-10 | Codex | 创建 Claude Code / OpenCode 原生 plugin 安装器和 hicode 入口 plugin，并提交 `V2-P6-WP1` 待验收 | V2-P6-WP1 |
 | 2026-06-10 | Codex | 启动 Claude Code / OpenCode 原生 plugin 安装器设计，确认 `plugins` 与 `init` 目录边界 | V2-P6-WP1 |
 | 2026-06-10 | Codex | 根据项目负责人确认，将 `V2-P5-WP1` 和 `V2-P5-WP2` 更新为已完成 | V2-P5 |

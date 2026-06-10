@@ -1,0 +1,408 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "review-result.schema.json",
+  "title": "V1 Review 与提交检查结果 Schema",
+  "description": "约束代码审查和提交前检查的结构化输出；不覆盖全量 Skill 报告协议。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "report_type",
+    "generated_at",
+    "report_status",
+    "subject",
+    "conclusion",
+    "highest_risk_level",
+    "scope",
+    "sources",
+    "issues",
+    "blocking_recommendations",
+    "risk_notes",
+    "pending_questions",
+    "recommended_actions",
+    "audit_evidence",
+    "command_records",
+    "human_confirmations",
+    "context_update_suggestions",
+    "extensions"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+      "description": "Schema 版本，V1 建议使用 1.0.0。"
+    },
+    "report_type": {
+      "type": "string",
+      "enum": [
+        "CODE_REVIEW",
+        "PRE_COMMIT_CHECK"
+      ]
+    },
+    "generated_at": {
+      "type": "string",
+      "description": "报告生成时间；建议使用 ISO 8601。"
+    },
+    "report_status": {
+      "$ref": "#/$defs/reportStatusCode"
+    },
+    "subject": {
+      "$ref": "#/$defs/reviewSubject"
+    },
+    "conclusion": {
+      "$ref": "#/$defs/conclusion"
+    },
+    "highest_risk_level": {
+      "$ref": "risk-level.schema.json#/$defs/riskLevelCode"
+    },
+    "scope": {
+      "$ref": "#/$defs/reviewScope"
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "$ref": "risk-level.schema.json#/$defs/sourceReference"
+      }
+    },
+    "issues": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/reviewIssue"
+      }
+    },
+    "blocking_recommendations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/blockingRecommendation"
+      }
+    },
+    "risk_notes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/riskNote"
+      }
+    },
+    "pending_questions": {
+      "type": "array",
+      "items": {
+        "$ref": "risk-level.schema.json#/$defs/pendingQuestion"
+      }
+    },
+    "recommended_actions": {
+      "type": "array",
+      "items": {
+        "$ref": "risk-level.schema.json#/$defs/recommendedAction"
+      }
+    },
+    "audit_evidence": {
+      "type": "array",
+      "items": {
+        "$ref": "risk-level.schema.json#/$defs/auditEvidence"
+      }
+    },
+    "command_records": {
+      "type": "array",
+      "items": {
+        "$ref": "risk-level.schema.json#/$defs/commandRecord"
+      }
+    },
+    "human_confirmations": {
+      "type": "array",
+      "items": {
+        "$ref": "risk-level.schema.json#/$defs/humanConfirmation"
+      }
+    },
+    "context_update_suggestions": {
+      "type": "array",
+      "items": {
+        "$ref": "risk-level.schema.json#/$defs/contextUpdateSuggestion"
+      }
+    },
+    "extensions": {
+      "$ref": "risk-level.schema.json#/$defs/extensionObject"
+    }
+  },
+  "$defs": {
+    "reportStatusCode": {
+      "type": "string",
+      "enum": [
+        "DRAFT",
+        "PENDING_CONFIRMATION",
+        "ARCHIVED"
+      ]
+    },
+    "conclusion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "native_label",
+        "summary",
+        "suggested_next_stage"
+      ],
+      "properties": {
+        "code": {
+          "$ref": "risk-level.schema.json#/$defs/conclusionCode"
+        },
+        "native_label": {
+          "type": "string",
+          "minLength": 1,
+          "description": "原始中文结论，例如通过、不建议提交、建议提交或待确认。"
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "suggested_next_stage": {
+          "type": "string",
+          "minLength": 1,
+          "description": "是否建议进入提交检查、提交、提测或其他下一节点。"
+        }
+      }
+    },
+    "reviewSubject": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title",
+        "target_type",
+        "target_reference"
+      ],
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "target_type": {
+          "type": "string",
+          "enum": [
+            "DIFF",
+            "BRANCH",
+            "COMMIT_RANGE",
+            "MR",
+            "PR",
+            "WORKSPACE",
+            "OTHER"
+          ]
+        },
+        "target_reference": {
+          "type": "string",
+          "minLength": 1
+        },
+        "requirement_reference": {
+          "type": "string"
+        },
+        "repository": {
+          "type": "string"
+        }
+      }
+    },
+    "reviewScope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scope_type",
+        "description",
+        "completeness"
+      ],
+      "properties": {
+        "scope_type": {
+          "type": "string",
+          "enum": [
+            "FIXED_BASELINE",
+            "BASE_HEAD",
+            "MR_PR_DIFF",
+            "PATCH",
+            "WORKSPACE_DIFF",
+            "PARTIAL",
+            "UNKNOWN"
+          ]
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "completeness": {
+          "type": "string",
+          "enum": [
+            "COMPLETE",
+            "DEGRADED",
+            "INCOMPLETE",
+            "PENDING"
+          ]
+        },
+        "base_ref": {
+          "type": "string"
+        },
+        "head_ref": {
+          "type": "string"
+        },
+        "diff_command": {
+          "type": "string"
+        },
+        "diff_stat_command": {
+          "type": "string"
+        },
+        "commit_list_command": {
+          "type": "string"
+        }
+      }
+    },
+    "reviewIssue": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "risk_level",
+        "axis",
+        "location",
+        "finding",
+        "impact",
+        "basis",
+        "recommended_action",
+        "status",
+        "confirmation_status"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "risk_level": {
+          "$ref": "risk-level.schema.json#/$defs/riskLevelCode"
+        },
+        "axis": {
+          "type": "string",
+          "enum": [
+            "NORMATIVE",
+            "REQUIREMENT",
+            "SUBMISSION",
+            "SECURITY",
+            "TEST",
+            "RELEASE",
+            "OTHER"
+          ]
+        },
+        "location": {
+          "type": "string",
+          "minLength": 1,
+          "description": "文件、位置、检查项或报告章节；不适用时写明不适用。"
+        },
+        "finding": {
+          "type": "string",
+          "minLength": 1
+        },
+        "impact": {
+          "type": "string",
+          "minLength": 1
+        },
+        "basis": {
+          "type": "string",
+          "minLength": 1
+        },
+        "recommended_action": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "OPEN",
+            "RESOLVED",
+            "ACCEPTED",
+            "NOT_APPLICABLE",
+            "PENDING"
+          ]
+        },
+        "suggested_owner": {
+          "type": "string"
+        },
+        "confirmation_status": {
+          "$ref": "risk-level.schema.json#/$defs/confirmationStatusCode"
+        }
+      }
+    },
+    "blockingRecommendation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "problem",
+        "risk_level",
+        "blocking_reason",
+        "release_condition",
+        "suggested_owner",
+        "confirmation_status"
+      ],
+      "properties": {
+        "issue_id": {
+          "type": "string"
+        },
+        "problem": {
+          "type": "string",
+          "minLength": 1
+        },
+        "risk_level": {
+          "$ref": "risk-level.schema.json#/$defs/riskLevelCode"
+        },
+        "blocking_reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "release_condition": {
+          "type": "string",
+          "minLength": 1
+        },
+        "suggested_owner": {
+          "type": "string",
+          "minLength": 1
+        },
+        "confirmation_status": {
+          "$ref": "risk-level.schema.json#/$defs/confirmationStatusCode"
+        }
+      }
+    },
+    "riskNote": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "risk",
+        "risk_level",
+        "impact",
+        "recommended_action",
+        "requires_human_acceptance",
+        "confirmation_status"
+      ],
+      "properties": {
+        "risk": {
+          "type": "string",
+          "minLength": 1
+        },
+        "risk_level": {
+          "$ref": "risk-level.schema.json#/$defs/riskLevelCode"
+        },
+        "impact": {
+          "type": "string",
+          "minLength": 1
+        },
+        "recommended_action": {
+          "type": "string",
+          "minLength": 1
+        },
+        "requires_human_acceptance": {
+          "type": "boolean"
+        },
+        "suggested_owner": {
+          "type": "string"
+        },
+        "confirmation_status": {
+          "$ref": "risk-level.schema.json#/$defs/confirmationStatusCode"
+        }
+      }
+    }
+  }
+}
