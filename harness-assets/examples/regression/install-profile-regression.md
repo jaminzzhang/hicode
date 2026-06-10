@@ -1,10 +1,10 @@
 # 安装 Profile 回归样例
 
-> 本样例为 V2 选择性安装规划的脱敏人工回归场景集，不是真实安装日志，不代表任何目标项目已经安装成功。
+> 本样例为 V2 选择性初始化规划的脱敏人工回归场景集，不是真实安装日志，不代表任何目标项目已经安装成功。
 
 ## 1. 文件定位
 
-本文件用于验证 `harness-assets/install/` 中的 manifest/profile 是否保持 `DAILY/LIBRARY` 分层、完整轻量闭环和 Hook 可选安装边界。
+本文件用于验证 `harness-assets/init/` 中的 manifest/profile 是否保持 `DAILY/LIBRARY` 分层、完整轻量闭环和 Hook 可选安装边界。
 
 每个场景只做 Markdown 人工核对，不执行真实安装命令，不生成目标项目 `.hicode/` 运行目录。
 
@@ -18,8 +18,8 @@
 
 | 类型 | 路径 |
 |---|---|
-| Profile | `harness-assets/install/profiles/core.json` |
-| Manifest | `harness-assets/install/manifests/agents.json`、`prompts.json`、`skills.json`、`gates.json`、`schemas.json`、`docs.json` |
+| Profile | `harness-assets/init/profiles/core.json` |
+| Manifest | `harness-assets/init/manifests/agents.json`、`prompts.json`、`skills.json`、`gates.json`、`schemas.json`、`docs.json` |
 | 入口 | `harness-assets/AGENTS.md` |
 
 ### 脱敏输入
@@ -48,7 +48,7 @@
 1. 将 `core` 缩减为只有入口文件。
 2. 漏掉核心 Gate 或 Schema。
 3. 把 `core` 解释成全量资产库。
-4. 把 profile 选择写成真实安装证明。
+4. 把 profile 选择写成真实初始化证明。
 
 ### 禁止事项
 
@@ -66,8 +66,8 @@
 
 | 类型 | 路径 |
 |---|---|
-| Profile | `harness-assets/install/profiles/java-insurance-core.json` |
-| Manifest | `harness-assets/install/manifests/agents.json`、`docs.json` |
+| Profile | `harness-assets/init/profiles/java-insurance-core.json` |
+| Manifest | `harness-assets/init/manifests/agents.json`、`docs.json` |
 | 专项 Agent | `harness-assets/agents/java-reviewer.md`、`security-reviewer.md` |
 | 专项规则 | `harness-assets/docs/review-rules/java.md`、`sql.md`、`security.md`、`insurance-domain.md` |
 
@@ -115,9 +115,9 @@
 
 | 类型 | 路径 |
 |---|---|
-| Profile | `harness-assets/install/profiles/full-library.json` |
-| Manifest | `harness-assets/install/manifests/*.json` |
-| 术语 | `CONTEXT.md` 中 `DAILY/LIBRARY 选择性安装`、`hicode profile` |
+| Profile | `harness-assets/init/profiles/full-library.json` |
+| Manifest | `harness-assets/init/manifests/*.json` |
+| 术语 | `CONTEXT.md` 中 `DAILY/LIBRARY 选择性初始化`、`hicode profile` |
 
 ### 脱敏输入
 
@@ -163,9 +163,9 @@
 
 | 类型 | 路径 |
 |---|---|
-| Manifest | `harness-assets/install/manifests/agents.json`、`prompts.json`、`skills.json`、`gates.json`、`docs.json`、`examples.json` |
-| 安装说明 | `harness-assets/install/README.md` |
-| 术语 | `CONTEXT.md` 中 `DAILY/LIBRARY 选择性安装` |
+| Manifest | `harness-assets/init/manifests/agents.json`、`prompts.json`、`skills.json`、`gates.json`、`docs.json`、`examples.json` |
+| 安装说明 | `harness-assets/init/README.md` |
+| 术语 | `CONTEXT.md` 中 `DAILY/LIBRARY 选择性初始化` |
 
 ### 脱敏输入
 
@@ -205,15 +205,15 @@
 
 ### 回归目标
 
-验证 Hook 资产进入安装规划后，仍保持可选安装和可审查启用，不被 `core` 或 `java-insurance-core` 强制默认启用。
+验证 Hook 资产进入初始化规划后，仍保持可选安装和可审查启用，不被 `core` 或 `java-insurance-core` 强制默认启用。
 
 ### 适用资产
 
 | 类型 | 路径 |
 |---|---|
-| Hook Manifest | `harness-assets/install/manifests/hooks.json` |
+| Hook Manifest | `harness-assets/init/manifests/hooks.json` |
 | Hook 规范 | `harness-assets/hooks/README.md`、`harness-assets/hooks/hook.json` |
-| Profile | `harness-assets/install/profiles/core.json`、`java-insurance-core.json`、`full-library.json` |
+| Profile | `harness-assets/init/profiles/core.json`、`java-insurance-core.json`、`full-library.json` |
 
 ### 脱敏输入
 
@@ -221,14 +221,14 @@
 
 ### 执行步骤
 
-1. 检查 `hooks.json` 中 Hook 的安装规划。
+1. 检查 `hooks.json` 中 Hook 的初始化规划。
 2. 检查 `core` 和 `java-insurance-core` 是否强制选择 Hook。
 3. 检查 Hook 模式是否默认 advisory。
 4. 检查 `full-library` 是否只是完整保留。
 
 ### 期望输出要点
 
-1. Hook 可被安装规划识别，但不强制所有 profile 默认启用。
+1. Hook 可被初始化规划识别，但不强制所有 profile 默认启用。
 2. 默认模式仍为 advisory。
 3. blocking 只用于安全红线、生产越权和流程绕行。
 4. 启用 Hook 需要目标项目确认和平台适配。

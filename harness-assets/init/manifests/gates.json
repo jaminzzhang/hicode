@@ -1,7 +1,7 @@
 {
   "schema_version": "hicode.install-manifest.v1",
   "asset_type": "gate",
-  "description": "hicode 门禁源资产到目标项目 .hicode/gates/ 的安装规划。",
+  "description": "hicode 门禁源资产到目标项目 .hicode/gates/ 的初始化规划。",
   "items": [
     {
       "id": "gates-readme",

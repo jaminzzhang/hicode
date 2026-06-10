@@ -6,7 +6,7 @@
 
 本规范服务 V2 子 Agent 委托闭环，适用于目标项目安装 `.hicode/agents/`、`.hicode/prompts/`、`.hicode/skills/`、`.hicode/gates/` 和 `.hicode/schemas/` 后的研发辅助流程。
 
-本规范不更新 `harness-assets/AGENTS.md`，不创建安装清单，不设计 Hook，不新增 Prompt、Skill、门禁或 Schema。
+本规范不更新 `harness-assets/AGENTS.md`，不创建初始化清单，不设计 Hook，不新增 Prompt、Skill、门禁或 Schema。
 
 ## 2. 分层职责
 
@@ -154,5 +154,5 @@ Agent 不得绕过门禁或人工确认。
 3. 修改门禁建议结论时，必须同步检查 Agent 层建议结论转换。
 4. 修改安全红线、生产操作边界或自动化边界时，必须同步检查所有 Agent、Prompt、Skill、Gate 和 workflow。
 5. 大型代码库导航、局部命令、排除路径、LSP/MCP 和治理 Owner 变化时，应同步检查 `docs/PROJ_CONTEXT.md`、`docs/LARGE_CODEBASE_AGENT_GUIDE.md` 和目标项目入口。
-6. 真实目标项目安装差异由后续 `harness-assets/install/` manifest/profile 描述，不在本文件维护。
+6. 真实目标项目安装差异由后续 `harness-assets/init/` manifest/profile 描述，不在本文件维护。
 7. `context-capture-hook`（上下文捕获 Hook）在 Agent 会话结束时提出上下文更新建议，属于纯 advisory 模式，不自动写入任何长期上下文文件。建议归档后由 hicode Owner 人工确认归并。

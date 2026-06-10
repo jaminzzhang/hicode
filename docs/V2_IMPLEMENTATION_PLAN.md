@@ -2,7 +2,7 @@
 
 ## 1. 计划定位
 
-本计划记录 hicode 在 V1 已完成基线之上的 V2 演进方向。V2 参考 ECC 的整体设计，但不复制 ECC 全量通用 Agent、Skill、Hook 和安装体系，而是吸收其中适合保险/金融核心系统研发的子 Agent 委托、选择性安装、门禁 Hook 化和资产健康检查思路。
+本计划记录 hicode 在 V1 已完成基线之上的 V2 演进方向。V2 参考 ECC 的整体设计，但不复制 ECC 全量通用 Agent、Skill、Hook 和安装体系，而是吸收其中适合保险/金融核心系统研发的子 Agent 委托、选择性初始化、门禁 Hook 化和资产健康检查思路。
 
 V2 不回改 V1 已完成工作包状态。V1 的 Prompt、Skill、门禁、Schema、示例和试点运营支撑资产作为已完成基线继续保留；V2 在此基础上新增源资产、整合规范和验收口径。
 
@@ -16,7 +16,7 @@ V2 重点解决：
 2. 如何让 Agent 与现有 Prompt、Skill、门禁和 Schema 整合，不维护重复规则。
 3. 如何用 `DAILY/LIBRARY` 分层降低目标项目默认上下文噪音。
 4. 如何把已稳定门禁转为 Hook 触发，同时保持建议性质和自动化红线。
-5. 如何验证新增 Agent、安装清单和 Hook 设计不会破坏 V1 资产闭环。
+5. 如何验证新增 Agent、初始化清单和 Hook 设计不会破坏 V1 资产闭环。
 
 ## 3. 范围边界
 
@@ -24,7 +24,7 @@ V2 重点解决：
 
 1. `harness-assets/agents/` 子 Agent 源资产。
 2. Agent 与 Prompt、Skill、门禁、Schema 的整合规范。
-3. `harness-assets/install/` 选择性安装和加载规划资产。
+3. `harness-assets/init/` 选择性初始化和加载规划资产。
 4. 门禁 Hook 化设计资产和示例 Hook 配置。
 5. V2 回归样例、验收清单和资产健康检查建议。
 6. 与 V2 新术语相关的 `CONTEXT.md` 和 ADR 更新。
@@ -45,10 +45,10 @@ V2 必须遵守已确认的设计基线：
 2. Agent 是可委托角色入口；Prompt 仍是详细规则源。
 3. Agent 可以引用 Prompt、Skill、门禁、Schema 和输出模板，但不得复制 Prompt 全文或维护第二套场景规则。
 4. 首批子 Agent 只覆盖 8 个角色：`requirement-reviewer`、`coding-planner`、`tdd-guide`、`coding-assistant`、`code-reviewer`、`security-reviewer`、`java-reviewer` 和 `release-reviewer`。
-5. 选择性安装规划目录为 `harness-assets/install/`。
+5. 选择性初始化规划目录为 `harness-assets/init/`。
 6. 资产加载分层使用 `DAILY` 和 `LIBRARY`。
 7. 门禁 Hook 化默认采用 `advisory` 提醒型；只有安全红线、生产越权和流程绕行问题允许 `blocking` 阻断型。
-8. 无论是否引入 Agent、安装清单或 Hook，都不得自动发布、自动合并、自动回滚或操作生产环境。
+8. 无论是否引入 Agent、初始化清单或 Hook，都不得自动发布、自动合并、自动回滚或操作生产环境。
 
 ## 5. 阶段总览
 
@@ -56,9 +56,10 @@ V2 必须遵守已确认的设计基线：
 |---|---|---|---|
 | V2-P1 | 子 Agent 基础资产 | 建立 `harness-assets/agents/` 和首批 8 个子 Agent | Agent 目录规范、8 个 Agent 文件、Agent 输出口径 |
 | V2-P2 | Agent-Prompt-Skill-Gate 整合 | 定义 Agent 如何引用 Prompt、Skill、门禁和 Schema | 整合规范、目标项目入口更新、映射表 |
-| V2-P3 | 选择性安装规划 | 建立 `harness-assets/install/`、manifest 和 profile | install README、manifests、profiles |
+| V2-P3 | 选择性初始化规划 | 建立 `harness-assets/init/`、manifest 和 profile | init README、manifests、profiles |
 | V2-P4 | 门禁 Hook 化设计 | 将稳定门禁映射为 advisory/blocking Hook 设计 | Hook 规范、Hook 示例、权限边界 |
 | V2-P5 | V2 回归与验收 | 验证新增资产与 V1 闭环一致 | 回归样例、健康检查建议、V2 验收清单 |
+| V2-P6 | Coding Agent Plugin 安装器 | 为 Claude Code / OpenCode 提供用户级 hicode 入口 plugin 安装器 | `harness-assets/plugins/`、`install.sh`、平台原生 plugin 入口 |
 
 ## 6. V2-P1 子 Agent 基础资产
 
@@ -167,35 +168,35 @@ V2 必须遵守已确认的设计基线：
 2. 对 8 个核心场景给出 Agent、Prompt、Skill、Gate 和 Schema 映射。
 3. 保持金融核心系统风险标准和自动化红线。
 
-## 8. V2-P3 选择性安装规划
+## 8. V2-P3 选择性初始化规划
 
-### V2-P3-WP1 安装规划目录
+### V2-P3-WP1 初始化规划目录
 
-目标：建立 `harness-assets/install/` 的目录规范和 manifest/profile 结构。
+目标：建立 `harness-assets/init/` 的目录规范和 manifest/profile 结构。
 
 输入：
 
 1. `CONTEXT.md`
 2. ECC `skills/agent-sort/SKILL.md`
-3. ECC `manifests/` 和安装规划参考
+3. ECC `manifests/` 和初始化规划参考
 
 输出：
 
-1. `harness-assets/install/README.md`
-2. `harness-assets/install/manifests/`
-3. `harness-assets/install/profiles/`
+1. `harness-assets/init/README.md`
+2. `harness-assets/init/manifests/`
+3. `harness-assets/init/profiles/`
 
 依赖：V2-P1、V2-P2。
 
 验收标准：
 
 1. 明确 `DAILY` 与 `LIBRARY` 的含义和使用边界。
-2. 明确 manifest 只描述源资产到目标项目路径的规划，不代表真实安装结果。
+2. 明确 manifest 只描述源资产到目标项目路径的规划，不代表真实初始化结果。
 3. 明确不在本仓库维护 `harness-assets/.hicode/`。
 
 ### V2-P3-WP2 manifests 与 profiles 初版
 
-目标：为 Agent、Prompt、Skill、门禁、Hook、Schema、文档和示例建立选择性安装清单。
+目标：为 Agent、Prompt、Skill、门禁、Hook、Schema、文档和示例建立选择性初始化清单。
 
 输入：
 
@@ -205,17 +206,17 @@ V2 必须遵守已确认的设计基线：
 
 输出：
 
-1. `harness-assets/install/manifests/agents.json`
-2. `harness-assets/install/manifests/prompts.json`
-3. `harness-assets/install/manifests/skills.json`
-4. `harness-assets/install/manifests/gates.json`
-5. `harness-assets/install/manifests/hooks.json`
-6. `harness-assets/install/manifests/schemas.json`
-7. `harness-assets/install/manifests/docs.json`
-8. `harness-assets/install/manifests/examples.json`
-9. `harness-assets/install/profiles/core.json`
-10. `harness-assets/install/profiles/java-insurance-core.json`
-11. `harness-assets/install/profiles/full-library.json`
+1. `harness-assets/init/manifests/agents.json`
+2. `harness-assets/init/manifests/prompts.json`
+3. `harness-assets/init/manifests/skills.json`
+4. `harness-assets/init/manifests/gates.json`
+5. `harness-assets/init/manifests/hooks.json`
+6. `harness-assets/init/manifests/schemas.json`
+7. `harness-assets/init/manifests/docs.json`
+8. `harness-assets/init/manifests/examples.json`
+9. `harness-assets/init/profiles/core.json`
+10. `harness-assets/init/profiles/java-insurance-core.json`
+11. `harness-assets/init/profiles/full-library.json`
 
 依赖：V2-P3-WP1。
 
@@ -286,12 +287,12 @@ V2 必须遵守已确认的设计基线：
 
 ### V2-P5-WP1 V2 回归样例
 
-目标：验证 Agent、选择性安装和 Hook 化不会破坏 V1 风险闭环。
+目标：验证 Agent、选择性初始化和 Hook 化不会破坏 V1 风险闭环。
 
 输入：
 
 1. V1 回归样例
-2. V2 Agent、install 和 Hook 资产
+2. V2 Agent、init 和 Hook 资产
 
 输出：
 
@@ -325,11 +326,44 @@ V2 必须遵守已确认的设计基线：
 
 验收标准：
 
-1. 覆盖目录、Agent、整合规范、install、Hook、回归样例和安全红线。
+1. 覆盖目录、Agent、整合规范、init、Hook、回归样例和安全红线。
 2. 明确 V2 只验收仓库资产，不声称真实目标项目安装或试点效果达成。
 3. 明确仍不得自动发布、自动合并或操作生产。
 
-## 11. 建议执行顺序
+## 11. V2-P6 Coding Agent Plugin 安装器
+
+### V2-P6-WP1 Claude Code / OpenCode 原生 plugin 安装器
+
+目标：为 Claude Code 和 OpenCode 提供用户级 hicode plugin 安装器，让 Coding Agent 平台获得 hicode 入口能力。
+
+输入：
+
+1. `CONTEXT.md`
+2. `harness-assets/agents/`、`harness-assets/skills/` 和 `harness-assets/init/` 的边界口径
+3. Claude Code plugin marketplace 与 plugin manifest 格式
+4. OpenCode 用户级 `plugins/` 目录与 `@opencode-ai/plugin` 插件接口
+
+输出：
+
+1. `harness-assets/plugins/README.md`
+2. `harness-assets/plugins/install.sh`
+3. `harness-assets/plugins/claude-code/.claude-plugin/marketplace.json`
+4. `harness-assets/plugins/claude-code/.claude-plugin/plugin.json`
+5. `harness-assets/plugins/claude-code/skills/hicode/SKILL.md`
+6. `harness-assets/plugins/opencode/hicode.ts`
+
+依赖：V2-P1 至 V2-P5。
+
+验收标准：
+
+1. 安装器默认用户级安装，并支持 `--dry-run`、`--yes`、`--all`、`--claude-code` 和 `--opencode`。
+2. Claude Code 安装走本地 marketplace 和 `hicode` plugin，不伪造目标项目初始化结果。
+3. OpenCode 安装走用户级 `plugins/` 目录中的本地 plugin 文件，不修改 `opencode.json`。
+4. plugin 只提供 hicode 入口说明或工具，不全量打包 hicode 资产。
+5. 安装动作不扫描代码、不生成 `CLAUDE.md`、`AGENTS.md` 或 `.hicode/`。
+6. 安装器不读取生产配置、生产凭证、密钥文件或未脱敏客户数据。
+
+## 12. 建议执行顺序
 
 1. V2-P1-WP1
 2. V2-P1-WP2
@@ -341,15 +375,17 @@ V2 必须遵守已确认的设计基线：
 8. V2-P4-WP2
 9. V2-P5-WP1
 10. V2-P5-WP2
+11. V2-P6-WP1
 
-## 12. 验收总口径
+## 13. 验收总口径
 
 V2 完成时应满足：
 
 1. 首批 8 个子 Agent 可被目标项目入口路由。
 2. Agent 与 Prompt、Skill、门禁和 Schema 的关系清晰，不重复维护规则。
-3. `harness-assets/install/` 能表达核心、Java 保险核心和完整库三种安装/加载策略。
+3. `harness-assets/init/` 能表达核心、Java 保险核心和完整库三种初始化/加载策略。
 4. 门禁 Hook 化有清晰触发点和 advisory/blocking 边界。
 5. 所有新增资产仍遵守金融核心系统风险标准。
 6. 所有新增资产仍禁止自动发布、自动合并、生产操作和未脱敏敏感数据处理。
 7. V2 回归样例能覆盖关键成功路径和红线失败路径。
+8. `harness-assets/plugins/` 能为 Claude Code / OpenCode 提供平台 plugin 入口安装器，且不混淆 plugin 安装与目标项目初始化。

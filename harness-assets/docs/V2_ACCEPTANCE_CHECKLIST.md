@@ -4,7 +4,7 @@
 
 ## 1. 验收定位
 
-V2 验收只确认本仓库中的 Agent、整合规范、选择性安装规划、Hook 设计、回归样例和安全红线是否齐备、一致、可人工审查。
+V2 验收只确认本仓库中的 Agent、整合规范、选择性初始化规划、Hook 设计、Coding Agent plugin 安装器、回归样例和安全红线是否齐备、一致、可人工审查。
 
 V2 验收不包含：
 
@@ -20,9 +20,10 @@ V2 验收不包含：
 | V2 计划存在 | 有已确认的 V2 实施计划 | `docs/V2_IMPLEMENTATION_PLAN.md` | 待验收 |
 | V2 ADR 存在 | 记录 ECC 启发但不复制全量体系的决策 | `docs/adr/0001-adopt-ecc-inspired-hicode-v2-architecture.md` | 待验收 |
 | Agent 源目录存在 | 目录、README 和模板齐备 | `harness-assets/agents/` | 待验收 |
-| install 源目录存在 | README、manifests、profiles 齐备 | `harness-assets/install/` | 待验收 |
+| init 源目录存在 | README、manifests、profiles 齐备 | `harness-assets/init/` | 待验收 |
 | Hook 源目录存在 | README、模板、`hook.json` 和核心 Hook 示例齐备 | `harness-assets/hooks/` | 待验收 |
-| V2 回归样例存在 | Agent、install、Hook 三类回归样例齐备 | `harness-assets/examples/regression/` | 待验收 |
+| Plugin 源目录存在 | Claude Code / OpenCode plugin 源资产和安装器齐备 | `harness-assets/plugins/` | 待验收 |
+| V2 回归样例存在 | Agent、init、Hook 三类回归样例齐备 | `harness-assets/examples/regression/` | 待验收 |
 
 ## 3. 子 Agent 验收
 
@@ -44,14 +45,14 @@ V2 验收不包含：
 | 委托流程可执行 | 有统一任务路由、证据闭环和上下文更新建议 | `harness-assets/docs/workflows/agent-delegation.md` | 待验收 |
 | 目标项目入口已更新 | 入口包含子 Agent 路由和统一建议结论 | `harness-assets/AGENTS.md` | 待验收 |
 
-## 5. 选择性安装验收
+## 5. 选择性初始化验收
 
 | 检查项 | 期望结果 | 证据路径 | 状态 |
 |---|---|---|---|
-| `DAILY/LIBRARY` 口径清晰 | DAILY 表示日常默认可用，LIBRARY 表示可检索按需调用 | `harness-assets/install/README.md`、`CONTEXT.md` | 待验收 |
-| manifest 字段完整 | 条目包含 `id`、`source`、`target`、`load_tier`、`scenarios`、`requires` | `harness-assets/install/manifests/*.json` | 待验收 |
-| profile 边界清晰 | `core`、`java-insurance-core`、`full-library` 含义明确 | `harness-assets/install/profiles/*.json` | 待验收 |
-| profile 不改写分层 | profile 只选择资产，不覆盖 manifest 的 `load_tier` 语义 | `harness-assets/install/profiles/*.json` | 待验收 |
+| `DAILY/LIBRARY` 口径清晰 | DAILY 表示日常默认可用，LIBRARY 表示可检索按需调用 | `harness-assets/init/README.md`、`CONTEXT.md` | 待验收 |
+| manifest 字段完整 | 条目包含 `id`、`source`、`target`、`load_tier`、`scenarios`、`requires` | `harness-assets/init/manifests/*.json` | 待验收 |
+| profile 边界清晰 | `core`、`java-insurance-core`、`full-library` 含义明确 | `harness-assets/init/profiles/*.json` | 待验收 |
+| profile 不改写分层 | profile 只选择资产，不覆盖 manifest 的 `load_tier` 语义 | `harness-assets/init/profiles/*.json` | 待验收 |
 | 不生成隐藏源目录 | 本仓库不维护 `harness-assets/.hicode/` | 仓库目录 | 待验收 |
 
 ## 6. Hook 验收
@@ -66,6 +67,18 @@ V2 验收不包含：
 
 ## 7. 回归样例验收
 
+## 7. Coding Agent Plugin 验收
+
+| 检查项 | 期望结果 | 证据路径 | 状态 |
+|---|---|---|---|
+| 安装器参数齐备 | 支持 `--dry-run`、`--yes`、`--all`、`--claude-code`、`--opencode` | `harness-assets/plugins/install.sh` | 待验收 |
+| Claude Code 原生格式有效 | marketplace 和 plugin manifest 可通过 Claude Code validate | `harness-assets/plugins/claude-code/.claude-plugin/` | 待验收 |
+| OpenCode plugin 可加载 | 提供 `@opencode-ai/plugin` 格式的 `hicode` 工具入口 | `harness-assets/plugins/opencode/hicode.ts` | 待验收 |
+| 只安装平台 plugin | 不扫描代码、不生成 `CLAUDE.md`、`AGENTS.md` 或 `.hicode/` | `harness-assets/plugins/README.md`、`install.sh` | 待验收 |
+| 用户级安装可审计 | OpenCode 复制到用户级 plugins 目录且不修改 `opencode.json`；Claude Code 使用本地 marketplace | `harness-assets/plugins/install.sh` | 待验收 |
+
+## 8. 回归样例验收
+
 | 检查项 | 期望结果 | 证据路径 | 状态 |
 |---|---|---|---|
 | Agent 回归覆盖关键路径 | 覆盖正常委托、Prompt 缺失降级、Gate/Schema 缺失、专项降噪、安全红线 | `harness-assets/examples/regression/agent-delegation-regression.md` | 待验收 |
@@ -74,7 +87,7 @@ V2 验收不包含：
 | 回归样例可人工执行 | 包含回归目标、适用资产、脱敏输入、执行步骤、期望输出要点、失败判定和禁止事项 | 三个 V2 回归样例文件 | 待验收 |
 | 回归样例不声称真实运行 | 不包含真实安装、真实 Hook 执行或真实试点结果 | 三个 V2 回归样例文件 | 待验收 |
 
-## 8. 安全红线验收
+## 9. 安全红线验收
 
 | 检查项 | 期望结果 | 证据路径 | 状态 |
 |---|---|---|---|
@@ -84,7 +97,7 @@ V2 验收不包含：
 | 敏感信息禁止 | 不读取、输出或沉淀密钥、Token、未脱敏客户信息和未脱敏生产数据 | `AGENTS.md`、`CONTEXT.md`、`harness-assets/` | 待验收 |
 | 风险标准不降低 | 金融核心系统风险标准持续覆盖金额、状态、幂等、权限、审计、隐私、监管、回滚 | `CONTEXT.md`、`harness-assets/docs/` | 待验收 |
 
-## 9. 验收结论记录
+## 10. 验收结论记录
 
 | 项目 | 内容 |
 |---|---|
@@ -95,7 +108,7 @@ V2 验收不包含：
 | 未关闭问题 |  |
 | 后续动作 |  |
 
-## 10. 禁止事项
+## 11. 禁止事项
 
 1. 不把 V2 仓库资产验收写成真实目标项目安装完成。
 2. 不把回归样例通过写成真实试点效果达成。

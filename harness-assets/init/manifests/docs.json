@@ -1,7 +1,7 @@
 {
   "schema_version": "hicode.install-manifest.v1",
   "asset_type": "doc",
-  "description": "hicode 人读文档、规则文档和 workflow 到目标项目 docs/ 或 .hicode/docs/ 的安装规划。",
+  "description": "hicode 人读文档、规则文档和 workflow 到目标项目 docs/ 或 .hicode/docs/ 的初始化规划。",
   "items": [
     {
       "id": "domain-knowledge",

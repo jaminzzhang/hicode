@@ -1,7 +1,7 @@
 {
   "schema_version": "hicode.install-manifest.v1",
   "asset_type": "schema",
-  "description": "hicode 结构化输出 Schema 到目标项目 .hicode/schemas/ 的安装规划。",
+  "description": "hicode 结构化输出 Schema 到目标项目 .hicode/schemas/ 的初始化规划。",
   "items": [
     {
       "id": "review-result",
