@@ -3,9 +3,9 @@
 ## 1. 当前状态
 
 最近更新时间：2026-06-10
-当前阶段：V2 Agent-Prompt-Skill-Gate 整合
+当前阶段：V2 选择性安装规划
 当前工作包：无进行中工作包
-总体状态：V1 已完成；V2-P1 已完成；V2-P2-WP2 已完成
+总体状态：V1 已完成；V2-P1 已完成；V2-P2 已完成；V2-P3-WP1 已完成
 
 本台账用于记录 V1 工作包推进状态和后续 V2 规划状态。每次开发 Agent 开始、完成、阻塞、暂缓或提交工作包验收时，必须同步更新本文件。
 
@@ -176,6 +176,9 @@
 152. 已通过 grill-with-docs 确认 `V2-P2-WP2` 采用轻量入口路由，不复制完整整合规范；高风险/复杂任务优先委托子 Agent，低风险任务可直接使用 Prompt/Skill；入口输出统一升级为 Agent 层建议结论，不保留通过/不通过兼容口径；路由表包含 Gate 但不包含 Schema。
 153. 已更新 `harness-assets/AGENTS.md`，增加子 Agent 委托路由、推荐 Agent 路由表、整合规范和委托 workflow 引用、统一 Agent 层建议结论，并将 `V2-P2-WP2` 提交项目负责人验收。
 154. 项目负责人已确认 `V2-P2-WP2` 验收通过，目标项目入口更新工作包完成。
+155. 已根据项目负责人继续指令启动 `V2-P3-WP1` 安装规划目录，参考 ECC `agent-sort` 和 manifests 口径确认 `DAILY/LIBRARY`、manifest/profile 和源到目标路径规划边界。
+156. 已创建 `harness-assets/install/README.md`、`harness-assets/install/manifests/` 和 `harness-assets/install/profiles/`，明确安装规划只描述源资产到目标项目路径，不代表真实安装结果，并将 `V2-P3-WP1` 提交项目负责人验收。
+157. 项目负责人已确认 `V2-P3-WP1` 验收通过，安装规划目录工作包完成。
 
 ## 4. 当前阻塞点
 
@@ -190,10 +193,11 @@
 5. `V2-P1-WP2` 首批 8 个子 Agent 已确认验收通过。
 6. `V2-P2-WP1` Agent-Prompt-Skill-Gate 整合规范已确认验收通过。
 7. `V2-P2-WP2` 目标项目入口更新已确认验收通过。
-8. 下一步可由项目负责人明确启动 `V2-P3-WP1` 安装规划目录。
-9. 后续若启动 V2 工作包，必须以 V2 计划为准，并保持 V1 已完成基线不回改。
-10. 后续若进入真实试点运行效果验收，必须基于真实试点数据补充，不能用本仓库模板资产替代。
-11. 不得把 P6 模板资产验收写成真实试点运行效果已达成。
+8. `V2-P3-WP1` 安装规划目录已确认验收通过。
+9. 下一步可由项目负责人明确启动 `V2-P3-WP2` manifests 与 profiles 初版。
+10. 后续若启动 V2 工作包，必须以 V2 计划为准，并保持 V1 已完成基线不回改。
+11. 后续若进入真实试点运行效果验收，必须基于真实试点数据补充，不能用本仓库模板资产替代。
+12. 不得把 P6 模板资产验收写成真实试点运行效果已达成。
 
 ## 6. 工作包状态表
 
@@ -242,7 +246,7 @@
 | V2-P1-WP2 | 首批 8 个子 Agent | 已完成 | `harness-assets/agents/requirement-reviewer.md`、`harness-assets/agents/coding-planner.md`、`harness-assets/agents/tdd-guide.md`、`harness-assets/agents/coding-assistant.md`、`harness-assets/agents/code-reviewer.md`、`harness-assets/agents/security-reviewer.md`、`harness-assets/agents/java-reviewer.md`、`harness-assets/agents/release-reviewer.md` | V2-P1-WP1 | 项目负责人已确认验收通过 |
 | V2-P2-WP1 | Agent-Prompt-Skill-Gate 整合规范 | 已完成 | `harness-assets/docs/AGENT_PROMPT_INTEGRATION.md`、`harness-assets/docs/workflows/agent-delegation.md` | V2-P1 | 项目负责人已确认验收通过 |
 | V2-P2-WP2 | 目标项目入口更新 | 已完成 | 更新后的 `harness-assets/AGENTS.md` | V2-P2-WP1 | 项目负责人已确认验收通过 |
-| V2-P3-WP1 | 安装规划目录 | 未开始 | 待创建 | V2-P1、V2-P2 | 不自动启动，需项目负责人确认 |
+| V2-P3-WP1 | 安装规划目录 | 已完成 | `harness-assets/install/README.md`、`harness-assets/install/manifests/`、`harness-assets/install/profiles/` | V2-P1、V2-P2 | 项目负责人已确认验收通过 |
 | V2-P3-WP2 | manifests 与 profiles 初版 | 未开始 | 待创建 | V2-P3-WP1 | 不自动启动，需项目负责人确认 |
 | V2-P4-WP1 | Hook 规范 | 未开始 | 待创建 | V2-P3 | 不自动启动，需项目负责人确认 |
 | V2-P4-WP2 | 核心 Hook 示例 | 未开始 | 待创建 | V2-P4-WP1 | 不自动启动，需项目负责人确认 |
@@ -253,6 +257,9 @@
 
 | 日期 | 操作者 | 变更 | 关联工作包 |
 |---|---|---|---|
+| 2026-06-10 | Codex | 根据项目负责人确认，将 `V2-P3-WP1` 安装规划目录更新为已完成 | V2-P3-WP1 |
+| 2026-06-10 | Codex | 创建安装规划目录 README、manifests 和 profiles 占位目录，并提交 `V2-P3-WP1` 待验收 | V2-P3-WP1 |
+| 2026-06-10 | Codex | 根据项目负责人继续指令启动 `V2-P3-WP1` 安装规划目录 | V2-P3-WP1 |
 | 2026-06-10 | Codex | 根据项目负责人确认，将 `V2-P2-WP2` 目标项目入口更新为已完成 | V2-P2-WP2 |
 | 2026-06-10 | Codex | 更新目标项目入口模板，增加子 Agent 委托路由和统一 Agent 层建议结论，并提交 `V2-P2-WP2` 待验收 | V2-P2-WP2 |
 | 2026-06-10 | Codex | 根据项目负责人指令启动 `V2-P2-WP2` 目标项目入口更新 | V2-P2-WP2 |
