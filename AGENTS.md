@@ -4,7 +4,7 @@
 
 ## 1. 项目定位
 
-本仓库用于为意健险研发团队建设 hicode 工程化体系，交付可复用的 Agent 入口规则、上下文文档、Prompt、Skill、门禁、Schema、示例和验收资产。
+本仓库用于为意健险研发团队建设 hicode 工程化体系，交付可复用的 Claude Code plugin、Agent 入口规则、上下文文档、Prompt、Skill、门禁、Schema、示例和验收资产。
 
 本体系的默认服务对象是保险/金融核心系统研发。后续 hicode 资产设计必须按金融核心系统的高风险标准处理保险核心业务逻辑严谨性、金额精度、交易一致性、状态流转、幂等、权限、审计、客户隐私、监管合规、生产变更、回滚和发布准入。
 
@@ -43,21 +43,27 @@
 
 ## 4. 资产目录规则
 
-本仓库的交付资产统一放在 `harness-assets/` 下，不混入根目录 `docs/`。
+本仓库根目录是 hicode 设计中心和 Claude Code plugin root。可直接被 Coding Agent 调用或安装的入口资产放在根目录一等目录中；支撑材料放在 `references/` 下。
 
 目录边界：
 
 1. 根目录 `docs/`：项目管理文档，如 V1 计划、进度台账和需求草案。
 2. 根目录 `CONTEXT.md`：项目术语表，只记录概念边界。
-3. `harness-assets/AGENTS.md`：目标项目 Agent 入口模板。
-4. `harness-assets/docs/`：目标项目可读的知识、规范、ADR、workflow 和运营模板。
-5. `harness-assets/prompts/`：Prompt 源资产。
-6. `harness-assets/skills/`：Skill 源资产。
-7. `harness-assets/gates/`：门禁源资产。
-8. `harness-assets/schemas/`：Schema 源资产。
-9. `harness-assets/examples/`：示例源资产。
+3. 根目录 `.claude-plugin/`：Claude Code plugin manifest。
+4. 根目录 `install.sh`：当前用户 Claude Code plugin 安装器。
+5. 根目录 `skills/`：Claude Code 可直接调用的 hicode 场景 Skill。
+6. 根目录 `agents/`：hicode 专业子 Agent 源资产。
+7. `references/target-project/AGENTS.md`：目标项目 Agent 入口模板。
+8. `references/docs/`：目标项目可读的知识、规范、ADR、workflow 和运营模板。
+9. `references/prompts/`：Prompt 支撑资产。
+10. `references/skills/`：细粒度 Skill 细则和输出模板。
+11. `references/gates/`：门禁支撑资产。
+12. `references/schemas/`：Schema 支撑资产。
+13. `references/examples/`：示例和回归资产。
+14. `references/hooks/`：Hook 规划和示例资产。
+15. `references/init/`：目标项目初始化 manifest 和 profile 规划。
 
-不要在本仓库产出隐藏源目录 `harness-assets/.hicode/`。后续安装脚本会把可见源目录安装到目标项目的 `.hicode/` 运行目录。
+不要在本仓库产出隐藏源目录 `.hicode/`。后续目标项目初始化流程会按 `references/init/` 规划把根目录源资产安装到目标项目的 `.hicode/` 运行目录；`install.sh` 只安装 Claude Code plugin，不初始化业务项目。
 
 ## 5. Agent 职责
 

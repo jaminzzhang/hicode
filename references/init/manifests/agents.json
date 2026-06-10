@@ -1,0 +1,107 @@
+{
+  "schema_version": "hicode.install-manifest.v1",
+  "asset_type": "agent",
+  "description": "hicode 子 Agent 源资产到目标项目 .hicode/agents/ 的初始化规划。",
+  "items": [
+    {
+      "id": "agents-readme",
+      "source": "agents/README.md",
+      "target": ".hicode/agents/README.md",
+      "load_tier": "LIBRARY",
+      "scenarios": ["agent-authoring", "asset-maintenance"],
+      "requires": ["hicode-agent-directory-standard"],
+      "description": "子 Agent 目录规范说明。",
+      "risk_tags": ["agent-governance"]
+    },
+    {
+      "id": "agent-template",
+      "source": "agents/_template.md",
+      "target": ".hicode/agents/_template.md",
+      "load_tier": "LIBRARY",
+      "scenarios": ["agent-authoring"],
+      "requires": ["agents/README.md"],
+      "description": "新增子 Agent 的源资产模板。",
+      "risk_tags": ["agent-governance"]
+    },
+    {
+      "id": "requirement-reviewer",
+      "source": "agents/requirement-reviewer.md",
+      "target": ".hicode/agents/requirement-reviewer.md",
+      "load_tier": "DAILY",
+      "scenarios": ["requirement-review", "requirement-entry-gate"],
+      "requires": ["prompts:requirement-review", "skills:requirement-review", "gates:requirement-entry-gate", "docs:domain-knowledge", "docs:defect-cases"],
+      "description": "需求评审子 Agent。",
+      "risk_tags": ["insurance-domain", "state-transition", "privacy", "compliance"]
+    },
+    {
+      "id": "coding-planner",
+      "source": "agents/coding-planner.md",
+      "target": ".hicode/agents/coding-planner.md",
+      "load_tier": "DAILY",
+      "scenarios": ["coding-plan", "coding-entry-gate"],
+      "requires": ["prompts:coding-plan", "skills:coding-plan", "gates:coding-entry-gate", "docs:proj-context", "docs:coding-rules", "docs:testing-guide"],
+      "description": "编码计划子 Agent。",
+      "risk_tags": ["impact-analysis", "tdd", "transaction-consistency"]
+    },
+    {
+      "id": "tdd-guide",
+      "source": "agents/tdd-guide.md",
+      "target": ".hicode/agents/tdd-guide.md",
+      "load_tier": "DAILY",
+      "scenarios": ["tdd", "test-first-development"],
+      "requires": ["prompts:tdd", "skills:tdd", "gates:coding-to-test-gate", "docs:testing-guide"],
+      "description": "TDD 与测试先行子 Agent。",
+      "risk_tags": ["tdd", "test-evidence", "regression"]
+    },
+    {
+      "id": "coding-assistant",
+      "source": "agents/coding-assistant.md",
+      "target": ".hicode/agents/coding-assistant.md",
+      "load_tier": "DAILY",
+      "scenarios": ["controlled-coding", "bugfix", "refactor"],
+      "requires": ["prompts:coding-assistant", "skills:coding-assistant", "skills:tdd", "docs:coding-rules", "docs:testing-guide"],
+      "description": "受控辅助编码子 Agent。",
+      "risk_tags": ["controlled-change", "tdd", "audit"]
+    },
+    {
+      "id": "code-reviewer",
+      "source": "agents/code-reviewer.md",
+      "target": ".hicode/agents/code-reviewer.md",
+      "load_tier": "DAILY",
+      "scenarios": ["code-review", "merge-gate-input"],
+      "requires": ["prompts:code-review", "skills:code-review", "gates:merge-gate", "schemas:review-result", "docs:review-rules"],
+      "description": "代码审查子 Agent。",
+      "risk_tags": ["code-review", "insurance-domain", "security", "transaction-consistency"]
+    },
+    {
+      "id": "security-reviewer",
+      "source": "agents/security-reviewer.md",
+      "target": ".hicode/agents/security-reviewer.md",
+      "load_tier": "DAILY",
+      "scenarios": ["security-review", "privacy-review", "secret-detection"],
+      "requires": ["prompts:code-review", "prompts:pre-commit-check", "skills:code-review", "skills:pre-commit-check", "docs:security-review-rules"],
+      "description": "安全专项审查子 Agent。",
+      "risk_tags": ["security", "privacy", "secret", "production-boundary", "audit"]
+    },
+    {
+      "id": "java-reviewer",
+      "source": "agents/java-reviewer.md",
+      "target": ".hicode/agents/java-reviewer.md",
+      "load_tier": "DAILY",
+      "scenarios": ["java-review", "sql-review", "insurance-core-backend-review"],
+      "requires": ["prompts:code-review", "skills:code-review", "docs:java-review-rules", "docs:sql-review-rules", "docs:insurance-domain-review-rules"],
+      "description": "Java、SQL 和保险核心后端专项审查子 Agent。",
+      "risk_tags": ["java", "sql", "transaction", "amount", "state-transition", "insurance-domain"]
+    },
+    {
+      "id": "release-reviewer",
+      "source": "agents/release-reviewer.md",
+      "target": ".hicode/agents/release-reviewer.md",
+      "load_tier": "DAILY",
+      "scenarios": ["release-check", "release-gate-input"],
+      "requires": ["prompts:release-check", "skills:release-check", "gates:release-gate", "schemas:gate-result", "docs:release-guide"],
+      "description": "发布风险审查子 Agent。",
+      "risk_tags": ["release", "rollback", "production-boundary", "audit"]
+    }
+  ]
+}

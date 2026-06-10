@@ -22,9 +22,9 @@ V2 重点解决：
 
 ### 3.1 本仓库范围内
 
-1. `harness-assets/agents/` 子 Agent 源资产。
+1. `agents/` 子 Agent 源资产。
 2. Agent 与 Prompt、Skill、门禁、Schema 的整合规范。
-3. `harness-assets/init/` 选择性初始化和加载规划资产。
+3. `references/init/` 选择性初始化和加载规划资产。
 4. 门禁 Hook 化设计资产和示例 Hook 配置。
 5. V2 回归样例、验收清单和资产健康检查建议。
 6. 与 V2 新术语相关的 `CONTEXT.md` 和 ADR 更新。
@@ -41,11 +41,11 @@ V2 重点解决：
 
 V2 必须遵守已确认的设计基线：
 
-1. 子 Agent 源目录为 `harness-assets/agents/`。
+1. 子 Agent 源目录为 `agents/`。
 2. Agent 是可委托角色入口；Prompt 仍是详细规则源。
 3. Agent 可以引用 Prompt、Skill、门禁、Schema 和输出模板，但不得复制 Prompt 全文或维护第二套场景规则。
 4. 首批子 Agent 只覆盖 8 个角色：`requirement-reviewer`、`coding-planner`、`tdd-guide`、`coding-assistant`、`code-reviewer`、`security-reviewer`、`java-reviewer` 和 `release-reviewer`。
-5. 选择性初始化规划目录为 `harness-assets/init/`。
+5. 选择性初始化规划目录为 `references/init/`。
 6. 资产加载分层使用 `DAILY` 和 `LIBRARY`。
 7. 门禁 Hook 化默认采用 `advisory` 提醒型；只有安全红线、生产越权和流程绕行问题允许 `blocking` 阻断型。
 8. 无论是否引入 Agent、初始化清单或 Hook，都不得自动发布、自动合并、自动回滚或操作生产环境。
@@ -54,30 +54,30 @@ V2 必须遵守已确认的设计基线：
 
 | 阶段 | 名称 | 目标 | 主要交付物 |
 |---|---|---|---|
-| V2-P1 | 子 Agent 基础资产 | 建立 `harness-assets/agents/` 和首批 8 个子 Agent | Agent 目录规范、8 个 Agent 文件、Agent 输出口径 |
+| V2-P1 | 子 Agent 基础资产 | 建立 `agents/` 和首批 8 个子 Agent | Agent 目录规范、8 个 Agent 文件、Agent 输出口径 |
 | V2-P2 | Agent-Prompt-Skill-Gate 整合 | 定义 Agent 如何引用 Prompt、Skill、门禁和 Schema | 整合规范、目标项目入口更新、映射表 |
-| V2-P3 | 选择性初始化规划 | 建立 `harness-assets/init/`、manifest 和 profile | init README、manifests、profiles |
+| V2-P3 | 选择性初始化规划 | 建立 `references/init/`、manifest 和 profile | init README、manifests、profiles |
 | V2-P4 | 门禁 Hook 化设计 | 将稳定门禁映射为 advisory/blocking Hook 设计 | Hook 规范、Hook 示例、权限边界 |
 | V2-P5 | V2 回归与验收 | 验证新增资产与 V1 闭环一致 | 回归样例、健康检查建议、V2 验收清单 |
-| V2-P6 | Claude Code Plugin 安装器 | 为 Claude Code 提供用户级 hicode plugin 安装器和能力场景 Skill | `harness-assets/plugins/`、`install.sh`、Claude Code plugin 入口 |
+| V2-P6 | Claude Code Plugin 安装器 | 为 Claude Code 提供用户级 hicode plugin 安装器和能力场景 Skill | `./`、`install.sh`、Claude Code plugin 入口 |
 
 ## 6. V2-P1 子 Agent 基础资产
 
 ### V2-P1-WP1 子 Agent 目录规范
 
-目标：建立 `harness-assets/agents/` 的目录规则、文件格式、frontmatter 口径、角色边界和安全基线。
+目标：建立 `agents/` 的目录规则、文件格式、frontmatter 口径、角色边界和安全基线。
 
 输入：
 
 1. `CONTEXT.md`
 2. `docs/adr/0001-adopt-ecc-inspired-hicode-v2-architecture.md`
 3. ECC 本地仓库 `agents/` 的参考模式
-4. V1 `harness-assets/skills/README.md`
+4. V1 `references/skills/README.md`
 
 输出：
 
-1. `harness-assets/agents/README.md`
-2. `harness-assets/agents/_template.md`
+1. `agents/README.md`
+2. `agents/_template.md`
 
 依赖：V2 规划确认。
 
@@ -94,20 +94,20 @@ V2 必须遵守已确认的设计基线：
 
 输入：
 
-1. `harness-assets/agents/README.md`
+1. `agents/README.md`
 2. 对应 V1 Prompt、Skill、门禁和输出模板
 3. ECC `code-reviewer`、`tdd-guide`、`security-reviewer`、`java-reviewer` 等参考 Agent
 
 输出：
 
-1. `harness-assets/agents/requirement-reviewer.md`
-2. `harness-assets/agents/coding-planner.md`
-3. `harness-assets/agents/tdd-guide.md`
-4. `harness-assets/agents/coding-assistant.md`
-5. `harness-assets/agents/code-reviewer.md`
-6. `harness-assets/agents/security-reviewer.md`
-7. `harness-assets/agents/java-reviewer.md`
-8. `harness-assets/agents/release-reviewer.md`
+1. `agents/requirement-reviewer.md`
+2. `agents/coding-planner.md`
+3. `agents/tdd-guide.md`
+4. `agents/coding-assistant.md`
+5. `agents/code-reviewer.md`
+6. `agents/security-reviewer.md`
+7. `agents/java-reviewer.md`
+8. `agents/release-reviewer.md`
 
 依赖：V2-P1-WP1。
 
@@ -133,8 +133,8 @@ V2 必须遵守已确认的设计基线：
 
 输出：
 
-1. `harness-assets/docs/AGENT_PROMPT_INTEGRATION.md`
-2. `harness-assets/docs/workflows/agent-delegation.md`
+1. `references/docs/AGENT_PROMPT_INTEGRATION.md`
+2. `references/docs/workflows/agent-delegation.md`
 
 依赖：V2-P1。
 
@@ -151,13 +151,13 @@ V2 必须遵守已确认的设计基线：
 
 输入：
 
-1. `harness-assets/AGENTS.md`
+1. `references/target-project/AGENTS.md`
 2. V2-P2-WP1 整合规范
 3. 首批 8 个子 Agent
 
 输出：
 
-1. 更新后的 `harness-assets/AGENTS.md`
+1. 更新后的 `references/target-project/AGENTS.md`
 2. Agent/Prompt/Skill/Gate 映射表
 
 依赖：V2-P2-WP1。
@@ -172,7 +172,7 @@ V2 必须遵守已确认的设计基线：
 
 ### V2-P3-WP1 初始化规划目录
 
-目标：建立 `harness-assets/init/` 的目录规范和 manifest/profile 结构。
+目标：建立 `references/init/` 的目录规范和 manifest/profile 结构。
 
 输入：
 
@@ -182,9 +182,9 @@ V2 必须遵守已确认的设计基线：
 
 输出：
 
-1. `harness-assets/init/README.md`
-2. `harness-assets/init/manifests/`
-3. `harness-assets/init/profiles/`
+1. `references/init/README.md`
+2. `references/init/manifests/`
+3. `references/init/profiles/`
 
 依赖：V2-P1、V2-P2。
 
@@ -192,7 +192,7 @@ V2 必须遵守已确认的设计基线：
 
 1. 明确 `DAILY` 与 `LIBRARY` 的含义和使用边界。
 2. 明确 manifest 只描述源资产到目标项目路径的规划，不代表真实初始化结果。
-3. 明确不在本仓库维护 `harness-assets/.hicode/`。
+3. 明确不在本仓库维护根目录 `.hicode/`。
 
 ### V2-P3-WP2 manifests 与 profiles 初版
 
@@ -200,23 +200,23 @@ V2 必须遵守已确认的设计基线：
 
 输入：
 
-1. `harness-assets/` 现有资产列表
+1. hicode 根目录源资产和 `references/` 支撑资产列表
 2. V2-P3-WP1 目录规范
 3. 目标项目 Java 保险核心系统默认场景
 
 输出：
 
-1. `harness-assets/init/manifests/agents.json`
-2. `harness-assets/init/manifests/prompts.json`
-3. `harness-assets/init/manifests/skills.json`
-4. `harness-assets/init/manifests/gates.json`
-5. `harness-assets/init/manifests/hooks.json`
-6. `harness-assets/init/manifests/schemas.json`
-7. `harness-assets/init/manifests/docs.json`
-8. `harness-assets/init/manifests/examples.json`
-9. `harness-assets/init/profiles/core.json`
-10. `harness-assets/init/profiles/java-insurance-core.json`
-11. `harness-assets/init/profiles/full-library.json`
+1. `references/init/manifests/agents.json`
+2. `references/init/manifests/prompts.json`
+3. `references/init/manifests/skills.json`
+4. `references/init/manifests/gates.json`
+5. `references/init/manifests/hooks.json`
+6. `references/init/manifests/schemas.json`
+7. `references/init/manifests/docs.json`
+8. `references/init/manifests/examples.json`
+9. `references/init/profiles/core.json`
+10. `references/init/profiles/java-insurance-core.json`
+11. `references/init/profiles/full-library.json`
 
 依赖：V2-P3-WP1。
 
@@ -238,14 +238,14 @@ V2 必须遵守已确认的设计基线：
 
 1. V1 门禁资产
 2. V1 Schema
-3. `harness-assets/docs/TOOL_PERMISSION_AUDIT_MATRIX.md`
+3. `references/docs/TOOL_PERMISSION_AUDIT_MATRIX.md`
 4. ECC `hooks/` 参考
 
 输出：
 
-1. `harness-assets/hooks/README.md`
-2. `harness-assets/hooks/_hook-template.md`
-3. `harness-assets/hooks/hook.json`
+1. `references/hooks/README.md`
+2. `references/hooks/_hook-template.md`
+3. `references/hooks/hook.json`
 4. Hook 触发点与门禁映射表
 
 依赖：V2-P3。
@@ -271,8 +271,8 @@ V2 必须遵守已确认的设计基线：
 
 输出：
 
-1. `harness-assets/hooks/coding-entry-gate-hook.md`
-2. `harness-assets/hooks/merge-gate-hook.md`
+1. `references/hooks/coding-entry-gate-hook.md`
+2. `references/hooks/merge-gate-hook.md`
 
 依赖：V2-P4-WP1。
 
@@ -296,9 +296,9 @@ V2 必须遵守已确认的设计基线：
 
 输出：
 
-1. `harness-assets/examples/regression/agent-delegation-regression.md`
-2. `harness-assets/examples/regression/install-profile-regression.md`
-3. `harness-assets/examples/regression/hook-gate-regression.md`
+1. `references/examples/regression/agent-delegation-regression.md`
+2. `references/examples/regression/install-profile-regression.md`
+3. `references/examples/regression/hook-gate-regression.md`
 
 依赖：V2-P1 至 V2-P4。
 
@@ -320,7 +320,7 @@ V2 必须遵守已确认的设计基线：
 
 输出：
 
-1. `harness-assets/docs/V2_ACCEPTANCE_CHECKLIST.md`
+1. `references/docs/V2_ACCEPTANCE_CHECKLIST.md`
 
 依赖：V2-P5-WP1。
 
@@ -339,22 +339,22 @@ V2 必须遵守已确认的设计基线：
 输入：
 
 1. `CONTEXT.md`
-2. `harness-assets/agents/`、`harness-assets/skills/` 和 `harness-assets/init/` 的边界口径
+2. `agents/`、`references/skills/` 和 `references/init/` 的边界口径
 3. Claude Code plugin marketplace、plugin manifest 和 Skill 目录格式
 4. hicode 4 个能力场景包：`scope`、`tdd`、`review`、`release`
 
 输出：
 
-1. `harness-assets/plugins/README.md`
-2. `harness-assets/plugins/install.sh`
-3. `harness-assets/plugins/.claude-plugin/marketplace.json`
-4. `harness-assets/plugins/.claude-plugin/plugin.json`
-5. `harness-assets/plugins/skills/hicode/SKILL.md`
-6. `harness-assets/plugins/skills/scope/SKILL.md`
-7. `harness-assets/plugins/skills/tdd/SKILL.md`
-8. `harness-assets/plugins/skills/review/SKILL.md`
-9. `harness-assets/plugins/skills/release/SKILL.md`
-10. `harness-assets/plugins/references/`
+1. `./README.md`
+2. `install.sh`
+3. `.claude-plugin/marketplace.json`
+4. `.claude-plugin/plugin.json`
+5. `skills/hicode/SKILL.md`
+6. `skills/scope/SKILL.md`
+7. `skills/tdd/SKILL.md`
+8. `skills/review/SKILL.md`
+9. `skills/release/SKILL.md`
+10. `references/`
 
 依赖：V2-P1 至 V2-P5。
 
@@ -362,7 +362,7 @@ V2 必须遵守已确认的设计基线：
 
 1. 安装器默认用户级安装，并支持 `--dry-run`、`--yes` 和 `--claude-code`。
 2. Claude Code 安装走本地 marketplace 和 `hicode` plugin，不伪造目标项目初始化结果。
-3. `harness-assets/plugins/` 直接作为 Claude Code plugin root，不额外嵌套 `claude-code/`。
+3. `./` 直接作为 Claude Code plugin root，不额外嵌套 `claude-code/`。
 4. plugin 提供 `hicode` 总入口和 `scope`、`tdd`、`review`、`release` 4 个能力场景 Skill。
 5. `references/` 只作为 Skill 按需读取的支撑文件，不默认全量加载。
 6. 安装动作不扫描代码、不生成 `CLAUDE.md`、`AGENTS.md` 或 `.hicode/`。
@@ -388,9 +388,9 @@ V2 完成时应满足：
 
 1. 首批 8 个子 Agent 可被目标项目入口路由。
 2. Agent 与 Prompt、Skill、门禁和 Schema 的关系清晰，不重复维护规则。
-3. `harness-assets/init/` 能表达核心、Java 保险核心和完整库三种初始化/加载策略。
+3. `references/init/` 能表达核心、Java 保险核心和完整库三种初始化/加载策略。
 4. 门禁 Hook 化有清晰触发点和 advisory/blocking 边界。
 5. 所有新增资产仍遵守金融核心系统风险标准。
 6. 所有新增资产仍禁止自动发布、自动合并、生产操作和未脱敏敏感数据处理。
 7. V2 回归样例能覆盖关键成功路径和红线失败路径。
-8. `harness-assets/plugins/` 能为 Claude Code 提供 plugin 入口安装器和能力场景 Skill，且不混淆 plugin 安装与目标项目初始化。
+8. `./` 能为 Claude Code 提供 plugin 入口安装器和能力场景 Skill，且不混淆 plugin 安装与目标项目初始化。

@@ -1,0 +1,77 @@
+{
+  "schema_version": "hicode.install-manifest.v1",
+  "asset_type": "gate",
+  "description": "hicode 门禁源资产到目标项目 .hicode/gates/ 的初始化规划。",
+  "items": [
+    {
+      "id": "gates-readme",
+      "source": "references/gates/README.md",
+      "target": ".hicode/gates/README.md",
+      "load_tier": "LIBRARY",
+      "scenarios": ["gate-authoring", "asset-maintenance"],
+      "requires": ["hicode-gate-standard"],
+      "description": "门禁目录规范说明。",
+      "risk_tags": ["gate-governance"]
+    },
+    {
+      "id": "gate-template",
+      "source": "references/gates/_gate-template.md",
+      "target": ".hicode/gates/_gate-template.md",
+      "load_tier": "LIBRARY",
+      "scenarios": ["gate-authoring"],
+      "requires": ["references/gates/README.md"],
+      "description": "新增门禁的源资产模板。",
+      "risk_tags": ["gate-governance"]
+    },
+    {
+      "id": "requirement-entry-gate",
+      "source": "references/gates/requirement-entry-gate.md",
+      "target": ".hicode/gates/requirement-entry-gate.md",
+      "load_tier": "DAILY",
+      "scenarios": ["requirement-entry-gate"],
+      "requires": ["skills:requirement-review", "schemas:gate-result", "docs:prd-context"],
+      "description": "需求准入门禁。",
+      "risk_tags": ["requirement-entry", "insurance-domain", "compliance"]
+    },
+    {
+      "id": "coding-entry-gate",
+      "source": "references/gates/coding-entry-gate.md",
+      "target": ".hicode/gates/coding-entry-gate.md",
+      "load_tier": "DAILY",
+      "scenarios": ["coding-entry-gate"],
+      "requires": ["skills:coding-plan", "schemas:gate-result", "docs:coding-rules", "docs:testing-guide"],
+      "description": "编码准入门禁。",
+      "risk_tags": ["coding-entry", "impact-analysis", "tdd"]
+    },
+    {
+      "id": "coding-to-test-gate",
+      "source": "references/gates/coding-to-test-gate.md",
+      "target": ".hicode/gates/coding-to-test-gate.md",
+      "load_tier": "DAILY",
+      "scenarios": ["coding-to-test-gate", "test-readiness"],
+      "requires": ["skills:tdd", "skills:coding-assistant", "schemas:gate-result", "docs:testing-guide"],
+      "description": "提测准入门禁。",
+      "risk_tags": ["test-readiness", "regression", "tdd"]
+    },
+    {
+      "id": "merge-gate",
+      "source": "references/gates/merge-gate.md",
+      "target": ".hicode/gates/merge-gate.md",
+      "load_tier": "DAILY",
+      "scenarios": ["merge-gate", "review-readiness"],
+      "requires": ["skills:code-review", "skills:pre-commit-check", "schemas:gate-result", "docs:review-rules"],
+      "description": "合并准入门禁。",
+      "risk_tags": ["merge", "review", "security", "audit"]
+    },
+    {
+      "id": "release-gate",
+      "source": "references/gates/release-gate.md",
+      "target": ".hicode/gates/release-gate.md",
+      "load_tier": "DAILY",
+      "scenarios": ["release-gate"],
+      "requires": ["skills:release-check", "schemas:gate-result", "docs:release-guide"],
+      "description": "发布准入门禁。",
+      "risk_tags": ["release", "rollback", "production-boundary"]
+    }
+  ]
+}
