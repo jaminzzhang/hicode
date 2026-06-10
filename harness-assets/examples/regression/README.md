@@ -16,6 +16,9 @@
 | `code-review-regression.md` | 代码审查 Prompt / Skill / Review Schema | 状态流转、幂等、审计和测试缺口 | P1 |
 | `release-check-regression.md` | 发布检查 Prompt / Skill / 发布门禁输入 | 测试证据、配置、回滚和生产验证边界 | P1 |
 | `high-risk-cases.md` | 高风险压力样例合集 | 金额、状态、幂等、权限、隐私、SQL、配置、回滚 | P0/P1 |
+| `agent-delegation-regression.md` | V2 Agent 委托链路 | 委托错误、缺失资产降级、专项触发、生产越权 | P0/P1 |
+| `install-profile-regression.md` | V2 manifest / profile | `DAILY/LIBRARY` 分类错误、默认加载噪音、Hook 强制启用 | P1 |
+| `hook-gate-regression.md` | V2 Hook 门禁 | advisory/blocking 边界、流程绕行、自动合并发布、生产越权 | P0/P1 |
 
 ## 3. 回归执行方式
 

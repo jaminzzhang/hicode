@@ -40,6 +40,6 @@
   "notes": [
     "full-library 表示全量可检索安装或保留，不表示全量默认加载。",
     "profile 不改写 manifest 条目的 load_tier；DAILY 与 LIBRARY 以各 manifest 为准。",
-    "hooks manifest 当前为规划占位，直到 V2-P4 创建 Hook 源资产后才会包含具体条目。"
+    "hooks manifest 包含可选 Hook 规划条目，不表示 Hook 已在目标项目真实启用。"
   ]
 }
