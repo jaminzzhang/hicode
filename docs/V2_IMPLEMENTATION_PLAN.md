@@ -59,7 +59,7 @@ V2 必须遵守已确认的设计基线：
 | V2-P3 | 选择性初始化规划 | 建立 `harness-assets/init/`、manifest 和 profile | init README、manifests、profiles |
 | V2-P4 | 门禁 Hook 化设计 | 将稳定门禁映射为 advisory/blocking Hook 设计 | Hook 规范、Hook 示例、权限边界 |
 | V2-P5 | V2 回归与验收 | 验证新增资产与 V1 闭环一致 | 回归样例、健康检查建议、V2 验收清单 |
-| V2-P6 | Coding Agent Plugin 安装器 | 为 Claude Code / OpenCode 提供用户级 hicode 入口 plugin 安装器 | `harness-assets/plugins/`、`install.sh`、平台原生 plugin 入口 |
+| V2-P6 | Claude Code Plugin 安装器 | 为 Claude Code 提供用户级 hicode plugin 安装器和能力场景 Skill | `harness-assets/plugins/`、`install.sh`、Claude Code plugin 入口 |
 
 ## 6. V2-P1 子 Agent 基础资产
 
@@ -332,36 +332,41 @@ V2 必须遵守已确认的设计基线：
 
 ## 11. V2-P6 Coding Agent Plugin 安装器
 
-### V2-P6-WP1 Claude Code / OpenCode 原生 plugin 安装器
+### V2-P6-WP1 Claude Code 原生 plugin 安装器
 
-目标：为 Claude Code 和 OpenCode 提供用户级 hicode plugin 安装器，让 Coding Agent 平台获得 hicode 入口能力。
+目标：为 Claude Code 提供用户级 hicode plugin 安装器，让 Claude Code 获得 hicode 总入口和能力场景 Skill。
 
 输入：
 
 1. `CONTEXT.md`
 2. `harness-assets/agents/`、`harness-assets/skills/` 和 `harness-assets/init/` 的边界口径
-3. Claude Code plugin marketplace 与 plugin manifest 格式
-4. OpenCode 用户级 `plugins/` 目录与 `@opencode-ai/plugin` 插件接口
+3. Claude Code plugin marketplace、plugin manifest 和 Skill 目录格式
+4. hicode 4 个能力场景包：`scope`、`tdd`、`review`、`release`
 
 输出：
 
 1. `harness-assets/plugins/README.md`
 2. `harness-assets/plugins/install.sh`
-3. `harness-assets/plugins/claude-code/.claude-plugin/marketplace.json`
-4. `harness-assets/plugins/claude-code/.claude-plugin/plugin.json`
-5. `harness-assets/plugins/claude-code/skills/hicode/SKILL.md`
-6. `harness-assets/plugins/opencode/hicode.ts`
+3. `harness-assets/plugins/.claude-plugin/marketplace.json`
+4. `harness-assets/plugins/.claude-plugin/plugin.json`
+5. `harness-assets/plugins/skills/hicode/SKILL.md`
+6. `harness-assets/plugins/skills/scope/SKILL.md`
+7. `harness-assets/plugins/skills/tdd/SKILL.md`
+8. `harness-assets/plugins/skills/review/SKILL.md`
+9. `harness-assets/plugins/skills/release/SKILL.md`
+10. `harness-assets/plugins/references/`
 
 依赖：V2-P1 至 V2-P5。
 
 验收标准：
 
-1. 安装器默认用户级安装，并支持 `--dry-run`、`--yes`、`--all`、`--claude-code` 和 `--opencode`。
+1. 安装器默认用户级安装，并支持 `--dry-run`、`--yes` 和 `--claude-code`。
 2. Claude Code 安装走本地 marketplace 和 `hicode` plugin，不伪造目标项目初始化结果。
-3. OpenCode 安装走用户级 `plugins/` 目录中的本地 plugin 文件，不修改 `opencode.json`。
-4. plugin 只提供 hicode 入口说明或工具，不全量打包 hicode 资产。
-5. 安装动作不扫描代码、不生成 `CLAUDE.md`、`AGENTS.md` 或 `.hicode/`。
-6. 安装器不读取生产配置、生产凭证、密钥文件或未脱敏客户数据。
+3. `harness-assets/plugins/` 直接作为 Claude Code plugin root，不额外嵌套 `claude-code/`。
+4. plugin 提供 `hicode` 总入口和 `scope`、`tdd`、`review`、`release` 4 个能力场景 Skill。
+5. `references/` 只作为 Skill 按需读取的支撑文件，不默认全量加载。
+6. 安装动作不扫描代码、不生成 `CLAUDE.md`、`AGENTS.md` 或 `.hicode/`。
+7. 安装器不读取生产配置、生产凭证、密钥文件或未脱敏客户数据。
 
 ## 12. 建议执行顺序
 
@@ -388,4 +393,4 @@ V2 完成时应满足：
 5. 所有新增资产仍遵守金融核心系统风险标准。
 6. 所有新增资产仍禁止自动发布、自动合并、生产操作和未脱敏敏感数据处理。
 7. V2 回归样例能覆盖关键成功路径和红线失败路径。
-8. `harness-assets/plugins/` 能为 Claude Code / OpenCode 提供平台 plugin 入口安装器，且不混淆 plugin 安装与目标项目初始化。
+8. `harness-assets/plugins/` 能为 Claude Code 提供 plugin 入口安装器和能力场景 Skill，且不混淆 plugin 安装与目标项目初始化。

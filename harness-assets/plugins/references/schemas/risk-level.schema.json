@@ -1,0 +1,364 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "risk-level.schema.json",
+  "title": "V1 共享风险等级与通用字段 Schema",
+  "description": "用于 V1 Review、提交检查和门禁结构化输出的共享风险等级、枚举和通用对象定义。",
+  "$ref": "#/$defs/riskLevel",
+  "$defs": {
+    "riskLevelCode": {
+      "type": "string",
+      "description": "统一风险等级代码。",
+      "enum": [
+        "P0",
+        "P1",
+        "P2",
+        "P3",
+        "NONE"
+      ]
+    },
+    "riskLevel": {
+      "type": "object",
+      "description": "单个风险等级对象。",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "native_label",
+        "summary",
+        "is_blocking"
+      ],
+      "properties": {
+        "code": {
+          "$ref": "#/$defs/riskLevelCode"
+        },
+        "native_label": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Markdown 模板或人工报告中的原始中文风险标签。"
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1,
+          "description": "风险等级的简要说明。"
+        },
+        "is_blocking": {
+          "type": "boolean",
+          "description": "该风险等级在当前上下文中是否默认进入阻断建议。"
+        }
+      }
+    },
+    "conclusionCode": {
+      "type": "string",
+      "description": "通用建议结论代码；中文原文放入 native_label。",
+      "enum": [
+        "PASS",
+        "CONDITIONAL_PASS",
+        "BLOCKED",
+        "NEEDS_CONFIRMATION"
+      ]
+    },
+    "confirmationStatusCode": {
+      "type": "string",
+      "description": "人工确认状态代码。",
+      "enum": [
+        "CONFIRMED",
+        "PENDING",
+        "NOT_APPLICABLE"
+      ]
+    },
+    "checkResultCode": {
+      "type": "string",
+      "description": "检查项结果代码。",
+      "enum": [
+        "PASS",
+        "FAIL",
+        "PENDING",
+        "NOT_APPLICABLE"
+      ]
+    },
+    "commandExecutionStatusCode": {
+      "type": "string",
+      "description": "受限命令执行状态代码。",
+      "enum": [
+        "EXECUTED",
+        "NOT_EXECUTED",
+        "FAILED",
+        "SKIPPED"
+      ]
+    },
+    "sourceReference": {
+      "type": "object",
+      "description": "输入材料、证据来源或报告来源引用。",
+      "additionalProperties": false,
+      "required": [
+        "source_type",
+        "title",
+        "reference",
+        "read_status"
+      ],
+      "properties": {
+        "source_type": {
+          "type": "string",
+          "enum": [
+            "REQUIREMENT",
+            "CONTEXT",
+            "PROMPT",
+            "SKILL_REPORT",
+            "GATE_REPORT",
+            "DIFF",
+            "TEST_RESULT",
+            "CI_RESULT",
+            "SCAN_RESULT",
+            "MANUAL_CONFIRMATION",
+            "COMMAND_OUTPUT",
+            "OTHER"
+          ]
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reference": {
+          "type": "string",
+          "minLength": 1,
+          "description": "文件路径、报告编号、命令摘要、链接或人工材料编号；不适用时写明不适用。"
+        },
+        "read_status": {
+          "type": "string",
+          "enum": [
+            "READ",
+            "NOT_READ",
+            "NOT_APPLICABLE",
+            "PENDING"
+          ]
+        },
+        "summary": {
+          "type": "string"
+        },
+        "gap": {
+          "type": "string",
+          "description": "未读取、不可用或证据不足时的缺口说明。"
+        }
+      }
+    },
+    "recommendedAction": {
+      "type": "object",
+      "description": "建议动作。",
+      "additionalProperties": false,
+      "required": [
+        "action",
+        "reason",
+        "priority",
+        "suggested_owner",
+        "confirmation_status"
+      ],
+      "properties": {
+        "action": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "priority": {
+          "$ref": "#/$defs/riskLevelCode"
+        },
+        "suggested_owner": {
+          "type": "string",
+          "minLength": 1
+        },
+        "confirmation_status": {
+          "$ref": "#/$defs/confirmationStatusCode"
+        }
+      }
+    },
+    "pendingQuestion": {
+      "type": "object",
+      "description": "待确认问题。",
+      "additionalProperties": false,
+      "required": [
+        "question",
+        "priority",
+        "impact",
+        "suggested_owner",
+        "expected_material",
+        "confirmation_status"
+      ],
+      "properties": {
+        "question": {
+          "type": "string",
+          "minLength": 1
+        },
+        "priority": {
+          "$ref": "#/$defs/riskLevelCode"
+        },
+        "impact": {
+          "type": "string",
+          "minLength": 1
+        },
+        "suggested_owner": {
+          "type": "string",
+          "minLength": 1
+        },
+        "expected_material": {
+          "type": "string",
+          "minLength": 1
+        },
+        "confirmation_status": {
+          "$ref": "#/$defs/confirmationStatusCode"
+        }
+      }
+    },
+    "auditEvidence": {
+      "type": "object",
+      "description": "可归档审计证据。",
+      "additionalProperties": false,
+      "required": [
+        "evidence_type",
+        "title",
+        "content",
+        "source"
+      ],
+      "properties": {
+        "evidence_type": {
+          "type": "string",
+          "enum": [
+            "INPUT_MATERIAL",
+            "CHECK_SCOPE",
+            "CONCLUSION_BASIS",
+            "COMMAND_RECORD",
+            "BLOCKING_RECOMMENDATION",
+            "RISK_NOTE",
+            "CONTEXT_UPDATE",
+            "MANUAL_CONFIRMATION",
+            "OTHER"
+          ]
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "content": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "$ref": "#/$defs/sourceReference"
+        },
+        "collected_at": {
+          "type": "string",
+          "description": "证据采集时间；建议使用 ISO 8601，但 V1 不绑定具体平台。"
+        }
+      }
+    },
+    "commandRecord": {
+      "type": "object",
+      "description": "受限命令执行记录。",
+      "additionalProperties": false,
+      "required": [
+        "command",
+        "scope",
+        "authorization_source",
+        "execution_status",
+        "result_summary"
+      ],
+      "properties": {
+        "command": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scope": {
+          "type": "string",
+          "minLength": 1
+        },
+        "authorization_source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "execution_status": {
+          "$ref": "#/$defs/commandExecutionStatusCode"
+        },
+        "result_summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "failure_or_skip_reason": {
+          "type": "string"
+        }
+      }
+    },
+    "contextUpdateSuggestion": {
+      "type": "object",
+      "description": "上下文更新建议。",
+      "additionalProperties": false,
+      "required": [
+        "target",
+        "change_type",
+        "content",
+        "reason",
+        "confirmation_status"
+      ],
+      "properties": {
+        "target": {
+          "type": "string",
+          "minLength": 1,
+          "description": "建议更新的文件、章节或上下文位置。"
+        },
+        "change_type": {
+          "type": "string",
+          "enum": [
+            "ADD",
+            "MODIFY",
+            "DEPRECATE",
+            "CONFIRM"
+          ]
+        },
+        "content": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "confirmation_status": {
+          "$ref": "#/$defs/confirmationStatusCode"
+        }
+      }
+    },
+    "humanConfirmation": {
+      "type": "object",
+      "description": "人工确认记录。",
+      "additionalProperties": false,
+      "required": [
+        "role",
+        "confirmation_status",
+        "evidence_reference"
+      ],
+      "properties": {
+        "role": {
+          "type": "string",
+          "minLength": 1
+        },
+        "person_or_group": {
+          "type": "string"
+        },
+        "confirmation_status": {
+          "$ref": "#/$defs/confirmationStatusCode"
+        },
+        "evidence_reference": {
+          "type": "string",
+          "minLength": 1
+        },
+        "confirmed_at": {
+          "type": "string"
+        }
+      }
+    },
+    "extensionObject": {
+      "type": "object",
+      "description": "后续平台化或目标项目扩展字段。",
+      "additionalProperties": true
+    }
+  }
+}

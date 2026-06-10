@@ -2,30 +2,26 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-CLAUDE_PLUGIN_DIR="$SCRIPT_DIR/claude-code"
-OPENCODE_PLUGIN_SRC="$SCRIPT_DIR/opencode/hicode.ts"
+CLAUDE_PLUGIN_DIR="$SCRIPT_DIR"
 
 INSTALL_CLAUDE=0
-INSTALL_OPENCODE=0
 DRY_RUN=0
 YES=0
 
 usage() {
   cat <<'USAGE'
-hicode Coding Agent plugin installer
+hicode Claude Code plugin installer
 
 Usage:
-  install.sh [--all] [--claude-code] [--opencode] [--dry-run] [--yes]
+  install.sh [--claude-code] [--dry-run] [--yes]
 
 Options:
-  --all           Install Claude Code and OpenCode plugins. Default when no platform is selected.
-  --claude-code   Install the hicode Claude Code plugin for the current user.
-  --opencode      Install the hicode OpenCode plugin for the current user.
+  --claude-code   Install the hicode Claude Code plugin for the current user. Default.
   --dry-run       Print the installation plan without changing user configuration.
   --yes           Run without interactive confirmation.
   -h, --help      Show this help.
 
-This installer only installs the hicode plugin into Coding Agent platforms.
+This installer only installs the hicode Claude Code plugin.
 It does not scan projects, generate CLAUDE.md or AGENTS.md, or create .hicode/.
 USAGE
 }
@@ -79,44 +75,10 @@ install_claude_code() {
   run_cmd claude plugin install "hicode@hicode"
 }
 
-install_opencode() {
-  require_command node
-
-  [ -f "$OPENCODE_PLUGIN_SRC" ] || die "Missing OpenCode plugin source: $OPENCODE_PLUGIN_SRC"
-
-  local config_home="${XDG_CONFIG_HOME:-$HOME/.config}"
-  local opencode_dir="$config_home/opencode"
-  local plugin_dir="$opencode_dir/plugins"
-  local plugin_dst="$plugin_dir/hicode.ts"
-
-  log ""
-  log "OpenCode plan:"
-  log "  Plugin source: $OPENCODE_PLUGIN_SRC"
-  log "  Plugin target: $plugin_dst"
-  log "  Config file: $opencode_dir/opencode.json (not modified for local plugins)"
-  log "  Action: copy plugin to the user-level OpenCode plugins directory"
-
-  if [ "$DRY_RUN" -eq 1 ]; then
-    log "+ mkdir -p $plugin_dir"
-    log "+ cp $OPENCODE_PLUGIN_SRC $plugin_dst"
-    return 0
-  fi
-
-  mkdir -p "$plugin_dir"
-  cp "$OPENCODE_PLUGIN_SRC" "$plugin_dst"
-}
-
 while [ "$#" -gt 0 ]; do
   case "$1" in
-    --all)
-      INSTALL_CLAUDE=1
-      INSTALL_OPENCODE=1
-      ;;
     --claude-code)
       INSTALL_CLAUDE=1
-      ;;
-    --opencode)
-      INSTALL_OPENCODE=1
       ;;
     --dry-run)
       DRY_RUN=1
@@ -135,16 +97,14 @@ while [ "$#" -gt 0 ]; do
   shift
 done
 
-if [ "$INSTALL_CLAUDE" -eq 0 ] && [ "$INSTALL_OPENCODE" -eq 0 ]; then
+if [ "$INSTALL_CLAUDE" -eq 0 ]; then
   INSTALL_CLAUDE=1
-  INSTALL_OPENCODE=1
 fi
 
-log "hicode Coding Agent plugin installer"
+log "hicode Claude Code plugin installer"
 log "Scope: current user"
 log "Dry run: $DRY_RUN"
 log "Claude Code: $INSTALL_CLAUDE"
-log "OpenCode: $INSTALL_OPENCODE"
 log ""
 log "This installer will not scan code, generate CLAUDE.md, generate AGENTS.md, or create .hicode/."
 
@@ -152,10 +112,6 @@ confirm
 
 if [ "$INSTALL_CLAUDE" -eq 1 ]; then
   install_claude_code
-fi
-
-if [ "$INSTALL_OPENCODE" -eq 1 ]; then
-  install_opencode
 fi
 
 log ""
