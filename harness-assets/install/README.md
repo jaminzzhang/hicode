@@ -47,13 +47,17 @@ harness-assets/install/
 3. `manifests/skills.json`
 4. `manifests/gates.json`
 5. `manifests/hooks.json`
-6. `manifests/docs.json`
+6. `manifests/schemas.json`
+7. `manifests/docs.json`
+8. `manifests/examples.json`
+
+`manifests/hooks.json` 在 V2-P4 Hook 源资产创建前只保留规划占位，不提前创建虚假 Hook 条目，也不提前创建 `harness-assets/hooks/`。
 
 计划中的 profile 文件包括：
 
-1. `profiles/core.json`：最小可用 hicode 链路。
-2. `profiles/java-insurance-core.json`：面向 Java 保险核心系统的默认组合。
-3. `profiles/full-library.json`：完整可检索资产库，不代表全量默认加载。
+1. `profiles/core.json`：完整轻量 hicode 闭环，覆盖入口、首批核心 Agent、核心 Prompt、核心 Skill、核心 Gate、Schema 和必要文档。
+2. `profiles/java-insurance-core.json`：面向 Java 保险核心系统的默认组合，在 `core` 基础上把 Java、SQL、安全和保险业务专项 Agent 与规则作为 `DAILY` 资产。
+3. `profiles/full-library.json`：完整可检索资产库，保留 manifest 原始 `load_tier`，不代表全量默认加载。
 
 ## 5. Manifest 字段规划
 
@@ -124,4 +128,3 @@ V2-P3-WP1 只在以下条件满足时视为可提交验收：
 2. `harness-assets/install/manifests/` 已存在，但不包含具体 JSON 清单。
 3. `harness-assets/install/profiles/` 已存在，但不包含具体 profile JSON。
 4. 本仓库未创建 `harness-assets/.hicode/`。
-

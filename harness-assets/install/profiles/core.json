@@ -1,0 +1,36 @@
+{
+  "schema_version": "hicode.install-profile.v1",
+  "id": "core",
+  "description": "hicode 完整轻量闭环，覆盖入口、首批核心 Agent、核心 Prompt、核心 Skill、核心 Gate、Schema 和必要文档。",
+  "target_context": "保险/金融核心系统研发的通用目标项目。",
+  "selection": [
+    {
+      "manifest": "agents",
+      "ids": ["requirement-reviewer", "coding-planner", "tdd-guide", "coding-assistant", "code-reviewer", "security-reviewer", "java-reviewer", "release-reviewer"]
+    },
+    {
+      "manifest": "prompts",
+      "ids": ["requirement-review", "coding-plan", "tdd", "coding-assistant", "code-review", "pre-commit-check", "core-scenario-test", "release-check"]
+    },
+    {
+      "manifest": "skills",
+      "ids": ["requirement-review", "coding-plan", "tdd", "coding-assistant", "code-review", "pre-commit-check", "core-scenario-test", "release-check"]
+    },
+    {
+      "manifest": "gates",
+      "ids": ["requirement-entry-gate", "coding-entry-gate", "coding-to-test-gate", "merge-gate", "release-gate"]
+    },
+    {
+      "manifest": "schemas",
+      "ids": ["review-result", "gate-result", "risk-level"]
+    },
+    {
+      "manifest": "docs",
+      "ids": ["domain-knowledge", "prd-context", "proj-context", "coding-rules", "testing-guide", "review-rules", "release-guide", "defect-cases", "agent-prompt-integration", "agent-delegation-workflow"]
+    }
+  ],
+  "notes": [
+    "core 是完整轻量闭环，不包含示例、pilot 模板、ADR 模板和维护模板。",
+    "core 不代表审批通过、真实安装结果或生产可用承诺。"
+  ]
+}

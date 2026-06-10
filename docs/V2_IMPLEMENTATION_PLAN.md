@@ -210,19 +210,22 @@ V2 必须遵守已确认的设计基线：
 3. `harness-assets/install/manifests/skills.json`
 4. `harness-assets/install/manifests/gates.json`
 5. `harness-assets/install/manifests/hooks.json`
-6. `harness-assets/install/manifests/docs.json`
-7. `harness-assets/install/profiles/core.json`
-8. `harness-assets/install/profiles/java-insurance-core.json`
-9. `harness-assets/install/profiles/full-library.json`
+6. `harness-assets/install/manifests/schemas.json`
+7. `harness-assets/install/manifests/docs.json`
+8. `harness-assets/install/manifests/examples.json`
+9. `harness-assets/install/profiles/core.json`
+10. `harness-assets/install/profiles/java-insurance-core.json`
+11. `harness-assets/install/profiles/full-library.json`
 
 依赖：V2-P3-WP1。
 
 验收标准：
 
 1. 每个 manifest 条目至少包含 `id`、`source`、`target`、`load_tier`、`scenarios` 和 `requires`。
-2. `core` profile 覆盖 hicode 最小可用链路。
-3. `java-insurance-core` profile 覆盖 Java、SQL、安全和保险核心业务审查。
-4. `full-library` profile 保留完整可检索资产，但不要求默认加载。
+2. `hooks.json` 在 V2-P4 Hook 源资产创建前只保留规划占位，不提前创建虚假 Hook 条目。
+3. `core` profile 覆盖 hicode 完整轻量闭环，包括入口、首批核心 Agent、核心 Prompt、核心 Skill、核心 Gate、Schema 和必要文档。
+4. `java-insurance-core` profile 覆盖 Java、SQL、安全和保险核心业务审查，并将对应专项 Agent 与专项规则作为 `DAILY` 资产。
+5. `full-library` profile 保留完整可检索资产，不改写 manifest 条目的 `load_tier`，也不表示全量默认加载。
 
 ## 9. V2-P4 门禁 Hook 化设计
 

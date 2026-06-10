@@ -1,0 +1,37 @@
+{
+  "schema_version": "hicode.install-manifest.v1",
+  "asset_type": "schema",
+  "description": "hicode 结构化输出 Schema 到目标项目 .hicode/schemas/ 的安装规划。",
+  "items": [
+    {
+      "id": "review-result",
+      "source": "harness-assets/schemas/review-result.schema.json",
+      "target": ".hicode/schemas/review-result.schema.json",
+      "load_tier": "DAILY",
+      "scenarios": ["requirement-review", "code-review", "security-review", "java-review"],
+      "requires": ["docs:review-rules", "docs:agent-prompt-integration"],
+      "description": "Review 类结构化输出 Schema。",
+      "risk_tags": ["schema", "review", "stable-enum"]
+    },
+    {
+      "id": "gate-result",
+      "source": "harness-assets/schemas/gate-result.schema.json",
+      "target": ".hicode/schemas/gate-result.schema.json",
+      "load_tier": "DAILY",
+      "scenarios": ["requirement-entry-gate", "coding-entry-gate", "merge-gate", "release-gate"],
+      "requires": ["gates:requirement-entry-gate", "gates:coding-entry-gate", "gates:merge-gate", "gates:release-gate"],
+      "description": "门禁类结构化输出 Schema。",
+      "risk_tags": ["schema", "gate", "stable-enum"]
+    },
+    {
+      "id": "risk-level",
+      "source": "harness-assets/schemas/risk-level.schema.json",
+      "target": ".hicode/schemas/risk-level.schema.json",
+      "load_tier": "DAILY",
+      "scenarios": ["risk-classification", "review", "gate"],
+      "requires": ["docs:review-rules", "docs:tool-permission-audit-matrix"],
+      "description": "共享风险等级 Schema。",
+      "risk_tags": ["schema", "risk-level", "stable-enum"]
+    }
+  ]
+}
