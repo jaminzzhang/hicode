@@ -49,7 +49,7 @@ description: Use when code changes need delegated review against hicode requirem
 执行前按需读取：
 
 1. `AGENTS.md`
-2. `docs/PRD_CONTEXT.md`
+2. `docs/features/<feature-id>/feature_context.md`
 3. `docs/PROJ_CONTEXT.md`
 4. `docs/DOMAIN_KNOWLEDGE.md`
 5. `docs/CODING_RULES.md`
@@ -61,7 +61,7 @@ description: Use when code changes need delegated review against hicode requirem
 11. `references/rules/shared/permissions.md`
 12. `references/rules/shared/output.md`
 13. `references/rules/review/README.md`
-14. `references/templates/review/review-report.md`
+14. `references/templates/feature/review-report.md`
 
 只读取当前审查必要上下文。缺少上下文时，输出缺口和影响，不补编需求、业务规则、类、表、接口、配置、测试结果或审查结论。
 

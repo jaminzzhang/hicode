@@ -48,7 +48,7 @@ description: Use when release materials need delegated review for scope, evidenc
 执行前按需读取：
 
 1. `AGENTS.md`
-2. `docs/PRD_CONTEXT.md`
+2. `docs/features/<feature-id>/feature_context.md`
 3. `docs/PROJ_CONTEXT.md`
 4. `docs/DOMAIN_KNOWLEDGE.md`
 5. `docs/REVIEW_RULES.md`
@@ -59,7 +59,7 @@ description: Use when release materials need delegated review for scope, evidenc
 10. `references/rules/shared/permissions.md`
 11. `references/rules/shared/output.md`
 12. `references/rules/release/README.md`
-13. `references/templates/release/release-report.md`
+13. `references/templates/feature/release-report.md`
 
 按需读取已有需求评审报告、编码计划、TDD 报告、核心场景测试报告、代码审查报告、提交检查报告和发布材料。缺少上下文时，输出缺口和影响，不补编发布范围、测试结果、缺陷状态、SQL、配置、回滚方案或发布结论。
 

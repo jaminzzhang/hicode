@@ -21,7 +21,14 @@ description: Use when code changes need review, pre-commit checks, security or J
 
 需要固定报告骨架时读取：
 
-1. `../../references/templates/review/review-report.md`
+1. `../../references/templates/feature/review-report.md`
+
+若当前需求目录或 Review 报告不存在：
+
+1. 当前需求目录固定使用 `docs/features/<feature-id>/`；`feature-id` 不明确时先询问用户。
+2. 缺少 `review-report.md` 时，先读取 `../../references/templates/feature/review-report.md`，再按需创建。
+3. 缺少需求来源、`feature_context.md`、Scope 报告、TDD 报告或 diff 范围时，不编造审查依据；标注需求轴或证据轴降级。
+4. 创建或更新报告只能记录真实 diff、证据、问题、命令结果和待确认问题。
 
 ## 执行流程
 
@@ -95,5 +102,6 @@ description: Use when code changes need review, pre-commit checks, security or J
 8. 测试补充建议。
 9. 受限命令执行记录。
 10. 待确认问题和上下文更新建议。
+11. 本次创建、更新、跳过或缺失的 feature 文档清单。
 
 不得输出“准许合并”“审批通过”“门禁通过”“可以上线”。

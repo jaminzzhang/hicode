@@ -16,6 +16,11 @@ description: Use when a target backend application needs guided hicode initializ
 
 1. `../../references/rules/`
 2. `../../references/rules/coding_rules.md`
+3. `../../references/templates/project/AGENTS.md`
+4. `../../references/templates/project/CLAUDE.md`
+5. `../../references/templates/project/DOMAIN_KNOWLEDGE.md`
+6. `../../references/templates/project/PROJ_CONTEXT.md`
+7. `../../references/templates/project/ADR-template.md`
 
 不得把 hicode plugin 内置 Skill、Agent、Rule、Template 或 Hook 复制到目标项目本地运行目录。
 
@@ -50,7 +55,26 @@ description: Use when a target backend application needs guided hicode initializ
    - 项目 rules 只能补充或加严 hicode 内置规则，不能放宽安全、合规、审计、幂等、事务、状态流转、异常防御和测试要求。
 6. 已有 `docs/rules/` 文件优先保留。发现冲突时列出冲突点，未获用户确认前不得覆盖。
 
-### 4. 判断是否需要扫描代码
+### 4. 初始化项目级文档目录
+
+入口文件创建或补充后，检查目标项目级文档目录：
+
+1. `docs/DOMAIN_KNOWLEDGE.md`
+2. `docs/PROJ_CONTEXT.md`
+3. `docs/adr/`
+4. `docs/rules/`
+
+处理规则：
+
+1. 目标文档不存在时，先读取 `../../references/templates/project/` 下对应模板，再按需创建文档。
+2. `docs/DOMAIN_KNOWLEDGE.md` 和 `docs/PROJ_CONTEXT.md` 只写已确认事实；未确认内容必须保留为 `待确认` 或输出更新建议。
+3. `docs/adr/` 只创建目录，不凭空创建 ADR；只有存在难逆、意外且有真实取舍的决策时，才基于 `ADR-template.md` 生成 ADR 草稿。
+4. 创建或确认这些路径后，必须在 `CLAUDE.md` 或 `AGENTS.md` 中说明项目级共享文档路径和单需求文档路径：
+   - 项目级：`docs/DOMAIN_KNOWLEDGE.md`、`docs/PROJ_CONTEXT.md`、`docs/adr/`、`docs/rules/`
+   - 单需求：`docs/features/<feature-id>/feature_context.md` 及同目录下的评审、Scope、TDD、Review、Release 报告。
+5. 已有文档优先保留。发现目标入口文档中的路径说明与实际目录冲突时，列出冲突并等待用户确认。
+
+### 5. 判断是否需要扫描代码
 
 规则初始化完成后，先用只读方式判断当前项目复杂度，再决定是否建议使用 graphify 扫描。
 
@@ -94,7 +118,7 @@ graphify 不可用时：
 1. 不自行联网安装。
 2. 一次只问用户一个问题，确认是否允许安装或改用轻量只读目录梳理。
 
-### 5. 停止条件
+### 6. 停止条件
 
 命中以下情况时停止写入，输出风险和待确认问题：
 
@@ -105,6 +129,7 @@ graphify 不可用时：
 5. 输入或文件包含密钥、生产配置、未脱敏客户信息或未脱敏生产数据。
 6. graphify 结果文件路径不明确且需要写入入口文件。
 7. 用户要求复制 plugin 内置能力到目标项目本地运行目录、自动发布、自动合并、自动回滚或操作生产环境。
+8. 用户未确认创建项目级文档目录或入口文档路径说明。
 
 ## 输出要求
 
@@ -114,14 +139,16 @@ graphify 不可用时：
 2. 目标项目根目录和入口文件判断。
 3. `/init` 是否执行；未执行时说明原因。
 4. `docs/rules/` 创建、补充、跳过和需确认的文件清单。
-5. 已读 hicode rules。
-6. 入口文件补充内容摘要。
-7. 项目复杂度判断：低 / 中 / 高 / 待确认，并说明依据。
-8. 代码扫描状态：未建议 / 用户拒绝 / 待确认 / graphify 执行中 / graphify 已完成 / 阻塞。
-9. graphify 结果文件路径及入口文件引用状态：不适用 / 待确认 / 已引用 / 阻塞。
-10. 事实、推断和待确认分层。
-11. 风险等级。
-12. 建议动作。
-13. 待确认问题；如需要继续提问，一次只列一个问题。
+5. 项目级文档目录创建、补充、跳过和需确认的文件清单。
+6. 入口文件中的项目级文档路径和单需求文档路径说明。
+7. 已读 hicode rules 和 templates。
+8. 入口文件补充内容摘要。
+9. 项目复杂度判断：低 / 中 / 高 / 待确认，并说明依据。
+10. 代码扫描状态：未建议 / 用户拒绝 / 待确认 / graphify 执行中 / graphify 已完成 / 阻塞。
+11. graphify 结果文件路径及入口文件引用状态：不适用 / 待确认 / 已引用 / 阻塞。
+12. 事实、推断和待确认分层。
+13. 风险等级。
+14. 建议动作。
+15. 待确认问题；如需要继续提问，一次只列一个问题。
 
 不得输出最终审批、准许合并、准许发布或可以上线。

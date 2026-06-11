@@ -48,7 +48,7 @@ description: Use when Java, Spring, transaction, SQL, batch, messaging, or insur
 执行前按需读取：
 
 1. `AGENTS.md`
-2. `docs/PRD_CONTEXT.md`
+2. `docs/features/<feature-id>/feature_context.md`
 3. `docs/PROJ_CONTEXT.md`
 4. `docs/DOMAIN_KNOWLEDGE.md`
 5. `docs/CODING_RULES.md`
@@ -60,7 +60,7 @@ description: Use when Java, Spring, transaction, SQL, batch, messaging, or insur
 11. `references/rules/shared/permissions.md`
 12. `references/rules/shared/output.md`
 13. `references/rules/review/README.md`
-14. `references/templates/review/review-report.md`
+14. `references/templates/feature/review-report.md`
 
 只读取当前 Java 专项审查必要上下文。缺少上下文时，输出缺口和影响，不补编业务规则、类、表、接口、配置、SQL 或测试结果。
 
@@ -118,7 +118,7 @@ description: Use when Java, Spring, transaction, SQL, batch, messaging, or insur
 
 1. 能引用具体文件、类、方法、SQL、配置、测试或业务规则来源。
 2. P0/P1 问题必须说明具体失败模式、事务/状态/金额影响和现有保护为什么不足。
-3. 业务判断必须追溯到 `PRD_CONTEXT`、`DOMAIN_KNOWLEDGE`、`DEFECT_CASES`、需求材料或负责人确认。
+3. 业务判断必须追溯到 `feature_context`、`DOMAIN_KNOWLEDGE`、`DEFECT_CASES`、需求材料或负责人确认。
 4. 找不到业务规则来源时，标注 `待确认` 或降级，不编造保险规则。
 5. 不把普通风格问题升级为高严重度问题。
 6. 涉及 SQL、事务、幂等、外部调用或金额状态时，必须给出测试或验证建议。

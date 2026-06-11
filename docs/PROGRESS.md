@@ -4,8 +4,8 @@
 
 最近更新时间：2026-06-11
 当前阶段：V3 后续维护
-当前工作包：V3-MAINT-WP8 `scope` 产物链路与上下文沉淀完善
-总体状态：V1 已完成；V2-P1 至 V2-P5 已完成；V2-P6-WP1 待验收；V3 已完成；V3-MAINT-WP1 待验收；V3-MAINT-WP2 待验收；V3-MAINT-WP3 待验收；V3-MAINT-WP4 待验收；V3-MAINT-WP5 待验收；V3-MAINT-WP6 待验收；V3-MAINT-WP7 待验收；V3-MAINT-WP8 待验收
+当前工作包：V3-MAINT-WP10 目标项目文档路径与缺失文档创建规则
+总体状态：V1 已完成；V2-P1 至 V2-P5 已完成；V2-P6-WP1 待验收；V3 已完成；V3-MAINT-WP1 待验收；V3-MAINT-WP2 待验收；V3-MAINT-WP3 待验收；V3-MAINT-WP4 待验收；V3-MAINT-WP5 待验收；V3-MAINT-WP6 待验收；V3-MAINT-WP7 待验收；V3-MAINT-WP8 待验收；V3-MAINT-WP9 待验收；V3-MAINT-WP10 待验收
 
 本台账用于记录 V1、V2 和 V3 工作包推进状态。每次开发 Agent 开始、完成、阻塞、暂缓或提交工作包验收时，必须同步更新本文件。
 
@@ -239,7 +239,7 @@
 
 ## 5. 下一步建议
 
-1. 等待项目负责人验收 `V3-MAINT-WP1`、`V3-MAINT-WP2`、`V3-MAINT-WP3`、`V3-MAINT-WP4`、`V3-MAINT-WP5`、`V3-MAINT-WP6`、`V3-MAINT-WP7` 和 `V3-MAINT-WP8`。
+1. 等待项目负责人验收 `V3-MAINT-WP1` 至 `V3-MAINT-WP10`。
 2. 验收通过后再将对应维护工作包标记为已完成。
 3. V2-P6-WP1 仍保留待验收状态，未被 V3 或本次维护工作自动标记为已完成。
 4. 后续若进入真实试点运行效果验收，必须基于真实试点数据补充，不能用本仓库模板资产替代。
@@ -324,19 +324,23 @@
 | V3-MAINT-WP2 | 编码强制规则入口引用 | 待验收 | `references/rules/coding_rules.md`、`references/rules/README.md`、目标项目入口模板 | 用户确认 `references/rules` 应定义会被 `AGENTS.md` / `CLAUDE.md` 引用的真实有效规则 | 已补充编码强制规则，并在目标项目入口模板中声明引用关系；已追加注释和类型控制规则；已将适用范围收敛为后端应用系统；等待项目负责人验收 |
 | V3-MAINT-WP3 | `init` Skill 引导式重构 | 待验收 | `skills/init/SKILL.md`、`CONTEXT.md`、`docs/PROGRESS.md` | 用户确认初始化流程改为：入口缺失优先调用 `/init`，平台不支持 `/init` 时方可自行生成；rules 写入 `docs/rules/`；询问后用子 Agent 调用 graphify 扫描代码 | 已重构 `init` Skill 为一次只问一个问题的引导式流程；移除已不存在规则/模板引用；等待项目负责人验收 |
 | V3-MAINT-WP4 | `init` 代码扫描复杂度判断 | 待验收 | `skills/init/SKILL.md`、`CONTEXT.md`、`docs/PROGRESS.md` | 用户确认 graphify 只用于复杂度高的项目，扫描结果文件需在入口文件中引用 | 已补充项目复杂度判断、graphify 使用门槛和结果文件入口引用要求；等待项目负责人验收 |
-| V3-MAINT-WP5 | `scope` 需求澄清与任务拆分重构 | 待验收 | `skills/scope/SKILL.md`、`references/templates/scope/scope-report.md`、`docs/PROGRESS.md` | 用户确认 Scope 应进行需求评审、梳理边界和模糊点，并把需求拆分成实施小任务，避免一次生成大段代码 | 已参考 Superpowers `brainstorming`、`writing-plans` 和 Matt Pocock `grill-me` / `grill-with-docs` 重构 Scope 主流程；已修正 Scope 对不存在规则路径的引用；等待项目负责人验收 |
+| V3-MAINT-WP5 | `scope` 需求澄清与任务拆分重构 | 待验收 | `skills/scope/SKILL.md`、`references/templates/feature/scope-report.md`、`docs/PROGRESS.md` | 用户确认 Scope 应进行需求评审、梳理边界和模糊点，并把需求拆分成实施小任务，避免一次生成大段代码 | 已参考 Superpowers `brainstorming`、`writing-plans` 和 Matt Pocock `grill-me` / `grill-with-docs` 重构 Scope 主流程；已修正 Scope 对不存在规则路径的引用；等待项目负责人验收 |
 | V3-MAINT-WP6 | 当前资产历史引用限制清理 | 待验收 | `skills/*.md`、`references/hooks/README.md`、`docs/PROGRESS.md` | 用户要求移除当前 Skill、Rule 等资产中的历史资产读取限制语句 | 已从当前 6 个 Skill 和 Hook README 清理对应限制语句；未修改历史进度记录、归档说明或 ADR；等待项目负责人验收 |
 | V3-MAINT-WP7 | `scope` 分流条件语义修正 | 待验收 | `skills/scope/SKILL.md`、`docs/PROGRESS.md` | 用户指出 Scope 不编码，因此第 7 节不应采用编码执行视角 | 已将 Scope 第 7 节从编码停止条件修正为分流条件，命中问题时不得输出 `READY_FOR_TDD`，应继续澄清、拆分、阻断或转人工安全流程；等待项目负责人验收 |
-| V3-MAINT-WP8 | `scope` 产物链路与上下文沉淀完善 | 待验收 | `skills/scope/SKILL.md`、`references/templates/scope/requirement-review-report.md`、`references/templates/scope/task-split-plan.md`、`references/templates/scope/scope-report.md`、`references/templates/README.md`、`CONTEXT.md`、`docs/PROGRESS.md` | 用户确认 Scope 需要输出需求评审报告、在需求分析中按需更新 ADR 和 `PRD_CONTEXT.md`、输出拆分任务计划，并在成功完成时沉淀领域和项目知识 | 已补充 Scope 四段产物链路；新增需求评审报告和拆分任务计划模板；明确 `PRD_CONTEXT.md` 可作为过程上下文更新，`DOMAIN_KNOWLEDGE.md`、`PROJ_CONTEXT.md` 和 ADR 正式沉淀需用户或负责人确认；等待项目负责人验收 |
+| V3-MAINT-WP8 | `scope` 产物链路与上下文沉淀完善 | 待验收 | `skills/scope/SKILL.md`、`references/templates/feature/requirement-review-report.md`、`references/templates/feature/task-split-plan.md`、`references/templates/feature/scope-report.md`、`references/templates/README.md`、`CONTEXT.md`、`docs/PROGRESS.md` | 用户确认 Scope 需要输出需求评审报告、在需求分析中按需更新 ADR 和单需求上下文、输出拆分任务计划，并在成功完成时沉淀领域和项目知识 | 已补充 Scope 四段产物链路；新增需求评审报告和拆分任务计划模板；明确单需求上下文可作为过程上下文更新，`DOMAIN_KNOWLEDGE.md`、`PROJ_CONTEXT.md` 和 ADR 正式沉淀需用户或负责人确认；等待项目负责人验收 |
+| V3-MAINT-WP9 | 模板目录关系梳理与单需求目录规划 | 待验收 | `references/templates/README.md`、`references/templates/project/`、`references/templates/feature/`、`skills/*.md`、`agents/*.md`、`references/hooks/`、`CONTEXT.md`、`docs/PROGRESS.md` | 用户确认单需求实现资产目录使用 `docs/features/`，并要求单需求上下文避免与 `PROJ_CONTEXT.md` 混淆 | 已将单需求上下文模板改名为 `feature_context.md`；将单需求相关报告模板收敛到 `references/templates/feature/`；保留项目全局模板在 `references/templates/project/`；同步 Skill、Agent、Hook 和入口模板引用；等待项目负责人验收 |
+| V3-MAINT-WP10 | 目标项目文档路径与缺失文档创建规则 | 待验收 | `references/templates/project/AGENTS.md`、`references/templates/project/CLAUDE.md`、`skills/init/SKILL.md`、`skills/hi/SKILL.md`、`skills/scope/SKILL.md`、`skills/tdd/SKILL.md`、`skills/review/SKILL.md`、`skills/release/SKILL.md`、`CONTEXT.md`、`docs/PROGRESS.md` | 用户确认项目级文档路径需要在入口文档中说明，并要求目标文档不存在时由各 Skill 先读模板再按需创建 | 已在入口模板中明确项目级和单需求文档路径；`init` 负责项目级文档骨架和入口路径说明；`scope/tdd/review/release` 在缺少单需求文档时先读取 `feature/` 模板再创建；等待项目负责人验收 |
 
 ## 10. 最近变更记录
 
 | 日期 | 操作者 | 变更 | 关联工作包 |
 |---|---|---|---|
 | 2026-06-11 | Codex | 修正 `skills/scope/SKILL.md` 第 7 节语义：Scope 不编码，命中风险时应控制 `READY_FOR_TDD` 移交结论并分流处理 | V3-MAINT-WP7 |
-| 2026-06-11 | Codex | 完善 `skills/scope/SKILL.md` 产物链路：需求评审报告、`PRD_CONTEXT.md` 更新、ADR 草稿或更新、拆分任务计划、领域知识和项目上下文沉淀；新增两个 Scope 输出模板并同步术语上下文 | V3-MAINT-WP8 |
+| 2026-06-11 | Codex | 完善 `skills/scope/SKILL.md` 产物链路：需求评审报告、`feature_context.md` 更新、ADR 草稿或更新、拆分任务计划、领域知识和项目上下文沉淀；新增两个 Scope 输出模板并同步术语上下文 | V3-MAINT-WP8 |
+| 2026-06-11 | Codex | 梳理 `references/templates/` 文档关系：项目全局共享模板保留在 `project/`，单需求实现模板收敛到 `feature/`；单需求上下文改名为 `feature_context.md`，目标项目建议目录为 `docs/features/<feature-id>/` | V3-MAINT-WP9 |
+| 2026-06-11 | Codex | 明确目标项目文档路径和缺失文档创建规则：入口模板说明 `docs/`、`docs/adr/`、`docs/rules/` 和 `docs/features/<feature-id>/`；各 Skill 在目标文档不存在时先读取模板再按需创建 | V3-MAINT-WP10 |
 | 2026-06-11 | Codex | 按项目负责人要求清理当前 6 个 Skill 和 Hook README 中的历史资产读取限制语句；历史记录、归档说明和 ADR 保持不变 | V3-MAINT-WP6 |
-| 2026-06-11 | Codex | 重构 `skills/scope/SKILL.md`：Scope 改为需求澄清、范围收敛、单点追问、方案取舍和小任务拆分入口；同步 `references/templates/scope/scope-report.md`，并移除 Scope 对不存在规则路径的引用 | V3-MAINT-WP5 |
+| 2026-06-11 | Codex | 重构 `skills/scope/SKILL.md`：Scope 改为需求澄清、范围收敛、单点追问、方案取舍和小任务拆分入口；同步 `references/templates/feature/scope-report.md`，并移除 Scope 对不存在规则路径的引用 | V3-MAINT-WP5 |
 | 2026-06-11 | Codex | 按项目负责人确认修正 `init` 入口生成规则：入口文件缺失时优先调用平台 `/init`，当前平台不支持 `/init` 时方可自行生成 `CLAUDE.md` 或 `AGENTS.md`；同步 `CONTEXT.md` 边界 | V3-MAINT-WP3 |
 | 2026-06-11 | Codex | 补强 `skills/init/SKILL.md` 代码扫描环节：先判断项目复杂度，高复杂度才建议 graphify；扫描完成后把实际结果文件路径引用到目标项目 `CLAUDE.md` / `AGENTS.md`，供后续 Agent 查找代码使用；同步 `CONTEXT.md` 边界 | V3-MAINT-WP4 |
 | 2026-06-11 | Codex | 重构 `skills/init/SKILL.md`：入口文件缺失时调用平台 `/init` 而不自行生成；根据 `references/rules/` 在目标项目 `docs/rules/` 生成适用规则并补充入口文件；规则初始化后询问是否启动子 Agent 调用 graphify 扫描代码；同步 `CONTEXT.md` 初始化边界 | V3-MAINT-WP3 |
