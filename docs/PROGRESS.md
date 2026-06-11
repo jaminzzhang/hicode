@@ -4,8 +4,8 @@
 
 最近更新时间：2026-06-11
 当前阶段：V3 后续维护
-当前工作包：V3-MAINT-WP3 `init` Skill 引导式重构
-总体状态：V1 已完成；V2-P1 至 V2-P5 已完成；V2-P6-WP1 待验收；V3 已完成；V3-MAINT-WP1 待验收；V3-MAINT-WP2 待验收；V3-MAINT-WP3 待验收
+当前工作包：V3-MAINT-WP4 `init` 代码扫描复杂度判断
+总体状态：V1 已完成；V2-P1 至 V2-P5 已完成；V2-P6-WP1 待验收；V3 已完成；V3-MAINT-WP1 待验收；V3-MAINT-WP2 待验收；V3-MAINT-WP3 待验收；V3-MAINT-WP4 待验收
 
 本台账用于记录 V1、V2 和 V3 工作包推进状态。每次开发 Agent 开始、完成、阻塞、暂缓或提交工作包验收时，必须同步更新本文件。
 
@@ -239,7 +239,7 @@
 
 ## 5. 下一步建议
 
-1. 等待项目负责人验收 `V3-MAINT-WP1`、`V3-MAINT-WP2` 和 `V3-MAINT-WP3`。
+1. 等待项目负责人验收 `V3-MAINT-WP1`、`V3-MAINT-WP2`、`V3-MAINT-WP3` 和 `V3-MAINT-WP4`。
 2. 验收通过后再将对应维护工作包标记为已完成。
 3. V2-P6-WP1 仍保留待验收状态，未被 V3 或本次维护工作自动标记为已完成。
 4. 后续若进入真实试点运行效果验收，必须基于真实试点数据补充，不能用本仓库模板资产替代。
@@ -322,12 +322,15 @@
 |---|---|---|---|---|---|
 | V3-MAINT-WP1 | `hi` 总入口重构 | 待验收 | `skills/hi/SKILL.md`、`install.sh`、`AGENTS.md`、`CONTEXT.md`、`README.md`、`docs/V3_IMPLEMENTATION_PLAN.md`、目标项目入口模板 | 用户确认总入口改为 `hi`，保留 `hicode:*` 场景路由表达 | 已完成路径、旧入口、JSON、安装 dry-run、Skill 入口和 shell 语法检查；等待项目负责人验收 |
 | V3-MAINT-WP2 | 编码强制规则入口引用 | 待验收 | `references/rules/coding_rules.md`、`references/rules/README.md`、目标项目入口模板 | 用户确认 `references/rules` 应定义会被 `AGENTS.md` / `CLAUDE.md` 引用的真实有效规则 | 已补充编码强制规则，并在目标项目入口模板中声明引用关系；已追加注释和类型控制规则；已将适用范围收敛为后端应用系统；等待项目负责人验收 |
-| V3-MAINT-WP3 | `init` Skill 引导式重构 | 待验收 | `skills/init/SKILL.md`、`CONTEXT.md`、`docs/PROGRESS.md` | 用户确认初始化流程改为：入口缺失调用 `/init`、rules 写入 `docs/rules/`、询问后用子 Agent 调用 graphify 扫描代码 | 已重构 `init` Skill 为一次只问一个问题的引导式流程；移除已不存在规则/模板引用；等待项目负责人验收 |
+| V3-MAINT-WP3 | `init` Skill 引导式重构 | 待验收 | `skills/init/SKILL.md`、`CONTEXT.md`、`docs/PROGRESS.md` | 用户确认初始化流程改为：入口缺失优先调用 `/init`，平台不支持 `/init` 时方可自行生成；rules 写入 `docs/rules/`；询问后用子 Agent 调用 graphify 扫描代码 | 已重构 `init` Skill 为一次只问一个问题的引导式流程；移除已不存在规则/模板引用；等待项目负责人验收 |
+| V3-MAINT-WP4 | `init` 代码扫描复杂度判断 | 待验收 | `skills/init/SKILL.md`、`CONTEXT.md`、`docs/PROGRESS.md` | 用户确认 graphify 只用于复杂度高的项目，扫描结果文件需在入口文件中引用 | 已补充项目复杂度判断、graphify 使用门槛和结果文件入口引用要求；等待项目负责人验收 |
 
 ## 10. 最近变更记录
 
 | 日期 | 操作者 | 变更 | 关联工作包 |
 |---|---|---|---|
+| 2026-06-11 | Codex | 按项目负责人确认修正 `init` 入口生成规则：入口文件缺失时优先调用平台 `/init`，当前平台不支持 `/init` 时方可自行生成 `CLAUDE.md` 或 `AGENTS.md`；同步 `CONTEXT.md` 边界 | V3-MAINT-WP3 |
+| 2026-06-11 | Codex | 补强 `skills/init/SKILL.md` 代码扫描环节：先判断项目复杂度，高复杂度才建议 graphify；扫描完成后把实际结果文件路径引用到目标项目 `CLAUDE.md` / `AGENTS.md`，供后续 Agent 查找代码使用；同步 `CONTEXT.md` 边界 | V3-MAINT-WP4 |
 | 2026-06-11 | Codex | 重构 `skills/init/SKILL.md`：入口文件缺失时调用平台 `/init` 而不自行生成；根据 `references/rules/` 在目标项目 `docs/rules/` 生成适用规则并补充入口文件；规则初始化后询问是否启动子 Agent 调用 graphify 扫描代码；同步 `CONTEXT.md` 初始化边界 | V3-MAINT-WP3 |
 | 2026-06-11 | Codex | 将 `references/rules/coding_rules.md` 的适用范围由复杂场景清单收敛为“适用于后端应用系统” | V3-MAINT-WP2 |
 | 2026-06-11 | Codex | 追加 `references/rules/coding_rules.md` 的注释要求和类型控制规则，并同步规则索引与目标项目入口模板的强制规则范围描述 | V3-MAINT-WP2 |
