@@ -4,7 +4,7 @@
 
 ## 1. 项目定位
 
-本仓库用于为意健险研发团队建设 hicode 工程化体系，交付可复用的 Claude Code plugin、Agent 入口规则、上下文文档、Prompt、Skill、门禁、Schema、示例和验收资产。
+本仓库用于为意健险研发团队建设 hicode 工程化体系，交付可复用的 Claude Code plugin、Agent 入口规则、上下文文档、直接执行型 Skill、专业子 Agent、规则、模板、Hook 说明和验收资产。
 
 本体系的默认服务对象是保险/金融核心系统研发。后续 hicode 资产设计必须按金融核心系统的高风险标准处理保险核心业务逻辑严谨性、金额精度、交易一致性、状态流转、幂等、权限、审计、客户隐私、监管合规、生产变更、回滚和发布准入。
 
@@ -17,7 +17,7 @@
 1. `AGENTS.md`
 2. `CONTEXT.md`
 3. `docs/PROGRESS.md`
-4. `docs/V1_IMPLEMENTATION_PLAN.md`
+4. 当前工作包对应的实施计划；当前 V3 简化重构使用 `docs/V3_IMPLEMENTATION_PLAN.md`
 
 不要默认读取 `docs/研发 AI 工程化方案V1.1.md`。该文件是需求草案，后续可能持续调整。
 
@@ -25,7 +25,7 @@
 
 1. 当前工作包明确把需求草案作为输入。
 2. 需要追溯某个资产设计是否来自原始方案。
-3. `docs/V1_IMPLEMENTATION_PLAN.md`、`docs/PROGRESS.md` 或已生成资产存在范围冲突。
+3. 当前实施计划、`docs/PROGRESS.md` 或已生成资产存在范围冲突。
 4. 用户明确要求分析、校对或更新需求草案。
 
 若需求草案与已确认的计划、进度或用户最新指令冲突，优先以用户最新指令和 `docs/PROGRESS.md` 为准，并在输出中说明冲突。
@@ -35,7 +35,7 @@
 执行 Harness 工作时：
 
 1. 从 `docs/PROGRESS.md` 确认当前阶段、当前工作包、状态和下一步。
-2. 从 `docs/V1_IMPLEMENTATION_PLAN.md` 确认该工作包的目标、输出、依赖和验收标准。
+2. 从当前工作包对应的实施计划确认该工作包的目标、输出、依赖和验收标准；V3 简化重构默认读取 `docs/V3_IMPLEMENTATION_PLAN.md`。
 3. 若当前工作包为 `待验收`，不要自动启动下一个工作包，除非用户明确确认。
 4. 只实现当前工作包要求的资产，不扩大范围。
 5. 产出完成后，把工作包标记为 `待验收`；只有用户确认后才能标记为 `已完成`。
@@ -47,30 +47,27 @@
 
 目录边界：
 
-1. 根目录 `docs/`：项目管理文档，如 V1 计划、进度台账和需求草案。
+1. 根目录 `docs/`：本仓库项目管理文档，如实施计划、进度台账、需求草案和 ADR；不得作为目标 Coding Agent 默认运行资产安装。
 2. 根目录 `CONTEXT.md`：项目术语表，只记录概念边界。
 3. 根目录 `.claude-plugin/`：Claude Code plugin manifest。
-4. 根目录 `install.sh`：当前用户 Claude Code plugin 安装器。
-5. 根目录 `skills/`：Claude Code 可直接调用的 hicode 场景 Skill。
+4. 根目录 `install.sh`：当前用户 Claude Code plugin 安装器；只安装 plugin，不初始化目标项目、不复制本仓库 `docs/`、不创建 `.hicode/`。
+5. 根目录 `skills/`：Claude Code 可直接调用的 6 个 hicode 直接执行型 Skill：`hicode`、`init`、`scope`、`tdd`、`review`、`release`。
 6. 根目录 `agents/`：hicode 专业子 Agent 源资产。
-7. `references/target-project/AGENTS.md`：目标项目 Agent 入口模板。
-8. `references/docs/`：目标项目可读的知识、规范、ADR、workflow 和运营模板。
-9. `references/prompts/`：Prompt 支撑资产。
-10. `references/skills/`：细粒度 Skill 细则和输出模板。
-11. `references/gates/`：门禁支撑资产。
-12. `references/schemas/`：Schema 支撑资产。
-13. `references/examples/`：示例和回归资产。
-14. `references/hooks/`：Hook 规划和示例资产。
-15. `references/init/`：目标项目初始化 manifest 和 profile 规划。
+7. `references/rules/`：当前有效的执行规则、流程、门禁判断、Review 细则和 Markdown 结构化输出约束；按场景读取，不默认全量加载。
+8. `references/templates/`：当前可复制填写的目标项目模板和场景输出模板；只由相关 Skill 按需读取。
+9. `references/hooks/`：当前 Hook 行为说明、配置示例、触发条件、阻断建议和审计字段；不由安装器自动启用。
+10. 根目录 `archive/`：历史归档区，非运行、非安装、非默认检索；当前 Skill、Agent、Rule、Template 和 Hook 不得依赖归档资产。
 
-不要在本仓库产出隐藏源目录 `.hicode/`。后续目标项目初始化流程会按 `references/init/` 规划把根目录源资产安装到目标项目的 `.hicode/` 运行目录；`install.sh` 只安装 Claude Code plugin，不初始化业务项目。
+不要在本仓库产出隐藏源目录 `.hicode/`。当前 `hicode:init` 只初始化目标项目入口、上下文和项目规则文档，不复制 hicode plugin 内置资产到目标项目 `.hicode/`；`install.sh` 只安装 Claude Code plugin，不初始化业务项目。
+
+以下旧目录不再作为当前 `references/` 一级目录新增或维护：`references/docs/`、`references/prompts/`、`references/skills/`、`references/gates/`、`references/schemas/`、`references/examples/`、`references/init/`、`references/target-project/`。历史内容应按 V3 计划拆解或归档。
 
 ## 5. Agent 职责
 
 Agent 可以协助：
 
-1. 拆解和执行 V1 工作包。
-2. 创建和维护 Harness 文档、Prompt、Skill、门禁、Schema、示例和验收清单。
+1. 拆解和执行当前实施计划中的工作包。
+2. 创建和维护 hicode 文档、Skill、Agent、Rule、Template、Hook、ADR 和验收资产。
 3. 检查资产之间的术语、路径、输入输出和安全规则是否一致。
 4. 识别待确认问题、风险、重复规则和不可验收表述。
 5. 在发现稳定术语时更新 `CONTEXT.md`。
@@ -89,7 +86,7 @@ Agent 不负责：
 1. 使用中文为主，英文仅用于文件名、路径、代码标识、协议名和通用技术术语。
 2. 保持文档短、清晰、可维护，避免复制大段需求草案。
 3. 未确认内容标注 `待确认`。
-4. 每个模板应明确定位、适用场景、输入、处理规则、输出格式、质量标准和安全约束。
+4. 每个 Skill、Rule、Template 和 Hook 说明应明确定位、适用场景、输入、处理规则、输出格式、质量标准和安全约束。
 5. 金融核心系统相关资产必须显式覆盖保险核心业务逻辑严谨性、金额、交易一致性、状态流转、幂等、权限、审计、隐私、监管、生产变更和回滚风险。
 6. 发现上下文缺口时，优先提出具体更新建议，不把推断写成事实。
 7. `CONTEXT.md` 只写术语和概念边界，不写计划、进度或详细设计。
@@ -110,7 +107,7 @@ Agent 禁止：
 9. 删除未确认的代码、测试、配置、脚本或文档。
 10. 用删除测试、降低断言、跳过 Review 或隐藏风险的方式推动通过。
 
-敏感信息必须先脱敏，再进入 Prompt、报告、示例或测试数据。
+敏感信息必须先脱敏，再进入 Skill 输入、报告、模板样例或测试数据。
 
 ## 8. 输出要求
 

@@ -2,24 +2,38 @@
 
 ## 定位
 
-本目录保存 hicode 根目录 Skill 和 Agent 按需读取的支撑资产。它不是目标项目 `.hicode/` 运行目录，也不是默认全量上下文。
+`references/` 保存 hicode 当前可按需读取的支撑资产。它不是目标项目 `.hicode/` 运行目录，不随 plugin 默认全量加载，也不保存本仓库历史建设过程。
 
-## 收录原则
+根目录 `skills/` 和 `agents/` 是一等入口；`references/` 只提供规则、模板和 Hook 说明。
 
-第一版按根目录 4 个能力场景组织支撑资产：
+## 当前目录
 
-1. 需求到编码前链路。
-2. TDD 与辅助编码链路。
-3. Review 与提交链路。
-4. 发布与回归链路。
+| 目录 | 定位 | 读取边界 |
+|---|---|---|
+| `rules/` | 当前有效的执行规则、流程、检查口径、风险分级和 Markdown 结构化输出约束 | 由对应 Skill 或 Agent 按场景读取，不默认全量加载 |
+| `templates/` | 目标项目可复制填写模板和场景输出模板 | 由 `init` 或相关场景 Skill 按需读取，不承载执行规则全文 |
+| `hooks/` | Hook 行为说明、配置示例、触发条件、阻断建议和审计字段 | 不由安装器自动启用，不连接生产环境 |
 
-pilot 模板、验收清单、回归样例、Hook 和初始化规划也保留在本目录下，但只能按任务场景读取。
+## 禁止新增的当前一级目录
 
-根目录 `skills/` 和 `agents/` 是一等入口；本目录中的 `docs/`、`prompts/`、`gates/`、`schemas/`、`examples/`、`hooks/`、`init/` 和细粒度 `skills/` 是可追溯规则源和材料库。
+以下旧目录不再作为当前 `references/` 一级目录新增或维护：
+
+1. `docs/`
+2. `prompts/`
+3. `skills/`
+4. `gates/`
+5. `schemas/`
+6. `examples/`
+7. `init/`
+8. `target-project/`
+
+旧目录已在 V3-P2-WP2 迁入 `archive/references/`。当前 Skill、Agent、Rule、Template 和 Hook 不得新增对旧目录或归档目录的运行依赖。
 
 ## 使用规则
 
-1. Skill 入口先判断任务场景，再按需读取本目录文件。
-2. 不要一次性读取全部 references。
-3. 发现目标项目已初始化 `.hicode/` 时，应优先使用目标项目本地资产，再用本目录作为缺失资产降级来源。
-4. 不把 references 输出为最终审批、合并许可或发布许可。
+1. 先由根目录 Skill 判断任务场景，再读取必要的 `rules/` 或 `templates/` 文件。
+2. `rules/shared/` 必须保持短小，不放长篇 guide 或历史材料。
+3. 模板只保存可填写骨架；执行规则必须进入 `rules/` 或 Skill/Agent 正文。
+4. Hook 说明只提供可选配置和审计边界，不代表自动启用。
+5. 历史材料进入根目录 `archive/`，不得作为当前执行依据。
+6. 不把 references 输出为最终审批、合并许可、发布许可或生产操作授权。
