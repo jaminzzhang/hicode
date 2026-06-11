@@ -4,8 +4,8 @@
 
 最近更新时间：2026-06-11
 当前阶段：V3 安装边界与一致性验收
-当前工作包：V3-P6-WP1 安装边界检查
-总体状态：V1 已完成；V2-P1 至 V2-P5 已完成；V2-P6-WP1 待验收；V3-P1 至 V3-P6-WP1 已完成
+当前工作包：V3-P6-WP2 路径与一致性验收
+总体状态：V1 已完成；V2-P1 至 V2-P5 已完成；V2-P6-WP1 待验收；V3 已完成
 
 本台账用于记录 V1、V2 和 V3 工作包推进状态。每次开发 Agent 开始、完成、阻塞、暂缓或提交工作包验收时，必须同步更新本文件。
 
@@ -229,6 +229,9 @@
 205. 已提交 Git 变更 `6f52b7e`，并按项目负责人指令启动 `V3-P6-WP1` 安装边界检查。
 206. 已补强 `install.sh` 安装边界校验和 dry-run 说明，确认 `.claude-plugin/plugin.json` 只声明 `skills/` 运行资产，并新增 `docs/V3_INSTALL_BOUNDARY_CHECK.md` 记录检查结论、残余风险和验证命令；已将 `V3-P6-WP1` 提交项目负责人验收。
 207. 项目负责人已确认 `V3-P6-WP1` 验收通过，并要求提交 Git 后继续启动 `V3-P6-WP2` 路径与一致性验收。
+208. 已提交 Git 变更 `9fd2f20`，并按项目负责人指令启动 `V3-P6-WP2` 路径与一致性验收。
+209. 已清理根 README 和当前运行资产中的旧路径与旧资产类型残留说明，新增 `docs/V3_PATH_CONSISTENCY_CHECK.md`，记录当前 48 个运行资产文件的旧路径扫描、归档依赖扫描、安全边界检查和 plugin manifest 检查结果；已将 `V3-P6-WP2` 提交项目负责人验收。
+210. 项目负责人已确认 `V3-P6-WP2` 验收通过，V3 简化重构阶段完成。
 
 ## 4. 当前阻塞点
 
@@ -236,9 +239,9 @@
 
 ## 5. 下一步建议
 
-1. 提交 `V3-P6-WP1` 安装边界检查。
-2. 提交后启动 `V3-P6-WP2` 路径与一致性验收。
-3. `V3-P6-WP2` 将检查当前 `skills/`、`agents/`、`references/rules/`、`references/templates/`、`references/hooks/` 的旧目录和归档依赖。
+1. 提交 `V3-P6-WP2` 路径与一致性验收。
+2. V3 简化重构已收口；后续若继续处理安装器历史工作包，需单独确认 `V2-P6-WP1`。
+3. V2-P6-WP1 仍保留待验收状态，未被 V3 自动标记为已完成。
 4. V2-P6-WP1 仍保留待验收状态，未被 V3 自动标记为已完成。
 5. 后续若进入真实试点运行效果验收，必须基于真实试点数据补充，不能用本仓库模板资产替代。
 
@@ -312,7 +315,7 @@
 | V3-P5-WP1 | Agent 旧路径引用修正 | 已完成 | `agents/*.md`、`agents/README.md`、`agents/_template.md` | V3-P4 | 项目负责人已确认验收通过；已移除旧 Prompt、Gate、Schema、旧 Skill、`docs/review-rules` 和 `.hicode` 引用链；Agent 保持短角色入口 |
 | V3-P5-WP2 | Hook 当前说明收敛 | 已完成 | `references/hooks/` | V3-P5-WP1 | 项目负责人已确认验收通过；已移除旧安装目标、Gate、Schema、`.hicode` 和平台配置示例引用；Hook 不由安装器自动启用，不连接生产，不自动发布/回滚，不修改生产配置 |
 | V3-P6-WP1 | 安装边界检查 | 已完成 | `install.sh`、`docs/V3_INSTALL_BOUNDARY_CHECK.md` | V3-P5 | 项目负责人已确认验收通过；`plugin.json` 只声明 `skills/`；`install.sh` 已补充边界校验，不复制 `.hicode/`、不初始化目标项目、不扫描代码、不安装本仓库 `docs/` 为运行资产 |
-| V3-P6-WP2 | 路径与一致性验收 | 未开始 | 待产出 | V3-P6-WP1 | V3 收口工作包 |
+| V3-P6-WP2 | 路径与一致性验收 | 已完成 | `README.md`、`docs/V3_PATH_CONSISTENCY_CHECK.md`、当前运行资产路径说明 | V3-P6-WP1 | 项目负责人已确认验收通过；旧路径扫描无命中；归档依赖扫描无命中；安全红线、人工审批边界和生产禁止事项保留 |
 
 ## 9. 最近变更记录
 
@@ -351,6 +354,9 @@
 | 2026-06-11 | Codex | 提交 `V3-P5-WP2` 已验收变更 `6f52b7e`，并启动 `V3-P6-WP1` 安装边界检查 | V3-P6-WP1 |
 | 2026-06-11 | Codex | 补强安装脚本边界校验，新增 V3 安装边界检查记录，并提交 `V3-P6-WP1` 待验收 | V3-P6-WP1 |
 | 2026-06-11 | Codex | 根据项目负责人确认，将 `V3-P6-WP1` 更新为已完成，并准备提交 Git 后继续 `V3-P6-WP2` | V3-P6-WP1 |
+| 2026-06-11 | Codex | 提交 `V3-P6-WP1` 已验收变更 `9fd2f20`，并启动 `V3-P6-WP2` 路径与一致性验收 | V3-P6-WP2 |
+| 2026-06-11 | Codex | 新增 V3 路径与一致性验收记录，清理当前资产旧路径残留，并提交 `V3-P6-WP2` 待验收 | V3-P6-WP2 |
+| 2026-06-11 | Codex | 根据项目负责人确认，将 `V3-P6-WP2` 更新为已完成，V3 简化重构阶段完成 | V3-P6-WP2 |
 | 2026-06-11 | Codex | 新增 `skills/init/SKILL.md` 作为目标项目初始化入口，明确按当前 Coding Agent 平台创建或补充 `CLAUDE.md` / `AGENTS.md`、初始化项目文档、graphify 代码图谱边界和默认不复制 plugin 内置能力到 `.hicode/` | V2-P6-WP1 |
 | 2026-06-11 | Codex | 修复 Claude Code 加载 `hicode` plugin 时 marketplace 条目与 `plugin.json` 同时声明组件导致的 conflicting manifests 问题；组件声明统一保留在 `plugin.json`，版本提升至 `0.1.1` | V2-P6-WP1 |
 | 2026-06-11 | Codex | 参考 Claude Code plugin marketplace 与 manifest 规范，补强 `install.sh` 的本地资产校验、dry-run、安装 scope 和安装计划输出 | V2-P6-WP1 |

@@ -23,7 +23,7 @@ description: Use when a requirement needs clarification, scope control, financia
 
 1. `../../references/templates/scope/scope-report.md`
 
-不得读取旧 Prompt、Gate、Schema、细粒度 Skill 或归档资产作为当前规则源。
+不得读取历史资产原文、历史准入文档、历史结构化校验文件、细粒度历史 Skill 或归档资产作为当前规则源。
 
 ## 执行流程
 

@@ -2,7 +2,7 @@
 
 ## 定位
 
-本目录保存 `hicode:init` 的目标项目初始化规则。初始化只生成或补充目标项目入口、上下文和项目规则文档，不复制 hicode plugin 内置 Skill、Agent、Rule、Template 或 Hook 到目标项目 `.hicode/`。
+本目录保存 `hicode:init` 的目标项目初始化规则。初始化只生成或补充目标项目入口、上下文和项目规则文档，不复制 hicode plugin 内置 Skill、Agent、Rule、Template 或 Hook 到目标项目本地运行目录。
 
 ## 准入条件
 
@@ -19,7 +19,7 @@
 | 项目上下文 | 按确认范围创建 `docs/PROJ_CONTEXT.md`、`docs/PRD_CONTEXT.md`、`docs/DOMAIN_KNOWLEDGE.md` 等模板 |
 | 项目规则 | 按确认范围创建编码、测试、Review、发布、缺陷和 ADR 模板 |
 | 代码图谱 | 只有用户确认扫描范围后，才可使用 graphify 或等效代码图谱结果补充项目上下文 |
-| hicode 能力 | 来自已安装 plugin；不要默认复制到目标项目 `.hicode/` |
+| hicode 能力 | 来自已安装 plugin；不要默认复制到目标项目本地运行目录 |
 
 ## 禁止事项
 
