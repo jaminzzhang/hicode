@@ -23,8 +23,6 @@ description: Use when code changes need review, pre-commit checks, security or J
 
 1. `../../references/templates/review/review-report.md`
 
-不得读取历史资产原文、历史准入文档、历史结构化校验文件、细粒度历史 Skill 或归档资产作为当前规则源。
-
 ## 执行流程
 
 ### 1. 固定审查范围

@@ -99,8 +99,6 @@ description: Use when a target project needs the hicode global entrypoint, first
 2. 初始化规则：`../../references/rules/init/`
 3. 场景规则：`../../references/rules/scope/`、`tdd/`、`review/`、`release/`
 
-不得把归档资产作为当前执行依据。
-
 ## 安全边界
 
 始终禁止：
