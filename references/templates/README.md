@@ -16,6 +16,26 @@
 | `review/` | 代码审查、提交检查、安全/Java/SQL/保险专项报告模板 |
 | `release/` | 核心场景测试、发布检查、回滚计划和发布风险报告模板 |
 
+当前已落地模板：
+
+| 目录 | 文件 |
+|---|---|
+| `project/` | `AGENTS.md`、`CLAUDE.md`、`DOMAIN_KNOWLEDGE.md`、`PRD_CONTEXT.md`、`PROJ_CONTEXT.md`、`CODING_RULES.md`、`TESTING_GUIDE.md`、`REVIEW_RULES.md`、`RELEASE_GUIDE.md`、`DEFECT_CASES.md`、`ADR-template.md` |
+| `scope/` | `scope-report.md` |
+| `tdd/` | `tdd-report.md` |
+| `review/` | `review-report.md` |
+| `release/` | `release-report.md` |
+
+当前已落地模板：
+
+| 目录 | 文件 |
+|---|---|
+| `project/` | `AGENTS.md`、`CLAUDE.md`、`DOMAIN_KNOWLEDGE.md`、`PRD_CONTEXT.md`、`PROJ_CONTEXT.md`、`CODING_RULES.md`、`TESTING_GUIDE.md`、`REVIEW_RULES.md`、`RELEASE_GUIDE.md`、`DEFECT_CASES.md`、`ADR-template.md` |
+| `scope/` | `scope-report.md` |
+| `tdd/` | `tdd-report.md` |
+| `review/` | `review-report.md` |
+| `release/` | `release-report.md` |
+
 ## 使用规则
 
 1. `project/` 模板只由 `hicode:init` 在用户确认目标项目写入范围后按需读取。
