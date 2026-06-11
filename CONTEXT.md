@@ -84,6 +84,14 @@ _Avoid_: 把 prompts、gates、schemas 和 docs 全部平铺到根目录、让 S
 根目录 `skills/` 下直接维护的 Claude Code 可调用 Skill，首批固定为 `hicode`、`scope`、`tdd`、`review` 和 `release`；这些 Skill 必须整合原细粒度 Skill 的执行规则，不能只作为 `references/` 的索引。
 _Avoid_: 把根目录 Skill 写成空壳引用、把 8 个细粒度 Skill 全部暴露为顶层入口、让用户在过多 Skill 名称中选择
 
+**hicode 引导型总入口 Skill**:
+`skills/hicode/SKILL.md` 是 hicode 的导诊入口，负责先判断目标项目是否已有 hicode 上下文资产；若没有 `AGENTS.md`、`CONTEXT.md`、项目上下文或 `.hicode/` 规划，应先引导用户完成初始化准备，再路由到 `scope`、`tdd`、`review` 或 `release`。
+_Avoid_: 未初始化就直接进入实现或 Review、默认全仓扫描、自动生成项目文件、把 plugin 安装和目标项目初始化混为一步
+
+**hicode 初始化引导边界**:
+`hicode` Skill 默认只诊断目标项目初始化状态、整理初始化输入和建议初始化 profile；只有用户明确要求初始化并确认写入范围后，才协助生成或修改目标项目 `AGENTS.md`、`CONTEXT.md`、`docs/PROJ_CONTEXT.md` 或 `.hicode/` 资产。
+_Avoid_: 无确认写文件、全仓扫描、读取敏感配置、把初始化建议当成真实初始化结果
+
 **hicode 细粒度 Skill 细则**:
 `references/skills/` 中保留的原细粒度 Skill 规则源，例如需求评审、编码计划、TDD、辅助编码、代码审查、提交检查、核心场景测试和发布检查；它们为场景 Skill 提供可追溯细则，不作为 Claude Code 顶层入口。
 _Avoid_: 与根目录场景 Skill 并行维护第二套入口、让细则覆盖场景 Skill 的安全边界、把历史细则当成默认全量上下文
