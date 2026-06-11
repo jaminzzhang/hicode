@@ -55,3 +55,6 @@ out/
 .ai-harness/tmp/
 .ai-harness/cache/
 .ai-harness/output/
+
+# Coding Agent
+.claude/
