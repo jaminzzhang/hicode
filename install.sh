@@ -26,6 +26,8 @@ Options:
   -h, --help      Show this help.
 
 This installer only installs the hicode Claude Code plugin.
+It exposes only runtime assets declared in .claude-plugin/plugin.json.
+It does not install this repository's docs/ or archive/ as runtime assets.
 It does not scan projects, generate CLAUDE.md or AGENTS.md, or create .hicode/.
 USAGE
 }
@@ -60,6 +62,14 @@ validate_plugin_assets() {
   done
 }
 
+validate_install_boundary() {
+  local plugin_manifest="$CLAUDE_PLUGIN_DIR/.claude-plugin/plugin.json"
+
+  if grep -Eq '("\./docs/?|"docs/"|"\./archive/?|"archive/"|"references/(prompts|skills|gates|schemas|examples|init|target-project))' "$plugin_manifest"; then
+    die "Plugin manifest must not expose repository docs, archive, or historical references as runtime assets"
+  fi
+}
+
 confirm() {
   if [ "$YES" -eq 1 ] || [ "$DRY_RUN" -eq 1 ]; then
     return 0
@@ -82,6 +92,7 @@ run_cmd() {
 
 install_claude_code() {
   validate_plugin_assets
+  validate_install_boundary
   validate_scope
 
   log ""
@@ -90,6 +101,8 @@ install_claude_code() {
   log "  Marketplace manifest: $CLAUDE_PLUGIN_DIR/.claude-plugin/marketplace.json"
   log "  Plugin: $PLUGIN_NAME@$MARKETPLACE_NAME"
   log "  Scope: $INSTALL_SCOPE"
+  log "  Runtime assets: skills/ declared by .claude-plugin/plugin.json"
+  log "  Excluded from runtime: docs/, archive/, historical references/"
   log "  Action: validate manifests, register local marketplace, install plugin"
 
   if [ "$DRY_RUN" -eq 1 ]; then
@@ -143,6 +156,8 @@ log "Dry run: $DRY_RUN"
 log "Claude Code: $INSTALL_CLAUDE"
 log "Claude Code install scope: $INSTALL_SCOPE"
 log ""
+log "This installer exposes only plugin runtime assets declared in .claude-plugin/plugin.json."
+log "This installer will not install repository docs/archive as runtime assets."
 log "This installer will not scan code, generate CLAUDE.md, generate AGENTS.md, or create .hicode/."
 
 confirm
