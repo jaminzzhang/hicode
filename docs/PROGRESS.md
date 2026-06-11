@@ -4,8 +4,8 @@
 
 最近更新时间：2026-06-11
 当前阶段：V3 后续维护
-当前工作包：V3-MAINT-WP1 `hi` 总入口重构
-总体状态：V1 已完成；V2-P1 至 V2-P5 已完成；V2-P6-WP1 待验收；V3 已完成；V3-MAINT-WP1 待验收
+当前工作包：V3-MAINT-WP3 `init` Skill 引导式重构
+总体状态：V1 已完成；V2-P1 至 V2-P5 已完成；V2-P6-WP1 待验收；V3 已完成；V3-MAINT-WP1 待验收；V3-MAINT-WP2 待验收；V3-MAINT-WP3 待验收
 
 本台账用于记录 V1、V2 和 V3 工作包推进状态。每次开发 Agent 开始、完成、阻塞、暂缓或提交工作包验收时，必须同步更新本文件。
 
@@ -239,8 +239,8 @@
 
 ## 5. 下一步建议
 
-1. 等待项目负责人验收 `V3-MAINT-WP1`。
-2. 验收通过后再将 `V3-MAINT-WP1` 标记为已完成。
+1. 等待项目负责人验收 `V3-MAINT-WP1`、`V3-MAINT-WP2` 和 `V3-MAINT-WP3`。
+2. 验收通过后再将对应维护工作包标记为已完成。
 3. V2-P6-WP1 仍保留待验收状态，未被 V3 或本次维护工作自动标记为已完成。
 4. 后续若进入真实试点运行效果验收，必须基于真实试点数据补充，不能用本仓库模板资产替代。
 
@@ -321,11 +321,17 @@
 | 工作包编号 | 工作包名称 | 状态 | 当前产出 | 依赖 | 备注 |
 |---|---|---|---|---|---|
 | V3-MAINT-WP1 | `hi` 总入口重构 | 待验收 | `skills/hi/SKILL.md`、`install.sh`、`AGENTS.md`、`CONTEXT.md`、`README.md`、`docs/V3_IMPLEMENTATION_PLAN.md`、目标项目入口模板 | 用户确认总入口改为 `hi`，保留 `hicode:*` 场景路由表达 | 已完成路径、旧入口、JSON、安装 dry-run、Skill 入口和 shell 语法检查；等待项目负责人验收 |
+| V3-MAINT-WP2 | 编码强制规则入口引用 | 待验收 | `references/rules/coding_rules.md`、`references/rules/README.md`、目标项目入口模板 | 用户确认 `references/rules` 应定义会被 `AGENTS.md` / `CLAUDE.md` 引用的真实有效规则 | 已补充编码强制规则，并在目标项目入口模板中声明引用关系；已追加注释和类型控制规则；已将适用范围收敛为后端应用系统；等待项目负责人验收 |
+| V3-MAINT-WP3 | `init` Skill 引导式重构 | 待验收 | `skills/init/SKILL.md`、`CONTEXT.md`、`docs/PROGRESS.md` | 用户确认初始化流程改为：入口缺失调用 `/init`、rules 写入 `docs/rules/`、询问后用子 Agent 调用 graphify 扫描代码 | 已重构 `init` Skill 为一次只问一个问题的引导式流程；移除已不存在规则/模板引用；等待项目负责人验收 |
 
 ## 10. 最近变更记录
 
 | 日期 | 操作者 | 变更 | 关联工作包 |
 |---|---|---|---|
+| 2026-06-11 | Codex | 重构 `skills/init/SKILL.md`：入口文件缺失时调用平台 `/init` 而不自行生成；根据 `references/rules/` 在目标项目 `docs/rules/` 生成适用规则并补充入口文件；规则初始化后询问是否启动子 Agent 调用 graphify 扫描代码；同步 `CONTEXT.md` 初始化边界 | V3-MAINT-WP3 |
+| 2026-06-11 | Codex | 将 `references/rules/coding_rules.md` 的适用范围由复杂场景清单收敛为“适用于后端应用系统” | V3-MAINT-WP2 |
+| 2026-06-11 | Codex | 追加 `references/rules/coding_rules.md` 的注释要求和类型控制规则，并同步规则索引与目标项目入口模板的强制规则范围描述 | V3-MAINT-WP2 |
+| 2026-06-11 | Codex | 创建当前有效的 `references/rules/coding_rules.md` 编码强制规则，覆盖入口校验、幂等、事务、外部调用、并发、状态机、异常、安全合规、审计、去魔法值和核心测试；同步 `references/rules/README.md` 与目标项目 `AGENTS.md` / `CLAUDE.md` 模板引用 | V3-MAINT-WP2 |
 | 2026-06-11 | Codex | 完成 `V3-MAINT-WP1` 并提交待验收：原总入口目录改为 `skills/hi`，总入口支持只输入 `hi` 时检测初始化并输出用法简介；全局路由补强为 `init`、`scope`、`tdd`、`review`、`release` 五类；同步入口规则、术语表、README、V3 基准、目标项目入口模板和安装器校验 | V3-MAINT-WP1 |
 | 2026-06-11 | Codex | 验证 `V3-MAINT-WP1`：`quick_validate.py skills/hi`、`bash install.sh --dry-run --yes`、`bash -n install.sh`、JSON 解析、`git diff --check`、旧总入口路径扫描和归档依赖扫描均通过 | V3-MAINT-WP1 |
 | 2026-06-11 | Codex | 启动 `V3-MAINT-WP1`，将总入口 Skill 改为 `hi`，保留 `hicode:*` 场景路由表达，并开始补强全局路由能力 | V3-MAINT-WP1 |

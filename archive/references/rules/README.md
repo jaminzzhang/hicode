@@ -21,6 +21,7 @@
 
 | 文件 | 用途 |
 |---|---|
+| `coding_rules.md` | 目标项目 `AGENTS.md` / `CLAUDE.md` 可引用的编码强制规则，覆盖入口校验、幂等、事务、外部调用、并发、状态机、异常、安全合规、审计、去魔法值、核心测试、注释和类型控制 |
 | `shared/safety-and-risk.md` | 安全红线、金融核心系统风险基线和 P0/P1/P2/P3 风险分级 |
 | `shared/permissions.md` | L0-L4 权限等级、本地修改、受限命令和审计证据 |
 | `shared/output.md` | Markdown 结构化输出、稳定枚举和建议结论 |
