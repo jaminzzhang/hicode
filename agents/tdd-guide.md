@@ -48,7 +48,7 @@ description: Use when a coding plan needs delegated TDD guidance, RED-GREEN-REFA
 执行前按需读取：
 
 1. `AGENTS.md`
-2. `docs/PRD_CONTEXT.md`
+2. `docs/features/<feature-id>/feature_context.md`
 3. `docs/PROJ_CONTEXT.md`
 4. `docs/DOMAIN_KNOWLEDGE.md`
 5. `docs/CODING_RULES.md`
@@ -59,7 +59,7 @@ description: Use when a coding plan needs delegated TDD guidance, RED-GREEN-REFA
 10. `references/rules/shared/permissions.md`
 11. `references/rules/shared/output.md`
 12. `references/rules/tdd/README.md`
-13. `references/templates/tdd/tdd-report.md`
+13. `references/templates/feature/tdd-report.md`
 
 只读取当前 TDD 任务必要上下文。缺少上下文时，输出缺口和影响，不补编类、表、接口、业务规则或测试结果。
 

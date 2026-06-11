@@ -48,19 +48,19 @@ description: Use when a reviewed requirement needs a delegated coding plan, cont
 执行前按需读取：
 
 1. `AGENTS.md`
-2. `docs/PRD_CONTEXT.md`
+2. `docs/features/<feature-id>/feature_context.md`
 3. `docs/PROJ_CONTEXT.md`
 4. `docs/DOMAIN_KNOWLEDGE.md`
 5. `docs/CODING_RULES.md`
 6. `docs/TESTING_GUIDE.md`
 7. `docs/RELEASE_GUIDE.md`
-8. `docs/ADR/`
+8. `docs/adr/`
 9. `skills/scope/SKILL.md`
 10. `references/rules/shared/safety-and-risk.md`
 11. `references/rules/shared/permissions.md`
 12. `references/rules/shared/output.md`
 13. `references/rules/scope/README.md`
-14. `references/templates/scope/scope-report.md`
+14. `references/templates/feature/scope-report.md`
 
 只读取当前编码计划必要上下文。缺少上下文时，输出缺口和影响，不补编类、表、接口、配置或业务规则。
 

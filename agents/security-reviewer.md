@@ -58,7 +58,7 @@ description: Use when changes need delegated security review for auth, permissio
 9. `references/rules/shared/permissions.md`
 10. `references/rules/shared/output.md`
 11. `references/rules/review/README.md`
-12. `references/templates/review/review-report.md`
+12. `references/templates/feature/review-report.md`
 
 只读取当前安全审查必要上下文。缺少上下文时，输出缺口和影响，不补编安全结论或负责人确认。
 

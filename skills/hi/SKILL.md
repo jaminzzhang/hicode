@@ -51,9 +51,10 @@ description: Use when a target project needs the hicode global entrypoint, first
 除非用户明确要求只做概念说明，否则先做轻量判断：
 
 1. 是否存在目标项目入口：`AGENTS.md` 或 `CLAUDE.md`。
-2. 是否存在项目上下文：`docs/PROJ_CONTEXT.md`、`docs/PRD_CONTEXT.md`、`docs/DOMAIN_KNOWLEDGE.md` 或同等文件。
-3. 是否存在项目规则：`docs/CODING_RULES.md`、`docs/TESTING_GUIDE.md`、`docs/REVIEW_RULES.md`、`docs/RELEASE_GUIDE.md` 或同等文件。
-4. 是否能识别当前任务属于初始化、需求范围、TDD/实现、Review 或发布检查。
+2. 是否存在项目级共享文档：`docs/PROJ_CONTEXT.md`、`docs/DOMAIN_KNOWLEDGE.md`、`docs/adr/` 或同等文件。
+3. 是否存在项目规则：`docs/rules/`、`docs/CODING_RULES.md`、`docs/TESTING_GUIDE.md`、`docs/REVIEW_RULES.md`、`docs/RELEASE_GUIDE.md` 或同等文件。
+4. 若任务已指向具体需求，是否存在单需求目录：`docs/features/<feature-id>/feature_context.md` 或同等文件。
+5. 是否能识别当前任务属于初始化、需求范围、TDD/实现、Review 或发布检查。
 
 诊断只检查必要文件名和用户输入。缺少上下文时，不编造业务规则，不把推断写成事实。
 

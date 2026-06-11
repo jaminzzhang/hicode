@@ -29,7 +29,7 @@ description: Use when a requirement needs delegated review before coding, includ
 使用本 Agent 的场景：
 
 1. 新需求、变更需求或缺陷修复需求准备进入编码计划前。
-2. 已有 PRD、故事、会议纪要、原型、流程图或 `docs/PRD_CONTEXT.md`，需要研发视角评审。
+2. 已有 PRD、故事、会议纪要、原型、流程图或 `docs/features/<feature-id>/feature_context.md`，需要研发视角评审。
 3. 需要识别 P0/P1 澄清点、保险核心业务风险、测试关注点和上下文更新建议。
 4. 需要判断是否建议进入 `coding-planner` 或人工需求准入确认。
 
@@ -48,7 +48,7 @@ description: Use when a requirement needs delegated review before coding, includ
 执行前按需读取：
 
 1. `AGENTS.md`
-2. `docs/PRD_CONTEXT.md`
+2. `docs/features/<feature-id>/feature_context.md`
 3. `docs/PROJ_CONTEXT.md`
 4. `docs/DOMAIN_KNOWLEDGE.md`
 5. `docs/TESTING_GUIDE.md`
@@ -58,7 +58,7 @@ description: Use when a requirement needs delegated review before coding, includ
 9. `references/rules/shared/permissions.md`
 10. `references/rules/shared/output.md`
 11. `references/rules/scope/README.md`
-12. `references/templates/scope/scope-report.md`
+12. `references/templates/feature/scope-report.md`
 
 只读取当前需求评审必要上下文。缺少上下文时，输出缺口和影响，不补编业务规则。
 

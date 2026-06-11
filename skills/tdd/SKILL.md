@@ -21,7 +21,14 @@ description: Use when work needs test-first design, RED-GREEN-REFACTOR guidance,
 
 需要固定报告骨架时读取：
 
-1. `../../references/templates/tdd/tdd-report.md`
+1. `../../references/templates/feature/tdd-report.md`
+
+若当前需求目录或 TDD 报告不存在：
+
+1. 当前需求目录固定使用 `docs/features/<feature-id>/`；`feature-id` 不明确时先询问用户。
+2. 缺少 `tdd-report.md` 时，先读取 `../../references/templates/feature/tdd-report.md`，再按需创建。
+3. 缺少 `feature_context.md`、`requirement-review-report.md` 或 `task-split-plan.md` 时，不编造内容；输出缺口并建议回到 `hicode:scope` 补齐。
+4. 创建或更新报告只能记录真实测试设计、执行命令、结果、缺口和待确认问题。
 
 ## 执行流程
 
@@ -93,5 +100,6 @@ description: Use when work needs test-first design, RED-GREEN-REFACTOR guidance,
 7. 修改文件清单。
 8. 受限命令执行记录。
 9. 风险、待确认问题和上下文更新建议。
+10. 本次创建、更新、跳过或缺失的 feature 文档清单。
 
 不得输出最终合并、发布或上线审批结论。

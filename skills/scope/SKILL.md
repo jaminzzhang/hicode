@@ -15,15 +15,22 @@ description: Use when a requirement needs review, clarification, scope control, 
 执行前按需读取：
 
 1. `../../references/rules/coding_rules.md`
-2. `../../references/templates/scope/scope-report.md`
-3. `../../references/templates/scope/requirement-review-report.md`
-4. `../../references/templates/scope/task-split-plan.md`
-5. `../../references/templates/project/PRD_CONTEXT.md`
+2. `../../references/templates/feature/scope-report.md`
+3. `../../references/templates/feature/requirement-review-report.md`
+4. `../../references/templates/feature/task-split-plan.md`
+5. `../../references/templates/feature/feature_context.md`
 6. `../../references/templates/project/ADR-template.md`
 7. `../../references/templates/project/DOMAIN_KNOWLEDGE.md`
 8. `../../references/templates/project/PROJ_CONTEXT.md`
 
 同时读取目标项目中与当前需求直接相关的入口规则、PRD、项目上下文、领域知识、历史缺陷、ADR、代码结构说明或已脱敏材料。
+
+当目标项目缺少当前需求目录或文档时，按以下规则处理：
+
+1. 当前需求目录固定使用 `docs/features/<feature-id>/`；`feature-id` 不明确时先询问用户，不得编造。
+2. 缺少 `feature_context.md` 时，先读取 `../../references/templates/feature/feature_context.md`，再按需创建。
+3. 缺少 `requirement-review-report.md`、`scope-report.md` 或 `task-split-plan.md` 时，先读取对应模板，再在当前需求目录下创建。
+4. 创建文档只能写入已确认事实、证据、待确认问题和空占位；不得编造负责人、业务规则、验收结论或验证结果。
 
 ## 核心原则
 
@@ -34,7 +41,7 @@ description: Use when a requirement needs review, clarification, scope control, 
 5. 对模糊词、冲突术语、隐含范围和过大任务立即收敛。
 6. 涉及保险/金融核心系统时，默认按高风险标准检查业务规则、金额、交易一致性、状态流转、幂等、权限、审计、隐私、监管、生产变更和回滚。
 7. 任务拆分必须避免“一次生成一大堆代码”；每个实施小任务应能独立理解、独立验证、独立回滚或重新执行。
-8. `PRD_CONTEXT.md` 是单需求过程上下文，可在需求分析和范围确认中按需生成或更新。
+8. `feature_context.md` 是单需求过程上下文，可在需求分析和范围确认中按需生成或更新。
 9. `DOMAIN_KNOWLEDGE.md`、`PROJ_CONTEXT.md` 和 ADR 属于长期上下文或正式决策；只有用户或负责人确认后才能正式写入，否则输出更新建议或草稿。
 
 ## 执行流程
@@ -57,7 +64,7 @@ description: Use when a requirement needs review, clarification, scope control, 
 
 1. 用户提供的需求摘要、PRD、故事链接、会议纪要或脱敏材料。
 2. 目标项目入口规则，例如 `AGENTS.md`、`CLAUDE.md`。
-3. 目标项目上下文，例如 `docs/PRD_CONTEXT.md`、`docs/PROJ_CONTEXT.md`、`docs/DOMAIN_KNOWLEDGE.md`、`docs/DEFECT_CASES.md`。
+3. 目标项目上下文，例如 `docs/features/<feature-id>/feature_context.md`、`docs/PROJ_CONTEXT.md`、`docs/DOMAIN_KNOWLEDGE.md`、`docs/DEFECT_CASES.md`。
 4. 相关 ADR、规则文档、接口说明、测试说明和代码结构说明。
 5. 与需求直接相关的代码、测试、配置、SQL、批处理或外部依赖说明。
 
@@ -77,7 +84,7 @@ description: Use when a requirement needs review, clarification, scope control, 
 
 发现冲突或模糊点时，先说明证据，再提出一个最关键问题，并给出推荐答案。
 
-需求评审结束后，必须输出独立的需求评审报告，使用 `../../references/templates/scope/requirement-review-report.md`。需求文档和需求评审报告共同作为后续需求分析、范围确认和任务拆分的输入。
+需求评审结束后，必须输出独立的需求评审报告，使用 `../../references/templates/feature/requirement-review-report.md`。需求文档和需求评审报告共同作为后续需求分析、范围确认和任务拆分的输入。
 
 ### 4. 需求分析、追问与范围确认
 
@@ -98,7 +105,7 @@ description: Use when a requirement needs review, clarification, scope control, 
 
 范围确认过程中必须按需更新或输出以下文档变更：
 
-1. `docs/PRD_CONTEXT.md`：记录本需求目标、范围内、范围外、核心业务规则、风险基线、影响范围、测试发布关注点和待确认问题；目标项目缺少该文件时，可基于 `../../references/templates/project/PRD_CONTEXT.md` 生成。
+1. `docs/features/<feature-id>/feature_context.md`：记录本需求目标、范围内、范围外、核心业务规则、风险基线、影响范围、测试发布关注点和待确认问题；目标项目缺少该文件时，可基于 `../../references/templates/feature/feature_context.md` 生成。
 2. ADR：当决策同时满足难逆、无上下文会令人意外、存在真实取舍三个条件时，基于 `../../references/templates/project/ADR-template.md` 生成或更新 ADR 草稿；正式状态必须等待用户或负责人确认。
 3. `DOMAIN_KNOWLEDGE.md` 和 `PROJ_CONTEXT.md`：需求分析阶段只记录候选更新建议，除非用户或负责人已经明确确认。
 
@@ -123,7 +130,7 @@ description: Use when a requirement needs review, clarification, scope control, 
 4. 每个任务都要能追溯到需求、上下文、代码证据或用户确认。
 5. 涉及代码改动的任务必须转交 `hicode:tdd`，并带上测试重点。
 6. 不允许写“完善异常处理”“补充测试”“实现相关逻辑”这类不可验收任务。
-7. 拆分计划结束后，必须输出独立的拆分任务计划，使用 `../../references/templates/scope/task-split-plan.md`。
+7. 拆分计划结束后，必须输出独立的拆分任务计划，使用 `../../references/templates/feature/task-split-plan.md`。
 
 推荐任务格式：
 
@@ -157,7 +164,7 @@ Scope 成功完成时，输出：
 
 1. 需求评审结论。
 2. 需求评审报告路径或报告正文。
-3. 需求分析结果和已更新的 `PRD_CONTEXT.md` 内容或路径。
+3. 需求分析结果和已更新的 `feature_context.md` 内容或路径。
 4. 范围内、范围外和非目标。
 5. 关键业务规则与验收标准。
 6. 影响范围和证据。
@@ -178,7 +185,7 @@ Scope 成功完成时，输出：
 2. 最高风险等级：`P0`、`P1`、`P2`、`P3` 或 `NONE`。
 3. 依据和输入缺口。
 4. 需求评审报告。
-5. 需求分析结果和 `PRD_CONTEXT.md` 更新记录。
+5. 需求分析结果和 `feature_context.md` 更新记录。
 6. 需求摘要、范围内、范围外和非目标。
 7. 澄清问题队列：已关闭、待用户回答、建议确认人。
 8. 影响范围和证据。
@@ -188,5 +195,6 @@ Scope 成功完成时，输出：
 12. TDD 输入和测试重点。
 13. ADR 判断。
 14. `DOMAIN_KNOWLEDGE.md` 与 `PROJ_CONTEXT.md` 更新结果或待确认建议。
+15. 本次创建、更新、跳过或缺失的 feature 文档清单。
 
 不得输出“准许编码”“审批通过”“可以上线”或替代负责人判断。

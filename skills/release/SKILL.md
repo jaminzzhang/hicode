@@ -21,7 +21,14 @@ description: Use when release readiness, core scenario testing, rollback plannin
 
 需要固定报告骨架时读取：
 
-1. `../../references/templates/release/release-report.md`
+1. `../../references/templates/feature/release-report.md`
+
+若当前需求目录或发布报告不存在：
+
+1. 当前需求目录固定使用 `docs/features/<feature-id>/`；`feature-id` 不明确时先询问用户。
+2. 缺少 `release-report.md` 时，先读取 `../../references/templates/feature/release-report.md`，再按需创建。
+3. 缺少 `feature_context.md`、Scope 报告、TDD 报告、Review 报告、发布范围或发布材料时，不编造发布依据；输出缺口和补证据动作。
+4. 创建或更新报告只能记录真实发布材料、测试证据、风险、回滚计划、生产验证计划和待确认问题。
 
 ## 执行流程
 
@@ -99,5 +106,6 @@ description: Use when release readiness, core scenario testing, rollback plannin
 8. 生产验证计划、回滚方案和上线后观察建议。
 9. 阻断建议、待确认问题和上下文更新建议。
 10. 受限命令执行记录或未执行原因。
+11. 本次创建、更新、跳过或缺失的 feature 文档清单。
 
 不得输出“建议上线”“准许发布”“发布审批通过”“门禁通过”或生产执行命令。

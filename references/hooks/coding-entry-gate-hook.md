@@ -34,7 +34,7 @@
 必须检查以下材料是否存在或已有等价证据：
 
 1. 需求范围或编码计划。
-2. `docs/PRD_CONTEXT.md` 或等价单需求上下文。
+2. `docs/features/<feature-id>/feature_context.md` 或等价单需求上下文。
 3. `docs/PROJ_CONTEXT.md` 或等价项目上下文。
 4. ADR 判断或不适用说明。
 5. P0/P1 待确认问题状态。
