@@ -5,22 +5,14 @@
   },
   "metadata": {
     "description": "Local hicode Claude Code plugin marketplace",
-    "version": "0.1.0"
+    "version": "0.1.1"
   },
   "plugins": [
     {
       "name": "hicode",
       "description": "hicode Claude Code plugin for insurance and financial core system Coding Agent workflows",
       "source": "./",
-      "version": "0.1.0",
-      "strict": false,
-      "skills": [
-        "./skills/hicode",
-        "./skills/scope",
-        "./skills/tdd",
-        "./skills/review",
-        "./skills/release"
-      ]
+      "version": "0.1.1"
     }
   ]
 }
