@@ -25,5 +25,5 @@
 1. 先读取当前 Skill 或 Agent，再按需读取本目录文件。
 2. 具体场景规则优先放在 `references/rules/init/`、`scope/`、`tdd/`、`review/`、`release/`。
 3. 共享规则与场景规则冲突时，采用更严格的安全边界。
-4. 本目录不得引用 `archive/` 作为运行依赖。
+4. 本目录不得引用归档区作为运行依赖。
 5. 本目录不得保存输出模板全文；模板属于 `references/templates/`。

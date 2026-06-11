@@ -6,9 +6,9 @@
 
 当前第一版只支持 Claude Code plugin 规范。OpenCode plugin 机制与 Claude Code plugin 机制不同，不纳入本仓库第一版交付。
 
-本 plugin 安装动作不执行目标项目初始化，不扫描代码，不生成 `CLAUDE.md`、`AGENTS.md` 或 `.hicode/`。
+本 plugin 安装动作不执行目标项目初始化，不扫描代码，不生成 `CLAUDE.md`、`AGENTS.md` 或项目本地运行目录。
 
-目标项目初始化资产由 `references/init/` 维护。
+目标项目初始化由 `hicode:init` 在用户确认写入范围后执行，只创建或补充目标项目入口、上下文和项目规则文档。
 
 ## 2. 目录结构
 
@@ -40,7 +40,7 @@
 
 安装器不修改业务仓库，不读取生产配置，不处理生产数据或客户敏感信息。
 
-目标项目初始化应在业务仓库中显式调用 `hicode:init`。默认只创建或补充 `CLAUDE.md` / `AGENTS.md`、项目上下文和 RULES 文档；不复制 plugin 内置的 Agent、Prompt、Skill、Gate 或 Schema 到 `.hicode/`。只有用户明确要求离线固化或项目内自定义 hicode 能力时，才按 `references/init/` 规划创建 `.hicode/` 快照。
+目标项目初始化应在业务仓库中显式调用 `hicode:init`。默认只创建或补充 `CLAUDE.md` / `AGENTS.md`、项目上下文和 RULES 文档；不复制 plugin 内置能力到目标项目运行目录。
 
 ## 4. 使用示例
 
@@ -55,7 +55,7 @@
 
 1. 不扫描目标项目代码。
 2. 不生成目标项目入口文件。
-3. 不生成或复制 `.hicode/` 运行目录。
+3. 不生成或复制项目本地运行目录。
 4. 不安装生产 Hook。
 5. 不自动合并、自动发布、自动回滚或修改生产配置。
 6. 不读取 `.env`、密钥文件、生产凭证或未脱敏客户数据。

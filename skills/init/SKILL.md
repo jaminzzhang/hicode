@@ -8,7 +8,7 @@ description: Use when a target project needs hicode initialization: create or up
 
 `hicode:init` 是目标项目初始化入口。它只在用户明确要求初始化、补齐 Coding Agent 入口或创建项目上下文时使用。
 
-初始化目标是让目标项目具备可持续使用 hicode 的入口文件、项目上下文和项目规则文档。hicode 能力来自已安装 plugin，默认不复制 Skill、Agent、Rule、Template 或 Hook 到目标项目 `.hicode/`。
+初始化目标是让目标项目具备可持续使用 hicode 的入口文件、项目上下文和项目规则文档。hicode 能力来自已安装 plugin，默认不复制 Skill、Agent、Rule、Template 或 Hook 到目标项目本地运行目录。
 
 ## 必读规则
 
@@ -105,7 +105,7 @@ description: Use when a target project needs hicode initialization: create or up
 2. 用户未确认写入范围。
 3. 已有文件存在冲突且未获确认。
 4. 输入或文件包含密钥、生产配置、未脱敏客户信息或未脱敏生产数据。
-5. 用户要求复制 plugin 内置能力到 `.hicode/`、自动发布、自动合并或操作生产环境。
+5. 用户要求复制 plugin 内置能力到目标项目本地运行目录、自动发布、自动合并或操作生产环境。
 
 ## 输出要求
 
