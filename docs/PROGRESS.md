@@ -277,6 +277,8 @@
 
 | 日期 | 操作者 | 变更 | 关联工作包 |
 |---|---|---|---|
+| 2026-06-11 | Codex | 修复 Claude Code 加载 `hicode` plugin 时 marketplace 条目与 `plugin.json` 同时声明组件导致的 conflicting manifests 问题；组件声明统一保留在 `plugin.json`，版本提升至 `0.1.1` | V2-P6-WP1 |
+| 2026-06-11 | Codex | 参考 Claude Code plugin marketplace 与 manifest 规范，补强 `install.sh` 的本地资产校验、dry-run、安装 scope 和安装计划输出 | V2-P6-WP1 |
 | 2026-06-11 | Codex | 将 `skills/hicode/SKILL.md` 补强为引导型总入口，明确首次使用诊断、未初始化引导、profile 推荐和确认后才写入目标项目文件的边界 | V2-P6-WP1 |
 | 2026-06-11 | Codex | 根据项目负责人确认，将仓库根目录调整为 hicode 设计中心和 Claude Code plugin root；迁移 `.claude-plugin/`、`install.sh`、`skills/`、`agents/`、`references/`，删除 `harness-assets/` 双源资产中心，并新增 ADR 0002 | V2-P6-WP1 |
 | 2026-06-10 | Codex | 根据项目负责人确认，将 `./` 调整为 Claude Code plugin root，移除 OpenCode 第一版适配，并新增 `scope`、`tdd`、`review`、`release` 能力 Skill | V2-P6-WP1 |

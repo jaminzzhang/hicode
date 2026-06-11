@@ -3,6 +3,9 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 CLAUDE_PLUGIN_DIR="$SCRIPT_DIR"
+MARKETPLACE_NAME="hicode"
+PLUGIN_NAME="hicode"
+INSTALL_SCOPE="user"
 
 INSTALL_CLAUDE=0
 DRY_RUN=0
@@ -13,10 +16,11 @@ usage() {
 hicode Claude Code plugin installer
 
 Usage:
-  install.sh [--claude-code] [--dry-run] [--yes]
+  install.sh [--claude-code] [--scope user|local|project] [--dry-run] [--yes]
 
 Options:
   --claude-code   Install the hicode Claude Code plugin for the current user. Default.
+  --scope         Claude Code install scope. Default: user.
   --dry-run       Print the installation plan without changing user configuration.
   --yes           Run without interactive confirmation.
   -h, --help      Show this help.
@@ -37,6 +41,23 @@ die() {
 
 require_command() {
   command -v "$1" >/dev/null 2>&1 || die "Required command not found: $1"
+}
+
+validate_scope() {
+  case "$INSTALL_SCOPE" in
+    user|local|project) ;;
+    *) die "Invalid --scope value: $INSTALL_SCOPE. Expected user, local, or project." ;;
+  esac
+}
+
+validate_plugin_assets() {
+  [ -d "$CLAUDE_PLUGIN_DIR/.claude-plugin" ] || die "Missing Claude plugin manifest directory: $CLAUDE_PLUGIN_DIR/.claude-plugin"
+  [ -f "$CLAUDE_PLUGIN_DIR/.claude-plugin/plugin.json" ] || die "Missing Claude plugin manifest: $CLAUDE_PLUGIN_DIR/.claude-plugin/plugin.json"
+  [ -f "$CLAUDE_PLUGIN_DIR/.claude-plugin/marketplace.json" ] || die "Missing Claude marketplace manifest: $CLAUDE_PLUGIN_DIR/.claude-plugin/marketplace.json"
+
+  for skill in hicode scope tdd review release; do
+    [ -f "$CLAUDE_PLUGIN_DIR/skills/$skill/SKILL.md" ] || die "Missing skill entry: $CLAUDE_PLUGIN_DIR/skills/$skill/SKILL.md"
+  done
 }
 
 confirm() {
@@ -60,25 +81,40 @@ run_cmd() {
 }
 
 install_claude_code() {
-  require_command claude
-
-  [ -d "$CLAUDE_PLUGIN_DIR/.claude-plugin" ] || die "Missing Claude plugin manifest directory: $CLAUDE_PLUGIN_DIR/.claude-plugin"
+  validate_plugin_assets
+  validate_scope
 
   log ""
   log "Claude Code plan:"
-  log "  Marketplace path: $CLAUDE_PLUGIN_DIR"
-  log "  Plugin: hicode"
-  log "  Action: register local marketplace and install hicode for current user"
+  log "  Marketplace root: $CLAUDE_PLUGIN_DIR"
+  log "  Marketplace manifest: $CLAUDE_PLUGIN_DIR/.claude-plugin/marketplace.json"
+  log "  Plugin: $PLUGIN_NAME@$MARKETPLACE_NAME"
+  log "  Scope: $INSTALL_SCOPE"
+  log "  Action: validate manifests, register local marketplace, install plugin"
+
+  if [ "$DRY_RUN" -eq 1 ]; then
+    log "+ claude plugin validate \"$CLAUDE_PLUGIN_DIR/.claude-plugin/marketplace.json\""
+    log "+ claude plugin marketplace add \"$CLAUDE_PLUGIN_DIR\""
+    log "+ claude plugin install \"$PLUGIN_NAME@$MARKETPLACE_NAME\" --scope \"$INSTALL_SCOPE\""
+    return 0
+  fi
+
+  require_command claude
 
   run_cmd claude plugin validate "$CLAUDE_PLUGIN_DIR/.claude-plugin/marketplace.json"
   run_cmd claude plugin marketplace add "$CLAUDE_PLUGIN_DIR"
-  run_cmd claude plugin install "hicode@hicode"
+  run_cmd claude plugin install "$PLUGIN_NAME@$MARKETPLACE_NAME" --scope "$INSTALL_SCOPE"
 }
 
 while [ "$#" -gt 0 ]; do
   case "$1" in
     --claude-code)
       INSTALL_CLAUDE=1
+      ;;
+    --scope)
+      [ "$#" -ge 2 ] || die "Missing value for --scope"
+      INSTALL_SCOPE="$2"
+      shift
       ;;
     --dry-run)
       DRY_RUN=1
@@ -102,9 +138,10 @@ if [ "$INSTALL_CLAUDE" -eq 0 ]; then
 fi
 
 log "hicode Claude Code plugin installer"
-log "Scope: current user"
+log "Installer target: Claude Code $INSTALL_SCOPE scope"
 log "Dry run: $DRY_RUN"
 log "Claude Code: $INSTALL_CLAUDE"
+log "Claude Code install scope: $INSTALL_SCOPE"
 log ""
 log "This installer will not scan code, generate CLAUDE.md, generate AGENTS.md, or create .hicode/."
 
