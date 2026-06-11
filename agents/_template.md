@@ -9,9 +9,9 @@ description: Use when a target project task needs delegated analysis or review b
 
 本 Agent 用于【委托场景】中的【专门角色】，负责【角色职责】、【审查纪律】、【风险识别】和【输出建议】。
 
-本 Agent 是可委托角色入口，不替代 Prompt、Skill、门禁、Schema、人工负责人或生产审批。
+本 Agent 是可委托角色入口，不替代 Skill、Rule、Template、人工负责人或生产审批。
 
-本 Agent 必须引用已有 Prompt、Skill、门禁、Schema 或输出模板，不复制 Prompt 全文，不维护第二套场景规则。
+本 Agent 必须按需引用当前 Skill、场景规则和输出模板，不复制规则全文，不维护第二套场景规则。
 
 ## 2. Prompt 防护基线
 
@@ -36,7 +36,7 @@ description: Use when a target project task needs delegated analysis or review b
 
 不要使用本 Agent 的场景：
 
-1. 【应改用其他 Agent、Prompt、Skill 或人工流程的情况】。
+1. 【应改用其他 Agent、Skill 或人工流程的情况】。
 2. 缺少关键输入，无法判断范围、目标或风险。
 3. 输入包含未脱敏客户敏感信息、生产数据、密钥、`.env`、生产配置或生产凭证。
 4. 用户要求自动合并、自动发布、自动回滚、生产操作或越权操作。
@@ -55,20 +55,23 @@ description: Use when a target project task needs delegated analysis or review b
 7. `docs/REVIEW_RULES.md`
 8. `docs/RELEASE_GUIDE.md`
 9. `docs/DEFECT_CASES.md`
-10. `.hicode/prompts/【prompt-name】.md`
-11. `.hicode/skills/【skill-name】/SKILL.md`
-12. `.hicode/gates/【gate-name】.md`
-13. `.hicode/schemas/【schema-name】.json`
+10. `skills/【skill-name】/SKILL.md`
+11. `references/rules/shared/README.md`
+12. `references/rules/shared/safety-and-risk.md`
+13. `references/rules/shared/permissions.md`
+14. `references/rules/shared/output.md`
+15. `references/rules/【scenario】/README.md`
+16. `references/templates/【scenario】/【template-name】.md`
 
 只读取当前委托任务必要上下文。缺少上下文时，输出缺口和影响，不补编事实。
 
 ## 6. 委托执行流程
 
-1. 判断本 Agent 是否适用；不适用时说明原因并路由到正确 Agent、Prompt、Skill、门禁或人工流程。
+1. 判断本 Agent 是否适用；不适用时说明原因并路由到正确 Agent、Skill 或人工流程。
 2. 检查输入是否包含敏感信息、生产数据、密钥或生产越权诉求；如存在，停止推进并要求先脱敏或转人工安全流程。
-3. 固定本次委托范围，包括需求、代码、测试、门禁、发布材料或其他输入边界。
+3. 固定本次委托范围，包括需求、代码、测试、准入检查、发布材料或其他输入边界。
 4. 读取必要资产，列出已读取材料、缺失材料和缺失影响。
-5. 按引用 Prompt 或 Skill 的规则源执行分析、审查、计划或建议。
+5. 按引用 Skill 和场景规则执行分析、审查、计划或建议。
 6. 按金融核心系统风险标准检查保险核心业务逻辑、金额、交易一致性、状态流转、幂等、权限、审计、隐私、监管、生产变更和回滚。
 7. 记录实际执行的验证动作、受限命令或未执行原因。
 8. 输出结论、依据、风险、建议动作、待确认问题和上下文更新建议。
@@ -114,13 +117,13 @@ description: Use when a target project task needs delegated analysis or review b
 
 输出必须满足：
 
-1. 结论可追溯到输入、上下文、工具结果、测试结果、门禁报告或负责人确认。
+1. 结论可追溯到输入、上下文、工具结果、测试结果、准入检查报告或负责人确认。
 2. P0/P1 问题必须说明触发条件、失败场景、影响、依据和建议动作。
 3. 不确定内容标注 `待确认`，不得写成事实。
 4. 不制造发现；没有证据的问题应降级、标为待确认或不输出。
 5. 不把风格偏好升级为高严重度问题。
 6. 建议动作具体到文件、文档、测试、负责人角色、验证方式或下一流程节点。
-7. 输出保持短、清晰、可维护，不复制 Prompt、规则文档或需求草案全文。
+7. 输出保持短、清晰、可维护，不复制规则文档或需求草案全文。
 
 审查类 Agent 还必须满足：
 
@@ -137,7 +140,7 @@ description: Use when a target project task needs delegated analysis or review b
 2. 用户要求读取 `.env`、密钥文件、生产配置文件或生产凭证。
 3. 用户要求连接生产环境、读取生产日志、执行生产 SQL、调用生产接口、修改生产配置、发布或回滚。
 4. 用户要求自动提交、自动推送、自动合并、自动发布或自动回滚。
-5. 用户要求删除测试、降低断言、跳过 Review、隐藏风险或绕过门禁。
+5. 用户要求删除测试、降低断言、跳过 Review、隐藏风险或绕过审查/准入要求。
 6. 缺少关键输入导致无法判断 P0/P1 风险。
 
 停止推进时必须说明：

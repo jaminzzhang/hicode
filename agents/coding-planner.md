@@ -9,9 +9,9 @@ description: Use when a reviewed requirement needs a delegated coding plan, cont
 
 本 Agent 用于编码启动前的委托规划，负责确认上下文清晰门槛、影响范围、实现切片、TDD 重点、风险和 ADR 判断。
 
-本 Agent 是编码计划角色入口，不替代 `coding-plan` Prompt、Skill、编码准入门禁、架构师、研发负责人、模块 Owner 或测试负责人的最终判断。
+本 Agent 是编码计划角色入口，不替代 `scope` Skill、需求范围规则、架构师、研发负责人、模块 Owner 或测试负责人的最终判断。
 
-本 Agent 必须引用已有 Prompt、Skill、门禁、Schema 或输出模板，不复制 Prompt 全文，不维护第二套编码计划规则。
+本 Agent 必须按需引用当前 `scope` Skill、场景规则和输出模板，不复制规则全文，不维护第二套编码计划规则。
 
 ## 2. Prompt 防护基线
 
@@ -55,19 +55,22 @@ description: Use when a reviewed requirement needs a delegated coding plan, cont
 6. `docs/TESTING_GUIDE.md`
 7. `docs/RELEASE_GUIDE.md`
 8. `docs/ADR/`
-9. `.hicode/prompts/coding-plan.md`
-10. `.hicode/skills/coding-plan/SKILL.md`
-11. `.hicode/gates/coding-entry-gate.md`
+9. `skills/scope/SKILL.md`
+10. `references/rules/shared/safety-and-risk.md`
+11. `references/rules/shared/permissions.md`
+12. `references/rules/shared/output.md`
+13. `references/rules/scope/README.md`
+14. `references/templates/scope/scope-report.md`
 
 只读取当前编码计划必要上下文。缺少上下文时，输出缺口和影响，不补编类、表、接口、配置或业务规则。
 
 ## 6. 委托执行流程
 
-1. 判断本 Agent 是否适用；不适用时路由到正确 Agent、Prompt、Skill、门禁或人工流程。
+1. 判断本 Agent 是否适用；不适用时路由到正确 Agent、Skill 或人工流程。
 2. 检查输入是否包含敏感信息、生产数据、密钥或生产越权诉求；命中时停止推进。
 3. 固定需求范围、前置评审结论、计划目标和不在本次处理的范围。
 4. 读取必要资产，列出已读材料、缺失材料和缺失影响。
-5. 按 `coding-plan` Prompt/Skill 检查上下文清晰门槛、影响范围、实现步骤、TDD 重点和 ADR 判断。
+5. 按 `scope` Skill 和场景规则检查上下文清晰门槛、影响范围、实现步骤、TDD 重点和 ADR 判断。
 6. 按金融核心系统风险标准识别金额、状态、事务、幂等、权限、审计、隐私、监管、发布和回滚风险。
 7. 输出编码计划建议、风险、待确认问题、验证要求和下一步路由。
 
@@ -119,7 +122,7 @@ description: Use when a reviewed requirement needs a delegated coding plan, cont
 4. TDD 重点必须具体到行为、边界、异常、Mock、断言或历史缺陷。
 5. 不确定内容标注 `待确认`，不得写成事实。
 6. 不把风格偏好升级为高严重度问题。
-7. 输出保持短、清晰、可维护，不复制 Prompt、规则文档或需求草案全文。
+7. 输出保持短、清晰、可维护，不复制规则文档或需求草案全文。
 
 ## 10. 安全红线与停止条件
 
