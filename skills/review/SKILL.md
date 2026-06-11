@@ -1,64 +1,101 @@
 ---
-description: Use when code changes need review, security review, Java or SQL review, pre-commit checks, merge-gate evidence, or high-risk issue triage.
+description: Use when code changes need review, pre-commit checks, security or Java/SQL/insurance-domain review, or merge-readiness evidence without granting approval.
 ---
 
 # hicode review
 
 ## 定位
 
-本 Skill 覆盖 Review 与提交链路，用于执行代码审查、提交检查、安全专项审查、Java/SQL/保险核心后端专项审查和合并前风险证据整理。
+`hicode:review` 覆盖代码审查、提交检查、专项审查和合并前风险证据整理。它直接帮助 Coding Agent 发现 bug、行为回归、缺失测试、安全风险和证据缺口。
 
-本 Skill 是可直接执行的场景 Skill。引用文件用于补充细则和证据，不是把执行责任转交给 `references/`。
+本 Skill 只输出建议结论，不替代人工 Review、MR/PR 审批、合并决策或发布决策。
 
-## 必读引用
+## 必读规则
 
-按需读取：
+执行前按需读取：
 
-1. `../../agents/code-reviewer.md`
-2. `../../agents/security-reviewer.md`
-3. `../../agents/java-reviewer.md`
-4. `../../references/skills/code-review/SKILL.md`
-5. `../../references/skills/pre-commit-check/SKILL.md`
-6. `../../references/prompts/code-review.md`
-7. `../../references/prompts/pre-commit-check.md`
-8. `../../references/gates/merge-gate.md`
-9. `../../references/schemas/review-result.schema.json`
-10. `../../references/schemas/gate-result.schema.json`
-11. `../../references/docs/REVIEW_RULES.md`
-12. `../../references/docs/review-rules/java.md`
-13. `../../references/docs/review-rules/sql.md`
-14. `../../references/docs/review-rules/security.md`
-15. `../../references/docs/review-rules/insurance-domain.md`
+1. `../../references/rules/shared/safety-and-risk.md`
+2. `../../references/rules/shared/permissions.md`
+3. `../../references/rules/shared/output.md`
+4. `../../references/rules/review/README.md`
 
-## 执行规则
+需要固定报告骨架时读取：
 
-1. 先确认 diff、基准点、需求来源、测试证据和审查范围。
-2. 代码审查优先输出 bug、风险、行为回归和缺失测试，不把风格偏好升级为高严重度。
-3. 命中权限、密钥、隐私、生产数据、审计、监管、Java 事务、SQL、金额或保险核心后端风险时，转入专项审查口径。
-4. 缺少需求来源时说明需求轴降级；缺少专项规则时说明降级影响。
-5. 不输出合并许可或最终审批。
+1. `../../references/templates/review/review-report.md`
 
-## 直接执行能力
+不得读取旧 Prompt、Gate、Schema、细粒度 Skill 或归档资产作为当前规则源。
 
-1. 代码审查：围绕明确 diff 输出 bug、行为回归、缺失测试、风险等级和修复建议。
-2. 提交检查：检查需求关联、测试证据、构建/扫描结果、SQL/配置/脚本、敏感信息和 MR/PR 材料。
-3. 专项审查：按触发条件委托或套用安全、Java、SQL、保险核心业务专项规则。
-4. 合并证据：整理 AI Review、人工 Review、CI、覆盖率、P0/P1 关闭证据和风险缺口。
-5. 子 Agent 委托：可按风险委托 `code-reviewer`、`security-reviewer` 或 `java-reviewer`，但最终输出仍由本 Skill 汇总。
+## 执行流程
+
+### 1. 固定审查范围
+
+先确认：
+
+1. 基准点、diff、分支、Commit、MR/PR 或工作区变更范围。
+2. 需求来源、编码计划、TDD 报告、测试结果、CI 或扫描结果。
+3. SQL、配置、脚本、权限、客户隐私、外部接口或发布相关变更清单。
+4. 本次审查是否完整；若只能做局部审查，必须说明未覆盖范围。
+
+范围不清时，不给低风险建议；只输出 `NEEDS_CONFIRMATION` 和补证据动作。
+
+### 2. 执行三轴审查
+
+按三条轴线分别判断：
+
+1. 需求轴：变更是否符合需求目标、范围、业务规则、验收标准和负责人确认。
+2. 规范轴：变更是否符合编码、测试、安全、Review、ADR 和项目约定。
+3. 证据轴：测试、CI、扫描、人工确认和上下文证据是否足以支撑结论。
+
+缺少需求来源时说明需求轴降级；缺少测试或 CI 时说明证据轴缺口。
+
+### 3. 触发专项审查
+
+命中以下条件时，必须按专项口径检查：
+
+| 触发条件 | 检查重点 |
+|---|---|
+| Java、Spring、事务、异常、日志、MyBatis/JPA、消息、批处理 | 分层、事务、异常、幂等、性能、SQL、日志脱敏 |
+| SQL、DDL、DML、索引、数据修复、配置脚本 | 影响范围、回滚、幂等、执行顺序、数据量、审批证据 |
+| 权限、认证、鉴权、密钥、日志、客户信息、外部接口 | 越权、敏感信息、脱敏、审计、监管、生产越权 |
+| 投保、批改、退保、核保、理赔前置、收付费、责任、费率、状态 | 保险核心业务规则、金额、状态流转、幂等、历史缺陷 |
+
+无法判断是否触发时，按风险更高的一侧处理并说明依据。
+
+### 4. 判断阻断建议
+
+以下问题必须进入阻断建议项：
+
+1. 安全红线、密钥、未脱敏客户信息或未脱敏生产数据。
+2. 金额、保单、客户权益、收付费、责任判断或状态流转可能错误。
+3. P0/P1 问题未关闭或无法判断。
+4. 测试失败、核心场景漏测、删除测试或降低断言。
+5. 自动合并、自动发布、生产配置修改或生产操作诉求。
+
+阻断建议不是最终审批，只是建议负责人先修复、补证据或转人工流程。
+
+### 5. 本地验证
+
+可按权限规则运行本地非生产命令：
+
+1. 只读 Git 查询。
+2. 单元测试、指定模块测试、构建、静态检查、格式检查。
+3. 敏感信息扫描。
+
+命令必须来自项目已有脚本、文档、工具配置或用户确认。未执行时说明原因和残余风险。
 
 ## 输出要求
 
-输出应包含：
+默认使用 Markdown，包含：
 
-1. 发现列表，按严重度排序。
-2. 文件或证据位置。
-3. 具体失败场景和影响。
-4. 风险等级。
-5. 建议修复或补证据动作。
-6. 未覆盖范围。
-7. 待确认问题。
-8. 上下文更新建议。
+1. 建议结论：`PASS`、`CONDITIONAL_PASS`、`BLOCKED` 或 `NEEDS_CONFIRMATION`。
+2. 最高风险等级。
+3. 审查范围、基准点和未覆盖范围。
+4. 依据与未读取材料。
+5. 需求轴、规范轴、证据轴审查结果。
+6. 问题清单，按严重度排序。
+7. 阻断建议项和普通风险提示项。
+8. 测试补充建议。
+9. 受限命令执行记录。
+10. 待确认问题和上下文更新建议。
 
-## 安全边界
-
-不得读取或输出密钥、生产凭证、生产配置、未脱敏客户信息或未脱敏生产数据；不得自动提交、推送、合并、发布或修改生产配置。
+不得输出“准许合并”“审批通过”“门禁通过”“可以上线”。
