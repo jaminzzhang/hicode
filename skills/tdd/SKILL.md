@@ -23,8 +23,6 @@ description: Use when work needs test-first design, RED-GREEN-REFACTOR guidance,
 
 1. `../../references/templates/tdd/tdd-report.md`
 
-不得读取历史资产原文、历史准入文档、历史结构化校验文件、细粒度历史 Skill 或归档资产作为当前规则源。
-
 ## 执行流程
 
 ### 1. 判断任务模式

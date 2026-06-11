@@ -16,10 +16,14 @@ description: Use when a requirement needs review, clarification, scope control, 
 
 1. `../../references/rules/coding_rules.md`
 2. `../../references/templates/scope/scope-report.md`
+3. `../../references/templates/scope/requirement-review-report.md`
+4. `../../references/templates/scope/task-split-plan.md`
+5. `../../references/templates/project/PRD_CONTEXT.md`
+6. `../../references/templates/project/ADR-template.md`
+7. `../../references/templates/project/DOMAIN_KNOWLEDGE.md`
+8. `../../references/templates/project/PROJ_CONTEXT.md`
 
 同时读取目标项目中与当前需求直接相关的入口规则、PRD、项目上下文、领域知识、历史缺陷、ADR、代码结构说明或已脱敏材料。
-
-不得读取历史资产原文、归档资产、旧 Prompt、旧 Gate、旧 Schema 或旧细粒度 Skill 作为当前规则源。
 
 ## 核心原则
 
@@ -30,6 +34,8 @@ description: Use when a requirement needs review, clarification, scope control, 
 5. 对模糊词、冲突术语、隐含范围和过大任务立即收敛。
 6. 涉及保险/金融核心系统时，默认按高风险标准检查业务规则、金额、交易一致性、状态流转、幂等、权限、审计、隐私、监管、生产变更和回滚。
 7. 任务拆分必须避免“一次生成一大堆代码”；每个实施小任务应能独立理解、独立验证、独立回滚或重新执行。
+8. `PRD_CONTEXT.md` 是单需求过程上下文，可在需求分析和范围确认中按需生成或更新。
+9. `DOMAIN_KNOWLEDGE.md`、`PROJ_CONTEXT.md` 和 ADR 属于长期上下文或正式决策；只有用户或负责人确认后才能正式写入，否则输出更新建议或草稿。
 
 ## 执行流程
 
@@ -57,7 +63,7 @@ description: Use when a requirement needs review, clarification, scope control, 
 
 不得读取 `.env`、密钥文件、生产配置、生产凭证、未脱敏客户信息或未脱敏生产数据。
 
-### 3. 评审需求清晰度
+### 3. 需求评审并输出评审报告
 
 必须检查：
 
@@ -71,7 +77,9 @@ description: Use when a requirement needs review, clarification, scope control, 
 
 发现冲突或模糊点时，先说明证据，再提出一个最关键问题，并给出推荐答案。
 
-### 4. 追问与边界收敛
+需求评审结束后，必须输出独立的需求评审报告，使用 `../../references/templates/scope/requirement-review-report.md`。需求文档和需求评审报告共同作为后续需求分析、范围确认和任务拆分的输入。
+
+### 4. 需求分析、追问与范围确认
 
 当需求不能安全进入计划时，进入追问循环：
 
@@ -88,6 +96,12 @@ description: Use when a requirement needs review, clarification, scope control, 
 
 不要为了显得完整一次性追问大量问题；优先解决会阻断编码准入的最高风险问题。
 
+范围确认过程中必须按需更新或输出以下文档变更：
+
+1. `docs/PRD_CONTEXT.md`：记录本需求目标、范围内、范围外、核心业务规则、风险基线、影响范围、测试发布关注点和待确认问题；目标项目缺少该文件时，可基于 `../../references/templates/project/PRD_CONTEXT.md` 生成。
+2. ADR：当决策同时满足难逆、无上下文会令人意外、存在真实取舍三个条件时，基于 `../../references/templates/project/ADR-template.md` 生成或更新 ADR 草稿；正式状态必须等待用户或负责人确认。
+3. `DOMAIN_KNOWLEDGE.md` 和 `PROJ_CONTEXT.md`：需求分析阶段只记录候选更新建议，除非用户或负责人已经明确确认。
+
 ### 5. 比较方案
 
 当需求有多种合理实现边界或拆分方式时，提出 2-3 个方案：
@@ -97,7 +111,7 @@ description: Use when a requirement needs review, clarification, scope control, 
 3. 对金融核心系统高风险变更，必须说明哪个方案更容易验证、审计和回滚。
 4. 用户未确认方案前，不生成最终实施任务清单。
 
-### 6. 拆分实施小任务
+### 6. 拆分实施小任务并输出计划
 
 只有在目标、范围、关键规则和风险边界足够清楚后，才能拆任务。
 
@@ -109,6 +123,7 @@ description: Use when a requirement needs review, clarification, scope control, 
 4. 每个任务都要能追溯到需求、上下文、代码证据或用户确认。
 5. 涉及代码改动的任务必须转交 `hicode:tdd`，并带上测试重点。
 6. 不允许写“完善异常处理”“补充测试”“实现相关逻辑”这类不可验收任务。
+7. 拆分计划结束后，必须输出独立的拆分任务计划，使用 `../../references/templates/scope/task-split-plan.md`。
 
 推荐任务格式：
 
@@ -124,34 +139,36 @@ description: Use when a requirement needs review, clarification, scope control, 
 - 停止条件：遇到哪些缺口必须回到 Scope 澄清。
 ```
 
-### 7. 判断停止条件
+### 7. 判断分流条件
 
-命中以下情况时，不得建议进入编码：
+命中以下情况时，不得输出 `READY_FOR_TDD`，应按实际情况继续澄清、拆分需求、输出阻断建议或转人工安全流程：
 
 1. 需求目标、范围、验收标准或核心业务规则不清。
 2. 关键术语与项目上下文冲突且未确认。
 3. P0/P1 风险未关闭，或无法排除高风险。
-4. 影响范围无法定位到可执行对象。
+4. 影响范围无法定位到可评审、可拆分或可验证的模块、接口、数据、流程或外部依赖。
 5. 需要 ADR 但未形成决策草案或确认路径。
 6. 任务仍然过大，无法拆成可独立验证的小任务。
-7. 输入包含未脱敏客户信息、生产数据、密钥、生产账号、生产连接串或生产操作诉求。
+7. 输入包含未脱敏客户信息、生产数据、密钥、生产账号、生产连接串或生产操作诉求；此时停止 Scope 推进并转人工安全流程。
 
 ### 8. 形成 Scope 结果
 
-输入充分时，输出：
+Scope 成功完成时，输出：
 
 1. 需求评审结论。
-2. 已确认的需求摘要。
-3. 范围内、范围外和非目标。
-4. 关键业务规则与验收标准。
-5. 影响范围和证据。
-6. 风险清单与阻断建议。
-7. 已关闭和未关闭澄清问题。
-8. 推荐方案与取舍。
-9. 小任务实施计划。
-10. TDD 输入和测试重点。
-11. ADR 判断。
-12. 上下文更新建议。
+2. 需求评审报告路径或报告正文。
+3. 需求分析结果和已更新的 `PRD_CONTEXT.md` 内容或路径。
+4. 范围内、范围外和非目标。
+5. 关键业务规则与验收标准。
+6. 影响范围和证据。
+7. 风险清单与阻断建议。
+8. 已关闭和未关闭澄清问题。
+9. 推荐方案与取舍。
+10. 拆分任务计划路径或计划正文。
+11. TDD 输入和测试重点。
+12. ADR 判断、ADR 草稿或已确认 ADR 更新。
+13. `DOMAIN_KNOWLEDGE.md` 更新：已确认则写入；未确认则输出候选领域术语、业务规则和领域知识更新建议。
+14. `PROJ_CONTEXT.md` 更新：已确认则写入；未确认则输出候选项目结构、模块、接口、流程、数据、命令或历史风险更新建议。
 
 ## 输出要求
 
@@ -160,14 +177,16 @@ description: Use when a requirement needs review, clarification, scope control, 
 1. 建议结论：`READY_FOR_TDD`、`NEEDS_CONFIRMATION`、`SPLIT_REQUIRED` 或 `BLOCKED`。
 2. 最高风险等级：`P0`、`P1`、`P2`、`P3` 或 `NONE`。
 3. 依据和输入缺口。
-4. 需求摘要、范围内、范围外和非目标。
-5. 澄清问题队列：已关闭、待用户回答、建议确认人。
-6. 影响范围和证据。
-7. 风险与阻断建议。
-8. 推荐方案与取舍。
-9. 小任务实施计划。
-10. TDD 输入和测试重点。
-11. ADR 判断。
-12. 上下文更新建议。
+4. 需求评审报告。
+5. 需求分析结果和 `PRD_CONTEXT.md` 更新记录。
+6. 需求摘要、范围内、范围外和非目标。
+7. 澄清问题队列：已关闭、待用户回答、建议确认人。
+8. 影响范围和证据。
+9. 风险与阻断建议。
+10. 推荐方案与取舍。
+11. 拆分任务计划。
+12. TDD 输入和测试重点。
+13. ADR 判断。
+14. `DOMAIN_KNOWLEDGE.md` 与 `PROJ_CONTEXT.md` 更新结果或待确认建议。
 
 不得输出“准许编码”“审批通过”“可以上线”或替代负责人判断。

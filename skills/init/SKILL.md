@@ -17,7 +17,7 @@ description: Use when a target backend application needs guided hicode initializ
 1. `../../references/rules/`
 2. `../../references/rules/coding_rules.md`
 
-不得读取归档资产作为当前初始化依据。不得把 hicode plugin 内置 Skill、Agent、Rule、Template 或 Hook 复制到目标项目本地运行目录。
+不得把 hicode plugin 内置 Skill、Agent、Rule、Template 或 Hook 复制到目标项目本地运行目录。
 
 ## 执行流程
 

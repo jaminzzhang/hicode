@@ -20,18 +20,8 @@
 
 | 目录 | 文件 |
 |---|---|
-| `project/` | `AGENTS.md`、`CLAUDE.md`、`DOMAIN_KNOWLEDGE.md`、`PRD_CONTEXT.md`、`PROJ_CONTEXT.md`、`CODING_RULES.md`、`TESTING_GUIDE.md`、`REVIEW_RULES.md`、`RELEASE_GUIDE.md`、`DEFECT_CASES.md`、`ADR-template.md` |
-| `scope/` | `scope-report.md` |
-| `tdd/` | `tdd-report.md` |
-| `review/` | `review-report.md` |
-| `release/` | `release-report.md` |
-
-当前已落地模板：
-
-| 目录 | 文件 |
-|---|---|
-| `project/` | `AGENTS.md`、`CLAUDE.md`、`DOMAIN_KNOWLEDGE.md`、`PRD_CONTEXT.md`、`PROJ_CONTEXT.md`、`CODING_RULES.md`、`TESTING_GUIDE.md`、`REVIEW_RULES.md`、`RELEASE_GUIDE.md`、`DEFECT_CASES.md`、`ADR-template.md` |
-| `scope/` | `scope-report.md` |
+| `project/` | `AGENTS.md`、`CLAUDE.md`、`DOMAIN_KNOWLEDGE.md`、`PRD_CONTEXT.md`、`PROJ_CONTEXT.md`、`ADR-template.md` |
+| `scope/` | `requirement-review-report.md`、`scope-report.md`、`task-split-plan.md` |
 | `tdd/` | `tdd-report.md` |
 | `review/` | `review-report.md` |
 | `release/` | `release-report.md` |
