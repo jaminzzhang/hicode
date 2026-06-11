@@ -1,61 +1,102 @@
 ---
-description: Use when a requirement needs clarification, scope control, risk review, coding-plan readiness, or entry-gate evidence before implementation.
+description: Use when a requirement needs clarification, scope control, financial-core risk review, coding-plan readiness, or implementation-entry evidence before coding.
 ---
 
 # hicode scope
 
 ## 定位
 
-本 Skill 覆盖需求到编码前链路，用于帮助 Coding Agent 在进入实现前澄清目标、范围、业务规则、风险、影响面、TDD 输入和编码准入证据。
+`hicode:scope` 覆盖需求到编码前链路。它直接帮助 Coding Agent 澄清需求、界定范围、识别风险、形成编码计划和 TDD 输入。
 
-本 Skill 是可直接执行的场景 Skill。引用文件用于补充细则和证据，不是把执行责任转交给 `references/`。
+本 Skill 不生成业务实现代码，不进入 TDD 或本地修改，不输出最终审批。
 
-## 必读引用
+## 必读规则
 
-按需读取：
+执行前按需读取：
 
-1. `../../agents/requirement-reviewer.md`
-2. `../../agents/coding-planner.md`
-3. `../../references/skills/requirement-review/SKILL.md`
-4. `../../references/skills/coding-plan/SKILL.md`
-5. `../../references/prompts/requirement-review.md`
-6. `../../references/prompts/coding-plan.md`
-7. `../../references/gates/requirement-entry-gate.md`
-8. `../../references/gates/coding-entry-gate.md`
-9. `../../references/docs/DOMAIN_KNOWLEDGE.md`
-10. `../../references/docs/PRD_CONTEXT.md`
-11. `../../references/docs/PROJ_CONTEXT.md`
-12. `../../references/docs/DEFECT_CASES.md`
+1. `../../references/rules/shared/safety-and-risk.md`
+2. `../../references/rules/shared/permissions.md`
+3. `../../references/rules/shared/output.md`
+4. `../../references/rules/scope/README.md`
 
-## 执行规则
+需要固定报告骨架时读取：
 
-1. 先识别用户任务是否处于需求澄清、范围界定、编码计划或编码准入阶段。
-2. 命中保险核心业务规则、金额、状态流转、幂等、权限、审计、隐私、监管、生产变更或回滚时，按 P0/P1 候选风险处理。
-3. 能从本地上下文或用户提供材料确认的问题先查证；不能确认的问题输出澄清问题和推荐答案。
-4. 不生成业务实现代码，不进入 TDD 或编码实现。
-5. 不输出“准许编码”或审批结论，只输出建议性质结论和证据缺口。
+1. `../../references/templates/scope/scope-report.md`
 
-## 直接执行能力
+不得读取旧 Prompt、Gate、Schema、细粒度 Skill 或归档资产作为当前规则源。
 
-1. 需求澄清：整理目标、非目标、业务规则、验收标准、负责人和待确认问题。
-2. 范围界定：输出影响面、排除范围、跨模块依赖、外部系统和数据边界。
-3. 编码计划：形成可执行步骤、TDD 输入、验证策略和 ADR 判断建议。
-4. 准入证据：检查需求、上下文、风险、测试和人工确认是否足以进入实现。
-5. 子 Agent 委托：复杂需求可按需委托 `requirement-reviewer` 或 `coding-planner`，但最终输出仍由本 Skill 汇总。
+## 执行流程
+
+### 1. 固定任务阶段
+
+先判断用户当前要做的是：
+
+1. 需求评审。
+2. 范围界定。
+3. 编码计划。
+4. 编码准入检查。
+5. 上下文更新建议。
+
+若用户实际要求实现、测试、Review 或发布检查，应建议转到 `hicode:tdd`、`hicode:review` 或 `hicode:release`。
+
+### 2. 收集输入
+
+确认是否已有：
+
+1. 需求摘要、PRD、故事链接、会议纪要或脱敏材料。
+2. `docs/PRD_CONTEXT.md`、`docs/PROJ_CONTEXT.md`、`docs/DOMAIN_KNOWLEDGE.md`、`docs/DEFECT_CASES.md`。
+3. 涉及模块、接口、表、配置、SQL、批处理、外部系统或发布范围。
+4. 已澄清问题、未澄清问题和负责人确认记录。
+
+缺少输入时，不编造业务规则；输出待确认问题和影响。
+
+### 3. 检查范围和风险
+
+必须检查：
+
+1. 需求目标、范围内、范围外和验收标准是否明确。
+2. 业务规则、边界、异常、数据来源和负责人是否可追溯。
+3. 保险核心业务逻辑、金额、交易一致性、状态流转、幂等、权限、审计、隐私、监管、生产变更和回滚是否涉及。
+4. 影响范围是否定位到模块、接口、类、方法、表、配置、SQL、批处理或外部依赖。
+5. 是否需要 ADR。
+6. 是否具备 TDD 输入。
+
+### 4. 判断停止条件
+
+命中以下情况时，不得建议进入编码：
+
+1. 需求目标、范围、验收标准或核心业务规则不清。
+2. P0/P1 风险未关闭，或无法排除高风险。
+3. 影响范围无法定位。
+4. 需要 ADR 但未形成决策草案或确认路径。
+5. 输入包含未脱敏客户信息、生产数据或密钥。
+
+### 5. 形成编码计划
+
+输入充分时，输出：
+
+1. 改动目标。
+2. 影响范围。
+3. 建议实现步骤。
+4. TDD 测试重点。
+5. 核心场景测试建议。
+6. 风险清单。
+7. ADR 判断。
+8. 上下文更新建议。
 
 ## 输出要求
 
-输出应包含：
+默认使用 Markdown，包含：
 
-1. 结论。
-2. 已读资产和依据。
-3. 范围、非范围和影响面。
-4. 风险等级。
-5. 编码计划或准入证据缺口。
-6. 建议动作。
-7. 待确认问题。
-8. 建议更新的上下文或 hicode 资产。
+1. 建议结论：`PASS`、`CONDITIONAL_PASS`、`BLOCKED` 或 `NEEDS_CONFIRMATION`。
+2. 最高风险等级。
+3. 依据和输入缺口。
+4. 需求摘要、范围内和范围外。
+5. 影响范围。
+6. 风险与阻断建议。
+7. TDD 测试重点。
+8. ADR 判断。
+9. 待确认问题。
+10. 上下文更新建议。
 
-## 安全边界
-
-不得读取或输出密钥、生产凭证、生产配置、未脱敏客户信息或未脱敏生产数据；不得自动合并、发布、回滚或操作生产环境。
+不得输出“准许编码”“审批通过”或替代负责人判断。
