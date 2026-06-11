@@ -25,6 +25,16 @@
 | `shared/permissions.md` | L0-L4 权限等级、本地修改、受限命令和审计证据 |
 | `shared/output.md` | Markdown 结构化输出、稳定枚举和建议结论 |
 
+当前已落地的场景规则：
+
+| 文件 | 用途 |
+|---|---|
+| `init/README.md` | 目标项目初始化、入口文件和项目文档生成边界 |
+| `scope/README.md` | 需求评审、范围界定、编码计划和编码准入规则 |
+| `tdd/README.md` | 测试先行、RED-GREEN-REFACTOR、辅助编码和受控修改规则 |
+| `review/README.md` | 代码审查、提交检查、专项审查和合并前建议规则 |
+| `release/README.md` | 核心场景测试、发布检查、生产验证和回滚规则 |
+
 ## 收录原则
 
 1. 只收录当前执行需要的规则、检查口径和结构化输出约束。
