@@ -3,9 +3,9 @@
 ## 1. 当前状态
 
 最近更新时间：2026-06-11
-当前阶段：V3 简化重构目录结构与归档迁移
-当前工作包：V3-P2-WP2 历史资产归档迁移
-总体状态：V1 已完成；V2-P1 至 V2-P5 已完成；V2-P6-WP1 待验收；V3-P1-WP1 已完成；V3-P2-WP1 已完成；V3-P2-WP2 已完成并已通过项目负责人验收
+当前阶段：V3 简化重构规则与模板重组
+当前工作包：V3-P3-WP1 共享规则与结构化输出规则
+总体状态：V1 已完成；V2-P1 至 V2-P5 已完成；V2-P6-WP1 待验收；V3-P1-WP1 已完成；V3-P2 已完成；V3-P3-WP1 已完成并已通过项目负责人验收
 
 本台账用于记录 V1、V2 和 V3 工作包推进状态。每次开发 Agent 开始、完成、阻塞、暂缓或提交工作包验收时，必须同步更新本文件。
 
@@ -205,6 +205,9 @@
 181. 项目负责人已确认 `V3-P2-WP1` 验收通过，并确认继续启动 `V3-P2-WP2` 历史资产归档迁移，工作包进入进行中。
 182. 已将旧 `references/docs/`、`references/prompts/`、`references/skills/`、`references/gates/`、`references/schemas/`、`references/examples/`、`references/init/` 和 `references/target-project/` 整体迁入 `archive/references/`，并更新归档说明；未拆解规则和模板，未重写 6 个 Skill；已将 `V3-P2-WP2` 提交项目负责人验收。
 183. 项目负责人已确认 `V3-P2-WP2` 验收通过，并要求提交 Git 后继续启动下一工作包。
+184. 已提交 Git 变更 `5cbdf7e`，并按项目负责人指令启动 `V3-P3-WP1` 共享规则与结构化输出规则。
+185. 已创建 `references/rules/shared/README.md`、`safety-and-risk.md`、`permissions.md` 和 `output.md`，提炼安全红线、金融核心系统风险基线、P0/P1/P2/P3 风险分级、权限边界和 Markdown 结构化输出规则；未保留当前 JSON Schema，未进入场景规则或模板；已将 `V3-P3-WP1` 提交项目负责人验收。
+186. 项目负责人已确认 `V3-P3-WP1` 验收通过，并要求提交 Git 后继续启动 `V3-P3-WP2` 场景规则与模板。
 
 ## 4. 当前阻塞点
 
@@ -212,9 +215,9 @@
 
 ## 5. 下一步建议
 
-1. `V3-P2-WP2` 历史资产归档迁移已完成并通过项目负责人验收。
-2. 提交当前 Git 变更后，启动 `V3-P3-WP1` 共享规则与结构化输出规则。
-3. `V3-P3-WP1` 只提炼共享规则和 Markdown 结构化输出规则，不进入场景规则与模板。
+1. 提交 `V3-P3-WP1` 共享规则与结构化输出规则。
+2. 提交后启动 `V3-P3-WP2` 场景规则与模板。
+3. `V3-P3-WP2` 只建立 `init`、`scope`、`tdd`、`review`、`release` 场景规则和模板，不重写 6 个根目录 Skill。
 4. V2-P6-WP1 仍保留待验收状态，未被 V3 自动标记为已完成。
 5. 后续若进入真实试点运行效果验收，必须基于真实试点数据补充，不能用本仓库模板资产替代。
 
@@ -280,7 +283,7 @@
 | V3-P1-WP1 | V3 实施计划与入口规则 | 已完成 | `docs/V3_IMPLEMENTATION_PLAN.md`、更新后的 `AGENTS.md`、`CONTEXT.md`、`docs/PROGRESS.md`、`docs/adr/0003-simplify-hicode-reference-assets-and-direct-skills.md` | 项目负责人确认启动 V3 | 项目负责人已确认验收通过；本工作包未移动 `references/` 文件、未创建归档迁移内容、未重写 6 个 Skill |
 | V3-P2-WP1 | 当前目录骨架与归档目录 | 已完成 | `archive/README.md`、`references/README.md`、`references/rules/README.md`、`references/templates/README.md`、更新后的 `references/hooks/README.md` | V3-P1-WP1 | 项目负责人已确认验收通过；未迁移旧 `references/` 内容，未重写 6 个 Skill |
 | V3-P2-WP2 | 历史资产归档迁移 | 已完成 | `archive/references/docs/`、`prompts/`、`skills/`、`gates/`、`schemas/`、`examples/`、`init/`、`target-project/`，更新后的 `archive/README.md` 和 `references/README.md` | V3-P2-WP1 | 项目负责人已确认验收通过；未拆解规则和模板，未重写 6 个 Skill |
-| V3-P3-WP1 | 共享规则与结构化输出规则 | 未开始 | 待产出 | V3-P2 | 待 V3-P2 验收后启动 |
+| V3-P3-WP1 | 共享规则与结构化输出规则 | 已完成 | `references/rules/shared/README.md`、`safety-and-risk.md`、`permissions.md`、`output.md`、更新后的 `references/rules/README.md` | V3-P2 | 项目负责人已确认验收通过；只提炼共享规则和 Markdown 结构化输出规则，不进入场景模板；不保留当前 JSON Schema |
 | V3-P3-WP2 | 场景规则与模板 | 未开始 | 待产出 | V3-P3-WP1 | 待 V3-P3-WP1 验收后启动 |
 | V3-P4-WP1 | `hicode` 与 `init` Skill 重写 | 未开始 | 待产出 | V3-P3 | 待 V3-P3 验收后启动 |
 | V3-P4-WP2 | `scope` 与 `tdd` Skill 重写 | 未开始 | 待产出 | V3-P4-WP1 | 待 V3-P4-WP1 验收后启动 |
@@ -303,6 +306,9 @@
 | 2026-06-11 | Codex | 根据项目负责人确认，将 `V3-P2-WP1` 更新为已完成，并启动 `V3-P2-WP2` 历史资产归档迁移 | V3-P2 |
 | 2026-06-11 | Codex | 将旧 `references` 一级目录整体迁入 `archive/references/`，保留当前 `references/hooks`、`references/rules` 和 `references/templates`，并提交 `V3-P2-WP2` 待验收 | V3-P2-WP2 |
 | 2026-06-11 | Codex | 根据项目负责人确认，将 `V3-P2-WP2` 更新为已完成，并准备提交 Git 后继续 `V3-P3-WP1` | V3-P2-WP2 |
+| 2026-06-11 | Codex | 提交 V3-P1/P2 已验收变更 `5cbdf7e`，并启动 `V3-P3-WP1` 共享规则与结构化输出规则 | V3-P3-WP1 |
+| 2026-06-11 | Codex | 创建 `references/rules/shared/` 共享规则，覆盖安全红线、风险分级、权限边界和 Markdown 结构化输出，并提交 `V3-P3-WP1` 待验收 | V3-P3-WP1 |
+| 2026-06-11 | Codex | 根据项目负责人确认，将 `V3-P3-WP1` 更新为已完成，并准备提交 Git 后继续 `V3-P3-WP2` | V3-P3-WP1 |
 | 2026-06-11 | Codex | 新增 `skills/init/SKILL.md` 作为目标项目初始化入口，明确按当前 Coding Agent 平台创建或补充 `CLAUDE.md` / `AGENTS.md`、初始化项目文档、graphify 代码图谱边界和默认不复制 plugin 内置能力到 `.hicode/` | V2-P6-WP1 |
 | 2026-06-11 | Codex | 修复 Claude Code 加载 `hicode` plugin 时 marketplace 条目与 `plugin.json` 同时声明组件导致的 conflicting manifests 问题；组件声明统一保留在 `plugin.json`，版本提升至 `0.1.1` | V2-P6-WP1 |
 | 2026-06-11 | Codex | 参考 Claude Code plugin marketplace 与 manifest 规范，补强 `install.sh` 的本地资产校验、dry-run、安装 scope 和安装计划输出 | V2-P6-WP1 |
