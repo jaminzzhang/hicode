@@ -5,7 +5,7 @@
 最近更新时间：2026-06-11
 当前阶段：V2 根目录设计中心重构
 当前工作包：V2-P6-WP1 Claude Code 原生 plugin 安装器
-总体状态：V1 已完成；V2-P1 已完成；V2-P2 已完成；V2-P3 已完成；V2-P4 已完成；V2-P5 已完成；V2-P6-WP1 已按根目录设计中心口径重构，并补强 hicode 引导型总入口 Skill，待验收
+总体状态：V1 已完成；V2-P1 已完成；V2-P2 已完成；V2-P3 已完成；V2-P4 已完成；V2-P5 已完成；V2-P6-WP1 已按根目录设计中心口径重构，并补强 hicode 引导型总入口 Skill 和 init 初始化 Skill，待验收
 
 本台账用于记录 V1 工作包推进状态和后续 V2 规划状态。每次开发 Agent 开始、完成、阻塞、暂缓或提交工作包验收时，必须同步更新本文件。
 
@@ -271,12 +271,13 @@
 | V2-P4-WP2 | 核心 Hook 示例 | 已完成 | `references/hooks/coding-entry-gate-hook.md`、`references/hooks/merge-gate-hook.md` | V2-P4-WP1 | 项目负责人已确认验收通过 |
 | V2-P5-WP1 | V2 回归样例 | 已完成 | `references/examples/regression/agent-delegation-regression.md`、`install-profile-regression.md`、`hook-gate-regression.md`；更新后的回归 README 和 examples manifest | V2-P1 至 V2-P4 | 项目负责人已确认验收通过 |
 | V2-P5-WP2 | V2 验收检查清单 | 已完成 | `references/docs/V2_ACCEPTANCE_CHECKLIST.md`；更新后的 docs manifest | V2-P5-WP1 | 项目负责人已确认验收通过 |
-| V2-P6-WP1 | Claude Code 原生 plugin 安装器 | 待验收 | `./README.md`、`install.sh`、Claude Code plugin root、引导型 `hicode` Skill、`scope/tdd/review/release` Skills、`references/`；目标项目初始化规划目录已调整为 `references/init/` | V2-P1 至 V2-P5 | 只安装 Claude Code plugin，不扫描代码、不生成 `CLAUDE.md`、`AGENTS.md` 或 `.hicode/` |
+| V2-P6-WP1 | Claude Code 原生 plugin 安装器 | 待验收 | `./README.md`、`install.sh`、Claude Code plugin root、引导型 `hicode` Skill、`init/scope/tdd/review/release` Skills、`references/`；目标项目初始化规划目录已调整为 `references/init/` | V2-P1 至 V2-P5 | 安装器只安装 Claude Code plugin，不扫描代码、不生成 `CLAUDE.md`、`AGENTS.md` 或 `.hicode/`；`init` 默认不复制 plugin 内置能力到 `.hicode/` |
 
 ## 8. 最近变更记录
 
 | 日期 | 操作者 | 变更 | 关联工作包 |
 |---|---|---|---|
+| 2026-06-11 | Codex | 新增 `skills/init/SKILL.md` 作为目标项目初始化入口，明确按当前 Coding Agent 平台创建或补充 `CLAUDE.md` / `AGENTS.md`、初始化项目文档、graphify 代码图谱边界和默认不复制 plugin 内置能力到 `.hicode/` | V2-P6-WP1 |
 | 2026-06-11 | Codex | 修复 Claude Code 加载 `hicode` plugin 时 marketplace 条目与 `plugin.json` 同时声明组件导致的 conflicting manifests 问题；组件声明统一保留在 `plugin.json`，版本提升至 `0.1.1` | V2-P6-WP1 |
 | 2026-06-11 | Codex | 参考 Claude Code plugin marketplace 与 manifest 规范，补强 `install.sh` 的本地资产校验、dry-run、安装 scope 和安装计划输出 | V2-P6-WP1 |
 | 2026-06-11 | Codex | 将 `skills/hicode/SKILL.md` 补强为引导型总入口，明确首次使用诊断、未初始化引导、profile 推荐和确认后才写入目标项目文件的边界 | V2-P6-WP1 |

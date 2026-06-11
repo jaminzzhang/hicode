@@ -55,7 +55,7 @@ validate_plugin_assets() {
   [ -f "$CLAUDE_PLUGIN_DIR/.claude-plugin/plugin.json" ] || die "Missing Claude plugin manifest: $CLAUDE_PLUGIN_DIR/.claude-plugin/plugin.json"
   [ -f "$CLAUDE_PLUGIN_DIR/.claude-plugin/marketplace.json" ] || die "Missing Claude marketplace manifest: $CLAUDE_PLUGIN_DIR/.claude-plugin/marketplace.json"
 
-  for skill in hicode scope tdd review release; do
+  for skill in hicode init scope tdd review release; do
     [ -f "$CLAUDE_PLUGIN_DIR/skills/$skill/SKILL.md" ] || die "Missing skill entry: $CLAUDE_PLUGIN_DIR/skills/$skill/SKILL.md"
   done
 }

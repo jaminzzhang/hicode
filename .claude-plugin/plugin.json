@@ -1,6 +1,6 @@
 {
   "name": "hicode",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "hicode Claude Code plugin for insurance and financial core system Coding Agent workflows",
   "author": {
     "name": "hicode"
@@ -12,6 +12,7 @@
     "financial-core",
     "coding-agent",
     "skills",
+    "init",
     "scope",
     "tdd",
     "review",

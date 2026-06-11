@@ -334,14 +334,14 @@ V2 必须遵守已确认的设计基线：
 
 ### V2-P6-WP1 Claude Code 原生 plugin 安装器
 
-目标：为 Claude Code 提供用户级 hicode plugin 安装器，让 Claude Code 获得 hicode 总入口和能力场景 Skill。
+目标：为 Claude Code 提供用户级 hicode plugin 安装器，让 Claude Code 获得 hicode 总入口、目标项目初始化入口和能力场景 Skill。
 
 输入：
 
 1. `CONTEXT.md`
 2. `agents/`、`references/skills/` 和 `references/init/` 的边界口径
 3. Claude Code plugin marketplace、plugin manifest 和 Skill 目录格式
-4. hicode 4 个能力场景包：`scope`、`tdd`、`review`、`release`
+4. hicode 初始化入口和 4 个能力场景包：`init`、`scope`、`tdd`、`review`、`release`
 
 输出：
 
@@ -350,11 +350,12 @@ V2 必须遵守已确认的设计基线：
 3. `.claude-plugin/marketplace.json`
 4. `.claude-plugin/plugin.json`
 5. `skills/hicode/SKILL.md`
-6. `skills/scope/SKILL.md`
-7. `skills/tdd/SKILL.md`
-8. `skills/review/SKILL.md`
-9. `skills/release/SKILL.md`
-10. `references/`
+6. `skills/init/SKILL.md`
+7. `skills/scope/SKILL.md`
+8. `skills/tdd/SKILL.md`
+9. `skills/review/SKILL.md`
+10. `skills/release/SKILL.md`
+11. `references/`
 
 依赖：V2-P1 至 V2-P5。
 
@@ -363,7 +364,7 @@ V2 必须遵守已确认的设计基线：
 1. 安装器默认用户级安装，并支持 `--dry-run`、`--yes` 和 `--claude-code`。
 2. Claude Code 安装走本地 marketplace 和 `hicode` plugin，不伪造目标项目初始化结果。
 3. `./` 直接作为 Claude Code plugin root，不额外嵌套 `claude-code/`。
-4. plugin 提供 `hicode` 总入口和 `scope`、`tdd`、`review`、`release` 4 个能力场景 Skill。
+4. plugin 提供 `hicode` 总入口、`init` 目标项目初始化入口和 `scope`、`tdd`、`review`、`release` 4 个能力场景 Skill。
 5. `references/` 只作为 Skill 按需读取的支撑文件，不默认全量加载。
 6. 安装动作不扫描代码、不生成 `CLAUDE.md`、`AGENTS.md` 或 `.hicode/`。
 7. 安装器不读取生产配置、生产凭证、密钥文件或未脱敏客户数据。
