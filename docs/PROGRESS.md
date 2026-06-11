@@ -5,7 +5,7 @@
 最近更新时间：2026-06-11
 当前阶段：V2 根目录设计中心重构
 当前工作包：V2-P6-WP1 Claude Code 原生 plugin 安装器
-总体状态：V1 已完成；V2-P1 已完成；V2-P2 已完成；V2-P3 已完成；V2-P4 已完成；V2-P5 已完成；V2-P6-WP1 已按根目录设计中心口径重构，待验收
+总体状态：V1 已完成；V2-P1 已完成；V2-P2 已完成；V2-P3 已完成；V2-P4 已完成；V2-P5 已完成；V2-P6-WP1 已按根目录设计中心口径重构，并补强 hicode 引导型总入口 Skill，待验收
 
 本台账用于记录 V1 工作包推进状态和后续 V2 规划状态。每次开发 Agent 开始、完成、阻塞、暂缓或提交工作包验收时，必须同步更新本文件。
 
@@ -193,6 +193,7 @@
 169. 已根据项目负责人快速完成 V2-P5 的指令启动并完成 `V2-P5-WP2` V2 验收检查清单。
 170. 已创建 `references/docs/V2_ACCEPTANCE_CHECKLIST.md`，并补充 docs manifest，将 `V2-P5-WP2` 提交项目负责人验收。
 171. 项目负责人已确认 `V2-P5-WP1` 和 `V2-P5-WP2` 验收通过，V2 回归与验收阶段完成。
+172. 已根据项目负责人确认，将 `skills/hicode/SKILL.md` 设计为引导型总入口 Skill，补充首次使用诊断、未初始化引导、初始化写入边界和场景路由顺序；同步更新 `CONTEXT.md` 的初始化引导边界术语。
 
 ## 4. 当前阻塞点
 
@@ -270,12 +271,13 @@
 | V2-P4-WP2 | 核心 Hook 示例 | 已完成 | `references/hooks/coding-entry-gate-hook.md`、`references/hooks/merge-gate-hook.md` | V2-P4-WP1 | 项目负责人已确认验收通过 |
 | V2-P5-WP1 | V2 回归样例 | 已完成 | `references/examples/regression/agent-delegation-regression.md`、`install-profile-regression.md`、`hook-gate-regression.md`；更新后的回归 README 和 examples manifest | V2-P1 至 V2-P4 | 项目负责人已确认验收通过 |
 | V2-P5-WP2 | V2 验收检查清单 | 已完成 | `references/docs/V2_ACCEPTANCE_CHECKLIST.md`；更新后的 docs manifest | V2-P5-WP1 | 项目负责人已确认验收通过 |
-| V2-P6-WP1 | Claude Code 原生 plugin 安装器 | 待验收 | `./README.md`、`install.sh`、Claude Code plugin root、`hicode/scope/tdd/review/release` Skills、`references/`；目标项目初始化规划目录已调整为 `references/init/` | V2-P1 至 V2-P5 | 只安装 Claude Code plugin，不扫描代码、不生成 `CLAUDE.md`、`AGENTS.md` 或 `.hicode/` |
+| V2-P6-WP1 | Claude Code 原生 plugin 安装器 | 待验收 | `./README.md`、`install.sh`、Claude Code plugin root、引导型 `hicode` Skill、`scope/tdd/review/release` Skills、`references/`；目标项目初始化规划目录已调整为 `references/init/` | V2-P1 至 V2-P5 | 只安装 Claude Code plugin，不扫描代码、不生成 `CLAUDE.md`、`AGENTS.md` 或 `.hicode/` |
 
 ## 8. 最近变更记录
 
 | 日期 | 操作者 | 变更 | 关联工作包 |
 |---|---|---|---|
+| 2026-06-11 | Codex | 将 `skills/hicode/SKILL.md` 补强为引导型总入口，明确首次使用诊断、未初始化引导、profile 推荐和确认后才写入目标项目文件的边界 | V2-P6-WP1 |
 | 2026-06-11 | Codex | 根据项目负责人确认，将仓库根目录调整为 hicode 设计中心和 Claude Code plugin root；迁移 `.claude-plugin/`、`install.sh`、`skills/`、`agents/`、`references/`，删除 `harness-assets/` 双源资产中心，并新增 ADR 0002 | V2-P6-WP1 |
 | 2026-06-10 | Codex | 根据项目负责人确认，将 `./` 调整为 Claude Code plugin root，移除 OpenCode 第一版适配，并新增 `scope`、`tdd`、`review`、`release` 能力 Skill | V2-P6-WP1 |
 | 2026-06-10 | Codex | 创建 Claude Code / OpenCode 原生 plugin 安装器和 hicode 入口 plugin，并提交 `V2-P6-WP1` 待验收 | V2-P6-WP1 |
