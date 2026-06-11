@@ -2,11 +2,13 @@
 
 ## 定位
 
-`references/hooks/` 保存 hicode 当前 Hook 行为说明、配置示例、触发条件、阻断建议和审计字段。
+`references/hooks/` 保存 hicode 当前 Hook 行为说明、可选适配字段、触发条件、阻断建议和审计字段。
 
-本目录不是平台原生 Hook 配置目录，不由 `install.sh` 自动启用，不依赖旧 `references/init/manifests/hooks.json`，也不向目标项目复制 `.hicode/hooks/`。
+本目录不是平台原生 Hook 配置目录，不是安装清单，不由 `install.sh` 自动启用，不依赖旧初始化规划，也不向目标项目复制 Hook 运行目录。
 
 Hook 只描述可选自动触发点和安全边界，不替代根目录 Skill、专业 Agent、人工 Review、负责人审批、CI/CD、发布平台或生产流程。
+
+`hook.json` 是当前 Hook 行为目录，供人工审查和目标平台手工适配参考；它不声明目标安装路径，不授权安装器自动开启 Hook。
 
 ## 当前范围
 
@@ -54,6 +56,6 @@ Hook 输出应包含：
 
 1. 新增 Hook 前必须先有稳定 Skill/Rule 依据和权限边界。
 2. 修改 blocking 条件时，必须同步检查 `CONTEXT.md`、`AGENTS.md` 和相关 `references/rules/`。
-3. Hook 启用必须由用户或目标平台另行确认配置范围。
+3. Hook 启用必须由用户或目标平台另行确认配置范围；本仓库安装器不得自动启用。
 4. 目标平台适配文件不得反向覆盖本目录源资产语义。
-5. V3-P5-WP2 会继续收敛本目录下的具体 Hook 文件；在此之前，旧文件中的 `.hicode`、Gate、Schema 或 manifest 路径不得视为当前执行依据。
+5. 当前 Hook 文件不得引用旧 Prompt、旧准入文档、旧结构化校验文件、初始化规划或归档资产作为执行依据。

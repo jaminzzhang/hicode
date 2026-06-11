@@ -4,8 +4,7 @@
 
 本 Hook 在 Agent 会话结束时提出上下文更新建议，用于持续改进 `docs/PROJ_CONTEXT.md`、`AGENTS.md`、子目录上下文文件和排除路径的准确性和完整性。它不自动写入任何长期上下文文件，所有建议需由 hicode Owner 人工确认后归并。
 
-关联 Gate：无直接关联 Gate，属于持续改进类 Hook。
-关联 Schema：无强制 Schema。
+规则依据：`references/rules/shared/safety-and-risk.md`、`references/rules/shared/output.md`。
 适用动作：Agent 会话结束、会话停止。
 
 ## 2. 触发点
@@ -14,8 +13,7 @@
 |---|---|
 | Hook ID | `context-capture-hook` |
 | 建议适配事件 | `after_session_end`、`stop` |
-| 关联 Gate | 无 |
-| 关联 Schema | 无 |
+| 规则依据 | 共享安全规则和输出规则 |
 | 默认模式 | `advisory` |
 
 ## 3. 输入材料

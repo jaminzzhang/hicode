@@ -1,9 +1,15 @@
 {
-  "schema_version": "hicode.hook-plan.v1",
-  "format": "hicode-custom-hook-plan",
-  "description": "hicode 可安装门禁 Hook 规划。该文件不是任一平台原生 Hook 配置，需由安装器或平台适配层转换。",
-  "install_target": ".hicode/hooks/hook.json",
+  "schema_version": "hicode.hook-reference.v3",
+  "format": "hicode-hook-behavior-catalog",
+  "description": "hicode 当前 Hook 行为目录。该文件用于人工审查和目标平台手工适配参考，不是平台原生配置，不由 install.sh 自动启用，不声明目标安装路径。",
   "default_mode": "advisory",
+  "auto_enable": false,
+  "global_rules": [
+    "只读取本地、非生产、已脱敏证据。",
+    "默认只输出建议性质结论、阻断建议、风险提示和审计证据。",
+    "blocking 只能阻断当前 Coding Agent 高风险动作，不代表负责人审批结论。",
+    "目标平台适配必须由用户或平台负责人另行确认配置范围。"
+  ],
   "global_prohibited_actions": [
     "auto_commit",
     "auto_push",
@@ -16,26 +22,30 @@
     "read_production_logs",
     "read_secret_files",
     "modify_production_config",
-    "delete_tests_to_pass_gate",
-    "lower_assertions_to_pass_gate",
-    "skip_review_to_pass_gate"
+    "delete_tests_or_lower_assertions",
+    "skip_review"
   ],
   "hooks": [
     {
       "id": "coding-entry-gate-hook",
-      "name": "编码准入门禁 Hook",
-      "status": "active",
+      "name": "编码准入 Hook",
+      "status": "reference_only",
+      "documentation": "references/hooks/coding-entry-gate-hook.md",
+      "related_skill": "skills/tdd/SKILL.md",
+      "rules": [
+        "references/rules/shared/safety-and-risk.md",
+        "references/rules/shared/permissions.md",
+        "references/rules/shared/output.md",
+        "references/rules/tdd/README.md"
+      ],
       "default_mode": "advisory",
-      "gate": ".hicode/gates/coding-entry-gate.md",
-      "schema": ".hicode/schemas/gate-result.schema.json",
       "trigger": {
-        "description": "Coding Agent 准备修改生产代码前触发。",
+        "description": "Coding Agent 准备修改本地代码前触发。",
         "suggested_adapter_events": ["before_code_edit", "before_write", "before_patch"],
         "target_actions": ["edit_source_code", "write_source_code", "apply_patch_to_source_code"]
       },
       "required_inputs": [
-        "requirement_entry_gate_report",
-        "coding_plan_report",
+        "scope_or_coding_plan",
         "prd_context_or_equivalent",
         "project_context_or_equivalent",
         "adr_decision_or_not_applicable_reason",
@@ -44,17 +54,18 @@
         "tdd_or_test_first_evidence"
       ],
       "advisory_outputs": [
-        "agent_level_recommendation",
-        "gate_original_recommendation",
+        "recommendation",
         "evidence_summary",
-        "risk_level",
+        "highest_risk_level",
+        "blocking_recommendations",
+        "risk_notes",
         "recommended_actions",
         "pending_questions",
         "audit_evidence"
       ],
       "blocking_conditions": [
-        "missing_coding_plan_when_editing_production_code",
-        "missing_tdd_or_test_first_evidence_when_editing_production_code",
+        "missing_scope_or_coding_plan_when_editing_code",
+        "missing_tdd_or_test_first_evidence_when_editing_code",
         "attempt_to_modify_production_config",
         "attempt_to_modify_database_script_without_confirmed_scope",
         "attempt_to_modify_release_script_without_confirmed_scope",
@@ -86,11 +97,17 @@
     },
     {
       "id": "merge-gate-hook",
-      "name": "合并门禁 Hook",
-      "status": "active",
+      "name": "合并前检查 Hook",
+      "status": "reference_only",
+      "documentation": "references/hooks/merge-gate-hook.md",
+      "related_skill": "skills/review/SKILL.md",
+      "rules": [
+        "references/rules/shared/safety-and-risk.md",
+        "references/rules/shared/permissions.md",
+        "references/rules/shared/output.md",
+        "references/rules/review/README.md"
+      ],
       "default_mode": "advisory",
-      "gate": ".hicode/gates/merge-gate.md",
-      "schema": ".hicode/schemas/gate-result.schema.json",
       "trigger": {
         "description": "Coding Agent 准备提交、推送、创建 MR/PR 或请求合并前触发。",
         "suggested_adapter_events": ["before_commit", "before_push", "before_merge_request"],
@@ -104,14 +121,12 @@
         "test_evidence",
         "coverage_result_or_not_applicable_reason",
         "p0_p1_issue_status",
-        "pre_commit_check_report_or_equivalent",
         "sensitive_information_scan_result"
       ],
       "advisory_outputs": [
-        "agent_level_recommendation",
-        "gate_original_recommendation",
+        "recommendation",
         "evidence_summary",
-        "risk_level",
+        "highest_risk_level",
         "blocking_recommendations",
         "risk_notes",
         "recommended_actions",
@@ -168,23 +183,28 @@
     {
       "id": "context-capture-hook",
       "name": "上下文捕获 Hook",
-      "status": "active",
-      "default_mode": "advisory",
+      "status": "reference_only",
       "documentation": "references/hooks/context-capture-hook.md",
-      "gate": null,
-      "schema": null,
+      "related_skill": null,
+      "rules": [
+        "references/rules/shared/safety-and-risk.md",
+        "references/rules/shared/output.md"
+      ],
+      "default_mode": "advisory",
       "trigger": {
         "description": "Agent 会话结束时触发，提出上下文更新建议。",
         "suggested_adapter_events": ["after_session_end", "stop"],
         "target_actions": ["session_end", "session_stop"]
       },
       "required_inputs": [
+        "session_read_files",
         "session_modified_files",
         "session_search_patterns",
         "session_commands_run"
       ],
       "advisory_outputs": [
-        "context_update_recommendations"
+        "context_update_recommendations",
+        "audit_evidence"
       ],
       "blocking_conditions": [],
       "allowed_commands": [],
