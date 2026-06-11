@@ -21,7 +21,7 @@
 │   └── plugin.json
 ├── agents/
 ├── skills/
-│   ├── hicode/
+│   ├── hi/
 │   ├── init/
 │   ├── scope/
 │   ├── tdd/
@@ -36,7 +36,7 @@
 
 1. 注册本地 hicode marketplace。
 2. 安装 `hicode` Claude Code plugin。
-3. 提供 `hicode` 总入口、`init` 初始化入口和 `scope`、`tdd`、`review`、`release` 四个能力 Skill。
+3. 提供 `hi` 总入口、`init` 初始化入口和 `scope`、`tdd`、`review`、`release` 四个能力 Skill；场景路由表达保留为 `hicode:init`、`hicode:scope`、`hicode:tdd`、`hicode:review` 和 `hicode:release`。
 
 安装器不修改业务仓库，不读取生产配置，不处理生产数据或客户敏感信息。
 

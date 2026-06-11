@@ -12,7 +12,7 @@ V3 的核心目标不是新增业务能力，而是降低当前资产目录、Sk
 
 1. `references/` 当前只保留三类目录：`rules/`、`templates/`、`hooks/`。
 2. 根目录 `archive/` 是历史归档区，非运行、非安装、非默认检索。
-3. 根目录 `skills/` 保留 6 个入口：`hicode`、`init`、`scope`、`tdd`、`review`、`release`。
+3. 根目录 `skills/` 保留 6 个入口：`hi`、`init`、`scope`、`tdd`、`review`、`release`；其中 `hi` 是总入口，`hicode:init`、`hicode:scope`、`hicode:tdd`、`hicode:review`、`hicode:release` 是场景路由表达。
 4. 6 个 Skill 要直接告诉 Coding Agent 做什么、按什么顺序做、何时停止和如何输出，不能只引用旧细粒度 Skill。
 5. 根目录 `agents/` 继续保留 8 个专业子 Agent，但保持短角色入口定位。
 6. 旧 Prompt、Gate、Schema、Example、Regression、Guide、manifest/profile 和 `DAILY/LIBRARY` 机制不再作为当前资产类型保留。
@@ -75,7 +75,7 @@ V3 工作包编号使用 `V3-P<阶段号>-WP<序号>`。
 | V3-P1 | 规划与入口规则 | 固化 V3 决策、计划和本仓库入口规则 | `docs/V3_IMPLEMENTATION_PLAN.md`、`AGENTS.md`、`docs/PROGRESS.md`、`CONTEXT.md`、ADR 0003 |
 | V3-P2 | 目录结构与归档迁移 | 建立新目录骨架并归档历史资产 | `archive/`、`references/rules/`、`references/templates/`、`references/hooks/`、`references/README.md` |
 | V3-P3 | 规则与模板重组 | 从旧资产中提炼当前规则和模板 | 场景 rules、项目模板、输出模板、Markdown 结构化输出规则 |
-| V3-P4 | Skill 直接执行化 | 重写 6 个根目录 Skill，移除旧引用链路 | `skills/hicode`、`init`、`scope`、`tdd`、`review`、`release` |
+| V3-P4 | Skill 直接执行化 | 重写 6 个根目录 Skill，移除旧引用链路 | `skills/hi`、`init`、`scope`、`tdd`、`review`、`release` |
 | V3-P5 | Agent 与 Hook 边界修正 | 修正 Agent 旧路径引用并收敛 Hook 说明 | 8 个 Agent、`references/hooks/` |
 | V3-P6 | 安装边界与一致性验收 | 验证当前资产不依赖归档和旧目录 | 检查报告、路径检查、安装边界检查、进度收口 |
 
@@ -203,18 +203,18 @@ V3 工作包编号使用 `V3-P<阶段号>-WP<序号>`。
 
 ## 9. V3-P4 Skill 直接执行化
 
-### V3-P4-WP1 `hicode` 与 `init` Skill 重写
+### V3-P4-WP1 `hi` 与 `init` Skill 重写
 
 目标：重写总入口和初始化入口，移除 `.hicode` 固化、manifest/profile 和默认加载项目模板的旧口径。
 
 输出：
 
-1. `skills/hicode/SKILL.md`
+1. `skills/hi/SKILL.md`
 2. `skills/init/SKILL.md`
 
 验收标准：
 
-1. `hicode` 只做诊断、路由和安全边界说明，不默认读取全部规则。
+1. `hi` 只做诊断、路由和安全边界说明，不默认读取全部规则。
 2. `init` 只在用户确认写入范围后读取项目模板并生成目标项目入口、上下文和项目规则文档。
 3. 两个 Skill 不引用归档资产。
 

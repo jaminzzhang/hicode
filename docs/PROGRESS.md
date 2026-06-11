@@ -3,9 +3,9 @@
 ## 1. 当前状态
 
 最近更新时间：2026-06-11
-当前阶段：V3 安装边界与一致性验收
-当前工作包：V3-P6-WP2 路径与一致性验收
-总体状态：V1 已完成；V2-P1 至 V2-P5 已完成；V2-P6-WP1 待验收；V3 已完成
+当前阶段：V3 后续维护
+当前工作包：V3-MAINT-WP1 `hi` 总入口重构
+总体状态：V1 已完成；V2-P1 至 V2-P5 已完成；V2-P6-WP1 待验收；V3 已完成；V3-MAINT-WP1 待验收
 
 本台账用于记录 V1、V2 和 V3 工作包推进状态。每次开发 Agent 开始、完成、阻塞、暂缓或提交工作包验收时，必须同步更新本文件。
 
@@ -193,7 +193,7 @@
 169. 已根据项目负责人快速完成 V2-P5 的指令启动并完成 `V2-P5-WP2` V2 验收检查清单。
 170. 已创建 `references/docs/V2_ACCEPTANCE_CHECKLIST.md`，并补充 docs manifest，将 `V2-P5-WP2` 提交项目负责人验收。
 171. 项目负责人已确认 `V2-P5-WP1` 和 `V2-P5-WP2` 验收通过，V2 回归与验收阶段完成。
-172. 已根据项目负责人确认，将 `skills/hicode/SKILL.md` 设计为引导型总入口 Skill，补充首次使用诊断、未初始化引导、初始化写入边界和场景路由顺序；同步更新 `CONTEXT.md` 的初始化引导边界术语。
+172. 已根据项目负责人确认，将原总入口 Skill 设计为引导型入口，补充首次使用诊断、未初始化引导、初始化写入边界和场景路由顺序；同步更新 `CONTEXT.md` 的初始化引导边界术语。
 173. 已通过 grill-with-docs 确认 V3 简化重构方向：`references/` 当前只保留 `rules/`、`templates/`、`hooks/`，旧 Prompt、Gate、Schema、Example、Guide、manifest/profile 和 `.hicode` 固化机制归档。
 174. 已创建 `docs/adr/0003-simplify-hicode-reference-assets-and-direct-skills.md`，记录 V3 简化重构决策。
 175. 已创建 `docs/V3_IMPLEMENTATION_PLAN.md`，作为本轮简化重构执行基准。
@@ -210,9 +210,9 @@
 186. 项目负责人已确认 `V3-P3-WP1` 验收通过，并要求提交 Git 后继续启动 `V3-P3-WP2` 场景规则与模板。
 187. 已提交 Git 变更 `cb05047`，并按项目负责人指令启动 `V3-P3-WP2` 场景规则与模板。
 188. 已创建 `references/rules/init/`、`scope/`、`tdd/`、`review/`、`release/` 五类场景规则；创建 `references/templates/project/`、`scope/`、`tdd/`、`review/`、`release/` 五类模板，其中目标项目入口模板包含 `AGENTS.md` 和 `CLAUDE.md`；未重写 6 个根目录 Skill，未修改 Agent 旧路径引用；已将 `V3-P3-WP2` 提交项目负责人验收。
-189. 项目负责人已确认 `V3-P3-WP2` 验收通过，并要求提交 Git 后继续启动 `V3-P4-WP1` `hicode` 与 `init` Skill 重写。
-190. 已提交 Git 变更 `a6edd43`，并按项目负责人指令启动 `V3-P4-WP1` `hicode` 与 `init` Skill 重写。
-191. 已重写 `skills/hicode/SKILL.md` 和 `skills/init/SKILL.md`，移除旧 Prompt/Gate/Schema、`references/init`、manifest/profile 和默认固化 `.hicode/` 口径；两个 Skill 只按需读取当前 `references/rules/` 与 `references/templates/`，并将 `V3-P4-WP1` 提交项目负责人验收。
+189. 项目负责人已确认 `V3-P3-WP2` 验收通过，并要求提交 Git 后继续启动 `V3-P4-WP1` 总入口与 `init` Skill 重写。
+190. 已提交 Git 变更 `a6edd43`，并按项目负责人指令启动 `V3-P4-WP1` 总入口与 `init` Skill 重写。
+191. 已重写总入口 Skill 和 `skills/init/SKILL.md`，移除旧 Prompt/Gate/Schema、`references/init`、manifest/profile 和默认固化 `.hicode/` 口径；两个 Skill 只按需读取当前 `references/rules/` 与 `references/templates/`，并将 `V3-P4-WP1` 提交项目负责人验收。
 192. 项目负责人已确认 `V3-P4-WP1` 验收通过，并要求继续启动 `V3-P4-WP2` `scope` 与 `tdd` Skill 重写。
 193. 已提交 Git 变更 `7d12246`，并按项目负责人指令启动 `V3-P4-WP2` `scope` 与 `tdd` Skill 重写。
 194. 已重写 `skills/scope/SKILL.md` 和 `skills/tdd/SKILL.md`，移除旧细粒度 Skill、Prompt、Gate、Schema 和归档资产引用；两个 Skill 直接说明执行流程、准入、停止条件、输出要求和安全边界，并将 `V3-P4-WP2` 提交项目负责人验收。
@@ -239,11 +239,10 @@
 
 ## 5. 下一步建议
 
-1. 提交 `V3-P6-WP2` 路径与一致性验收。
-2. V3 简化重构已收口；后续若继续处理安装器历史工作包，需单独确认 `V2-P6-WP1`。
-3. V2-P6-WP1 仍保留待验收状态，未被 V3 自动标记为已完成。
-4. V2-P6-WP1 仍保留待验收状态，未被 V3 自动标记为已完成。
-5. 后续若进入真实试点运行效果验收，必须基于真实试点数据补充，不能用本仓库模板资产替代。
+1. 等待项目负责人验收 `V3-MAINT-WP1`。
+2. 验收通过后再将 `V3-MAINT-WP1` 标记为已完成。
+3. V2-P6-WP1 仍保留待验收状态，未被 V3 或本次维护工作自动标记为已完成。
+4. 后续若进入真实试点运行效果验收，必须基于真实试点数据补充，不能用本仓库模板资产替代。
 
 ## 6. 工作包状态表
 
@@ -298,7 +297,7 @@
 | V2-P4-WP2 | 核心 Hook 示例 | 已完成 | `references/hooks/coding-entry-gate-hook.md`、`references/hooks/merge-gate-hook.md` | V2-P4-WP1 | 项目负责人已确认验收通过 |
 | V2-P5-WP1 | V2 回归样例 | 已完成 | `references/examples/regression/agent-delegation-regression.md`、`install-profile-regression.md`、`hook-gate-regression.md`；更新后的回归 README 和 examples manifest | V2-P1 至 V2-P4 | 项目负责人已确认验收通过 |
 | V2-P5-WP2 | V2 验收检查清单 | 已完成 | `references/docs/V2_ACCEPTANCE_CHECKLIST.md`；更新后的 docs manifest | V2-P5-WP1 | 项目负责人已确认验收通过 |
-| V2-P6-WP1 | Claude Code 原生 plugin 安装器 | 待验收 | `./README.md`、`install.sh`、Claude Code plugin root、引导型 `hicode` Skill、`init/scope/tdd/review/release` Skills、`references/`；目标项目初始化规划目录已调整为 `references/init/` | V2-P1 至 V2-P5 | 安装器只安装 Claude Code plugin，不扫描代码、不生成 `CLAUDE.md`、`AGENTS.md` 或 `.hicode/`；`init` 默认不复制 plugin 内置能力到 `.hicode/` |
+| V2-P6-WP1 | Claude Code 原生 plugin 安装器 | 待验收 | `./README.md`、`install.sh`、Claude Code plugin root、引导型 `hi` Skill、`init/scope/tdd/review/release` Skills、`references/`；目标项目初始化规划目录已调整为 `references/init/` | V2-P1 至 V2-P5 | 安装器只安装 Claude Code plugin，不扫描代码、不生成 `CLAUDE.md`、`AGENTS.md` 或 `.hicode/`；`init` 默认不复制 plugin 内置能力到 `.hicode/` |
 
 ## 8. V3 简化重构状态表
 
@@ -309,7 +308,7 @@
 | V3-P2-WP2 | 历史资产归档迁移 | 已完成 | `archive/references/docs/`、`prompts/`、`skills/`、`gates/`、`schemas/`、`examples/`、`init/`、`target-project/`，更新后的 `archive/README.md` 和 `references/README.md` | V3-P2-WP1 | 项目负责人已确认验收通过；未拆解规则和模板，未重写 6 个 Skill |
 | V3-P3-WP1 | 共享规则与结构化输出规则 | 已完成 | `references/rules/shared/README.md`、`safety-and-risk.md`、`permissions.md`、`output.md`、更新后的 `references/rules/README.md` | V3-P2 | 项目负责人已确认验收通过；只提炼共享规则和 Markdown 结构化输出规则，不进入场景模板；不保留当前 JSON Schema |
 | V3-P3-WP2 | 场景规则与模板 | 已完成 | `references/rules/init/`、`scope/`、`tdd/`、`review/`、`release/`；`references/templates/project/`、`scope/`、`tdd/`、`review/`、`release/` | V3-P3-WP1 | 项目负责人已确认验收通过；目标项目入口模板包含 `AGENTS.md` 和 `CLAUDE.md`；模板只保存可填写骨架；未重写 6 个根目录 Skill |
-| V3-P4-WP1 | `hicode` 与 `init` Skill 重写 | 已完成 | `skills/hicode/SKILL.md`、`skills/init/SKILL.md` | V3-P3 | 项目负责人已确认验收通过；不引用归档资产；不恢复 `.hicode` 固化、manifest/profile 或默认加载项目模板旧口径 |
+| V3-P4-WP1 | `hi` 与 `init` Skill 重写 | 已完成 | `skills/hi/SKILL.md`、`skills/init/SKILL.md` | V3-P3 | 项目负责人已确认验收通过；不引用归档资产；不恢复 `.hicode` 固化、manifest/profile 或默认加载项目模板旧口径 |
 | V3-P4-WP2 | `scope` 与 `tdd` Skill 重写 | 已完成 | `skills/scope/SKILL.md`、`skills/tdd/SKILL.md` | V3-P4-WP1 | 项目负责人已确认验收通过；不引用旧 `references/skills`、Prompt、Gate、Schema 或归档资产；保留金融核心系统风险标准、测试先行和受限命令边界 |
 | V3-P4-WP3 | `review` 与 `release` Skill 重写 | 已完成 | `skills/review/SKILL.md`、`skills/release/SKILL.md` | V3-P4-WP2 | 项目负责人已确认验收通过；不引用旧 Gate、Prompt、Schema、细粒度 Skill 或归档资产；输出保持建议性质，不给最终合并或发布审批 |
 | V3-P5-WP1 | Agent 旧路径引用修正 | 已完成 | `agents/*.md`、`agents/README.md`、`agents/_template.md` | V3-P4 | 项目负责人已确认验收通过；已移除旧 Prompt、Gate、Schema、旧 Skill、`docs/review-rules` 和 `.hicode` 引用链；Agent 保持短角色入口 |
@@ -317,10 +316,19 @@
 | V3-P6-WP1 | 安装边界检查 | 已完成 | `install.sh`、`docs/V3_INSTALL_BOUNDARY_CHECK.md` | V3-P5 | 项目负责人已确认验收通过；`plugin.json` 只声明 `skills/`；`install.sh` 已补充边界校验，不复制 `.hicode/`、不初始化目标项目、不扫描代码、不安装本仓库 `docs/` 为运行资产 |
 | V3-P6-WP2 | 路径与一致性验收 | 已完成 | `README.md`、`docs/V3_PATH_CONSISTENCY_CHECK.md`、当前运行资产路径说明 | V3-P6-WP1 | 项目负责人已确认验收通过；旧路径扫描无命中；归档依赖扫描无命中；安全红线、人工审批边界和生产禁止事项保留 |
 
-## 9. 最近变更记录
+## 9. V3 后续维护状态表
+
+| 工作包编号 | 工作包名称 | 状态 | 当前产出 | 依赖 | 备注 |
+|---|---|---|---|---|---|
+| V3-MAINT-WP1 | `hi` 总入口重构 | 待验收 | `skills/hi/SKILL.md`、`install.sh`、`AGENTS.md`、`CONTEXT.md`、`README.md`、`docs/V3_IMPLEMENTATION_PLAN.md`、目标项目入口模板 | 用户确认总入口改为 `hi`，保留 `hicode:*` 场景路由表达 | 已完成路径、旧入口、JSON、安装 dry-run、Skill 入口和 shell 语法检查；等待项目负责人验收 |
+
+## 10. 最近变更记录
 
 | 日期 | 操作者 | 变更 | 关联工作包 |
 |---|---|---|---|
+| 2026-06-11 | Codex | 完成 `V3-MAINT-WP1` 并提交待验收：原总入口目录改为 `skills/hi`，总入口支持只输入 `hi` 时检测初始化并输出用法简介；全局路由补强为 `init`、`scope`、`tdd`、`review`、`release` 五类；同步入口规则、术语表、README、V3 基准、目标项目入口模板和安装器校验 | V3-MAINT-WP1 |
+| 2026-06-11 | Codex | 验证 `V3-MAINT-WP1`：`quick_validate.py skills/hi`、`bash install.sh --dry-run --yes`、`bash -n install.sh`、JSON 解析、`git diff --check`、旧总入口路径扫描和归档依赖扫描均通过 | V3-MAINT-WP1 |
+| 2026-06-11 | Codex | 启动 `V3-MAINT-WP1`，将总入口 Skill 改为 `hi`，保留 `hicode:*` 场景路由表达，并开始补强全局路由能力 | V3-MAINT-WP1 |
 | 2026-06-11 | Codex | 创建 `docs/V3_IMPLEMENTATION_PLAN.md`，将 V3 简化重构拆分为规划入口、目录归档、规则模板、Skill 重写、Agent/Hook 修正和一致性验收阶段 | V3-P1-WP1 |
 | 2026-06-11 | Codex | 更新根目录 `AGENTS.md`，将默认执行基准切换为当前实施计划，并将资产目录边界调整为 `skills/`、`agents/`、`references/rules/`、`references/templates/`、`references/hooks/` 和 `archive/` | V3-P1-WP1 |
 | 2026-06-11 | Codex | 通过 grill-with-docs 确认 V3 简化重构决策，并新增 ADR 0003；同步整理 `CONTEXT.md` 的 V3 术语、归档策略、安装边界和工作包验收机制 | V3-P1-WP1 |
@@ -336,8 +344,8 @@
 | 2026-06-11 | Codex | 提交 `V3-P3-WP1` 已验收变更 `cb05047`，并启动 `V3-P3-WP2` 场景规则与模板 | V3-P3-WP2 |
 | 2026-06-11 | Codex | 创建五类场景规则和五类模板，目标项目入口模板包含 `AGENTS.md` 与 `CLAUDE.md`，并提交 `V3-P3-WP2` 待验收 | V3-P3-WP2 |
 | 2026-06-11 | Codex | 根据项目负责人确认，将 `V3-P3-WP2` 更新为已完成，并准备提交 Git 后继续 `V3-P4-WP1` | V3-P3-WP2 |
-| 2026-06-11 | Codex | 提交 `V3-P3-WP2` 已验收变更 `a6edd43`，并启动 `V3-P4-WP1` `hicode` 与 `init` Skill 重写 | V3-P4-WP1 |
-| 2026-06-11 | Codex | 重写 `hicode` 与 `init` Skill，改为直接诊断、路由和初始化执行说明，并提交 `V3-P4-WP1` 待验收 | V3-P4-WP1 |
+| 2026-06-11 | Codex | 提交 `V3-P3-WP2` 已验收变更 `a6edd43`，并启动 `V3-P4-WP1` 总入口与 `init` Skill 重写 | V3-P4-WP1 |
+| 2026-06-11 | Codex | 重写总入口与 `init` Skill，改为直接诊断、路由和初始化执行说明，并提交 `V3-P4-WP1` 待验收 | V3-P4-WP1 |
 | 2026-06-11 | Codex | 根据项目负责人确认，将 `V3-P4-WP1` 更新为已完成，并准备提交 Git 后继续 `V3-P4-WP2` | V3-P4-WP1 |
 | 2026-06-11 | Codex | 提交 `V3-P4-WP1` 已验收变更 `7d12246`，并启动 `V3-P4-WP2` `scope` 与 `tdd` Skill 重写 | V3-P4-WP2 |
 | 2026-06-11 | Codex | 重写 `scope` 与 `tdd` Skill，移除旧引用链并提交 `V3-P4-WP2` 待验收 | V3-P4-WP2 |
@@ -360,7 +368,7 @@
 | 2026-06-11 | Codex | 新增 `skills/init/SKILL.md` 作为目标项目初始化入口，明确按当前 Coding Agent 平台创建或补充 `CLAUDE.md` / `AGENTS.md`、初始化项目文档、graphify 代码图谱边界和默认不复制 plugin 内置能力到 `.hicode/` | V2-P6-WP1 |
 | 2026-06-11 | Codex | 修复 Claude Code 加载 `hicode` plugin 时 marketplace 条目与 `plugin.json` 同时声明组件导致的 conflicting manifests 问题；组件声明统一保留在 `plugin.json`，版本提升至 `0.1.1` | V2-P6-WP1 |
 | 2026-06-11 | Codex | 参考 Claude Code plugin marketplace 与 manifest 规范，补强 `install.sh` 的本地资产校验、dry-run、安装 scope 和安装计划输出 | V2-P6-WP1 |
-| 2026-06-11 | Codex | 将 `skills/hicode/SKILL.md` 补强为引导型总入口，明确首次使用诊断、未初始化引导、profile 推荐和确认后才写入目标项目文件的边界 | V2-P6-WP1 |
+| 2026-06-11 | Codex | 补强总入口 Skill，明确首次使用诊断、未初始化引导、profile 推荐和确认后才写入目标项目文件的边界 | V2-P6-WP1 |
 | 2026-06-11 | Codex | 根据项目负责人确认，将仓库根目录调整为 hicode 设计中心和 Claude Code plugin root；迁移 `.claude-plugin/`、`install.sh`、`skills/`、`agents/`、`references/`，删除 `harness-assets/` 双源资产中心，并新增 ADR 0002 | V2-P6-WP1 |
 | 2026-06-10 | Codex | 根据项目负责人确认，将 `./` 调整为 Claude Code plugin root，移除 OpenCode 第一版适配，并新增 `scope`、`tdd`、`review`、`release` 能力 Skill | V2-P6-WP1 |
 | 2026-06-10 | Codex | 创建 Claude Code / OpenCode 原生 plugin 安装器和 hicode 入口 plugin，并提交 `V2-P6-WP1` 待验收 | V2-P6-WP1 |

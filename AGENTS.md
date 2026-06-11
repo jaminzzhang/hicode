@@ -51,7 +51,7 @@
 2. 根目录 `CONTEXT.md`：项目术语表，只记录概念边界。
 3. 根目录 `.claude-plugin/`：Claude Code plugin manifest。
 4. 根目录 `install.sh`：当前用户 Claude Code plugin 安装器；只安装 plugin，不初始化目标项目、不复制本仓库 `docs/`、不创建 `.hicode/`。
-5. 根目录 `skills/`：Claude Code 可直接调用的 6 个 hicode 直接执行型 Skill：`hicode`、`init`、`scope`、`tdd`、`review`、`release`。
+5. 根目录 `skills/`：Claude Code 可直接调用的 6 个 hicode 直接执行型 Skill：`hi`、`init`、`scope`、`tdd`、`review`、`release`；其中 `hi` 是总入口，`hicode:init`、`hicode:scope`、`hicode:tdd`、`hicode:review`、`hicode:release` 是场景路由表达。
 6. 根目录 `agents/`：hicode 专业子 Agent 源资产。
 7. `references/rules/`：当前有效的执行规则、流程、门禁判断、Review 细则和 Markdown 结构化输出约束；按场景读取，不默认全量加载。
 8. `references/templates/`：当前可复制填写的目标项目模板和场景输出模板；只由相关 Skill 按需读取。
