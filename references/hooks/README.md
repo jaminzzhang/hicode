@@ -1,84 +1,59 @@
-# hicode Hook 规范
+# hicode Hooks
 
-## 1. 定位
+## 定位
 
-`references/hooks/` 维护 hicode Hook 源资产，用于把已稳定的 Markdown 门禁、Schema、上下文维护规则和权限边界转成目标项目可选择安装的 Hook 规划。
+`references/hooks/` 保存 hicode 当前 Hook 行为说明、配置示例、触发条件、阻断建议和审计字段。
 
-本目录不是平台原生 Hook 配置目录。`hook.json` 是 hicode 自定义可安装 Hook 规划格式，默认安装目标为 `.hicode/hooks/hook.json`，后续由安装器或平台适配层转换为具体 Coding Agent 平台支持的配置。
+本目录不是平台原生 Hook 配置目录，不由 `install.sh` 自动启用，不依赖旧 `references/init/manifests/hooks.json`，也不向目标项目复制 `.hicode/hooks/`。
 
-门禁类 Hook 只改变门禁触发和执行载体，不改变门禁建议性质，不替代人工 Review、负责人审批、CI/CD、发布平台或生产流程。持续改进类 Hook 只提出上下文更新建议，不自动写入长期上下文。
+Hook 只描述可选自动触发点和安全边界，不替代根目录 Skill、专业 Agent、人工 Review、负责人审批、CI/CD、发布平台或生产流程。
 
-## 2. 首批范围
+## 当前范围
 
-V2-P4 首批 Hook 只覆盖 Coding Agent 可在本地研发流程中合理约束的两个门禁：
+当前只保留本地研发流程中低风险、可解释、可人工接管的 Hook 说明：
 
-| Hook | 关联门禁 | 触发点 | 默认模式 |
+| Hook | 触发意图 | 默认模式 | 边界 |
 |---|---|---|---|
-| `coding-entry-gate-hook` | `.hicode/gates/coding-entry-gate.md` | Coding Agent 准备修改生产代码前 | `advisory` |
-| `merge-gate-hook` | `.hicode/gates/merge-gate.md` | Coding Agent 准备提交、推送、创建 MR/PR 或请求合并前 | `advisory` |
+| `coding-entry-gate-hook` | Coding Agent 准备修改代码前，检查需求范围、编码计划、TDD 或测试先行证据 | `advisory` | 可对安全红线给阻断建议，不授权改生产配置、数据库脚本或发布脚本 |
+| `merge-gate-hook` | 提交、推送、创建 MR/PR 或请求合并前，检查 diff、测试、Review、P0/P1 和敏感信息风险 | `advisory` | 不批准合并，不替代人工 Review 或 CI |
+| `context-capture-hook` | 会话结束时提出上下文、排除路径、局部命令和风险规则更新建议 | `advisory` | 不自动写入长期上下文，不 blocking |
 
-不进入首批 Hook 的门禁：
+不进入当前自动 Hook 范围：
 
-1. 需求准入门禁：需求立项和需求准入不应由 Coding Agent 本地 Hook 限制。
-2. 提测门禁：暂不在首批本地 Hook 中约束，保留为 Markdown 门禁或后续平台集成。
-3. 发布准入门禁：发布审批、发布验证和回滚不得由 Coding Agent Hook 执行或限制。
+1. 需求立项或需求准入审批。
+2. 提测审批。
+3. 发布审批、生产验证、回滚、生产配置变更。
+4. 生产日志、生产 SQL、生产数据或客户敏感信息处理。
 
-V2 后续增强可加入持续改进类 Hook，例如 `context-capture-hook`。该 Hook 不属于门禁 Hook，不关联 Gate，不产生 blocking，只在会话结束时提出 `AGENTS.md`、`docs/PROJ_CONTEXT.md`、子目录上下文文件和排除路径的更新建议，等待 hicode Owner 人工确认后归并。
-
-## 3. Hook 模式
+## Hook 模式
 
 | 模式 | 含义 | 使用边界 |
 |---|---|---|
-| `advisory` | 提醒型，生成报告、风险提示、阻断建议和审计证据 | 默认模式；不直接替代流程状态 |
-| `blocking` | 阻断型，阻止当前高风险动作继续执行 | 只用于安全红线、生产越权、流程绕行或已确认的高风险缺口 |
+| `advisory` | 提醒型，生成风险提示、阻断建议和审计证据 | 默认模式，不直接改变流程状态 |
+| `blocking` | 阻断型，阻止当前高风险动作继续执行 | 只用于密钥、未脱敏客户信息、未脱敏生产数据、生产越权、自动合并/发布/回滚、删除测试、降低断言或跳过 Review 等安全红线 |
 
-`blocking` 只能阻断当前 Coding Agent 动作，不代表负责人审批结论，也不授权自动修复、自动提交、自动合并或自动发布。
+`blocking` 只能阻断当前 Coding Agent 动作，不代表负责人审批结论，也不授权自动修复、自动提交、自动合并、自动发布或自动回滚。
 
-## 4. Hook 触发点映射
+## 输出要求
 
-| Hook | 建议适配事件 | 必需输入 | 关联 Gate | 关联 Schema | Blocking 条件 |
-|---|---|---|---|---|---|
-| `coding-entry-gate-hook` | `before_code_edit`、`before_write`、`before_patch` | 需求准入结果、编码计划、TDD 或测试先行证据、允许修改范围、目标文件 | `.hicode/gates/coding-entry-gate.md` | `.hicode/schemas/gate-result.schema.json` | 无编码计划仍要改生产代码；无 TDD 证据仍要改生产代码；试图改生产配置、数据库脚本或发布脚本；命中密钥、未脱敏客户信息、未脱敏生产数据或生产越权 |
-| `merge-gate-hook` | `before_commit`、`before_push`、`before_merge_request` | diff 范围、测试证据、AI Review、人工 Review 状态、P0/P1 状态、敏感信息扫描结果 | `.hicode/gates/merge-gate.md` | `.hicode/schemas/gate-result.schema.json` | 自动合并或自动发布诉求；未关闭 P0/P1；跳过 Review；删除测试或降低断言；敏感信息、密钥、未脱敏生产数据或生产越权 |
-| `context-capture-hook` | `after_session_end`、`stop` | 已读取文件、已修改文件、搜索模式、命令摘要、发现项 | 无 | 无 | 无，纯 advisory-only |
-
-适配事件是平台适配建议，不是单一平台事实。安装器可按目标平台能力映射成 Claude、OpenCode、Cursor、Kiro 或其他 Coding Agent 平台的原生事件。
-
-## 5. 输入与输出
-
-Hook 输入可以来自用户任务、目标项目上下文、Agent 执行状态、diff、测试结果、Review 报告、门禁报告或人工确认记录。
-
-Hook 输出必须包含：
+Hook 输出应包含：
 
 1. Hook ID 和触发点。
-2. 关联 Gate 和 Schema。
-3. 运行模式：`advisory` 或 `blocking`。
-4. Agent 层建议结论。
-5. 门禁原始建议结论，如已执行。
-6. 依据和证据来源。
-7. 风险等级。
-8. 阻断建议项和普通风险提示项。
-9. 建议动作。
-10. 待确认问题。
-11. 审计证据和受限命令记录。
+2. 运行模式：`advisory` 或 `blocking`。
+3. 建议性质结论。
+4. 依据和证据来源。
+5. 风险等级。
+6. 阻断建议项和普通风险提示项。
+7. 建议动作。
+8. 待确认问题。
+9. 审计证据和受限命令记录。
 
 输出不得写成最终审批、允许合并、允许发布、门禁通过或可以上线。
 
-## 6. 禁止动作
+## 维护规则
 
-Hook 禁止：
-
-1. 自动提交、自动推送、自动合并、自动发布或自动回滚。
-2. 批准 MR / PR、打 Tag 或修改代码托管平台状态。
-3. 连接生产环境。
-4. 执行生产 SQL、数据库变更、发布命令或回滚命令。
-5. 读取生产日志原文、生产配置、`.env`、密钥文件或生产凭证。
-6. 处理未脱敏客户敏感信息或未脱敏生产数据。
-7. 为了通过门禁删除测试、降低断言、跳过 Review 或隐藏风险。
-
-## 7. 维护规则
-
-1. 新增 Hook 前必须先有稳定 Gate、Schema 和权限边界。
-2. 修改 Hook blocking 条件时，必须同步检查对应 Gate、`CONTEXT.md` 和安装 manifest。
-3. Hook 安装必须可选，不强制进入 `core` 或 `java-insurance-core` profile。
+1. 新增 Hook 前必须先有稳定 Skill/Rule 依据和权限边界。
+2. 修改 blocking 条件时，必须同步检查 `CONTEXT.md`、`AGENTS.md` 和相关 `references/rules/`。
+3. Hook 启用必须由用户或目标平台另行确认配置范围。
 4. 目标平台适配文件不得反向覆盖本目录源资产语义。
+5. V3-P5-WP2 会继续收敛本目录下的具体 Hook 文件；在此之前，旧文件中的 `.hicode`、Gate、Schema 或 manifest 路径不得视为当前执行依据。
