@@ -1,62 +1,105 @@
 ---
-description: Use when release readiness, core scenario testing, rollback planning, release-gate evidence, or production-change risk needs review.
+description: Use when release readiness, core scenario testing, rollback planning, production-change risk, or release evidence needs review without granting approval.
 ---
 
 # hicode release
 
 ## 定位
 
-本 Skill 覆盖发布与回归链路，用于审查核心场景测试、发布材料、SQL/配置影响、回滚方案、生产验证计划和发布准入证据。
+`hicode:release` 覆盖核心场景测试、发布前检查、SQL/配置/脚本风险、生产验证计划、回滚方案和发布证据整理。
 
-本 Skill 是可直接执行的场景 Skill。引用文件用于补充细则和证据，不是把执行责任转交给 `references/`。
+本 Skill 只输出发布风险建议，不替代发布负责人、审批流程、CI/CD、发布平台或生产验证流程。
 
-## 必读引用
+## 必读规则
 
-按需读取：
+执行前按需读取：
 
-1. `../../agents/release-reviewer.md`
-2. `../../references/skills/core-scenario-test/SKILL.md`
-3. `../../references/skills/release-check/SKILL.md`
-4. `../../references/prompts/core-scenario-test.md`
-5. `../../references/prompts/release-check.md`
-6. `../../references/gates/coding-to-test-gate.md`
-7. `../../references/gates/release-gate.md`
-8. `../../references/schemas/gate-result.schema.json`
-9. `../../references/docs/RELEASE_GUIDE.md`
-10. `../../references/docs/TESTING_GUIDE.md`
-11. `../../references/docs/DEFECT_CASES.md`
-12. `../../references/docs/DOMAIN_KNOWLEDGE.md`
+1. `../../references/rules/shared/safety-and-risk.md`
+2. `../../references/rules/shared/permissions.md`
+3. `../../references/rules/shared/output.md`
+4. `../../references/rules/release/README.md`
 
-## 执行规则
+需要固定报告骨架时读取：
 
-1. 确认发布范围、需求清单、分支/制品、测试证据、SQL、配置、回滚和生产验证计划。
-2. 缺少发布范围或制品信息时，只输出待确认和补证据建议。
-3. 发布检查只形成风险建议，不授权上线。
-4. 不生成生产操作命令，不连接生产，不读取生产日志原文。
-5. 发布风险涉及金额、状态、权限、隐私、监管、回滚或客户权益时，按高风险处理。
+1. `../../references/templates/release/release-report.md`
 
-## 直接执行能力
+不得读取旧 Prompt、Gate、Schema、细粒度 Skill 或归档资产作为当前规则源。
 
-1. 核心场景测试：整理必测、回归、边界、异常、安全、隐私、数据和 Mock/环境约束。
-2. 发布材料检查：核对发布范围、需求清单、分支/制品、Commit/MR、Review、测试和缺陷证据。
-3. 变更风险检查：审查 SQL、配置、脚本、开关、兼容性、监控、生产验证点和回滚方案。
-4. 发布准入证据：输出风险建议、证据缺口和待确认问题，不输出上线批准。
-5. 子 Agent 委托：复杂发布可委托 `release-reviewer`，但最终输出仍由本 Skill 汇总。
+## 执行流程
+
+### 1. 判断任务模式
+
+先确认当前任务属于：
+
+1. 核心场景测试建议。
+2. 发布材料准入检查。
+3. SQL、配置、脚本或接口兼容风险检查。
+4. 生产验证计划和回滚方案检查。
+5. 上线后观察和发布风险汇总。
+
+如果用户要求自动发布、回滚、修改生产配置、连接生产或读取生产日志，必须停止推进并转人工流程。
+
+### 2. 收集发布材料
+
+检查是否具备：
+
+1. 发布范围、需求清单、模块、分支、制品和版本。
+2. Commit/MR 清单、Review 结论、提交检查结论。
+3. 单元测试、集成测试、回归测试、核心场景测试、CI 和覆盖率证据。
+4. 缺陷关闭情况和风险接受说明。
+5. SQL、配置、脚本、开关、接口兼容和外部系统影响。
+6. 生产验证点、负责人、观察窗口、回滚触发条件和回滚动作。
+
+发布范围、需求清单或制品信息缺失时，只能输出待确认和补证据建议。
+
+### 3. 核心场景测试
+
+核心场景测试建议必须覆盖：
+
+1. 必测场景。
+2. 回归场景。
+3. 边界场景。
+4. 异常场景。
+5. 历史缺陷场景。
+6. 安全和隐私场景。
+
+缺少核心场景测试证据时，不得给出无条件发布建议。
+
+### 4. 发布风险检查
+
+重点检查：
+
+1. 发布范围是否漏发、错发、多发或制品不一致。
+2. P0/P1 缺陷、Review 问题、测试失败或风险豁免是否关闭。
+3. 保险核心业务、金额、交易一致性、状态流转、幂等、权限、审计、隐私、监管、生产变更和回滚是否已有结论。
+4. SQL、配置、脚本、接口兼容和外部系统变更是否有影响范围和回滚方案。
+5. 生产验证计划是否有负责人、验证点、预期结果和观察窗口。
+
+无法排除金融核心系统高风险时，输出 `BLOCKED` 或 `NEEDS_CONFIRMATION`。
+
+### 5. 禁止事项
+
+始终禁止：
+
+1. 自动发布、自动回滚、自动合并或替代审批。
+2. 连接生产、执行生产 SQL、读取生产日志原文或调用生产接口。
+3. 修改生产配置、输出生产操作命令或生产凭证。
+4. 处理未脱敏客户信息、未脱敏生产数据、密钥、Token、Cookie、Session 或连接串。
+5. 为推动发布隐藏 P0/P1 风险、忽略测试缺口或弱化回滚风险。
 
 ## 输出要求
 
-输出应包含：
+默认使用 Markdown，包含：
 
-1. 发布风险结论。
-2. 已读资产和证据来源。
-3. 发布材料完整性检查。
-4. 核心场景测试和回归证据。
-5. SQL、配置、回滚和验证计划风险。
-6. 风险等级。
-7. 建议动作。
-8. 待确认问题。
-9. 上下文更新建议。
+1. 发布建议结论：`PASS`、`CONDITIONAL_PASS`、`BLOCKED` 或 `NEEDS_CONFIRMATION`。
+2. 最高风险等级。
+3. 发布材料准入检查。
+4. 发布范围、需求清单、分支、制品和 Commit/MR 核对。
+5. 核心场景测试证据。
+6. 测试和缺陷关闭情况。
+7. SQL、配置、脚本和接口检查。
+8. 生产验证计划、回滚方案和上线后观察建议。
+9. 阻断建议、待确认问题和上下文更新建议。
+10. 受限命令执行记录或未执行原因。
 
-## 安全边界
-
-不得输出准许发布、可以上线或审批通过；不得操作生产、自动发布、自动回滚、执行生产 SQL、读取生产日志原文或修改生产配置。
+不得输出“建议上线”“准许发布”“发布审批通过”“门禁通过”或生产执行命令。
