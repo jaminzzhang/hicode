@@ -6,7 +6,7 @@
 
 当前第一版只支持 Claude Code plugin 规范。OpenCode plugin 机制与 Claude Code plugin 机制不同，不纳入本仓库第一版交付。
 
-本 plugin 不执行目标项目初始化，不扫描代码，不生成 `CLAUDE.md`、`AGENTS.md` 或 `.hicode/`。
+本 plugin 安装动作不执行目标项目初始化，不扫描代码，不生成 `CLAUDE.md`、`AGENTS.md` 或 `.hicode/`。
 
 目标项目初始化资产由 `references/init/` 维护。
 
@@ -22,6 +22,7 @@
 ├── agents/
 ├── skills/
 │   ├── hicode/
+│   ├── init/
 │   ├── scope/
 │   ├── tdd/
 │   ├── review/
@@ -35,9 +36,11 @@
 
 1. 注册本地 hicode marketplace。
 2. 安装 `hicode` Claude Code plugin。
-3. 提供 `hicode` 总入口和 `scope`、`tdd`、`review`、`release` 四个能力 Skill。
+3. 提供 `hicode` 总入口、`init` 初始化入口和 `scope`、`tdd`、`review`、`release` 四个能力 Skill。
 
 安装器不修改业务仓库，不读取生产配置，不处理生产数据或客户敏感信息。
+
+目标项目初始化应在业务仓库中显式调用 `hicode:init`。默认只创建或补充 `CLAUDE.md` / `AGENTS.md`、项目上下文和 RULES 文档；不复制 plugin 内置的 Agent、Prompt、Skill、Gate 或 Schema 到 `.hicode/`。只有用户明确要求离线固化或项目内自定义 hicode 能力时，才按 `references/init/` 规划创建 `.hicode/` 快照。
 
 ## 4. 使用示例
 

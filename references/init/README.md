@@ -6,7 +6,9 @@
 
 该目录只描述规划，不代表真实初始化结果，不执行初始化动作，也不保存目标项目运行副本。
 
-目标项目的运行目录是 `.hicode/`。本仓库只维护根目录源资产和 `references/` 支撑资产，不维护本仓库内的 `.hicode/` 运行副本。
+目标项目默认通过已安装的 hicode plugin 使用 Agent、Prompt、Skill、Gate 和 Schema 能力，不需要把这些 plugin 内置能力复制到目标项目 `.hicode/`。
+
+`.hicode/` 只作为可选固化目录：当用户明确要求离线使用、项目内锁版本或自定义改写 hicode 能力时，才按本目录 manifest/profile 规划生成目标项目快照。本仓库只维护根目录源资产和 `references/` 支撑资产，不维护本仓库内的 `.hicode/` 运行副本。
 
 ## 2. 目录结构
 
@@ -84,17 +86,17 @@ V2-P3-WP2 创建具体 manifest 时，每条资产记录至少应包含：
 
 ## 6. 源到目标路径规划
 
-默认路径规划如下，具体 profile 可按目标项目证据调整：
+默认初始化只写入目标项目入口文件和项目文档。以下 `.hicode/` 路径仅用于用户明确要求固化 plugin 能力快照时，具体 profile 可按目标项目证据调整：
 
 | 源资产 | 目标路径规划 | 说明 |
 |---|---|---|
 | `references/target-project/AGENTS.md` | `AGENTS.md` | 目标项目 Agent 第一入口模板 |
-| `agents/*.md` | `.hicode/agents/*.md` | 子 Agent 源资产 |
-| `references/prompts/*.md` | `.hicode/prompts/*.md` | Prompt 源资产 |
-| `references/skills/*/` | `.hicode/skills/*/` | Skill 源资产 |
-| `references/gates/*.md` | `.hicode/gates/*.md` | 门禁源资产 |
-| `references/schemas/*.json` | `.hicode/schemas/*.json` | 结构化输出 Schema |
-| `references/examples/` | `.hicode/examples/` | 脱敏示例和回归样例 |
+| `agents/*.md` | `.hicode/agents/*.md` | 可选固化：子 Agent 源资产 |
+| `references/prompts/*.md` | `.hicode/prompts/*.md` | 可选固化：Prompt 源资产 |
+| `references/skills/*/` | `.hicode/skills/*/` | 可选固化：Skill 源资产 |
+| `references/gates/*.md` | `.hicode/gates/*.md` | 可选固化：门禁源资产 |
+| `references/schemas/*.json` | `.hicode/schemas/*.json` | 可选固化：结构化输出 Schema |
+| `references/examples/` | `.hicode/examples/` | 可选固化：脱敏示例和回归样例 |
 | `references/docs/` | `docs/` 或 `.hicode/docs/` | 人读文档默认进入目标项目 `docs/`；若仅供 Agent 检索，可由 profile 映射到 `.hicode/docs/` |
 
 ## 7. 安全与自动化边界
