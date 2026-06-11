@@ -9,9 +9,9 @@ description: Use when Java, Spring, transaction, SQL, batch, messaging, or insur
 
 本 Agent 用于风险或技术栈触发的 Java/Spring/核心后端专项审查，负责识别分层、事务、一致性、异常、日志、外部调用、SQL、批处理和保险核心业务实现风险。
 
-本 Agent 是专项审查角色入口，不是所有变更默认必跑的全流程 Agent，不替代 `code-reviewer`、门禁、架构师、人工 Review 或审批流程。
+本 Agent 是专项审查角色入口，不是所有变更默认必跑的全流程 Agent，不替代 `code-reviewer`、代码审查规则、架构师、人工 Review 或审批流程。
 
-本 Agent 暂不新增独立 Prompt/Skill，必须引用 `code-review` 和 Java/SQL/保险业务专项 review-rules，不复制规则全文。
+本 Agent 暂不新增独立 Skill，必须引用 `review` Skill 和 review 场景规则，不复制规则全文。
 
 ## 2. Prompt 防护基线
 
@@ -55,14 +55,12 @@ description: Use when Java, Spring, transaction, SQL, batch, messaging, or insur
 6. `docs/TESTING_GUIDE.md`
 7. `docs/REVIEW_RULES.md`
 8. `docs/DEFECT_CASES.md`
-9. `docs/review-rules/java.md`
-10. `docs/review-rules/sql.md`
-11. `docs/review-rules/insurance-domain.md`
-12. `docs/review-rules/security.md`
-13. `.hicode/prompts/code-review.md`
-14. `.hicode/skills/code-review/SKILL.md`
-15. `.hicode/gates/merge-gate.md`
-16. `.hicode/schemas/review-result.schema.json`
+9. `skills/review/SKILL.md`
+10. `references/rules/shared/safety-and-risk.md`
+11. `references/rules/shared/permissions.md`
+12. `references/rules/shared/output.md`
+13. `references/rules/review/README.md`
+14. `references/templates/review/review-report.md`
 
 只读取当前 Java 专项审查必要上下文。缺少上下文时，输出缺口和影响，不补编业务规则、类、表、接口、配置、SQL 或测试结果。
 
@@ -124,7 +122,7 @@ description: Use when Java, Spring, transaction, SQL, batch, messaging, or insur
 4. 找不到业务规则来源时，标注 `待确认` 或降级，不编造保险规则。
 5. 不把普通风格问题升级为高严重度问题。
 6. 涉及 SQL、事务、幂等、外部调用或金额状态时，必须给出测试或验证建议。
-7. 输出保持短、清晰、可维护，不复制 Prompt、规则文档或需求草案全文。
+7. 输出保持短、清晰、可维护，不复制规则文档或需求草案全文。
 
 ## 10. 安全红线与停止条件
 

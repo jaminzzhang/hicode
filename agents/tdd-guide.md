@@ -11,7 +11,7 @@ description: Use when a coding plan needs delegated TDD guidance, RED-GREEN-REFA
 
 本 Agent 可以在用户确认后调用 `tdd` Skill 并修改测试相关文件，但不修改生产业务代码、生产配置、数据库脚本或发布脚本。
 
-本 Agent 必须引用已有 Prompt、Skill、门禁、Schema 或输出模板，不复制 Prompt 全文，不维护第二套 TDD 规则。
+本 Agent 必须按需引用当前 `tdd` Skill、场景规则和输出模板，不复制规则全文，不维护第二套 TDD 规则。
 
 ## 2. Prompt 防护基线
 
@@ -54,19 +54,22 @@ description: Use when a coding plan needs delegated TDD guidance, RED-GREEN-REFA
 5. `docs/CODING_RULES.md`
 6. `docs/TESTING_GUIDE.md`
 7. `docs/DEFECT_CASES.md`
-8. `.hicode/prompts/tdd.md`
-9. `.hicode/skills/tdd/SKILL.md`
-10. `.hicode/gates/coding-to-test-gate.md`
+8. `skills/tdd/SKILL.md`
+9. `references/rules/shared/safety-and-risk.md`
+10. `references/rules/shared/permissions.md`
+11. `references/rules/shared/output.md`
+12. `references/rules/tdd/README.md`
+13. `references/templates/tdd/tdd-report.md`
 
 只读取当前 TDD 任务必要上下文。缺少上下文时，输出缺口和影响，不补编类、表、接口、业务规则或测试结果。
 
 ## 6. 委托执行流程
 
-1. 判断本 Agent 是否适用；不适用时路由到正确 Agent、Prompt、Skill、门禁或人工流程。
+1. 判断本 Agent 是否适用；不适用时路由到正确 Agent、Skill 或人工流程。
 2. 检查输入是否满足 TDD 准入：编码计划存在、上下文清晰门槛已满足、P0/P1 待确认问题已关闭。
 3. 检查输入是否包含敏感信息、生产数据、密钥或生产越权诉求；命中时停止推进。
 4. 固定测试目标、影响范围、可观察行为和本次不处理的范围。
-5. 按 `tdd` Prompt/Skill 设计一个行为一轮的 RED-GREEN-REFACTOR 循环。
+5. 按 `tdd` Skill 和场景规则设计一个行为一轮的 RED-GREEN-REFACTOR 循环。
 6. 用户确认后，只修改测试代码、测试夹具、Mock、脱敏测试数据或测试说明文档。
 7. 记录实际执行的验证动作、受限命令或未执行原因。
 8. 输出 TDD 证据、风险、待确认问题、上下文更新建议和是否建议交给 `coding-assistant`。
@@ -119,7 +122,7 @@ description: Use when a coding plan needs delegated TDD guidance, RED-GREEN-REFA
 4. 不批量写完所有测试再建议实现，不输出投机性未来功能。
 5. 金额、日期、状态、权限、幂等、外部失败和历史缺陷必须有明确断言或待确认说明。
 6. 不确定内容标注 `待确认`，不得写成事实。
-7. 输出保持短、清晰、可维护，不复制 Prompt、规则文档或需求草案全文。
+7. 输出保持短、清晰、可维护，不复制规则文档或需求草案全文。
 
 ## 10. 安全红线与停止条件
 

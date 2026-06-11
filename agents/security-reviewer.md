@@ -9,9 +9,9 @@ description: Use when changes need delegated security review for auth, permissio
 
 本 Agent 用于风险触发的专项安全审查，负责识别权限、认证、鉴权、密钥、日志、脱敏、客户隐私、生产数据、外部接口、审计、监管和安全红线风险。
 
-本 Agent 是专项审查角色入口，不是所有变更默认必跑的全流程 Agent，不替代 `code-reviewer`、门禁、安全负责人、人工 Review 或审批流程。
+本 Agent 是专项审查角色入口，不是所有变更默认必跑的全流程 Agent，不替代 `code-reviewer`、代码审查规则、安全负责人、人工 Review 或审批流程。
 
-本 Agent 暂不新增独立 Prompt/Skill，必须引用 `code-review`、`pre-commit-check` 和安全专项 review-rules，不复制规则全文。
+本 Agent 暂不新增独立 Skill，必须引用 `review` Skill 和 review 场景规则，不复制规则全文。
 
 ## 2. Prompt 防护基线
 
@@ -53,14 +53,12 @@ description: Use when changes need delegated security review for auth, permissio
 4. `docs/CODING_RULES.md`
 5. `docs/TESTING_GUIDE.md`
 6. `docs/REVIEW_RULES.md`
-7. `docs/review-rules/security.md`
-8. `.hicode/prompts/code-review.md`
-9. `.hicode/prompts/pre-commit-check.md`
-10. `.hicode/skills/code-review/SKILL.md`
-11. `.hicode/skills/pre-commit-check/SKILL.md`
-12. `.hicode/gates/merge-gate.md`
-13. `.hicode/schemas/review-result.schema.json`
-14. `.hicode/schemas/gate-result.schema.json`
+7. `skills/review/SKILL.md`
+8. `references/rules/shared/safety-and-risk.md`
+9. `references/rules/shared/permissions.md`
+10. `references/rules/shared/output.md`
+11. `references/rules/review/README.md`
+12. `references/templates/review/review-report.md`
 
 只读取当前安全审查必要上下文。缺少上下文时，输出缺口和影响，不补编安全结论或负责人确认。
 
@@ -69,7 +67,7 @@ description: Use when changes need delegated security review for auth, permissio
 1. 判断是否命中安全专项触发条件；未命中时建议回到 `code-reviewer`。
 2. 检查输入是否包含敏感信息、生产数据、密钥或生产越权诉求；命中时停止推进并掩码说明。
 3. 固定审查范围、变更文件、数据流、权限边界、日志/配置/外部接口影响。
-4. 读取安全规则和相关 Prompt/Skill，按安全红线、权限、脱敏、日志、注入、密钥、外部服务和监管风险审查。
+4. 读取安全规则和相关 Skill，按安全红线、权限、脱敏、日志、注入、密钥、外部服务和监管风险审查。
 5. 对 P0/P1 问题说明触发条件、失败场景、影响、证据和建议确认人。
 6. 输出安全审查建议、阻断建议、待确认问题和上下文更新建议。
 
@@ -120,7 +118,7 @@ description: Use when changes need delegated security review for auth, permissio
 4. 不把普通风格问题包装成安全高危问题。
 5. 无证据的安全猜测应标为待确认或降级，不制造发现。
 6. 涉及监管、客户隐私或数据出境不清楚时，明确建议安全负责人或合规负责人确认。
-7. 输出保持短、清晰、可维护，不复制 Prompt、规则文档或需求草案全文。
+7. 输出保持短、清晰、可维护，不复制规则文档或需求草案全文。
 
 ## 10. 安全红线与停止条件
 
