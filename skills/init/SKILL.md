@@ -1,5 +1,5 @@
 ---
-description: Use when a target backend application needs guided hicode initialization: use native /init for CLAUDE.md or AGENTS.md, create project rules under docs/rules, and optionally scan code with graphify after user confirmation.
+description: Use when a target backend application needs guided hicode initialization: use native /init for CLAUDE.md or AGENTS.md, create project rules under docs/rules, assess codebase complexity, and optionally scan complex projects with graphify after user confirmation.
 ---
 
 # hicode init
@@ -34,8 +34,9 @@ description: Use when a target backend application needs guided hicode initializ
 
 1. 如果对应入口文件不存在，调用当前 Agent 平台的 `/init` 命令生成入口文件。
 2. 如果当前平台不支持 `/init`，方可自行生成 `CLAUDE.md` 或 `AGENTS.md`。
-3. 如果入口文件已存在，只在后续规则初始化完成后，在已有文件基础上补充 hicode rules 信息；不得覆盖用户已有内容。
-4. `CLAUDE.md` 与 `AGENTS.md` 同时存在时，只处理当前平台入口；是否同步另一个入口必须单独询问用户。
+3. 自行生成入口文件时，必须说明 `/init` 不可用的原因，并在写入前确认目标入口类型和写入范围。
+4. 如果入口文件已存在，只在后续规则初始化完成后，在已有文件基础上补充 hicode rules 信息；不得覆盖用户已有内容。
+5. `CLAUDE.md` 与 `AGENTS.md` 同时存在时，只处理当前平台入口；是否同步另一个入口必须单独询问用户。
 
 ### 3. 初始化 rules
 
@@ -49,9 +50,27 @@ description: Use when a target backend application needs guided hicode initializ
    - 项目 rules 只能补充或加严 hicode 内置规则，不能放宽安全、合规、审计、幂等、事务、状态流转、异常防御和测试要求。
 6. 已有 `docs/rules/` 文件优先保留。发现冲突时列出冲突点，未获用户确认前不得覆盖。
 
-### 4. 询问是否扫描代码
+### 4. 判断是否需要扫描代码
 
-规则初始化完成后，询问用户是否需要扫描代码以梳理代码结构。一次只问这一个问题。
+规则初始化完成后，先用只读方式判断当前项目复杂度，再决定是否建议使用 graphify 扫描。
+
+轻量复杂度判断只允许读取目录结构、构建文件、模块清单和入口文件名，不读取敏感配置、生产数据或未脱敏日志。
+
+复杂度较高时才需要建议使用 graphify。高复杂度信号包括：
+
+1. 多模块、多服务或 monorepo 结构。
+2. 多语言、多构建系统或多套运行入口。
+3. 依赖关系复杂，存在较多跨模块调用、消息消费、定时任务、批处理或外部系统适配。
+4. 代码入口分散，无法通过目录结构和构建文件快速判断模块边界。
+5. 用户明确表示项目规模大、历史久、模块关系不清或需要代码图谱辅助定位。
+
+复杂度不高时：
+
+1. 不默认使用 graphify。
+2. 输出轻量结构判断依据。
+3. 只建议在后续定位困难时再补充 graphify 扫描。
+
+复杂度较高时，询问用户是否需要使用 graphify 扫描代码以梳理代码结构。一次只问这一个问题。
 
 用户同意后：
 
@@ -60,6 +79,9 @@ description: Use when a target backend application needs guided hicode initializ
 3. 扫描前必须确认扫描范围和排除路径。
 4. 不扫描 `.env*`、密钥、生产配置、未脱敏数据、构建产物、依赖目录或日志目录。
 5. graphify 结果只能作为代码结构证据、推断和待确认项，不得写成已确认业务规则。
+6. 扫描完成后，必须确认 graphify 结果文件路径。
+7. 在目标项目入口文件 `CLAUDE.md` 或 `AGENTS.md` 中补充 graphify 结果文件引用，说明 Agent 查找代码结构、模块关系或调用链时应优先参考该结果文件。
+8. 只写入实际存在的结果文件路径；路径不明确时先向用户确认，不得编造。
 
 用户不同意时：
 
@@ -81,7 +103,8 @@ graphify 不可用时：
 3. 用户未确认写入 `docs/rules/` 或入口文件补充范围。
 4. 已有文件存在冲突且未获确认。
 5. 输入或文件包含密钥、生产配置、未脱敏客户信息或未脱敏生产数据。
-6. 用户要求复制 plugin 内置能力到目标项目本地运行目录、自动发布、自动合并、自动回滚或操作生产环境。
+6. graphify 结果文件路径不明确且需要写入入口文件。
+7. 用户要求复制 plugin 内置能力到目标项目本地运行目录、自动发布、自动合并、自动回滚或操作生产环境。
 
 ## 输出要求
 
@@ -93,10 +116,12 @@ graphify 不可用时：
 4. `docs/rules/` 创建、补充、跳过和需确认的文件清单。
 5. 已读 hicode rules。
 6. 入口文件补充内容摘要。
-7. 代码扫描状态：未询问 / 用户拒绝 / 待确认 / graphify 执行中 / graphify 已完成 / 阻塞。
-8. 事实、推断和待确认分层。
-9. 风险等级。
-10. 建议动作。
-11. 待确认问题；如需要继续提问，一次只列一个问题。
+7. 项目复杂度判断：低 / 中 / 高 / 待确认，并说明依据。
+8. 代码扫描状态：未建议 / 用户拒绝 / 待确认 / graphify 执行中 / graphify 已完成 / 阻塞。
+9. graphify 结果文件路径及入口文件引用状态：不适用 / 待确认 / 已引用 / 阻塞。
+10. 事实、推断和待确认分层。
+11. 风险等级。
+12. 建议动作。
+13. 待确认问题；如需要继续提问，一次只列一个问题。
 
 不得输出最终审批、准许合并、准许发布或可以上线。
