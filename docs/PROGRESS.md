@@ -4,8 +4,8 @@
 
 最近更新时间：2026-06-11
 当前阶段：V3 后续维护
-当前工作包：V3-MAINT-WP10 目标项目文档路径与缺失文档创建规则
-总体状态：V1 已完成；V2-P1 至 V2-P5 已完成；V2-P6-WP1 待验收；V3 已完成；V3-MAINT-WP1 待验收；V3-MAINT-WP2 待验收；V3-MAINT-WP3 待验收；V3-MAINT-WP4 待验收；V3-MAINT-WP5 待验收；V3-MAINT-WP6 待验收；V3-MAINT-WP7 待验收；V3-MAINT-WP8 待验收；V3-MAINT-WP9 待验收；V3-MAINT-WP10 待验收
+当前工作包：V3-MAINT-WP11 `tdd` Skill 行为测试与纵向切片重构
+总体状态：V1 已完成；V2-P1 至 V2-P5 已完成；V2-P6-WP1 待验收；V3 已完成；V3-MAINT-WP1 待验收；V3-MAINT-WP2 待验收；V3-MAINT-WP3 待验收；V3-MAINT-WP4 待验收；V3-MAINT-WP5 待验收；V3-MAINT-WP6 待验收；V3-MAINT-WP7 待验收；V3-MAINT-WP8 待验收；V3-MAINT-WP9 待验收；V3-MAINT-WP10 待验收；V3-MAINT-WP11 待验收
 
 本台账用于记录 V1、V2 和 V3 工作包推进状态。每次开发 Agent 开始、完成、阻塞、暂缓或提交工作包验收时，必须同步更新本文件。
 
@@ -330,11 +330,13 @@
 | V3-MAINT-WP8 | `scope` 产物链路与上下文沉淀完善 | 待验收 | `skills/scope/SKILL.md`、`references/templates/feature/requirement-review-report.md`、`references/templates/feature/task-split-plan.md`、`references/templates/feature/scope-report.md`、`references/templates/README.md`、`CONTEXT.md`、`docs/PROGRESS.md` | 用户确认 Scope 需要输出需求评审报告、在需求分析中按需更新 ADR 和单需求上下文、输出拆分任务计划，并在成功完成时沉淀领域和项目知识 | 已补充 Scope 四段产物链路；新增需求评审报告和拆分任务计划模板；明确单需求上下文可作为过程上下文更新，`DOMAIN_KNOWLEDGE.md`、`PROJ_CONTEXT.md` 和 ADR 正式沉淀需用户或负责人确认；等待项目负责人验收 |
 | V3-MAINT-WP9 | 模板目录关系梳理与单需求目录规划 | 待验收 | `references/templates/README.md`、`references/templates/project/`、`references/templates/feature/`、`skills/*.md`、`agents/*.md`、`references/hooks/`、`CONTEXT.md`、`docs/PROGRESS.md` | 用户确认单需求实现资产目录使用 `docs/features/`，并要求单需求上下文避免与 `PROJ_CONTEXT.md` 混淆 | 已将单需求上下文模板改名为 `feature_context.md`；将单需求相关报告模板收敛到 `references/templates/feature/`；保留项目全局模板在 `references/templates/project/`；同步 Skill、Agent、Hook 和入口模板引用；等待项目负责人验收 |
 | V3-MAINT-WP10 | 目标项目文档路径与缺失文档创建规则 | 待验收 | `references/templates/project/AGENTS.md`、`references/templates/project/CLAUDE.md`、`skills/init/SKILL.md`、`skills/hi/SKILL.md`、`skills/scope/SKILL.md`、`skills/tdd/SKILL.md`、`skills/review/SKILL.md`、`skills/release/SKILL.md`、`CONTEXT.md`、`docs/PROGRESS.md` | 用户确认项目级文档路径需要在入口文档中说明，并要求目标文档不存在时由各 Skill 先读模板再按需创建 | 已在入口模板中明确项目级和单需求文档路径；`init` 负责项目级文档骨架和入口路径说明；`scope/tdd/review/release` 在缺少单需求文档时先读取 `feature/` 模板再创建；等待项目负责人验收 |
+| V3-MAINT-WP11 | `tdd` Skill 行为测试与纵向切片重构 | 待验收 | `skills/tdd/SKILL.md`、`CONTEXT.md`、`docs/PROGRESS.md` | 用户要求参考 Matt Pocock `skills/engineering/tdd` 的设计重构 `skills/tdd` | 已将 `tdd` Skill 重构为公开接口行为测试、tracer bullet、RED-GREEN-REFACTOR 纵向切片、系统边界 Mock 和 GREEN 后重构的执行流程；修正不存在的 TDD 规则引用；等待项目负责人验收 |
 
 ## 10. 最近变更记录
 
 | 日期 | 操作者 | 变更 | 关联工作包 |
 |---|---|---|---|
+| 2026-06-11 | Codex | 参考 Matt Pocock `skills/engineering/tdd` 重构 `skills/tdd/SKILL.md`：强化公开接口行为测试、tracer bullet、纵向切片、系统边界 Mock 和 GREEN 后重构；同步 `CONTEXT.md` 术语并修正不存在规则引用 | V3-MAINT-WP11 |
 | 2026-06-11 | Codex | 修正 `skills/scope/SKILL.md` 第 7 节语义：Scope 不编码，命中风险时应控制 `READY_FOR_TDD` 移交结论并分流处理 | V3-MAINT-WP7 |
 | 2026-06-11 | Codex | 完善 `skills/scope/SKILL.md` 产物链路：需求评审报告、`feature_context.md` 更新、ADR 草稿或更新、拆分任务计划、领域知识和项目上下文沉淀；新增两个 Scope 输出模板并同步术语上下文 | V3-MAINT-WP8 |
 | 2026-06-11 | Codex | 梳理 `references/templates/` 文档关系：项目全局共享模板保留在 `project/`，单需求实现模板收敛到 `feature/`；单需求上下文改名为 `feature_context.md`，目标项目建议目录为 `docs/features/<feature-id>/` | V3-MAINT-WP9 |
