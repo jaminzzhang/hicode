@@ -47,9 +47,12 @@
 ```bash
 ./install.sh --dry-run
 ./install.sh --yes
+bash scripts/health-check.sh
 ```
 
 不传平台参数时默认安装 Claude Code plugin。
+
+`scripts/health-check.sh` 用于重复验证当前运行资产边界、安装边界、旧路径依赖、安全红线和 Agent 共性规则收敛情况；它不扫描目标项目，不读取敏感配置或生产数据。
 
 ## 5. 安全边界
 

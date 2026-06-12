@@ -4,8 +4,8 @@
 
 最近更新时间：2026-06-12
 当前阶段：V3 后续维护
-当前工作包：V3-MAINT-WP18 当前规则 Module 架构收敛
-总体状态：V1 已完成；V2-P1 至 V2-P5 已完成；V2-P6-WP1 待验收；V3 已完成；V3-MAINT-WP1 待验收；V3-MAINT-WP2 待验收；V3-MAINT-WP3 待验收；V3-MAINT-WP4 待验收；V3-MAINT-WP5 待验收；V3-MAINT-WP6 待验收；V3-MAINT-WP7 待验收；V3-MAINT-WP8 待验收；V3-MAINT-WP9 待验收；V3-MAINT-WP10 待验收；V3-MAINT-WP11 待验收；V3-MAINT-WP12 待验收；V3-MAINT-WP13 待验收；V3-MAINT-WP14 待验收；V3-MAINT-WP15 待验收；V3-MAINT-WP16 待验收；V3-MAINT-WP17 待验收；V3-MAINT-WP18 待验收
+当前工作包：V3-MAINT-WP21 编码规则分区与 Hook 一致性检查
+总体状态：V1 已完成；V2-P1 至 V2-P5 已完成；V2-P6-WP1 待验收；V3 已完成；V3-MAINT-WP1 待验收；V3-MAINT-WP2 待验收；V3-MAINT-WP3 待验收；V3-MAINT-WP4 待验收；V3-MAINT-WP5 待验收；V3-MAINT-WP6 待验收；V3-MAINT-WP7 待验收；V3-MAINT-WP8 待验收；V3-MAINT-WP9 待验收；V3-MAINT-WP10 待验收；V3-MAINT-WP11 待验收；V3-MAINT-WP12 待验收；V3-MAINT-WP13 待验收；V3-MAINT-WP14 待验收；V3-MAINT-WP15 待验收；V3-MAINT-WP16 待验收；V3-MAINT-WP17 待验收；V3-MAINT-WP18 待验收；V3-MAINT-WP19 待验收；V3-MAINT-WP20 待验收；V3-MAINT-WP21 待验收
 
 本台账用于记录 V1、V2 和 V3 工作包推进状态。每次开发 Agent 开始、完成、阻塞、暂缓或提交工作包验收时，必须同步更新本文件。
 
@@ -337,12 +337,19 @@
 | V3-MAINT-WP15 | `scope` Skill 写作优化 | 待验收 | `skills/scope/SKILL.md`、`docs/PROGRESS.md` | 用户要求使用 `write-a-skill` 优化 `skills/scope`，并将行数限制放宽至 160 行 | 已将 `scope` Skill 重写为 160 行以内的中文主文档，强化 description 触发条件、快速示例、需求目录固定、Scope 模式、需求评审、澄清追问、方案比较、小任务拆分、分流停止条件和输出要求；等待项目负责人验收 |
 | V3-MAINT-WP16 | `tdd` Skill 写作优化 | 待验收 | `skills/tdd/SKILL.md`、`docs/PROGRESS.md` | 用户要求使用 `write-a-skill` 优化 `skills/tdd`，并将行数限制放宽至 160 行左右 | 已将 `tdd` Skill 优化为 160 行左右的中文主文档，强化 description 触发条件、快速示例、文档规则、任务模式、TDD 核心原则、tracer bullet、RED-GREEN-REFACTOR、Mock/测试数据、本地验证、停止条件和输出要求；等待项目负责人验收 |
 | V3-MAINT-WP17 | `review` Skill 写作优化 | 待验收 | `skills/review/SKILL.md`、`docs/PROGRESS.md` | 用户要求使用 `write-a-skill` 优化 `skills/review`，并将行数限制放宽至 150 行 | 已将 `review` Skill 优化为 150 行以内的中文主文档，强化 description 触发条件、快速示例、文档规则、三轴审查、专项审查、问题分级、阻断建议、本地验证、停止条件和输出要求；同时修正不存在的规则路径引用；等待项目负责人验收 |
-| V3-MAINT-WP18 | 当前规则 Module 架构收敛 | 待验收 | `CONTEXT.md`、`skills/hi/SKILL.md`、`agents/*.md`、`references/README.md`、`references/hooks/`、`docs/PROGRESS.md` | 用户要求基于架构优化优选项使用 `grill-with-docs` 分析并优化；已确认不恢复多目录规则结构，当前稳定规则 interface 收敛为 `references/rules/coding_rules.md` | 已将 Agent、Hook、`hi` 和 references 入口中的失效规则路径统一收敛到 `references/rules/coding_rules.md`，并同步术语上下文；等待项目负责人验收 |
+| V3-MAINT-WP18 | 当前规则 Module 架构收敛 | 待验收 | `CONTEXT.md`、`agents/*.md`、`agents/README.md`、`references/rules/coding_rules.md`、`references/README.md`、`references/hooks/`、`docs/HICODE_ARCHITECTURE_OPTIMIZATION_SUGGESTIONS.md`、`docs/PROGRESS.md` | 用户要求基于架构优化优选项使用 `grill-with-docs` 分析并优化；已确认不恢复多目录规则结构，当前稳定规则 interface 收敛为 `references/rules/coding_rules.md` | 已将 Agent、Hook、`hi` 和 references 入口中的失效规则路径统一收敛到 `references/rules/coding_rules.md`；已将 Agent 共性规则收敛进 `coding_rules.md` 并收缩 8 个 Agent 与模板重复内容；已同步术语上下文和优化建议报告；等待项目负责人验收 |
+| V3-MAINT-WP19 | 当前资产健康检查 Module | 待验收 | `scripts/health-check.sh`、`docs/HICODE_HEALTH_CHECK.md`、`README.md`、`CONTEXT.md`、`docs/HICODE_ARCHITECTURE_OPTIMIZATION_SUGGESTIONS.md`、`docs/PROGRESS.md` | 用户确认候选 5 直接脚本化，不只保留 Markdown 命令清单 | 已新增可重复运行的健康检查脚本，覆盖旧路径依赖、安装边界、Agent 共性规则收敛、安全红线覆盖、JSON 解析、install dry-run、shell 语法和 diff 空白检查；等待项目负责人验收 |
+| V3-MAINT-WP20 | 单需求文档生命周期与 V3 计划漂移收敛 | 待验收 | `references/templates/README.md`、`skills/scope/SKILL.md`、`skills/tdd/SKILL.md`、`skills/review/SKILL.md`、`skills/release/SKILL.md`、`CONTEXT.md`、`docs/V3_IMPLEMENTATION_PLAN.md`、`docs/HICODE_ARCHITECTURE_OPTIMIZATION_SUGGESTIONS.md`、`docs/PROGRESS.md` | 用户要求继续处理架构优化候选；候选 2 和 6 可从仓库直接判断并优化 | 已将单需求文档生命周期规则集中到 `references/templates/README.md`，四个场景 Skill 改为引用该规则；已在 V3 计划追加当前收敛形态说明，解释历史中间目录与当前实际结构的关系；等待项目负责人验收 |
+| V3-MAINT-WP21 | 编码规则分区与 Hook 一致性检查 | 待验收 | `references/rules/coding_rules.md`、`scripts/health-check.sh`、`docs/HICODE_HEALTH_CHECK.md`、`docs/HICODE_ARCHITECTURE_OPTIMIZATION_SUGGESTIONS.md`、`docs/PROGRESS.md` | 用户要求继续处理架构优化候选；候选 3 和 4 可做低风险收敛 | 已在单一 `coding_rules.md` 内区分 Agent 共性规则、编码强制规则、Review 与测试证据规则；已把 Hook ID、默认模式、规则依据、blocking 条件和禁止动作一致性纳入健康检查脚本；等待项目负责人验收 |
 
 ## 10. 最近变更记录
 
 | 日期 | 操作者 | 变更 | 关联工作包 |
 |---|---|---|---|
+| 2026-06-12 | Codex | 完成编码规则分区与 Hook 一致性检查：`coding_rules.md` 在单一稳定 interface 内区分编码强制规则和 Review/测试证据规则；`scripts/health-check.sh` 新增 Hook JSON 与 Markdown 一致性校验 | V3-MAINT-WP21 |
+| 2026-06-12 | Codex | 收敛单需求文档生命周期与 V3 计划漂移：在 `references/templates/README.md` 增加生命周期规则，`scope`/`tdd`/`review`/`release` 改为引用该规则，并在 V3 计划追加当前收敛形态说明 | V3-MAINT-WP20 |
+| 2026-06-12 | Codex | 将当前资产健康检查脚本化：新增 `scripts/health-check.sh` 和 `docs/HICODE_HEALTH_CHECK.md`，覆盖旧路径依赖、安装边界、Agent 共性规则收敛、安全红线覆盖、JSON 解析、install dry-run、shell 语法和 diff 空白检查；同步 README、CONTEXT 和架构优化建议报告 | V3-MAINT-WP19 |
+| 2026-06-12 | Codex | 通过 `grill-with-docs` 确认 Agent 共性规则优先收敛进现有 `references/rules/coding_rules.md`；补充 Agent 共性规则章节，收缩 8 个 Agent 与模板中的重复安全、权限、输出和停止规则，并更新架构优化建议报告 | V3-MAINT-WP18 |
 | 2026-06-12 | Codex | 基于架构优化优选项收敛当前规则 Module：确认不恢复多目录规则结构，将当前稳定规则 interface 统一为 `references/rules/coding_rules.md`；修正 Agent、Hook、`hi` 和 references 入口中的失效规则路径，并同步 `CONTEXT.md` | V3-MAINT-WP18 |
 | 2026-06-12 | Codex | 使用 `write-a-skill` 优化 `skills/review/SKILL.md`：调整为 140 行，补强 description 触发条件、快速示例、文档规则、三轴审查、专项审查、问题分级、阻断建议、本地验证、停止条件和输出要求，并修正不存在的规则路径引用 | V3-MAINT-WP17 |
 | 2026-06-12 | Codex | 使用 `write-a-skill` 优化 `skills/tdd/SKILL.md`：调整为 161 行，补强 description 触发条件、快速示例、文档规则、任务模式、TDD 核心原则、tracer bullet、RED-GREEN-REFACTOR、Mock/测试数据、本地验证、停止条件和输出要求 | V3-MAINT-WP16 |

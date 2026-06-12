@@ -36,6 +36,25 @@
 | `review-report.md` | 单需求特性 | 代码审查、专项审查、证据缺口和风险建议 | Review 过程生成 |
 | `release-report.md` | 单需求特性 | 发布分支范围、主要实现需求、测试结论、SQL/配置/脚本风险、验证计划、发布建议和回滚计划 | Release 过程生成 |
 
+## 单需求文档生命周期
+
+单需求目录固定为 `docs/features/<feature-id>/`。`feature-id` 不明确时先问用户，不得编造。
+
+| 阶段 | 负责入口 | 可创建或更新 | 写入边界 | 缺失材料处理 |
+|---|---|---|---|---|
+| Scope | `hicode:scope` | `feature_context.md`、`requirement-review-report.md`、`scope-report.md`、`task-split-plan.md` | 只写已确认事实、证据、待确认问题、范围边界、风险判断、ADR 草稿和拆分任务 | 缺少目标、范围、规则、验收标准或 P0/P1 风险证据时，不输出 `READY_FOR_TDD` |
+| TDD | `hicode:tdd` | `tdd-report.md`，必要时补充 `feature_context.md` 的过程证据 | 只写真实测试设计、命令、结果、修改文件、风险和待确认问题 | 缺少 Scope 产物、任务范围或测试重点时，说明缺口并回到 `hicode:scope` 或只做测试设计 |
+| Review | `hicode:review` | `review-report.md` | 只写真 diff、审查证据、问题、命令结果、未覆盖范围和待确认问题 | 缺少需求、Scope、TDD、diff 或验证结果时，标注需求轴或证据轴降级 |
+| Release | `hicode:release` | `release-report.md` | 只汇总已知分支范围、需求证据、测试/Review 证据、SQL/配置/脚本风险、验证计划和回滚计划 | `feature-id` 不明确时只能输出临时报告；落盘前必须确认目录 |
+
+通用写入规则：
+
+1. 任何阶段都不得编造负责人、业务规则、验收结论、测试通过、发布许可或验证结果。
+2. 未确认内容写入 `待确认`，不能沉淀为长期事实。
+3. `DOMAIN_KNOWLEDGE.md`、`PROJ_CONTEXT.md` 和正式 ADR 只能在负责人确认后更新。
+4. 涉及未脱敏客户信息、生产数据、密钥、生产配置、生产凭证或生产日志原文时停止写入并转人工安全流程。
+5. 阶段报告可以记录证据缺口和风险建议，不代表最终审批、合并许可、发布许可或生产操作授权。
+
 ## 使用规则
 
 1. `project/` 模板只由 `hicode:init` 或需要沉淀项目全局上下文的场景在用户确认后按需读取。
