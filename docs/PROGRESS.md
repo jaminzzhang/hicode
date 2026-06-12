@@ -4,8 +4,8 @@
 
 最近更新时间：2026-06-12
 当前阶段：V3 后续维护
-当前工作包：V3-MAINT-WP23 安装器双平台支持
-总体状态：V1 已完成；V2-P1 至 V2-P5 已完成；V2-P6-WP1 待验收；V3 已完成；V3-MAINT-WP1 待验收；V3-MAINT-WP2 待验收；V3-MAINT-WP3 待验收；V3-MAINT-WP4 待验收；V3-MAINT-WP5 待验收；V3-MAINT-WP6 待验收；V3-MAINT-WP7 待验收；V3-MAINT-WP8 待验收；V3-MAINT-WP9 待验收；V3-MAINT-WP10 待验收；V3-MAINT-WP11 待验收；V3-MAINT-WP12 待验收；V3-MAINT-WP13 待验收；V3-MAINT-WP14 待验收；V3-MAINT-WP15 待验收；V3-MAINT-WP16 待验收；V3-MAINT-WP17 待验收；V3-MAINT-WP18 待验收；V3-MAINT-WP19 待验收；V3-MAINT-WP20 待验收；V3-MAINT-WP21 待验收；V3-MAINT-WP22 待验收；V3-MAINT-WP23 待验收
+当前工作包：V3-MAINT-WP24 OpenCode `/init` 边界修正
+总体状态：V1 已完成；V2-P1 至 V2-P5 已完成；V2-P6-WP1 待验收；V3 已完成；V3-MAINT-WP1 待验收；V3-MAINT-WP2 待验收；V3-MAINT-WP3 待验收；V3-MAINT-WP4 待验收；V3-MAINT-WP5 待验收；V3-MAINT-WP6 待验收；V3-MAINT-WP7 待验收；V3-MAINT-WP8 待验收；V3-MAINT-WP9 待验收；V3-MAINT-WP10 待验收；V3-MAINT-WP11 待验收；V3-MAINT-WP12 待验收；V3-MAINT-WP13 待验收；V3-MAINT-WP14 待验收；V3-MAINT-WP15 待验收；V3-MAINT-WP16 待验收；V3-MAINT-WP17 待验收；V3-MAINT-WP18 待验收；V3-MAINT-WP19 待验收；V3-MAINT-WP20 待验收；V3-MAINT-WP21 待验收；V3-MAINT-WP22 待验收；V3-MAINT-WP23 待验收；V3-MAINT-WP24 待验收
 
 本台账用于记录 V1、V2 和 V3 工作包推进状态。每次开发 Agent 开始、完成、阻塞、暂缓或提交工作包验收时，必须同步更新本文件。
 
@@ -239,7 +239,7 @@
 
 ## 5. 下一步建议
 
-1. 等待项目负责人验收 `V3-MAINT-WP1` 至 `V3-MAINT-WP23`。
+1. 等待项目负责人验收 `V3-MAINT-WP1` 至 `V3-MAINT-WP24`。
 2. 验收通过后再将对应维护工作包标记为已完成。
 3. V2-P6-WP1 仍保留待验收状态，未被 V3 或本次维护工作自动标记为已完成。
 4. 后续若进入真实试点运行效果验收，必须基于真实试点数据补充，不能用本仓库模板资产替代。
@@ -343,11 +343,13 @@
 | V3-MAINT-WP21 | 编码规则分区与 Hook 一致性检查 | 待验收 | `references/rules/coding_rules.md`、`scripts/health-check.sh`、`docs/HICODE_HEALTH_CHECK.md`、`docs/HICODE_ARCHITECTURE_OPTIMIZATION_SUGGESTIONS.md`、`docs/PROGRESS.md` | 用户要求继续处理架构优化候选；候选 3 和 4 可做低风险收敛 | 已在单一 `coding_rules.md` 内区分 Agent 共性规则、编码强制规则、Review 与测试证据规则；已把 Hook ID、默认模式、规则依据、blocking 条件和禁止动作一致性纳入健康检查脚本；等待项目负责人验收 |
 | V3-MAINT-WP22 | Skill 运行时共享资产镜像 | 待验收 | `skills/_shared/`、`skills/*/SKILL.md`、`install.sh`、`scripts/health-check.sh`、`AGENTS.md`、`CONTEXT.md`、`references/README.md`、`docs/HICODE_HEALTH_CHECK.md`、`docs/PROGRESS.md` | 用户反馈目标项目使用 Skill 时读取 `references/` 会多次请求授权 | 已新增 `skills/_shared/` 运行时镜像，Skill 改为读取 `../_shared/`；安装器校验共享资产存在；健康检查校验 Skill 不再读取 `../../references/` 且镜像与源文件一致；等待项目负责人验收 |
 | V3-MAINT-WP23 | 安装器双平台支持 | 待验收 | `install.sh`、`.claude-plugin/plugin.json`、`scripts/health-check.sh`、`README.md`、`AGENTS.md`、`CONTEXT.md`、`docs/HICODE_HEALTH_CHECK.md`、`docs/PROGRESS.md` | 用户要求优化安装命令，同时支持 Claude Code 安装 plugin，以及 OpenCode 安装 agents 和 skill | 已将 Claude manifest 扩展为 `agents/` + `skills/`；`install.sh` 新增 `--opencode`、`--all`、OpenCode 用户级/项目级 scope 和运行时转换复制；健康检查新增 OpenCode 与双平台 dry-run；等待项目负责人验收 |
+| V3-MAINT-WP24 | OpenCode `/init` 边界修正 | 待验收 | `skills/init/SKILL.md`、`references/templates/README.md`、`references/templates/project/hicode-entry-section.md`、`skills/_shared/templates/README.md`、`skills/_shared/templates/project/hicode-entry-section.md`、`CONTEXT.md`、`docs/V3_IMPLEMENTATION_PLAN.md`、`docs/PROGRESS.md` | 用户确认 OpenCode TUI `/init` 是用户手工命令，不属于 Agent 可执行初始化能力；入口缺失时允许推荐生成最小 `AGENTS.md`，但必须先问用户确认 | 已将初始化口径收敛为优先使用 Agent 可执行初始化能力；OpenCode `/init` 不能由 Agent 代替执行，入口缺失时提示用户手工执行或推荐确认后生成最小 `AGENTS.md`；等待项目负责人验收 |
 
 ## 10. 最近变更记录
 
 | 日期 | 操作者 | 变更 | 关联工作包 |
 |---|---|---|---|
+| 2026-06-12 | Codex | 修正 OpenCode `/init` 初始化边界：确认 OpenCode TUI `/init` 需要用户手工执行，不属于 Agent 可执行初始化能力；`hicode:init` 改为提示用户手工执行或推荐在确认后生成最小 `AGENTS.md`，并同步模板源、运行时镜像、术语上下文和 V3 计划 | V3-MAINT-WP24 |
 | 2026-06-12 | Codex | 优化 `install.sh` 为双平台安装入口：默认保持 Claude Code plugin 安装，新增 `--opencode` 安装 OpenCode agents/skills，`--all` 同时安装；OpenCode 侧转换为 `hicode-*` Skill/Agent 和 `hicode-shared` 运行时共享资产，并同步健康检查和文档边界 | V3-MAINT-WP23 |
 | 2026-06-12 | Codex | 新增 `skills/_shared/` 运行时共享资产镜像，6 个 Skill 改为读取 `../_shared/`，减少目标项目运行时跨 plugin 目录访问授权；健康检查新增镜像一致性和 Skill 引用边界校验 | V3-MAINT-WP22 |
 | 2026-06-12 | Codex | 完成编码规则分区与 Hook 一致性检查：`coding_rules.md` 在单一稳定 interface 内区分编码强制规则和 Review/测试证据规则；`scripts/health-check.sh` 新增 Hook JSON 与 Markdown 一致性校验 | V3-MAINT-WP21 |
