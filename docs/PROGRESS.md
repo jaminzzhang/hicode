@@ -4,8 +4,8 @@
 
 最近更新时间：2026-06-12
 当前阶段：V3 后续维护
-当前工作包：V3-MAINT-WP14 `init` Skill 写作优化
-总体状态：V1 已完成；V2-P1 至 V2-P5 已完成；V2-P6-WP1 待验收；V3 已完成；V3-MAINT-WP1 待验收；V3-MAINT-WP2 待验收；V3-MAINT-WP3 待验收；V3-MAINT-WP4 待验收；V3-MAINT-WP5 待验收；V3-MAINT-WP6 待验收；V3-MAINT-WP7 待验收；V3-MAINT-WP8 待验收；V3-MAINT-WP9 待验收；V3-MAINT-WP10 待验收；V3-MAINT-WP11 待验收；V3-MAINT-WP12 待验收；V3-MAINT-WP13 待验收；V3-MAINT-WP14 待验收
+当前工作包：V3-MAINT-WP15 `scope` Skill 写作优化
+总体状态：V1 已完成；V2-P1 至 V2-P5 已完成；V2-P6-WP1 待验收；V3 已完成；V3-MAINT-WP1 待验收；V3-MAINT-WP2 待验收；V3-MAINT-WP3 待验收；V3-MAINT-WP4 待验收；V3-MAINT-WP5 待验收；V3-MAINT-WP6 待验收；V3-MAINT-WP7 待验收；V3-MAINT-WP8 待验收；V3-MAINT-WP9 待验收；V3-MAINT-WP10 待验收；V3-MAINT-WP11 待验收；V3-MAINT-WP12 待验收；V3-MAINT-WP13 待验收；V3-MAINT-WP14 待验收；V3-MAINT-WP15 待验收
 
 本台账用于记录 V1、V2 和 V3 工作包推进状态。每次开发 Agent 开始、完成、阻塞、暂缓或提交工作包验收时，必须同步更新本文件。
 
@@ -239,7 +239,7 @@
 
 ## 5. 下一步建议
 
-1. 等待项目负责人验收 `V3-MAINT-WP1` 至 `V3-MAINT-WP14`。
+1. 等待项目负责人验收 `V3-MAINT-WP1` 至 `V3-MAINT-WP15`。
 2. 验收通过后再将对应维护工作包标记为已完成。
 3. V2-P6-WP1 仍保留待验收状态，未被 V3 或本次维护工作自动标记为已完成。
 4. 后续若进入真实试点运行效果验收，必须基于真实试点数据补充，不能用本仓库模板资产替代。
@@ -334,11 +334,13 @@
 | V3-MAINT-WP12 | `release` Skill 分支发布分析重构 | 待验收 | `skills/release/SKILL.md`、`references/templates/feature/release-report.md`、`references/templates/README.md`、`agents/release-reviewer.md`、`CONTEXT.md`、`docs/PROGRESS.md` | 用户要求 `release` 对当前或指定分支进行分析，输出发布报告，并去掉核心场景测试设计，只汇总当前已知信息 | 已将 `release` 重构为当前/指定分支发布分析流程，覆盖 main 分支风险、分叉时间超过 1 个月风险、分支 diff 与 `docs/features/` 需求证据核对、SQL/配置/脚本检查、验证计划、发布建议和回滚计划；等待项目负责人验收 |
 | V3-MAINT-WP13 | 目标项目入口模板收敛为 hicode 补充片段 | 待验收 | `references/templates/project/hicode-entry-section.md`、`skills/init/SKILL.md`、`references/templates/README.md`、`CONTEXT.md`、`docs/V3_IMPLEMENTATION_PLAN.md`、`docs/PROGRESS.md` | 用户确认非 Claude Code 平台是主要支持对象，但入口主体应由平台 `/init` 生成，hicode 只补充必要 section | 已删除完整 `references/templates/project/AGENTS.md` 和 `CLAUDE.md` 模板，新增平台无关 hicode 入口补充片段，并同步 init 流程、模板索引、术语和 V3 计划；等待项目负责人验收 |
 | V3-MAINT-WP14 | `init` Skill 写作优化 | 待验收 | `skills/init/SKILL.md`、`CONTEXT.md`、`docs/PROGRESS.md` | 用户要求使用 `write-a-skill` 优化 `skills/init`，并确认 Skill 正文使用中文、不强制限制在 100 行以内 | 已将 `init` Skill 改为中文主文档，强化 description 触发条件、快速示例、执行流程、停止条件和输出要求；保留平台 `/init` 优先、hicode section 补充、rules/docs 初始化和 graphify 可选扫描边界；等待项目负责人验收 |
+| V3-MAINT-WP15 | `scope` Skill 写作优化 | 待验收 | `skills/scope/SKILL.md`、`docs/PROGRESS.md` | 用户要求使用 `write-a-skill` 优化 `skills/scope`，并将行数限制放宽至 160 行 | 已将 `scope` Skill 重写为 160 行以内的中文主文档，强化 description 触发条件、快速示例、需求目录固定、Scope 模式、需求评审、澄清追问、方案比较、小任务拆分、分流停止条件和输出要求；等待项目负责人验收 |
 
 ## 10. 最近变更记录
 
 | 日期 | 操作者 | 变更 | 关联工作包 |
 |---|---|---|---|
+| 2026-06-12 | Codex | 使用 `write-a-skill` 优化 `skills/scope/SKILL.md`：压缩至 154 行，补强 description 触发条件、快速示例、需求目录固定、Scope 模式、需求评审、澄清追问、方案比较、小任务拆分、分流停止条件和输出要求 | V3-MAINT-WP15 |
 | 2026-06-12 | Codex | 使用 `write-a-skill` 优化 `skills/init/SKILL.md`：按用户确认改为中文主文档，不强制限制 100 行；补强 description 触发条件、快速示例、执行流程、停止条件和输出要求，并同步 init 术语边界 | V3-MAINT-WP14 |
 | 2026-06-12 | Codex | 将目标项目完整入口模板收敛为 `references/templates/project/hicode-entry-section.md`：入口主体优先由目标 Coding 平台 `/init` 生成，hicode 只补充文档路径、Skill 路由、规则目录和安全边界；删除完整 `AGENTS.md` / `CLAUDE.md` 模板并同步 `init`、模板索引、术语和 V3 计划 | V3-MAINT-WP13 |
 | 2026-06-12 | Codex | 重构 `skills/release/SKILL.md`：以当前或指定 Git 分支为分析对象，补充 main 分支风险、分叉时间超过 1 个月风险、diff 与 `docs/features/` 需求证据核对、SQL/配置/脚本风险、已知测试汇总、验证计划、发布建议和回滚计划；同步发布报告模板、`release-reviewer` 和术语上下文 | V3-MAINT-WP12 |
