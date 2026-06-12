@@ -79,13 +79,23 @@ check_no_match \
   skills agents references/rules references/templates references/hooks
 
 check_no_match \
+  "skills use runtime shared assets instead of reading repository references directly" \
+  '\.\./\.\./references/(rules|templates)' \
+  skills
+
+check_no_match \
+  "agents use runtime shared assets instead of reading repository references directly" \
+  'references/(rules|templates)' \
+  agents
+
+check_no_match \
   "plugin manifest does not expose docs, archive, or retired references" \
   '("\./docs/?|"docs/"|"\./archive/?|"archive/"|"references/(prompts|skills|gates|schemas|examples|init|target-project))' \
   .claude-plugin/plugin.json
 
 check_no_match \
-  "installer does not copy assets, create .hicode, or generate entry files" \
-  '\b(cp|rsync|ditto|tar)\b|mkdir .*\.hicode|touch .*CLAUDE|touch .*AGENTS' \
+  "installer does not create .hicode or generate entry files" \
+  'mkdir .*\.hicode|touch .*CLAUDE|touch .*AGENTS|cat >.*CLAUDE|cat >.*AGENTS' \
   install.sh
 
 check_no_match \
@@ -110,8 +120,12 @@ check_cmd \
   node -e "JSON.parse(require('fs').readFileSync('.claude-plugin/plugin.json','utf8')); JSON.parse(require('fs').readFileSync('.claude-plugin/marketplace.json','utf8'))"
 
 check_cmd \
-  "plugin manifest exposes only skills runtime asset" \
-  node -e "const p=JSON.parse(require('fs').readFileSync('.claude-plugin/plugin.json','utf8')); if (!Array.isArray(p.skills) || p.skills.length !== 1 || p.skills[0] !== './skills/') process.exit(1)"
+  "plugin manifest exposes only agents and skills runtime assets" \
+  node -e "const p=JSON.parse(require('fs').readFileSync('.claude-plugin/plugin.json','utf8')); if (!Array.isArray(p.skills) || p.skills.length !== 1 || p.skills[0] !== './skills/') process.exit(1); if (!Array.isArray(p.agents) || p.agents.length !== 1 || p.agents[0] !== './agents/') process.exit(1)"
+
+check_cmd \
+  "runtime shared assets mirror references source files" \
+  bash -c "diff -qr references/rules skills/_shared/rules >/dev/null && diff -qr references/templates skills/_shared/templates >/dev/null"
 
 check_cmd "hook config parses as JSON" node -e "JSON.parse(require('fs').readFileSync('references/hooks/hook.json','utf8'))"
 check_cmd "hook catalog and documentation stay aligned" node -e "
@@ -132,6 +146,8 @@ for (const hook of catalog.hooks || []) {
 "
 check_cmd "install.sh shell syntax is valid" bash -n install.sh
 check_cmd "install dry-run succeeds without touching target projects" bash install.sh --dry-run --yes
+check_cmd "opencode install dry-run succeeds without touching target projects" bash install.sh --opencode --dry-run --yes
+check_cmd "dual-platform install dry-run succeeds without touching target projects" bash install.sh --all --dry-run --yes
 check_cmd "git diff has no whitespace errors" git diff --check
 
 if [ "$failures" -gt 0 ]; then

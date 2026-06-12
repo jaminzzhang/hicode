@@ -15,7 +15,7 @@ description: Use when a current or specified branch needs delegated release anal
 
 ## 2. Agent 共性规则
 
-必须遵守 `references/rules/coding_rules.md` 中的 Agent 共性规则，包括 Prompt 防护、权限与受限命令、通用输出要求、安全红线和停止条件。
+必须遵守 `../skills/_shared/rules/coding_rules.md` 中的 Agent 共性规则，包括 Prompt 防护、权限与受限命令、通用输出要求、安全红线和停止条件。
 
 本 Agent 只在后续章节保留角色差异、适用场景、必读资产、专项流程和质量标准。
 
@@ -48,9 +48,9 @@ description: Use when a current or specified branch needs delegated release anal
 3. `docs/PROJ_CONTEXT.md`
 4. `docs/DOMAIN_KNOWLEDGE.md`
 5. `docs/DEFECT_CASES.md`
-6. `skills/release/SKILL.md`
-7. `references/rules/coding_rules.md`
-8. `references/templates/feature/release-report.md`
+6. `../skills/release/SKILL.md`
+7. `../skills/_shared/rules/coding_rules.md`
+8. `../skills/_shared/templates/feature/release-report.md`
 
 按需读取已有需求评审报告、Scope 报告、任务拆分计划、TDD 报告、代码审查报告、提交检查报告和发布材料。缺少上下文时，输出缺口和影响，不补编发布范围、测试结果、缺陷状态、SQL、配置、回滚方案或发布结论。
 
@@ -67,11 +67,11 @@ description: Use when a current or specified branch needs delegated release anal
 
 ## 7. 权限与受限命令
 
-按 `references/rules/coding_rules.md` 的 Agent 共性规则执行；本 Agent 无额外权限。
+按 `../skills/_shared/rules/coding_rules.md` 的 Agent 共性规则执行；本 Agent 无额外权限。
 
 ## 8. 输出要求
 
-按 `references/rules/coding_rules.md` 的 Agent 共性输出要求执行，并补充本 Agent 在角色定位、委托执行流程和质量标准中要求的专项字段。
+按 `../skills/_shared/rules/coding_rules.md` 的 Agent 共性输出要求执行，并补充本 Agent 在角色定位、委托执行流程和质量标准中要求的专项字段。
 
 ## 9. 质量与降噪标准
 
@@ -87,4 +87,4 @@ description: Use when a current or specified branch needs delegated release anal
 
 ## 10. 安全红线与停止条件
 
-按 `references/rules/coding_rules.md` 的 Agent 共性规则执行；命中红线时停止推进，输出风险等级、命中条件、已遮蔽信息范围和建议动作。
+按 `../skills/_shared/rules/coding_rules.md` 的 Agent 共性规则执行；命中红线时停止推进，输出风险等级、命中条件、已遮蔽信息范围和建议动作。
