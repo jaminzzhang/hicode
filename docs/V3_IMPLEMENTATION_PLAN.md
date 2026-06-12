@@ -20,7 +20,7 @@ V3 的核心目标不是新增业务能力，而是降低当前资产目录、Sk
 8. 旧 Prompt 内容拆为执行规则、输出骨架和历史原文：规则进 Skill 或 `references/rules/`，输出骨架进 `references/templates/`，原文归档。
 9. 旧 Gate 内容拆为判定规则和报告模板：规则进 `references/rules/`，模板进 `references/templates/`，原文归档。
 10. 旧 JSON Schema 归档，当前使用 Markdown 结构化输出规则。
-11. 目标项目入口补充片段由 `references/templates/project/hicode-entry-section.md` 承载；完整 `AGENTS.md` 或 `CLAUDE.md` 入口主体优先由目标 Coding 平台 `/init` 生成。
+11. 目标项目入口补充片段由 `references/templates/project/hicode-entry-section.md` 承载；完整 `AGENTS.md` 或 `CLAUDE.md` 入口主体优先由 Agent 可执行初始化能力生成。OpenCode TUI `/init` 等用户手工命令不能由 Agent 代替执行。
 12. `hicode:init` 只初始化目标项目入口、上下文和项目规则文档，不复制 hicode plugin 资产到目标项目 `.hicode/`。
 13. `.claude-plugin/plugin.json` 和 `install.sh` 不得把本仓库 `docs/`、历史文档或 `archive/` 安装为目标 Coding Agent 运行资产。
 14. V3 按工作包推进，工作包完成后先标记为 `待验收`，项目负责人确认后才能进入下一包。

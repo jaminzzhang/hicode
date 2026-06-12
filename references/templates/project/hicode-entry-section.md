@@ -1,6 +1,6 @@
 # hicode 入口补充片段
 
-本片段用于补充到目标项目已有的 `AGENTS.md` 或 `CLAUDE.md`。入口文件主体应优先由当前 Coding 平台的 `/init` 或等价初始化能力生成；hicode 只补充项目文档路径、Skill 路由、规则目录和安全边界。
+本片段用于补充到目标项目已有的 `AGENTS.md` 或 `CLAUDE.md`。入口文件主体应优先由当前 Agent 可执行初始化能力生成；若目标平台只有用户手工 TUI `/init`，例如 OpenCode，则需用户手工执行或确认由 hicode 生成最小入口。hicode 只补充项目文档路径、Skill 路由、规则目录和安全边界。
 
 ## hicode 文档路径
 

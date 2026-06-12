@@ -24,7 +24,7 @@
 
 | 文档 | 层级 | 说明 | 正式写入规则 |
 |---|---|---|---|
-| `hicode-entry-section.md` | 项目全局 | 补充到平台 `/init` 生成的 `AGENTS.md` 或 `CLAUDE.md`，提供 hicode 文档路径、Skill 路由、规则目录和安全边界 | 初始化或负责人确认后写入入口文件 |
+| `hicode-entry-section.md` | 项目全局 | 补充到 Agent 可执行初始化能力或用户手工初始化后生成的 `AGENTS.md` 或 `CLAUDE.md`，提供 hicode 文档路径、Skill 路由、规则目录和安全边界 | 初始化或负责人确认后写入入口文件 |
 | `DOMAIN_KNOWLEDGE.md` | 项目全局 | 领域术语、业务域、保险核心场景和可复用业务规则 | 负责人确认后写入 |
 | `PROJ_CONTEXT.md` | 项目全局 | 项目定位、模块结构、核心流程、接口依赖、数据状态、局部命令和历史风险 | 负责人确认后写入 |
 | `docs/adr/*.md` | 项目全局 | 难逆、意外且有真实取舍的架构或治理决策 | 决策人确认后写入或更新 |
@@ -59,7 +59,7 @@
 
 1. `project/` 模板只由 `hicode:init` 或需要沉淀项目全局上下文的场景在用户确认后按需读取。
 2. `feature/` 模板由 `hicode:scope`、`hicode:tdd`、`hicode:review` 和 `hicode:release` 在当前需求目录下按需生成。
-3. 目标项目入口文件主体优先由当前 Coding 平台 `/init` 生成；hicode 只用 `hicode-entry-section.md` 补充必要入口片段。
+3. 目标项目入口文件主体优先由当前 Agent 可执行初始化能力生成；OpenCode TUI `/init` 等用户手工命令不能由 Agent 代替执行，hicode 只用 `hicode-entry-section.md` 补充必要入口片段。
 4. 模板必须保留占位项、填写说明和安全约束。
 5. 模板不得包含长篇执行规则；规则应引用或对应当前规则目录。
 6. 模板不得包含真实客户信息、生产数据、生产地址、密钥、Token 或生产配置。
