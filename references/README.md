@@ -32,7 +32,7 @@
 ## 使用规则
 
 1. 先由根目录 Skill 判断任务场景，再读取必要的 `rules/` 或 `templates/` 文件。
-2. `rules/shared/` 必须保持短小，不放长篇 guide 或历史材料。
+2. 当前稳定规则 interface 是 `references/rules/coding_rules.md`；不得引用尚不存在的规则子目录。
 3. 模板只保存可填写骨架；执行规则必须进入 `rules/` 或 Skill/Agent 正文。
 4. Hook 说明只提供可选配置和审计边界，不代表自动启用。
 5. 历史材料进入根目录 `archive/`，不得作为当前执行依据。

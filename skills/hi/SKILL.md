@@ -22,7 +22,7 @@ description: Use when a target project needs the hicode global entrypoint, first
 | `hicode:scope` | 需求评审、范围界定、编码计划和编码准入 |
 | `hicode:tdd` | 测试先行、RED-GREEN-REFACTOR 和受控实现 |
 | `hicode:review` | 代码审查、提交检查和专项审查 |
-| `hicode:release` | 发布检查、核心场景测试、生产验证计划和发布风险判断 |
+| `hicode:release` | 发布分析、生产验证计划、回滚方案和发布风险判断 |
 
 ## 处理顺序
 
@@ -75,7 +75,7 @@ description: Use when a target project needs the hicode global entrypoint, first
 2. 想要梳理分析需求、评审需求、根据需求制定计划，或者想要编码实现但需求目标、范围、业务规则、影响面或编码准入不清时，使用 `hicode:scope`。
 3. 需要编码实现、测试先行、失败复现、RED-GREEN-REFACTOR、缺陷修复证据或受控实现时，使用 `hicode:tdd`。
 4. 需要代码审查、提交检查、安全、Java、SQL、保险核心业务等专项审查时，使用 `hicode:review`。
-5. 需要发布检查、核心场景测试、生产验证计划、回滚方案或发布风险判断时，使用 `hicode:release`。
+5. 需要发布分析、生产验证计划、回滚方案或发布风险判断时，使用 `hicode:release`。
 
 如果多个路由同时命中，按风险和依赖顺序处理：先 `init` 补足入口和上下文，再 `scope` 澄清需求与准入，再 `tdd` 实现和验证，再 `review` 审查，最后 `release` 汇总发布风险。
 
@@ -88,7 +88,7 @@ description: Use when a target project needs the hicode global entrypoint, first
 3. `hicode:scope`：澄清需求、评审范围、形成编码计划和 TDD 输入。
 4. `hicode:tdd`：按测试先行和 RED-GREEN-REFACTOR 做受控实现或修复。
 5. `hicode:review`：做代码审查、提交检查和专项风险审查。
-6. `hicode:release`：做发布检查、生产验证计划、回滚方案和发布风险判断。
+6. `hicode:release`：做发布分析、生产验证计划、回滚方案和发布风险判断。
 
 简介必须短，不要复制长规则全文。
 
@@ -96,9 +96,9 @@ description: Use when a target project needs the hicode global entrypoint, first
 
 默认不读取所有规则。只有当前回答需要具体依据、风险分级或输出口径时，按需读取：
 
-1. 共享安全和输出边界：`../../references/rules/shared/`
-2. 初始化规则：`../../references/rules/init/`
-3. 场景规则：`../../references/rules/scope/`、`tdd/`、`review/`、`release/`
+1. 当前稳定规则 interface：`../../references/rules/coding_rules.md`
+
+不得引用尚不存在的规则子目录作为当前规则依据。
 
 ## 安全边界
 

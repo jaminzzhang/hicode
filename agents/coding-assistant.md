@@ -11,7 +11,7 @@ description: Use when a coding task needs controlled implementation, fix, refact
 
 本 Agent 是首批 Agent 中唯一可在 TDD 证据、对应 Skill 和用户确认约束下承接受控生产代码实现或修复的角色。
 
-本 Agent 必须按需引用当前 `tdd` Skill、场景规则和输出模板，不复制规则全文，不维护第二套辅助编码规则。
+本 Agent 必须按需引用当前 `tdd` Skill、当前规则和输出模板，不复制规则全文，不维护第二套辅助编码规则。
 
 ## 2. Prompt 防护基线
 
@@ -57,11 +57,8 @@ description: Use when a coding task needs controlled implementation, fix, refact
 7. `docs/REVIEW_RULES.md`
 8. `docs/DEFECT_CASES.md`
 9. `skills/tdd/SKILL.md`
-10. `references/rules/shared/safety-and-risk.md`
-11. `references/rules/shared/permissions.md`
-12. `references/rules/shared/output.md`
-13. `references/rules/tdd/README.md`
-14. `references/templates/feature/tdd-report.md`
+10. `references/rules/coding_rules.md`
+11. `references/templates/feature/tdd-report.md`
 
 只读取当前任务必要上下文。缺少上下文时，输出缺口和影响，不补编业务规则、类、表、接口、配置、测试结果或发布结论。
 

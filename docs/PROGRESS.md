@@ -4,8 +4,8 @@
 
 最近更新时间：2026-06-12
 当前阶段：V3 后续维护
-当前工作包：V3-MAINT-WP17 `review` Skill 写作优化
-总体状态：V1 已完成；V2-P1 至 V2-P5 已完成；V2-P6-WP1 待验收；V3 已完成；V3-MAINT-WP1 待验收；V3-MAINT-WP2 待验收；V3-MAINT-WP3 待验收；V3-MAINT-WP4 待验收；V3-MAINT-WP5 待验收；V3-MAINT-WP6 待验收；V3-MAINT-WP7 待验收；V3-MAINT-WP8 待验收；V3-MAINT-WP9 待验收；V3-MAINT-WP10 待验收；V3-MAINT-WP11 待验收；V3-MAINT-WP12 待验收；V3-MAINT-WP13 待验收；V3-MAINT-WP14 待验收；V3-MAINT-WP15 待验收；V3-MAINT-WP16 待验收；V3-MAINT-WP17 待验收
+当前工作包：V3-MAINT-WP18 当前规则 Module 架构收敛
+总体状态：V1 已完成；V2-P1 至 V2-P5 已完成；V2-P6-WP1 待验收；V3 已完成；V3-MAINT-WP1 待验收；V3-MAINT-WP2 待验收；V3-MAINT-WP3 待验收；V3-MAINT-WP4 待验收；V3-MAINT-WP5 待验收；V3-MAINT-WP6 待验收；V3-MAINT-WP7 待验收；V3-MAINT-WP8 待验收；V3-MAINT-WP9 待验收；V3-MAINT-WP10 待验收；V3-MAINT-WP11 待验收；V3-MAINT-WP12 待验收；V3-MAINT-WP13 待验收；V3-MAINT-WP14 待验收；V3-MAINT-WP15 待验收；V3-MAINT-WP16 待验收；V3-MAINT-WP17 待验收；V3-MAINT-WP18 待验收
 
 本台账用于记录 V1、V2 和 V3 工作包推进状态。每次开发 Agent 开始、完成、阻塞、暂缓或提交工作包验收时，必须同步更新本文件。
 
@@ -239,7 +239,7 @@
 
 ## 5. 下一步建议
 
-1. 等待项目负责人验收 `V3-MAINT-WP1` 至 `V3-MAINT-WP17`。
+1. 等待项目负责人验收 `V3-MAINT-WP1` 至 `V3-MAINT-WP18`。
 2. 验收通过后再将对应维护工作包标记为已完成。
 3. V2-P6-WP1 仍保留待验收状态，未被 V3 或本次维护工作自动标记为已完成。
 4. 后续若进入真实试点运行效果验收，必须基于真实试点数据补充，不能用本仓库模板资产替代。
@@ -337,11 +337,13 @@
 | V3-MAINT-WP15 | `scope` Skill 写作优化 | 待验收 | `skills/scope/SKILL.md`、`docs/PROGRESS.md` | 用户要求使用 `write-a-skill` 优化 `skills/scope`，并将行数限制放宽至 160 行 | 已将 `scope` Skill 重写为 160 行以内的中文主文档，强化 description 触发条件、快速示例、需求目录固定、Scope 模式、需求评审、澄清追问、方案比较、小任务拆分、分流停止条件和输出要求；等待项目负责人验收 |
 | V3-MAINT-WP16 | `tdd` Skill 写作优化 | 待验收 | `skills/tdd/SKILL.md`、`docs/PROGRESS.md` | 用户要求使用 `write-a-skill` 优化 `skills/tdd`，并将行数限制放宽至 160 行左右 | 已将 `tdd` Skill 优化为 160 行左右的中文主文档，强化 description 触发条件、快速示例、文档规则、任务模式、TDD 核心原则、tracer bullet、RED-GREEN-REFACTOR、Mock/测试数据、本地验证、停止条件和输出要求；等待项目负责人验收 |
 | V3-MAINT-WP17 | `review` Skill 写作优化 | 待验收 | `skills/review/SKILL.md`、`docs/PROGRESS.md` | 用户要求使用 `write-a-skill` 优化 `skills/review`，并将行数限制放宽至 150 行 | 已将 `review` Skill 优化为 150 行以内的中文主文档，强化 description 触发条件、快速示例、文档规则、三轴审查、专项审查、问题分级、阻断建议、本地验证、停止条件和输出要求；同时修正不存在的规则路径引用；等待项目负责人验收 |
+| V3-MAINT-WP18 | 当前规则 Module 架构收敛 | 待验收 | `CONTEXT.md`、`skills/hi/SKILL.md`、`agents/*.md`、`references/README.md`、`references/hooks/`、`docs/PROGRESS.md` | 用户要求基于架构优化优选项使用 `grill-with-docs` 分析并优化；已确认不恢复多目录规则结构，当前稳定规则 interface 收敛为 `references/rules/coding_rules.md` | 已将 Agent、Hook、`hi` 和 references 入口中的失效规则路径统一收敛到 `references/rules/coding_rules.md`，并同步术语上下文；等待项目负责人验收 |
 
 ## 10. 最近变更记录
 
 | 日期 | 操作者 | 变更 | 关联工作包 |
 |---|---|---|---|
+| 2026-06-12 | Codex | 基于架构优化优选项收敛当前规则 Module：确认不恢复多目录规则结构，将当前稳定规则 interface 统一为 `references/rules/coding_rules.md`；修正 Agent、Hook、`hi` 和 references 入口中的失效规则路径，并同步 `CONTEXT.md` | V3-MAINT-WP18 |
 | 2026-06-12 | Codex | 使用 `write-a-skill` 优化 `skills/review/SKILL.md`：调整为 140 行，补强 description 触发条件、快速示例、文档规则、三轴审查、专项审查、问题分级、阻断建议、本地验证、停止条件和输出要求，并修正不存在的规则路径引用 | V3-MAINT-WP17 |
 | 2026-06-12 | Codex | 使用 `write-a-skill` 优化 `skills/tdd/SKILL.md`：调整为 161 行，补强 description 触发条件、快速示例、文档规则、任务模式、TDD 核心原则、tracer bullet、RED-GREEN-REFACTOR、Mock/测试数据、本地验证、停止条件和输出要求 | V3-MAINT-WP16 |
 | 2026-06-12 | Codex | 使用 `write-a-skill` 优化 `skills/scope/SKILL.md`：压缩至 154 行，补强 description 触发条件、快速示例、需求目录固定、Scope 模式、需求评审、澄清追问、方案比较、小任务拆分、分流停止条件和输出要求 | V3-MAINT-WP15 |

@@ -15,7 +15,7 @@
 | Hook ID | `coding-entry-gate-hook` |
 | 行为目录 | `references/hooks/hook.json` |
 | 相关 Skill | `skills/tdd/SKILL.md` |
-| 规则依据 | `references/rules/shared/`、`references/rules/tdd/README.md` |
+| 规则依据 | `references/rules/coding_rules.md` |
 | 默认模式 | `advisory` |
 | 建议适配事件 | `before_code_edit`、`before_write`、`before_patch` |
 

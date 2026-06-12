@@ -33,10 +33,7 @@
       "documentation": "references/hooks/coding-entry-gate-hook.md",
       "related_skill": "skills/tdd/SKILL.md",
       "rules": [
-        "references/rules/shared/safety-and-risk.md",
-        "references/rules/shared/permissions.md",
-        "references/rules/shared/output.md",
-        "references/rules/tdd/README.md"
+        "references/rules/coding_rules.md"
       ],
       "default_mode": "advisory",
       "trigger": {
@@ -102,10 +99,7 @@
       "documentation": "references/hooks/merge-gate-hook.md",
       "related_skill": "skills/review/SKILL.md",
       "rules": [
-        "references/rules/shared/safety-and-risk.md",
-        "references/rules/shared/permissions.md",
-        "references/rules/shared/output.md",
-        "references/rules/review/README.md"
+        "references/rules/coding_rules.md"
       ],
       "default_mode": "advisory",
       "trigger": {
@@ -187,8 +181,7 @@
       "documentation": "references/hooks/context-capture-hook.md",
       "related_skill": null,
       "rules": [
-        "references/rules/shared/safety-and-risk.md",
-        "references/rules/shared/output.md"
+        "references/rules/coding_rules.md"
       ],
       "default_mode": "advisory",
       "trigger": {

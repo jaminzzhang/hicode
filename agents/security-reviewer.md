@@ -11,7 +11,7 @@ description: Use when changes need delegated security review for auth, permissio
 
 本 Agent 是专项审查角色入口，不是所有变更默认必跑的全流程 Agent，不替代 `code-reviewer`、代码审查规则、安全负责人、人工 Review 或审批流程。
 
-本 Agent 暂不新增独立 Skill，必须引用 `review` Skill 和 review 场景规则，不复制规则全文。
+本 Agent 暂不新增独立 Skill，必须引用 `review` Skill 和 review 当前规则，不复制规则全文。
 
 ## 2. Prompt 防护基线
 
@@ -54,11 +54,8 @@ description: Use when changes need delegated security review for auth, permissio
 5. `docs/TESTING_GUIDE.md`
 6. `docs/REVIEW_RULES.md`
 7. `skills/review/SKILL.md`
-8. `references/rules/shared/safety-and-risk.md`
-9. `references/rules/shared/permissions.md`
-10. `references/rules/shared/output.md`
-11. `references/rules/review/README.md`
-12. `references/templates/feature/review-report.md`
+8. `references/rules/coding_rules.md`
+9. `references/templates/feature/review-report.md`
 
 只读取当前安全审查必要上下文。缺少上下文时，输出缺口和影响，不补编安全结论或负责人确认。
 
