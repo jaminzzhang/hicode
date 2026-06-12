@@ -1,5 +1,5 @@
 ---
-description: Use when a target backend application needs guided hicode initialization: use native /init for CLAUDE.md or AGENTS.md, create project rules under docs/rules, assess codebase complexity, and optionally scan complex projects with graphify after user confirmation.
+description: Use when a target backend application needs guided hicode initialization: use native /init for AGENTS.md or CLAUDE.md, add the hicode entry section, create project rules under docs/rules, assess codebase complexity, and optionally scan complex projects with graphify after user confirmation.
 ---
 
 # hicode init
@@ -16,11 +16,10 @@ description: Use when a target backend application needs guided hicode initializ
 
 1. `../../references/rules/`
 2. `../../references/rules/coding_rules.md`
-3. `../../references/templates/project/AGENTS.md`
-4. `../../references/templates/project/CLAUDE.md`
-5. `../../references/templates/project/DOMAIN_KNOWLEDGE.md`
-6. `../../references/templates/project/PROJ_CONTEXT.md`
-7. `../../references/templates/project/ADR-template.md`
+3. `../../references/templates/project/hicode-entry-section.md`
+4. `../../references/templates/project/DOMAIN_KNOWLEDGE.md`
+5. `../../references/templates/project/PROJ_CONTEXT.md`
+6. `../../references/templates/project/ADR-template.md`
 
 不得把 hicode plugin 内置 Skill、Agent、Rule、Template 或 Hook 复制到目标项目本地运行目录。
 
@@ -30,17 +29,17 @@ description: Use when a target backend application needs guided hicode initializ
 
 1. 确认目标项目根目录，避免把 hicode plugin 仓库当成目标项目。
 2. 判断当前平台入口：
-   - Claude Code 使用 `CLAUDE.md`。
    - Codex、OpenCode 和其他使用 AGENTS 约定的平台使用 `AGENTS.md`。
+   - Claude Code 使用 `CLAUDE.md`。
    - 无法判断时先问用户一个问题确认目标入口文件。
 3. 检查目标项目是否已有对应入口文件。
 
-### 2. 初始化 `CLAUDE.md` 或 `AGENTS.md`
+### 2. 初始化 `AGENTS.md` 或 `CLAUDE.md`
 
 1. 如果对应入口文件不存在，调用当前 Agent 平台的 `/init` 命令生成入口文件。
-2. 如果当前平台不支持 `/init`，方可自行生成 `CLAUDE.md` 或 `AGENTS.md`。
+2. 如果当前平台不支持 `/init`，方可自行生成最小入口文件；最小入口只能包含当前平台入口标题、项目待确认占位和 hicode 补充片段引用内容。
 3. 自行生成入口文件时，必须说明 `/init` 不可用的原因，并在写入前确认目标入口类型和写入范围。
-4. 如果入口文件已存在，只在后续规则初始化完成后，在已有文件基础上补充 hicode rules 信息；不得覆盖用户已有内容。
+4. 如果入口文件已存在，只在后续规则初始化完成后，基于 `hicode-entry-section.md` 补充 hicode section；不得覆盖用户已有内容。
 5. `CLAUDE.md` 与 `AGENTS.md` 同时存在时，只处理当前平台入口；是否同步另一个入口必须单独询问用户。
 
 ### 3. 初始化 rules
@@ -49,7 +48,7 @@ description: Use when a target backend application needs guided hicode initializ
 2. 在目标项目 `docs/rules/` 目录下生成对应 rules 文件。
 3. 对适用且可直接复用的规则，可以直接从 `references/rules/` 拷贝到 `docs/rules/`。
 4. 对只部分适用的规则，应生成项目版规则文件，保留适用条款，并用 `待确认` 标注需要项目负责人确认的差异。
-5. 生成或更新规则后，在已有的 `CLAUDE.md` 或 `AGENTS.md` 中补充 rules 信息，至少包含：
+5. 生成或更新规则后，在已有的 `CLAUDE.md` 或 `AGENTS.md` 中补充或更新 hicode section，至少包含：
    - `docs/rules/` 是目标项目规则目录。
    - 编码、测试生成、代码审查和提交检查必须按任务读取适用 rules。
    - 项目 rules 只能补充或加严 hicode 内置规则，不能放宽安全、合规、审计、幂等、事务、状态流转、异常防御和测试要求。
@@ -69,7 +68,7 @@ description: Use when a target backend application needs guided hicode initializ
 1. 目标文档不存在时，先读取 `../../references/templates/project/` 下对应模板，再按需创建文档。
 2. `docs/DOMAIN_KNOWLEDGE.md` 和 `docs/PROJ_CONTEXT.md` 只写已确认事实；未确认内容必须保留为 `待确认` 或输出更新建议。
 3. `docs/adr/` 只创建目录，不凭空创建 ADR；只有存在难逆、意外且有真实取舍的决策时，才基于 `ADR-template.md` 生成 ADR 草稿。
-4. 创建或确认这些路径后，必须在 `CLAUDE.md` 或 `AGENTS.md` 中说明项目级共享文档路径和单需求文档路径：
+4. 创建或确认这些路径后，必须在 `CLAUDE.md` 或 `AGENTS.md` 的 hicode section 中说明项目级共享文档路径和单需求文档路径：
    - 项目级：`docs/DOMAIN_KNOWLEDGE.md`、`docs/PROJ_CONTEXT.md`、`docs/adr/`、`docs/rules/`
    - 单需求：`docs/features/<feature-id>/feature_context.md` 及同目录下的评审、Scope、TDD、Review、Release 报告。
 5. 已有文档优先保留。发现目标入口文档中的路径说明与实际目录冲突时，列出冲突并等待用户确认。
@@ -140,7 +139,7 @@ graphify 不可用时：
 3. `/init` 是否执行；未执行时说明原因。
 4. `docs/rules/` 创建、补充、跳过和需确认的文件清单。
 5. 项目级文档目录创建、补充、跳过和需确认的文件清单。
-6. 入口文件中的项目级文档路径和单需求文档路径说明。
+6. 入口文件中的 hicode section 补充内容摘要，包括项目级文档路径和单需求文档路径说明。
 7. 已读 hicode rules 和 templates。
 8. 入口文件补充内容摘要。
 9. 项目复杂度判断：低 / 中 / 高 / 待确认，并说明依据。
