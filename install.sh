@@ -12,6 +12,7 @@ OPENCODE_PROJECT_DIR="$PWD"
 
 INSTALL_CLAUDE=0
 INSTALL_OPENCODE=0
+INSTALL_CODEX=0
 DRY_RUN=0
 YES=0
 
@@ -20,22 +21,27 @@ usage() {
 hicode Coding Agent installer
 
 Usage:
-  install.sh [--claude-code] [--opencode] [--all] [--scope user|local|project] [--opencode-scope user|project] [--dry-run] [--yes]
+  install.sh [--claude-code] [--opencode] [--codex] [--all] [--scope user|local|project] [--opencode-scope user|project] [--dry-run] [--yes]
 
 Options:
-  --claude-code          Install the hicode Claude Code plugin. Default when no platform is specified.
+  --claude-code          Install the hicode Claude Code plugin.
   --opencode            Install hicode agents and skills for OpenCode.
-  --all                 Install both Claude Code plugin and OpenCode runtime assets.
+  --codex               Install hicode skills for Codex CLI.
+  --all                 Install for all supported platforms (Claude Code, OpenCode, Codex).
   --scope               Claude Code install scope. Default: user.
   --opencode-scope      OpenCode install scope: user or project. Default: user.
   --opencode-config-dir OpenCode user config directory. Default: $OPENCODE_CONFIG_DIR or ~/.config/opencode.
   --opencode-project-dir
                        Target project directory for --opencode-scope project. Default: current directory.
   --dry-run             Print the installation plan without changing user configuration.
-  --yes                 Run without interactive confirmation.
+  --yes                 Run without interactive confirmation. Without platform flags, defaults to Claude Code.
   -h, --help            Show this help.
 
-This installer supports Claude Code plugin installation and OpenCode local agents/skills installation.
+When no platform flag is specified and --yes is not used, an interactive menu prompts
+for platform selection. With --yes and no platform flag, Claude Code is installed by default.
+
+This installer supports Claude Code plugin installation, OpenCode local agents/skills installation,
+and Codex CLI skills installation.
 It exposes only runtime assets declared in .claude-plugin/plugin.json or transformed runtime assets copied from skills/ and agents/.
 It does not install this repository's docs/ or archive/ as runtime assets.
 It does not scan projects, generate CLAUDE.md or AGENTS.md, or create .hicode/.
@@ -295,6 +301,172 @@ for (const agent of agentNames) {
 NODE
 }
 
+select_platforms() {
+  log ""
+  log "Select target platform(s) to install hicode:"
+  log "  1) Claude Code"
+  log "  2) OpenCode"
+  log "  3) Codex CLI"
+  log "  a) All platforms"
+  log ""
+  printf 'Enter choice(s), space-separated (e.g. "1 3" for Claude Code + Codex): '
+  read -r choices
+
+  for choice in $choices; do
+    case "$choice" in
+      1) INSTALL_CLAUDE=1 ;;
+      2) INSTALL_OPENCODE=1 ;;
+      3) INSTALL_CODEX=1 ;;
+      a|A)
+        INSTALL_CLAUDE=1
+        INSTALL_OPENCODE=1
+        INSTALL_CODEX=1
+        ;;
+      *) die "Invalid choice: $choice. Expected 1, 2, 3, or a." ;;
+    esac
+  done
+
+  if [ "$INSTALL_CLAUDE" -eq 0 ] && [ "$INSTALL_OPENCODE" -eq 0 ] && [ "$INSTALL_CODEX" -eq 0 ]; then
+    die "No platform selected."
+  fi
+}
+
+install_codex() {
+  validate_plugin_assets
+
+  local codex_config_dir="${CODEX_HOME:-$HOME/.codex}"
+  local codex_skills_dir="$codex_config_dir/skills"
+
+  log ""
+  log "Codex CLI plan:"
+  log "  Skills target: $codex_skills_dir"
+  log "  Skills installed as: hicode-hi, hicode-init, hicode-scope, hicode-tdd, hicode-review, hicode-release"
+  log "  Shared runtime assets: hicode-shared"
+  log "  Agents: installed as skills (Codex CLI uses SKILL.md format)"
+  log "  Excluded from runtime: docs/, archive/, historical references/"
+  log "  Action: copy transformed hicode skills into Codex CLI skills directory"
+
+  if [ "$DRY_RUN" -eq 1 ]; then
+    log "+ mkdir -p \"$codex_skills_dir\""
+    log "+ install transformed skills/_shared to \"$codex_skills_dir/hicode-shared\""
+    log "+ install transformed skills/{hi,init,scope,tdd,review,release} to \"$codex_skills_dir/hicode-*\""
+    log "+ install transformed agents as skills to \"$codex_skills_dir/hicode-agent-*\""
+    return 0
+  fi
+
+  run_cmd mkdir -p "$codex_skills_dir"
+
+  node - "$CLAUDE_PLUGIN_DIR" "$codex_skills_dir" <<'NODE'
+const fs = require("fs");
+const path = require("path");
+
+const root = process.argv[2];
+const skillsOut = process.argv[3];
+const skillNames = ["hi", "init", "scope", "tdd", "review", "release"];
+const agentNames = [
+  "requirement-reviewer",
+  "coding-planner",
+  "tdd-guide",
+  "coding-assistant",
+  "code-reviewer",
+  "security-reviewer",
+  "java-reviewer",
+  "release-reviewer",
+];
+
+function resetTarget(target, allowedPrefix) {
+  const base = path.basename(target);
+  if (base !== allowedPrefix && !base.startsWith(`${allowedPrefix}-`)) {
+    throw new Error(`Refusing to replace non-hicode target: ${target}`);
+  }
+  fs.rmSync(target, { recursive: true, force: true });
+}
+
+function copyDir(src, dest) {
+  fs.mkdirSync(dest, { recursive: true });
+  for (const entry of fs.readdirSync(src, { withFileTypes: true })) {
+    const srcPath = path.join(src, entry.name);
+    const destPath = path.join(dest, entry.name);
+    if (entry.isDirectory()) {
+      copyDir(srcPath, destPath);
+    } else if (entry.isFile()) {
+      fs.copyFileSync(srcPath, destPath);
+    }
+  }
+}
+
+function upsertFrontmatterName(content, name) {
+  const match = content.match(/^---\n([\s\S]*?)\n---\n?/);
+  if (!match) return `---\nname: ${name}\n---\n\n${content}`;
+
+  const body = content.slice(match[0].length);
+  const lines = match[1].split("\n").filter((line) => !line.match(/^name\s*:/));
+  return `---\nname: ${name}\n${lines.join("\n")}\n---\n${body}`;
+}
+
+function transformSkillContent(content, name) {
+  return upsertFrontmatterName(content, name).replaceAll("../_shared/", "../hicode-shared/");
+}
+
+function transformAgentAsSkill(content, name) {
+  let next = upsertFrontmatterName(content, name);
+  next = next.replaceAll(
+    "../skills/_shared/rules/coding_rules.md",
+    path.join(skillsOut, "hicode-shared/rules/coding_rules.md")
+  );
+  next = next.replaceAll(
+    "../skills/_shared/templates/",
+    path.join(skillsOut, "hicode-shared/templates") + path.sep
+  );
+  next = next.replaceAll(
+    "references/rules/coding_rules.md",
+    path.join(skillsOut, "hicode-shared/rules/coding_rules.md")
+  );
+  next = next.replaceAll(
+    "references/templates/",
+    path.join(skillsOut, "hicode-shared/templates") + path.sep
+  );
+  for (const skill of skillNames) {
+    next = next.replaceAll(
+      `../skills/${skill}/SKILL.md`,
+      path.join(skillsOut, `hicode-${skill}/SKILL.md`)
+    );
+    next = next.replaceAll(
+      `skills/${skill}/SKILL.md`,
+      path.join(skillsOut, `hicode-${skill}/SKILL.md`)
+    );
+  }
+  return next;
+}
+
+const sharedDest = path.join(skillsOut, "hicode-shared");
+resetTarget(sharedDest, "hicode-shared");
+copyDir(path.join(root, "skills/_shared"), sharedDest);
+
+for (const skill of skillNames) {
+  const dest = path.join(skillsOut, `hicode-${skill}`);
+  resetTarget(dest, "hicode");
+  copyDir(path.join(root, "skills", skill), dest);
+  const skillPath = path.join(dest, "SKILL.md");
+  fs.writeFileSync(
+    skillPath,
+    transformSkillContent(fs.readFileSync(skillPath, "utf8"), `hicode-${skill}`)
+  );
+}
+
+for (const agent of agentNames) {
+  const destDir = path.join(skillsOut, `hicode-agent-${agent}`);
+  resetTarget(destDir, "hicode");
+  fs.mkdirSync(destDir, { recursive: true });
+  const source = path.join(root, "agents", `${agent}.md`);
+  fs.writeFileSync(
+    path.join(destDir, "SKILL.md"),
+    transformAgentAsSkill(fs.readFileSync(source, "utf8"), `hicode-agent-${agent}`)
+  );
+}
+NODE
+}
+
 while [ "$#" -gt 0 ]; do
   case "$1" in
     --claude-code)
@@ -303,9 +475,13 @@ while [ "$#" -gt 0 ]; do
     --opencode)
       INSTALL_OPENCODE=1
       ;;
+    --codex)
+      INSTALL_CODEX=1
+      ;;
     --all)
       INSTALL_CLAUDE=1
       INSTALL_OPENCODE=1
+      INSTALL_CODEX=1
       ;;
     --scope)
       [ "$#" -ge 2 ] || die "Missing value for --scope"
@@ -344,8 +520,12 @@ while [ "$#" -gt 0 ]; do
   shift
 done
 
-if [ "$INSTALL_CLAUDE" -eq 0 ] && [ "$INSTALL_OPENCODE" -eq 0 ]; then
-  INSTALL_CLAUDE=1
+if [ "$INSTALL_CLAUDE" -eq 0 ] && [ "$INSTALL_OPENCODE" -eq 0 ] && [ "$INSTALL_CODEX" -eq 0 ]; then
+  if [ "$YES" -eq 1 ]; then
+    INSTALL_CLAUDE=1
+  else
+    select_platforms
+  fi
 fi
 
 log "hicode Coding Agent installer"
@@ -356,6 +536,7 @@ log "OpenCode: $INSTALL_OPENCODE"
 log "OpenCode install scope: $OPENCODE_SCOPE"
 log "OpenCode config dir: $OPENCODE_CONFIG_DIR"
 log "OpenCode project dir: $OPENCODE_PROJECT_DIR"
+log "Codex: $INSTALL_CODEX"
 log ""
 log "This installer exposes only plugin runtime assets declared in .claude-plugin/plugin.json or transformed OpenCode runtime assets."
 log "This installer will not install repository docs/archive as runtime assets."
@@ -369,6 +550,10 @@ fi
 
 if [ "$INSTALL_OPENCODE" -eq 1 ]; then
   install_opencode
+fi
+
+if [ "$INSTALL_CODEX" -eq 1 ]; then
+  install_codex
 fi
 
 log ""
