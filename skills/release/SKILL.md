@@ -15,11 +15,12 @@ description: Use when the current or specified Git branch needs release analysis
 执行前按需读取：
 
 1. `../../references/rules/coding_rules.md`
-2. `../../references/templates/feature/release-report.md`
+2. `../../references/templates/README.md`
+3. `../../references/templates/feature/release-report.md`
 
 同时读取目标项目中与本次发布直接相关的材料：`AGENTS.md` 或 `CLAUDE.md`、`docs/DOMAIN_KNOWLEDGE.md`、`docs/PROJ_CONTEXT.md`、`docs/rules/`、`docs/adr/`、`docs/features/<feature-id>/` 下的 feature 上下文和各阶段报告，以及分支、Commit、MR/PR、CI、测试、缺陷、SQL、配置、脚本、制品和发布材料。
 
-若 `feature-id` 不明确，不得编造；可以先基于分支和 diff 输出临时报告，并把“需求目录未确认”列为证据缺口。需要落盘到 `docs/features/<feature-id>/release-report.md` 时，必须先确认 `feature-id`。
+按 `../../references/templates/README.md` 的单需求文档生命周期执行。若 `feature-id` 不明确，不得编造；可以先基于分支和 diff 输出临时报告，并把“需求目录未确认”列为证据缺口。需要落盘到 `docs/features/<feature-id>/release-report.md` 时，必须先确认 `feature-id`。
 
 不得读取 `.env`、密钥文件、生产配置、生产凭证、未脱敏客户信息、未脱敏生产数据或生产日志原文。
 
@@ -61,7 +62,7 @@ description: Use when the current or specified Git branch needs release analysis
 
 ### 5. 生成发布报告
 
-默认在回复中生成 Markdown 发布报告。若用户要求写入文件且 `feature-id` 已确认，基于 `../../references/templates/feature/release-report.md` 创建或更新 `docs/features/<feature-id>/release-report.md`。
+默认在回复中生成 Markdown 发布报告。若用户要求写入文件且 `feature-id` 已确认，基于 `../../references/templates/feature/release-report.md` 创建或更新 `docs/features/<feature-id>/release-report.md`，且只汇总已知证据、风险、验证计划和回滚计划。
 
 报告必须包含：
 

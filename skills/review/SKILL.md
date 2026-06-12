@@ -15,7 +15,8 @@ description: 审查代码变更、提交前风险、专项安全/Java/SQL/保险
 按需读取，不默认全量加载：
 
 1. `../../references/rules/coding_rules.md`
-2. `../../references/templates/feature/review-report.md`
+2. `../../references/templates/README.md`
+3. `../../references/templates/feature/review-report.md`
 
 同时读取目标项目中与本次变更直接相关的入口规则、`docs/features/<feature-id>/feature_context.md`、需求评审报告、Scope 报告、任务拆分计划、TDD 报告、Review 报告、`docs/DOMAIN_KNOWLEDGE.md`、`docs/PROJ_CONTEXT.md`、`docs/adr/`、`docs/rules/`、相关代码、测试、SQL、配置、脚本、CI 或扫描结果。
 
@@ -27,11 +28,9 @@ description: 审查代码变更、提交前风险、专项安全/Java/SQL/保险
 
 ## 文档规则
 
-当前需求目录固定为 `docs/features/<feature-id>/`；`feature-id` 不明确且本次审查需要单需求证据时，先问用户。
+按 `../../references/templates/README.md` 的单需求文档生命周期执行。缺少 `review-report.md` 时，先读取模板再按需创建；缺少需求来源、`feature_context.md`、Scope 报告、TDD 报告、diff 范围或验证结果时，不编造依据，标注需求轴或证据轴降级。
 
-缺少 `review-report.md` 时，先读取模板再按需创建。缺少需求来源、`feature_context.md`、Scope 报告、TDD 报告、diff 范围或验证结果时，不编造依据；标注需求轴或证据轴降级。
-
-创建或更新报告只能记录真实 diff、证据、问题、命令结果、未覆盖范围和待确认问题。
+Review 报告只能记录真实 diff、审查证据、问题、命令结果、未覆盖范围和待确认问题。
 
 ## 核心原则
 

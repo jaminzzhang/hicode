@@ -201,6 +201,15 @@ V3 工作包编号使用 `V3-P<阶段号>-WP<序号>`。
 2. 模板只保存可填写骨架，不承载执行规则全文。
 3. 目标项目入口补充片段使用平台无关模板，供 `hicode:init` 补充到目标项目 `AGENTS.md` 或 `CLAUDE.md`。
 
+### 当前收敛形态说明
+
+V3 后续维护已将上述 P3 中间目录进一步收敛：
+
+1. 当前稳定规则 interface 为 `references/rules/coding_rules.md`，不再维护 `references/rules/shared/`、`init/`、`scope/`、`tdd/`、`review/` 或 `release/` 作为当前规则目录。
+2. 当前模板目录按文档生命周期收敛为 `references/templates/project/` 和 `references/templates/feature/`，不再维护 `references/templates/scope/`、`tdd/`、`review/` 或 `release/` 作为当前目录。
+3. `references/templates/README.md` 维护单需求文档生命周期规则，`scope`、`tdd`、`review` 和 `release` Skill 按需引用，不在各 Skill 中复制完整写入规则。
+4. 本节保留 P3 原工作包描述作为历史执行计划；当前新资产必须以 `AGENTS.md`、`CONTEXT.md`、`references/README.md` 和实际文件结构为准。
+
 ## 9. V3-P4 Skill 直接执行化
 
 ### V3-P4-WP1 `hi` 与 `init` Skill 重写
