@@ -2,10 +2,10 @@
 
 ## 1. 当前状态
 
-最近更新时间：2026-06-11
+最近更新时间：2026-06-12
 当前阶段：V3 后续维护
-当前工作包：V3-MAINT-WP11 `tdd` Skill 行为测试与纵向切片重构
-总体状态：V1 已完成；V2-P1 至 V2-P5 已完成；V2-P6-WP1 待验收；V3 已完成；V3-MAINT-WP1 待验收；V3-MAINT-WP2 待验收；V3-MAINT-WP3 待验收；V3-MAINT-WP4 待验收；V3-MAINT-WP5 待验收；V3-MAINT-WP6 待验收；V3-MAINT-WP7 待验收；V3-MAINT-WP8 待验收；V3-MAINT-WP9 待验收；V3-MAINT-WP10 待验收；V3-MAINT-WP11 待验收
+当前工作包：V3-MAINT-WP13 目标项目入口模板收敛为 hicode 补充片段
+总体状态：V1 已完成；V2-P1 至 V2-P5 已完成；V2-P6-WP1 待验收；V3 已完成；V3-MAINT-WP1 待验收；V3-MAINT-WP2 待验收；V3-MAINT-WP3 待验收；V3-MAINT-WP4 待验收；V3-MAINT-WP5 待验收；V3-MAINT-WP6 待验收；V3-MAINT-WP7 待验收；V3-MAINT-WP8 待验收；V3-MAINT-WP9 待验收；V3-MAINT-WP10 待验收；V3-MAINT-WP11 待验收；V3-MAINT-WP12 待验收；V3-MAINT-WP13 待验收
 
 本台账用于记录 V1、V2 和 V3 工作包推进状态。每次开发 Agent 开始、完成、阻塞、暂缓或提交工作包验收时，必须同步更新本文件。
 
@@ -239,7 +239,7 @@
 
 ## 5. 下一步建议
 
-1. 等待项目负责人验收 `V3-MAINT-WP1` 至 `V3-MAINT-WP10`。
+1. 等待项目负责人验收 `V3-MAINT-WP1` 至 `V3-MAINT-WP13`。
 2. 验收通过后再将对应维护工作包标记为已完成。
 3. V2-P6-WP1 仍保留待验收状态，未被 V3 或本次维护工作自动标记为已完成。
 4. 后续若进入真实试点运行效果验收，必须基于真实试点数据补充，不能用本仓库模板资产替代。
@@ -307,7 +307,7 @@
 | V3-P2-WP1 | 当前目录骨架与归档目录 | 已完成 | `archive/README.md`、`references/README.md`、`references/rules/README.md`、`references/templates/README.md`、更新后的 `references/hooks/README.md` | V3-P1-WP1 | 项目负责人已确认验收通过；未迁移旧 `references/` 内容，未重写 6 个 Skill |
 | V3-P2-WP2 | 历史资产归档迁移 | 已完成 | `archive/references/docs/`、`prompts/`、`skills/`、`gates/`、`schemas/`、`examples/`、`init/`、`target-project/`，更新后的 `archive/README.md` 和 `references/README.md` | V3-P2-WP1 | 项目负责人已确认验收通过；未拆解规则和模板，未重写 6 个 Skill |
 | V3-P3-WP1 | 共享规则与结构化输出规则 | 已完成 | `references/rules/shared/README.md`、`safety-and-risk.md`、`permissions.md`、`output.md`、更新后的 `references/rules/README.md` | V3-P2 | 项目负责人已确认验收通过；只提炼共享规则和 Markdown 结构化输出规则，不进入场景模板；不保留当前 JSON Schema |
-| V3-P3-WP2 | 场景规则与模板 | 已完成 | `references/rules/init/`、`scope/`、`tdd/`、`review/`、`release/`；`references/templates/project/`、`scope/`、`tdd/`、`review/`、`release/` | V3-P3-WP1 | 项目负责人已确认验收通过；目标项目入口模板包含 `AGENTS.md` 和 `CLAUDE.md`；模板只保存可填写骨架；未重写 6 个根目录 Skill |
+| V3-P3-WP2 | 场景规则与模板 | 已完成 | `references/rules/init/`、`scope/`、`tdd/`、`review/`、`release/`；`references/templates/project/`、`scope/`、`tdd/`、`review/`、`release/` | V3-P3-WP1 | 项目负责人已确认验收通过；当前完整入口模板已在 V3-MAINT-WP13 收敛为 `hicode-entry-section.md`；模板只保存可填写骨架；未重写 6 个根目录 Skill |
 | V3-P4-WP1 | `hi` 与 `init` Skill 重写 | 已完成 | `skills/hi/SKILL.md`、`skills/init/SKILL.md` | V3-P3 | 项目负责人已确认验收通过；不引用归档资产；不恢复 `.hicode` 固化、manifest/profile 或默认加载项目模板旧口径 |
 | V3-P4-WP2 | `scope` 与 `tdd` Skill 重写 | 已完成 | `skills/scope/SKILL.md`、`skills/tdd/SKILL.md` | V3-P4-WP1 | 项目负责人已确认验收通过；不引用旧 `references/skills`、Prompt、Gate、Schema 或归档资产；保留金融核心系统风险标准、测试先行和受限命令边界 |
 | V3-P4-WP3 | `review` 与 `release` Skill 重写 | 已完成 | `skills/review/SKILL.md`、`skills/release/SKILL.md` | V3-P4-WP2 | 项目负责人已确认验收通过；不引用旧 Gate、Prompt、Schema、细粒度 Skill 或归档资产；输出保持建议性质，不给最终合并或发布审批 |
@@ -329,13 +329,17 @@
 | V3-MAINT-WP7 | `scope` 分流条件语义修正 | 待验收 | `skills/scope/SKILL.md`、`docs/PROGRESS.md` | 用户指出 Scope 不编码，因此第 7 节不应采用编码执行视角 | 已将 Scope 第 7 节从编码停止条件修正为分流条件，命中问题时不得输出 `READY_FOR_TDD`，应继续澄清、拆分、阻断或转人工安全流程；等待项目负责人验收 |
 | V3-MAINT-WP8 | `scope` 产物链路与上下文沉淀完善 | 待验收 | `skills/scope/SKILL.md`、`references/templates/feature/requirement-review-report.md`、`references/templates/feature/task-split-plan.md`、`references/templates/feature/scope-report.md`、`references/templates/README.md`、`CONTEXT.md`、`docs/PROGRESS.md` | 用户确认 Scope 需要输出需求评审报告、在需求分析中按需更新 ADR 和单需求上下文、输出拆分任务计划，并在成功完成时沉淀领域和项目知识 | 已补充 Scope 四段产物链路；新增需求评审报告和拆分任务计划模板；明确单需求上下文可作为过程上下文更新，`DOMAIN_KNOWLEDGE.md`、`PROJ_CONTEXT.md` 和 ADR 正式沉淀需用户或负责人确认；等待项目负责人验收 |
 | V3-MAINT-WP9 | 模板目录关系梳理与单需求目录规划 | 待验收 | `references/templates/README.md`、`references/templates/project/`、`references/templates/feature/`、`skills/*.md`、`agents/*.md`、`references/hooks/`、`CONTEXT.md`、`docs/PROGRESS.md` | 用户确认单需求实现资产目录使用 `docs/features/`，并要求单需求上下文避免与 `PROJ_CONTEXT.md` 混淆 | 已将单需求上下文模板改名为 `feature_context.md`；将单需求相关报告模板收敛到 `references/templates/feature/`；保留项目全局模板在 `references/templates/project/`；同步 Skill、Agent、Hook 和入口模板引用；等待项目负责人验收 |
-| V3-MAINT-WP10 | 目标项目文档路径与缺失文档创建规则 | 待验收 | `references/templates/project/AGENTS.md`、`references/templates/project/CLAUDE.md`、`skills/init/SKILL.md`、`skills/hi/SKILL.md`、`skills/scope/SKILL.md`、`skills/tdd/SKILL.md`、`skills/review/SKILL.md`、`skills/release/SKILL.md`、`CONTEXT.md`、`docs/PROGRESS.md` | 用户确认项目级文档路径需要在入口文档中说明，并要求目标文档不存在时由各 Skill 先读模板再按需创建 | 已在入口模板中明确项目级和单需求文档路径；`init` 负责项目级文档骨架和入口路径说明；`scope/tdd/review/release` 在缺少单需求文档时先读取 `feature/` 模板再创建；等待项目负责人验收 |
+| V3-MAINT-WP10 | 目标项目文档路径与缺失文档创建规则 | 待验收 | `skills/init/SKILL.md`、`skills/hi/SKILL.md`、`skills/scope/SKILL.md`、`skills/tdd/SKILL.md`、`skills/review/SKILL.md`、`skills/release/SKILL.md`、`CONTEXT.md`、`docs/PROGRESS.md` | 用户确认项目级文档路径需要在入口文档中说明，并要求目标文档不存在时由各 Skill 先读模板再按需创建 | 已明确项目级和单需求文档路径；完整入口模板已在 V3-MAINT-WP13 收敛为 `hicode-entry-section.md`；等待项目负责人验收 |
 | V3-MAINT-WP11 | `tdd` Skill 行为测试与纵向切片重构 | 待验收 | `skills/tdd/SKILL.md`、`CONTEXT.md`、`docs/PROGRESS.md` | 用户要求参考 Matt Pocock `skills/engineering/tdd` 的设计重构 `skills/tdd` | 已将 `tdd` Skill 重构为公开接口行为测试、tracer bullet、RED-GREEN-REFACTOR 纵向切片、系统边界 Mock 和 GREEN 后重构的执行流程；修正不存在的 TDD 规则引用；等待项目负责人验收 |
+| V3-MAINT-WP12 | `release` Skill 分支发布分析重构 | 待验收 | `skills/release/SKILL.md`、`references/templates/feature/release-report.md`、`references/templates/README.md`、`agents/release-reviewer.md`、`CONTEXT.md`、`docs/PROGRESS.md` | 用户要求 `release` 对当前或指定分支进行分析，输出发布报告，并去掉核心场景测试设计，只汇总当前已知信息 | 已将 `release` 重构为当前/指定分支发布分析流程，覆盖 main 分支风险、分叉时间超过 1 个月风险、分支 diff 与 `docs/features/` 需求证据核对、SQL/配置/脚本检查、验证计划、发布建议和回滚计划；等待项目负责人验收 |
+| V3-MAINT-WP13 | 目标项目入口模板收敛为 hicode 补充片段 | 待验收 | `references/templates/project/hicode-entry-section.md`、`skills/init/SKILL.md`、`references/templates/README.md`、`CONTEXT.md`、`docs/V3_IMPLEMENTATION_PLAN.md`、`docs/PROGRESS.md` | 用户确认非 Claude Code 平台是主要支持对象，但入口主体应由平台 `/init` 生成，hicode 只补充必要 section | 已删除完整 `references/templates/project/AGENTS.md` 和 `CLAUDE.md` 模板，新增平台无关 hicode 入口补充片段，并同步 init 流程、模板索引、术语和 V3 计划；等待项目负责人验收 |
 
 ## 10. 最近变更记录
 
 | 日期 | 操作者 | 变更 | 关联工作包 |
 |---|---|---|---|
+| 2026-06-12 | Codex | 将目标项目完整入口模板收敛为 `references/templates/project/hicode-entry-section.md`：入口主体优先由目标 Coding 平台 `/init` 生成，hicode 只补充文档路径、Skill 路由、规则目录和安全边界；删除完整 `AGENTS.md` / `CLAUDE.md` 模板并同步 `init`、模板索引、术语和 V3 计划 | V3-MAINT-WP13 |
+| 2026-06-12 | Codex | 重构 `skills/release/SKILL.md`：以当前或指定 Git 分支为分析对象，补充 main 分支风险、分叉时间超过 1 个月风险、diff 与 `docs/features/` 需求证据核对、SQL/配置/脚本风险、已知测试汇总、验证计划、发布建议和回滚计划；同步发布报告模板、`release-reviewer` 和术语上下文 | V3-MAINT-WP12 |
 | 2026-06-11 | Codex | 参考 Matt Pocock `skills/engineering/tdd` 重构 `skills/tdd/SKILL.md`：强化公开接口行为测试、tracer bullet、纵向切片、系统边界 Mock 和 GREEN 后重构；同步 `CONTEXT.md` 术语并修正不存在规则引用 | V3-MAINT-WP11 |
 | 2026-06-11 | Codex | 修正 `skills/scope/SKILL.md` 第 7 节语义：Scope 不编码，命中风险时应控制 `READY_FOR_TDD` 移交结论并分流处理 | V3-MAINT-WP7 |
 | 2026-06-11 | Codex | 完善 `skills/scope/SKILL.md` 产物链路：需求评审报告、`feature_context.md` 更新、ADR 草稿或更新、拆分任务计划、领域知识和项目上下文沉淀；新增两个 Scope 输出模板并同步术语上下文 | V3-MAINT-WP8 |
