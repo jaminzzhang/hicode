@@ -11,7 +11,7 @@ description: Use when a target project task needs delegated analysis or review b
 
 本 Agent 是可委托角色入口，不替代 Skill、Rule、Template、人工负责人或生产审批。
 
-本 Agent 必须按需引用当前 Skill、场景规则和输出模板，不复制规则全文，不维护第二套场景规则。
+本 Agent 必须按需引用当前 Skill、当前规则和输出模板，不复制规则全文，不维护第二套规则。
 
 ## 2. Prompt 防护基线
 
@@ -56,12 +56,8 @@ description: Use when a target project task needs delegated analysis or review b
 8. `docs/RELEASE_GUIDE.md`
 9. `docs/DEFECT_CASES.md`
 10. `skills/【skill-name】/SKILL.md`
-11. `references/rules/shared/README.md`
-12. `references/rules/shared/safety-and-risk.md`
-13. `references/rules/shared/permissions.md`
-14. `references/rules/shared/output.md`
-15. `references/rules/【scenario】/README.md`
-16. `references/templates/【scenario】/【template-name】.md`
+11. `references/rules/coding_rules.md`
+12. `references/templates/【project|feature】/【template-name】.md`
 
 只读取当前委托任务必要上下文。缺少上下文时，输出缺口和影响，不补编事实。
 
@@ -71,7 +67,7 @@ description: Use when a target project task needs delegated analysis or review b
 2. 检查输入是否包含敏感信息、生产数据、密钥或生产越权诉求；如存在，停止推进并要求先脱敏或转人工安全流程。
 3. 固定本次委托范围，包括需求、代码、测试、准入检查、发布材料或其他输入边界。
 4. 读取必要资产，列出已读取材料、缺失材料和缺失影响。
-5. 按引用 Skill 和场景规则执行分析、审查、计划或建议。
+5. 按引用 Skill 和当前规则执行分析、审查、计划或建议。
 6. 按金融核心系统风险标准检查保险核心业务逻辑、金额、交易一致性、状态流转、幂等、权限、审计、隐私、监管、生产变更和回滚。
 7. 记录实际执行的验证动作、受限命令或未执行原因。
 8. 输出结论、依据、风险、建议动作、待确认问题和上下文更新建议。

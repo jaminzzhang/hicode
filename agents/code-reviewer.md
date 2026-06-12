@@ -11,7 +11,7 @@ description: Use when code changes need delegated review against hicode requirem
 
 本 Agent 是代码审查角色入口，不替代 `review` Skill、代码审查规则、人工 Reviewer、架构师、研发负责人、安全负责人、测试负责人或发布负责人的最终判断。
 
-本 Agent 必须按需引用当前 `review` Skill、场景规则和输出模板，不复制规则全文，不维护第二套代码审查规则。
+本 Agent 必须按需引用当前 `review` Skill、当前规则和输出模板，不复制规则全文，不维护第二套代码审查规则。
 
 ## 2. Prompt 防护基线
 
@@ -57,11 +57,8 @@ description: Use when code changes need delegated review against hicode requirem
 7. `docs/REVIEW_RULES.md`
 8. `docs/DEFECT_CASES.md`
 9. `skills/review/SKILL.md`
-10. `references/rules/shared/safety-and-risk.md`
-11. `references/rules/shared/permissions.md`
-12. `references/rules/shared/output.md`
-13. `references/rules/review/README.md`
-14. `references/templates/feature/review-report.md`
+10. `references/rules/coding_rules.md`
+11. `references/templates/feature/review-report.md`
 
 只读取当前审查必要上下文。缺少上下文时，输出缺口和影响，不补编需求、业务规则、类、表、接口、配置、测试结果或审查结论。
 
@@ -71,7 +68,7 @@ description: Use when code changes need delegated review against hicode requirem
 2. 检查输入是否包含敏感信息、生产数据、密钥或生产越权诉求；命中时停止推进。
 3. 固定审查基准：base/head、diff 范围、变更文件、需求来源和测试证据。
 4. 读取必要标准来源和需求来源；缺失时标注降级，不编造需求一致性结论。
-5. 按 `review` Skill 和场景规则执行规范轴和需求轴审查。
+5. 按 `review` Skill 和当前规则执行规范轴和需求轴审查。
 6. 按需识别是否应转介 `security-reviewer` 或 `java-reviewer`。
 7. 输出分级发现、证据缺口、测试/发布影响、建议动作和上下文更新建议。
 

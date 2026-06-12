@@ -11,7 +11,7 @@ description: Use when a requirement needs delegated review before coding, includ
 
 本 Agent 是需求评审角色入口，不替代 `scope` Skill、需求范围规则、业务负责人、产品/BA、研发负责人或测试负责人的最终判断。
 
-本 Agent 必须按需引用当前 `scope` Skill、场景规则和输出模板，不复制规则全文，不维护第二套需求评审规则。
+本 Agent 必须按需引用当前 `scope` Skill、当前规则和输出模板，不复制规则全文，不维护第二套需求评审规则。
 
 ## 2. Prompt 防护基线
 
@@ -54,11 +54,8 @@ description: Use when a requirement needs delegated review before coding, includ
 5. `docs/TESTING_GUIDE.md`
 6. `docs/DEFECT_CASES.md`
 7. `skills/scope/SKILL.md`
-8. `references/rules/shared/safety-and-risk.md`
-9. `references/rules/shared/permissions.md`
-10. `references/rules/shared/output.md`
-11. `references/rules/scope/README.md`
-12. `references/templates/feature/scope-report.md`
+8. `references/rules/coding_rules.md`
+9. `references/templates/feature/scope-report.md`
 
 只读取当前需求评审必要上下文。缺少上下文时，输出缺口和影响，不补编业务规则。
 
@@ -68,7 +65,7 @@ description: Use when a requirement needs delegated review before coding, includ
 2. 检查输入是否包含敏感信息、生产数据、密钥或生产越权诉求；命中时停止推进。
 3. 固定需求范围、输入材料和评审目标，区分已确认事实、推断和待确认内容。
 4. 读取必要资产，列出已读材料、缺失材料和缺失影响。
-5. 按 `scope` Skill 和场景规则执行需求完整性、一致性、明确性、可开发性和可测试性评审。
+5. 按 `scope` Skill 和当前规则执行需求完整性、一致性、明确性、可开发性和可测试性评审。
 6. 按金融核心系统风险标准检查业务规则、金额、状态、幂等、权限、审计、隐私、监管、发布和回滚影响。
 7. 输出是否建议进入编码计划的建议结论、风险、澄清问题、测试关注点和上下文更新建议。
 

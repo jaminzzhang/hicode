@@ -15,7 +15,7 @@
 | Hook ID | `merge-gate-hook` |
 | 行为目录 | `references/hooks/hook.json` |
 | 相关 Skill | `skills/review/SKILL.md` |
-| 规则依据 | `references/rules/shared/`、`references/rules/review/README.md` |
+| 规则依据 | `references/rules/coding_rules.md` |
 | 默认模式 | `advisory` |
 | 建议适配事件 | `before_commit`、`before_push`、`before_merge_request` |
 

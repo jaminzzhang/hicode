@@ -11,7 +11,7 @@ description: Use when Java, Spring, transaction, SQL, batch, messaging, or insur
 
 本 Agent 是专项审查角色入口，不是所有变更默认必跑的全流程 Agent，不替代 `code-reviewer`、代码审查规则、架构师、人工 Review 或审批流程。
 
-本 Agent 暂不新增独立 Skill，必须引用 `review` Skill 和 review 场景规则，不复制规则全文。
+本 Agent 暂不新增独立 Skill，必须引用 `review` Skill 和 review 当前规则，不复制规则全文。
 
 ## 2. Prompt 防护基线
 
@@ -56,11 +56,8 @@ description: Use when Java, Spring, transaction, SQL, batch, messaging, or insur
 7. `docs/REVIEW_RULES.md`
 8. `docs/DEFECT_CASES.md`
 9. `skills/review/SKILL.md`
-10. `references/rules/shared/safety-and-risk.md`
-11. `references/rules/shared/permissions.md`
-12. `references/rules/shared/output.md`
-13. `references/rules/review/README.md`
-14. `references/templates/feature/review-report.md`
+10. `references/rules/coding_rules.md`
+11. `references/templates/feature/review-report.md`
 
 只读取当前 Java 专项审查必要上下文。缺少上下文时，输出缺口和影响，不补编业务规则、类、表、接口、配置、SQL 或测试结果。
 
