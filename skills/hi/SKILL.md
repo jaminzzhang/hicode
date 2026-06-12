@@ -96,7 +96,7 @@ description: Use when a target project needs the hicode global entrypoint, first
 
 默认不读取所有规则。只有当前回答需要具体依据、风险分级或输出口径时，按需读取：
 
-1. 当前稳定规则 interface：`../../references/rules/coding_rules.md`
+1. 当前稳定规则 interface：`../_shared/rules/coding_rules.md`
 
 不得引用尚不存在的规则子目录作为当前规则依据。
 

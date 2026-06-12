@@ -2,9 +2,11 @@
 
 ## 定位
 
-`references/` 保存 hicode 当前可按需读取的支撑资产。它不是目标项目 `.hicode/` 运行目录，不随 plugin 默认全量加载，也不保存本仓库历史建设过程。
+`references/` 保存 hicode 当前可按需维护的支撑资产源文件。它不是目标项目 `.hicode/` 运行目录，不随 plugin 默认全量加载，也不保存本仓库历史建设过程。
 
 根目录 `skills/` 和 `agents/` 是一等入口；`references/` 只提供规则、模板和 Hook 说明。
+
+Claude Code plugin 运行时需要由 Skill 读取的规则和模板会镜像到 `skills/_shared/`。目标项目执行 Skill 时优先读取 `skills/_shared/`，避免反复请求访问 plugin 根目录下的 `references/`。
 
 ## 当前目录
 
@@ -31,9 +33,10 @@
 
 ## 使用规则
 
-1. 先由根目录 Skill 判断任务场景，再读取必要的 `rules/` 或 `templates/` 文件。
-2. 当前稳定规则 interface 是 `references/rules/coding_rules.md`；不得引用尚不存在的规则子目录。
+1. 先由根目录 Skill 判断任务场景，再读取必要的运行时镜像文件。
+2. 当前稳定规则源文件是 `references/rules/coding_rules.md`，运行时镜像是 `skills/_shared/rules/coding_rules.md`；不得引用尚不存在的规则子目录。
 3. 模板只保存可填写骨架；执行规则必须进入 `rules/` 或 Skill/Agent 正文。
 4. Hook 说明只提供可选配置和审计边界，不代表自动启用。
 5. 历史材料进入根目录 `archive/`，不得作为当前执行依据。
 6. 不把 references 输出为最终审批、合并许可、发布许可或生产操作授权。
+7. 修改 `references/rules/` 或 `references/templates/` 后必须同步 `skills/_shared/`，并运行 `bash scripts/health-check.sh` 验证镜像一致。

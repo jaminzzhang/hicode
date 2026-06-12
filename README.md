@@ -2,9 +2,9 @@
 
 ## 1. 定位
 
-本仓库根目录是 hicode 的设计中心，也是面向 Claude Code 的原生 plugin root。
+本仓库根目录是 hicode 的设计中心，也是面向 Claude Code 的原生 plugin root，并提供 OpenCode agents/skills 本地安装入口。
 
-当前第一版只支持 Claude Code plugin 规范。OpenCode plugin 机制与 Claude Code plugin 机制不同，不纳入本仓库第一版交付。
+Claude Code 通过 plugin marketplace 安装；OpenCode 通过 `install.sh --opencode` 把 hicode 的 agents、skills 和共享运行时资产转换复制到 OpenCode 用户级或项目级目录。
 
 本 plugin 安装动作不执行目标项目初始化，不扫描代码，不生成 `CLAUDE.md`、`AGENTS.md` 或项目本地运行目录。
 
@@ -36,7 +36,13 @@
 
 1. 注册本地 hicode marketplace。
 2. 安装 `hicode` Claude Code plugin。
-3. 提供 `hi` 总入口、`init` 初始化入口和 `scope`、`tdd`、`review`、`release` 四个能力 Skill；场景路由表达保留为 `hicode:init`、`hicode:scope`、`hicode:tdd`、`hicode:review` 和 `hicode:release`。
+3. 提供 8 个专业 Agent、`hi` 总入口、`init` 初始化入口和 `scope`、`tdd`、`review`、`release` 四个能力 Skill；场景路由表达保留为 `hicode:init`、`hicode:scope`、`hicode:tdd`、`hicode:review` 和 `hicode:release`。
+
+OpenCode 安装使用显式参数：
+
+1. `./install.sh --opencode --yes`：安装到当前用户 OpenCode 配置目录。
+2. `./install.sh --opencode --opencode-scope project --opencode-project-dir /path/to/project --yes`：安装到目标项目 `.opencode/` 目录。
+3. `./install.sh --all --yes`：同时安装 Claude Code plugin 和 OpenCode 本地运行资产。
 
 安装器不修改业务仓库，不读取生产配置，不处理生产数据或客户敏感信息。
 
@@ -46,6 +52,8 @@
 
 ```bash
 ./install.sh --dry-run
+./install.sh --opencode --dry-run
+./install.sh --all --dry-run
 ./install.sh --yes
 bash scripts/health-check.sh
 ```
@@ -67,11 +75,12 @@ bash scripts/health-check.sh
 
 本仓库按以下官方机制组织：
 
-1. Claude Code plugin 使用插件根目录下的 `.claude-plugin/plugin.json` 和 `skills/<name>/SKILL.md`。
-2. `skills/` 下每个目录都是一个 Claude Code Skill。
-3. `references/` 是 Skill 按需读取的支撑文件，不是默认上下文。
+1. Claude Code plugin 使用插件根目录下的 `.claude-plugin/plugin.json`、`agents/` 和 `skills/<name>/SKILL.md`。
+2. `skills/` 下每个目录都是一个 Claude Code Skill，`skills/_shared/` 是随 Skill 安装的运行时共享镜像。
+3. OpenCode 安装时将 `skills/` 转换为 `hicode-*` Skill，将 `agents/` 转换为 `hicode-*.md` Agent，并把内部引用指向 `hicode-shared`。
+4. `references/` 是本仓库维护源，不是目标平台默认上下文。
 
 参考资料：
 
 1. Claude Code Plugins：`https://code.claude.com/docs/en/plugins#create-your-first-plugin`
-2. OpenCode Plugins：`https://opencode.ai/docs/zh-cn/plugins/`，仅作后续独立适配参考，不混入本仓库第一版。
+2. OpenCode Plugins：`https://opencode.ai/docs/zh-cn/plugins/`，本仓库当前采用本地 agents/skills 安装方式，不把 OpenCode plugin 规范混入 Claude Code plugin root。

@@ -15,7 +15,7 @@ description: Use when a coding plan needs delegated TDD guidance, RED-GREEN-REFA
 
 ## 2. Agent 共性规则
 
-必须遵守 `references/rules/coding_rules.md` 中的 Agent 共性规则，包括 Prompt 防护、权限与受限命令、通用输出要求、安全红线和停止条件。
+必须遵守 `../skills/_shared/rules/coding_rules.md` 中的 Agent 共性规则，包括 Prompt 防护、权限与受限命令、通用输出要求、安全红线和停止条件。
 
 本 Agent 只在后续章节保留角色差异、适用场景、必读资产、专项流程和质量标准。
 
@@ -49,9 +49,9 @@ description: Use when a coding plan needs delegated TDD guidance, RED-GREEN-REFA
 5. `docs/CODING_RULES.md`
 6. `docs/TESTING_GUIDE.md`
 7. `docs/DEFECT_CASES.md`
-8. `skills/tdd/SKILL.md`
-9. `references/rules/coding_rules.md`
-10. `references/templates/feature/tdd-report.md`
+8. `../skills/tdd/SKILL.md`
+9. `../skills/_shared/rules/coding_rules.md`
+10. `../skills/_shared/templates/feature/tdd-report.md`
 
 只读取当前 TDD 任务必要上下文。缺少上下文时，输出缺口和影响，不补编类、表、接口、业务规则或测试结果。
 
@@ -68,11 +68,11 @@ description: Use when a coding plan needs delegated TDD guidance, RED-GREEN-REFA
 
 ## 7. 权限与受限命令
 
-按 `references/rules/coding_rules.md` 的 Agent 共性规则执行；本 Agent 无额外权限。
+按 `../skills/_shared/rules/coding_rules.md` 的 Agent 共性规则执行；本 Agent 无额外权限。
 
 ## 8. 输出要求
 
-按 `references/rules/coding_rules.md` 的 Agent 共性输出要求执行，并补充本 Agent 在角色定位、委托执行流程和质量标准中要求的专项字段。
+按 `../skills/_shared/rules/coding_rules.md` 的 Agent 共性输出要求执行，并补充本 Agent 在角色定位、委托执行流程和质量标准中要求的专项字段。
 
 ## 9. 质量与降噪标准
 
@@ -88,4 +88,4 @@ description: Use when a coding plan needs delegated TDD guidance, RED-GREEN-REFA
 
 ## 10. 安全红线与停止条件
 
-按 `references/rules/coding_rules.md` 的 Agent 共性规则执行；命中红线时停止推进，输出风险等级、命中条件、已遮蔽信息范围和建议动作。
+按 `../skills/_shared/rules/coding_rules.md` 的 Agent 共性规则执行；命中红线时停止推进，输出风险等级、命中条件、已遮蔽信息范围和建议动作。

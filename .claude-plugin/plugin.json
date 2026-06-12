@@ -18,6 +18,9 @@
     "review",
     "release"
   ],
+  "agents": [
+    "./agents/"
+  ],
   "skills": [
     "./skills/"
   ]
