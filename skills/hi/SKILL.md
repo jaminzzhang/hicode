@@ -99,7 +99,7 @@ description: Use when a target project needs the hicode global entrypoint, first
 1. `docs/rules/` 下由 `hicode:init` 创建或更新的项目规则文件。
 2. 目标项目已有的 `docs/CODING_RULES.md`、`docs/TESTING_GUIDE.md`、`docs/REVIEW_RULES.md`、`docs/RELEASE_GUIDE.md` 或同等规则文件。
 
-缺少目标项目规则时，不读取本仓库 `references/` 或其他 Skill 内置文件替代；应将初始化状态标记为未完成，并建议进入 `hicode:init`。
+缺少目标项目规则时，不读取本仓库 Hook 说明或其他 Skill 内置文件替代；应将初始化状态标记为未完成，并建议进入 `hicode:init`。
 
 ## 安全边界
 

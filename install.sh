@@ -107,8 +107,8 @@ validate_plugin_assets() {
 validate_install_boundary() {
   local plugin_manifest="$CLAUDE_PLUGIN_DIR/.claude-plugin/plugin.json"
 
-  if grep -Eq '("\./docs/?|"docs/"|"\./archive/?|"archive/"|"references/(prompts|skills|gates|schemas|examples|init|target-project))' "$plugin_manifest"; then
-    die "Plugin manifest must not expose repository docs, archive, or historical references as runtime assets"
+  if grep -Eq '("\./docs/?|"docs/"|"\./archive/?|"archive/"|"references/)' "$plugin_manifest"; then
+    die "Plugin manifest must not expose repository docs, archive, or references as runtime assets"
   fi
 }
 
@@ -146,7 +146,7 @@ install_claude_code() {
   log "  Runtime assets: agents/ and skills/ declared by .claude-plugin/plugin.json"
   log "  Init seed rule: skills/init/coding_rules.md"
   log "  Skill-local documents: concrete templates only; lifecycle rules live in target entry"
-  log "  Excluded from runtime: docs/, archive/, historical references/"
+  log "  Excluded from runtime: docs/, archive/, references/"
   log "  Action: validate manifests, register local marketplace, install plugin"
 
   if [ "$DRY_RUN" -eq 1 ]; then
@@ -184,7 +184,7 @@ install_opencode() {
   log "  Agents target: $opencode_agents_dir"
   log "  Skills installed as: hicode-hi, hicode-init, hicode-scope, hicode-tdd, hicode-review, hicode-release"
   log "  Agents installed as: hicode-<agent-name>.md"
-  log "  Excluded from runtime: docs/, archive/, historical references/"
+  log "  Excluded from runtime: docs/, archive/, references/"
   log "  Action: copy transformed hicode skills and agents into OpenCode directories"
 
   if [ "$DRY_RUN" -eq 1 ]; then
@@ -333,7 +333,7 @@ install_codex() {
   log "  Skills target: $codex_skills_dir"
   log "  Skills installed as: hicode-hi, hicode-init, hicode-scope, hicode-tdd, hicode-review, hicode-release"
   log "  Agents: installed as skills (Codex CLI uses SKILL.md format)"
-  log "  Excluded from runtime: docs/, archive/, historical references/"
+  log "  Excluded from runtime: docs/, archive/, references/"
   log "  Action: copy transformed hicode skills into Codex CLI skills directory"
 
   if [ "$DRY_RUN" -eq 1 ]; then

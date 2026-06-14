@@ -4,7 +4,7 @@
 
 本 Hook 在 Agent 会话结束时提出上下文更新建议，用于持续改进 `docs/PROJ_CONTEXT.md`、`AGENTS.md`、子目录上下文文件和排除路径的准确性和完整性。它不自动写入任何长期上下文文件，所有建议需由 hicode Owner 人工确认后归并。
 
-规则依据：`references/rules/coding_rules.md`。
+规则依据：`skills/init/coding_rules.md`、`target-project:docs/rules/`。
 适用动作：Agent 会话结束、会话停止。
 
 ## 2. 触发点
@@ -13,7 +13,7 @@
 |---|---|
 | Hook ID | `context-capture-hook` |
 | 建议适配事件 | `after_session_end`、`stop` |
-| 规则依据 | `references/rules/coding_rules.md` |
+| 规则依据 | `skills/init/coding_rules.md`、`target-project:docs/rules/` |
 | 默认模式 | `advisory` |
 
 ## 3. 输入材料

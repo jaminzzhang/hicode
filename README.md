@@ -27,7 +27,7 @@ Claude Code 通过 plugin marketplace 安装；OpenCode 通过 `install.sh --ope
 │   ├── tdd/
 │   ├── review/
 │   └── release/
-└── references/
+└── hooks/
 ```
 
 ## 3. 安装范围
@@ -80,7 +80,7 @@ bash scripts/health-check.sh
 3. 每个 `skills/<skill>/` 目录只使用根目录文件承载本地具体模板和规则种子，不维护 Skill 内部子目录，也不为场景生命周期复制重复 `README.md`。
 4. Agent 共性安全、权限、输出和停止条件写入各 Agent 正文，不再通过共享运行目录读取。
 5. OpenCode 安装时将场景 Skill 转换为 `hicode-*` Skill，将 `agents/` 转换为 `hicode-*.md` Agent。
-6. `references/` 是本仓库维护源，不是目标平台默认上下文。
+6. `hooks/` 只保留 Hook 行为说明和目录索引，不是目标平台默认上下文，也不维护与 `skills/` 重复的规则或模板源。
 
 参考资料：
 

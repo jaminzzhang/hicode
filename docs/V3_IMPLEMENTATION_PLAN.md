@@ -10,17 +10,17 @@ V3 的核心目标不是新增业务能力，而是降低当前资产目录、Sk
 
 ## 2. 已确认决策
 
-1. `references/` 当前只保留三类目录：`rules/`、`templates/`、`hooks/`。
+1. 根目录 `hooks/` 当前只保留 Hook 行为说明和目录索引；根目录 `references/` 已删除，不再作为当前资产目录维护。
 2. 根目录 `archive/` 是历史归档区，非运行、非安装、非默认检索。
 3. 根目录 `skills/` 保留 6 个入口：`hi`、`init`、`scope`、`tdd`、`review`、`release`；其中 `hi` 是总入口，`hicode:init`、`hicode:scope`、`hicode:tdd`、`hicode:review`、`hicode:release` 是场景路由表达。
 4. 6 个 Skill 要直接告诉 Coding Agent 做什么、按什么顺序做、何时停止和如何输出，不能只引用旧细粒度 Skill。
 5. 根目录 `agents/` 继续保留 8 个专业子 Agent，但保持短角色入口定位。
 6. 旧 Prompt、Gate、Schema、Example、Regression、Guide、manifest/profile 和 `DAILY/LIBRARY` 机制不再作为当前资产类型保留。
 7. 旧 guide 内容先提炼进 Skill/Agent，再归档原文。
-8. 旧 Prompt 内容拆为执行规则、输出骨架和历史原文：规则进 Skill 或 `references/rules/`，输出骨架进 `references/templates/`，原文归档。
-9. 旧 Gate 内容拆为判定规则和报告模板：规则进 `references/rules/`，模板进 `references/templates/`，原文归档。
+8. 旧 Prompt 内容拆为执行规则、输出骨架和历史原文：规则进 Skill、Agent 或 `skills/init/coding_rules.md`，输出骨架进对应 Skill 根目录模板，原文归档。
+9. 旧 Gate 内容拆为判定规则和报告模板：规则进 Skill、Agent、Hook 或 `skills/init/coding_rules.md`，模板进对应 Skill 根目录，原文归档。
 10. 旧 JSON Schema 归档，当前使用 Markdown 结构化输出规则。
-11. 目标项目入口补充片段由 `references/templates/project/hicode-entry-section.md` 承载；完整 `AGENTS.md` 或 `CLAUDE.md` 入口主体优先由 Agent 可执行初始化能力生成。OpenCode TUI `/init` 等用户手工命令不能由 Agent 代替执行。
+11. 目标项目入口补充片段由 `skills/init/hicode-entry-section.md` 承载；完整 `AGENTS.md` 或 `CLAUDE.md` 入口主体优先由 Agent 可执行初始化能力生成。OpenCode TUI `/init` 等用户手工命令不能由 Agent 代替执行。
 12. `hicode:init` 只初始化目标项目入口、上下文和项目规则文档，不复制 hicode plugin 资产到目标项目 `.hicode/`。
 13. `.claude-plugin/plugin.json` 和 `install.sh` 不得把本仓库 `docs/`、历史文档或 `archive/` 安装为目标 Coding Agent 运行资产。
 14. V3 按工作包推进，工作包完成后先标记为 `待验收`，项目负责人确认后才能进入下一包。
@@ -30,7 +30,7 @@ V3 的核心目标不是新增业务能力，而是降低当前资产目录、Sk
 ### 3.1 本轮范围内
 
 1. 更新本仓库入口规则、术语上下文、进度台账和 V3 实施计划。
-2. 重组 `references/` 为 `rules/`、`templates/`、`hooks/`。
+2. 历史上曾重组 `references/` 为 `rules/`、`templates/`、`hooks/`；当前规则和模板已收敛到 `skills/`，Hook 已提升到根目录 `hooks/`。
 3. 建立根目录 `archive/` 并归档历史资产。
 4. 将旧 Prompt、Gate、Schema、Example、Guide、manifest/profile 中仍有效内容拆解到当前资产。
 5. 重写 6 个根目录 Skill，使其成为直接执行型说明。
@@ -76,7 +76,7 @@ V3 工作包编号使用 `V3-P<阶段号>-WP<序号>`。
 | V3-P2 | 目录结构与归档迁移 | 建立新目录骨架并归档历史资产 | `archive/`、`references/rules/`、`references/templates/`、`references/hooks/`、`references/README.md` |
 | V3-P3 | 规则与模板重组 | 从旧资产中提炼当前规则和模板 | 场景 rules、项目模板、输出模板、Markdown 结构化输出规则 |
 | V3-P4 | Skill 直接执行化 | 重写 6 个根目录 Skill，移除旧引用链路 | `skills/hi`、`init`、`scope`、`tdd`、`review`、`release` |
-| V3-P5 | Agent 与 Hook 边界修正 | 修正 Agent 旧路径引用并收敛 Hook 说明 | 8 个 Agent、`references/hooks/` |
+| V3-P5 | Agent 与 Hook 边界修正 | 修正 Agent 旧路径引用并收敛 Hook 说明 | 8 个 Agent、`hooks/` |
 | V3-P6 | 安装边界与一致性验收 | 验证当前资产不依赖归档和旧目录 | 检查报告、路径检查、安装边界检查、进度收口 |
 
 ## 6. V3-P1 规划与入口规则
@@ -205,11 +205,12 @@ V3 工作包编号使用 `V3-P<阶段号>-WP<序号>`。
 
 V3 后续维护已将上述 P3 中间目录进一步收敛：
 
-1. 当前稳定规则 interface 为 `references/rules/coding_rules.md`，不再维护 `references/rules/shared/`、`init/`、`scope/`、`tdd/`、`review/` 或 `release/` 作为当前规则目录。
-2. 当前模板目录按文档生命周期收敛为 `references/templates/project/` 和 `references/templates/feature/`，不再维护 `references/templates/scope/`、`tdd/`、`review/` 或 `release/` 作为当前目录。
-3. `references/templates/project/hicode-entry-section.md` 维护单需求文档生命周期、写入边界和审批边界，并由 `hicode:init` 写入目标项目入口；`scope`、`tdd`、`review` 和 `release` Skill 不再携带 `README.md` 副本。
-4. `references/rules/` 和 `references/templates/` 是维护源；`hicode:init` 执行时读取 `skills/init/coding_rules.md` 作为目标项目 `docs/rules/` 种子，其他场景 Skill 执行时读取目标项目入口规则、目标项目规则文件和本 Skill 根目录中的具体模板文档；Agent 共性安全、权限、输出和停止条件写入各 Agent 正文，不再维护共享运行镜像。
-5. 本节保留 P3 原工作包描述作为历史执行计划；当前新资产必须以 `AGENTS.md`、`CONTEXT.md`、`references/templates/project/hicode-entry-section.md` 和实际文件结构为准。
+1. 当前唯一内置规则种子为 `skills/init/coding_rules.md`，用于 `hicode:init` 创建或更新目标项目 `docs/rules/`；不再维护 `references/rules/` 作为当前规则目录。
+2. 当前模板文档平铺在对应 `skills/<skill>/` 根目录；不再维护 `references/templates/` 作为当前模板目录。
+3. `skills/init/hicode-entry-section.md` 维护单需求文档生命周期、写入边界和审批边界，并由 `hicode:init` 写入目标项目入口；`scope`、`tdd`、`review` 和 `release` Skill 不再携带 `README.md` 副本。
+4. Hook 行为说明已提升到根目录 `hooks/`；根目录 `references/` 已删除，不再作为当前资产目录。
+5. `hicode:init` 执行时读取 `skills/init/coding_rules.md` 作为目标项目 `docs/rules/` 种子，其他场景 Skill 执行时读取目标项目入口规则、目标项目规则文件和本 Skill 根目录中的具体模板文档；Agent 共性安全、权限、输出和停止条件写入各 Agent 正文，不再维护共享运行镜像。
+6. 本节保留 P3 原工作包描述作为历史执行计划；当前新资产必须以 `AGENTS.md`、`CONTEXT.md`、`skills/init/hicode-entry-section.md`、`hooks/` 和实际文件结构为准。
 
 ## 9. V3-P4 Skill 直接执行化
 
@@ -282,7 +283,7 @@ V3 后续维护已将上述 P3 中间目录进一步收敛：
 
 输出：
 
-1. `references/hooks/`
+1. `hooks/`
 
 验收标准：
 
@@ -319,6 +320,6 @@ V3 后续维护已将上述 P3 中间目录进一步收敛：
 
 验收标准：
 
-1. 当前 `skills/`、`agents/`、`references/rules/`、`references/templates/`、`references/hooks/` 不引用 `archive/` 作为执行依据。
+1. 当前 `skills/`、`agents/`、`hooks/` 不引用 `archive/` 作为执行依据。
 2. 当前资产不引用旧 `references/prompts/`、`references/skills/`、`references/gates/`、`references/schemas/`、`references/examples/`、`references/init/` 或 `references/target-project/`。
 3. 金融核心系统风险标准、安全红线、人工审批边界和生产禁止事项仍然保留。

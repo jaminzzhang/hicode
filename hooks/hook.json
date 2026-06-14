@@ -30,10 +30,11 @@
       "id": "coding-entry-gate-hook",
       "name": "编码准入 Hook",
       "status": "reference_only",
-      "documentation": "references/hooks/coding-entry-gate-hook.md",
+      "documentation": "hooks/coding-entry-gate-hook.md",
       "related_skill": "skills/tdd/SKILL.md",
       "rules": [
-        "references/rules/coding_rules.md"
+        "skills/init/coding_rules.md",
+        "target-project:docs/rules/"
       ],
       "default_mode": "advisory",
       "trigger": {
@@ -96,10 +97,11 @@
       "id": "merge-gate-hook",
       "name": "合并前检查 Hook",
       "status": "reference_only",
-      "documentation": "references/hooks/merge-gate-hook.md",
+      "documentation": "hooks/merge-gate-hook.md",
       "related_skill": "skills/review/SKILL.md",
       "rules": [
-        "references/rules/coding_rules.md"
+        "skills/init/coding_rules.md",
+        "target-project:docs/rules/"
       ],
       "default_mode": "advisory",
       "trigger": {
@@ -178,10 +180,11 @@
       "id": "context-capture-hook",
       "name": "上下文捕获 Hook",
       "status": "reference_only",
-      "documentation": "references/hooks/context-capture-hook.md",
+      "documentation": "hooks/context-capture-hook.md",
       "related_skill": null,
       "rules": [
-        "references/rules/coding_rules.md"
+        "skills/init/coding_rules.md",
+        "target-project:docs/rules/"
       ],
       "default_mode": "advisory",
       "trigger": {

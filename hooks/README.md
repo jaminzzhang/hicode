@@ -2,7 +2,7 @@
 
 ## 定位
 
-`references/hooks/` 保存 hicode 当前 Hook 行为说明、可选适配字段、触发条件、阻断建议和审计字段。
+`hooks/` 保存 hicode 当前 Hook 行为说明、可选适配字段、触发条件、阻断建议和审计字段。
 
 本目录不是平台原生 Hook 配置目录，不是安装清单，不由 `install.sh` 自动启用，不依赖旧初始化规划，也不向目标项目复制 Hook 运行目录。
 
@@ -54,7 +54,7 @@ Hook 输出应包含：
 
 ## 维护规则
 
-1. 新增 Hook 前必须先有稳定 Skill/Rule 依据和权限边界。
-2. 修改 blocking 条件时，必须同步检查 `CONTEXT.md`、`AGENTS.md` 和相关 `references/rules/`。
+1. 新增 Hook 前必须先有稳定 Skill、目标项目规则或 Skill 本地规则种子依据和权限边界。
+2. 修改 blocking 条件时，必须同步检查 `CONTEXT.md`、`AGENTS.md`、`skills/init/coding_rules.md` 和目标项目 `docs/rules/` 生成口径。
 3. Hook 启用必须由用户或目标平台另行确认配置范围；本仓库安装器不得自动启用。
 4. 目标平台适配文件不得反向覆盖本目录源资产语义。
