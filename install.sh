@@ -84,12 +84,24 @@ validate_plugin_assets() {
     [ -f "$CLAUDE_PLUGIN_DIR/skills/$skill/SKILL.md" ] || die "Missing skill entry: $CLAUDE_PLUGIN_DIR/skills/$skill/SKILL.md"
   done
 
+  [ -f "$CLAUDE_PLUGIN_DIR/skills/init/coding_rules.md" ] || die "Missing init seed rule: $CLAUDE_PLUGIN_DIR/skills/init/coding_rules.md"
+  [ -f "$CLAUDE_PLUGIN_DIR/skills/init/hicode-entry-section.md" ] || die "Missing init template: $CLAUDE_PLUGIN_DIR/skills/init/hicode-entry-section.md"
+  [ -f "$CLAUDE_PLUGIN_DIR/skills/init/DOMAIN_KNOWLEDGE.md" ] || die "Missing init template: $CLAUDE_PLUGIN_DIR/skills/init/DOMAIN_KNOWLEDGE.md"
+  [ -f "$CLAUDE_PLUGIN_DIR/skills/init/PROJ_CONTEXT.md" ] || die "Missing init template: $CLAUDE_PLUGIN_DIR/skills/init/PROJ_CONTEXT.md"
+  [ -f "$CLAUDE_PLUGIN_DIR/skills/init/ADR-template.md" ] || die "Missing init template: $CLAUDE_PLUGIN_DIR/skills/init/ADR-template.md"
+  [ -f "$CLAUDE_PLUGIN_DIR/skills/scope/feature_context.md" ] || die "Missing scope template: $CLAUDE_PLUGIN_DIR/skills/scope/feature_context.md"
+  [ -f "$CLAUDE_PLUGIN_DIR/skills/scope/requirement-review-report.md" ] || die "Missing scope template: $CLAUDE_PLUGIN_DIR/skills/scope/requirement-review-report.md"
+  [ -f "$CLAUDE_PLUGIN_DIR/skills/scope/scope-report.md" ] || die "Missing scope template: $CLAUDE_PLUGIN_DIR/skills/scope/scope-report.md"
+  [ -f "$CLAUDE_PLUGIN_DIR/skills/scope/task-split-plan.md" ] || die "Missing scope template: $CLAUDE_PLUGIN_DIR/skills/scope/task-split-plan.md"
+  [ -f "$CLAUDE_PLUGIN_DIR/skills/scope/ADR-template.md" ] || die "Missing scope template: $CLAUDE_PLUGIN_DIR/skills/scope/ADR-template.md"
+  [ -f "$CLAUDE_PLUGIN_DIR/skills/tdd/tdd-report.md" ] || die "Missing tdd template: $CLAUDE_PLUGIN_DIR/skills/tdd/tdd-report.md"
+  [ -f "$CLAUDE_PLUGIN_DIR/skills/review/review-report.md" ] || die "Missing review template: $CLAUDE_PLUGIN_DIR/skills/review/review-report.md"
+  [ -f "$CLAUDE_PLUGIN_DIR/skills/release/release-report.md" ] || die "Missing release template: $CLAUDE_PLUGIN_DIR/skills/release/release-report.md"
+
   for agent in requirement-reviewer coding-planner tdd-guide coding-assistant code-reviewer security-reviewer java-reviewer release-reviewer; do
     [ -f "$CLAUDE_PLUGIN_DIR/agents/$agent.md" ] || die "Missing agent entry: $CLAUDE_PLUGIN_DIR/agents/$agent.md"
   done
 
-  [ -f "$CLAUDE_PLUGIN_DIR/skills/_shared/rules/coding_rules.md" ] || die "Missing runtime shared rule: $CLAUDE_PLUGIN_DIR/skills/_shared/rules/coding_rules.md"
-  [ -f "$CLAUDE_PLUGIN_DIR/skills/_shared/templates/README.md" ] || die "Missing runtime shared template index: $CLAUDE_PLUGIN_DIR/skills/_shared/templates/README.md"
 }
 
 validate_install_boundary() {
@@ -132,7 +144,8 @@ install_claude_code() {
   log "  Plugin: $PLUGIN_NAME@$MARKETPLACE_NAME"
   log "  Scope: $INSTALL_SCOPE"
   log "  Runtime assets: agents/ and skills/ declared by .claude-plugin/plugin.json"
-  log "  Runtime shared assets: skills/_shared/ rules and templates"
+  log "  Init seed rule: skills/init/coding_rules.md"
+  log "  Skill-local documents: concrete templates only; lifecycle rules live in target entry"
   log "  Excluded from runtime: docs/, archive/, historical references/"
   log "  Action: validate manifests, register local marketplace, install plugin"
 
@@ -170,14 +183,12 @@ install_opencode() {
   log "  Skills target: $opencode_skills_dir"
   log "  Agents target: $opencode_agents_dir"
   log "  Skills installed as: hicode-hi, hicode-init, hicode-scope, hicode-tdd, hicode-review, hicode-release"
-  log "  Shared runtime assets: hicode-shared"
   log "  Agents installed as: hicode-<agent-name>.md"
   log "  Excluded from runtime: docs/, archive/, historical references/"
   log "  Action: copy transformed hicode skills and agents into OpenCode directories"
 
   if [ "$DRY_RUN" -eq 1 ]; then
     log "+ mkdir -p \"$opencode_skills_dir\" \"$opencode_agents_dir\""
-    log "+ install transformed skills/_shared to \"$opencode_skills_dir/hicode-shared\""
     log "+ install transformed skills/{hi,init,scope,tdd,review,release} to \"$opencode_skills_dir/hicode-*\""
     log "+ install transformed agents/*.md to \"$opencode_agents_dir/hicode-*.md\""
     return 0
@@ -239,27 +250,11 @@ function upsertFrontmatterName(content, name) {
 }
 
 function transformSkillContent(content, name) {
-  return upsertFrontmatterName(content, name).replaceAll("../_shared/", "../hicode-shared/");
+  return upsertFrontmatterName(content, name);
 }
 
 function transformAgentContent(content, name) {
   let next = upsertFrontmatterName(content, name);
-  next = next.replaceAll(
-    "../skills/_shared/rules/coding_rules.md",
-    path.join(skillsOut, "hicode-shared/rules/coding_rules.md")
-  );
-  next = next.replaceAll(
-    "../skills/_shared/templates/",
-    path.join(skillsOut, "hicode-shared/templates") + path.sep
-  );
-  next = next.replaceAll(
-    "references/rules/coding_rules.md",
-    path.join(skillsOut, "hicode-shared/rules/coding_rules.md")
-  );
-  next = next.replaceAll(
-    "references/templates/",
-    path.join(skillsOut, "hicode-shared/templates") + path.sep
-  );
   for (const skill of skillNames) {
     next = next.replaceAll(
       `../skills/${skill}/SKILL.md`,
@@ -272,10 +267,6 @@ function transformAgentContent(content, name) {
   }
   return next;
 }
-
-const sharedDest = path.join(skillsOut, "hicode-shared");
-resetTarget(sharedDest, "hicode-shared");
-copyDir(path.join(root, "skills/_shared"), sharedDest);
 
 for (const skill of skillNames) {
   const dest = path.join(skillsOut, `hicode-${skill}`);
@@ -341,14 +332,12 @@ install_codex() {
   log "Codex CLI plan:"
   log "  Skills target: $codex_skills_dir"
   log "  Skills installed as: hicode-hi, hicode-init, hicode-scope, hicode-tdd, hicode-review, hicode-release"
-  log "  Shared runtime assets: hicode-shared"
   log "  Agents: installed as skills (Codex CLI uses SKILL.md format)"
   log "  Excluded from runtime: docs/, archive/, historical references/"
   log "  Action: copy transformed hicode skills into Codex CLI skills directory"
 
   if [ "$DRY_RUN" -eq 1 ]; then
     log "+ mkdir -p \"$codex_skills_dir\""
-    log "+ install transformed skills/_shared to \"$codex_skills_dir/hicode-shared\""
     log "+ install transformed skills/{hi,init,scope,tdd,review,release} to \"$codex_skills_dir/hicode-*\""
     log "+ install transformed agents as skills to \"$codex_skills_dir/hicode-agent-*\""
     return 0
@@ -405,27 +394,11 @@ function upsertFrontmatterName(content, name) {
 }
 
 function transformSkillContent(content, name) {
-  return upsertFrontmatterName(content, name).replaceAll("../_shared/", "../hicode-shared/");
+  return upsertFrontmatterName(content, name);
 }
 
 function transformAgentAsSkill(content, name) {
   let next = upsertFrontmatterName(content, name);
-  next = next.replaceAll(
-    "../skills/_shared/rules/coding_rules.md",
-    path.join(skillsOut, "hicode-shared/rules/coding_rules.md")
-  );
-  next = next.replaceAll(
-    "../skills/_shared/templates/",
-    path.join(skillsOut, "hicode-shared/templates") + path.sep
-  );
-  next = next.replaceAll(
-    "references/rules/coding_rules.md",
-    path.join(skillsOut, "hicode-shared/rules/coding_rules.md")
-  );
-  next = next.replaceAll(
-    "references/templates/",
-    path.join(skillsOut, "hicode-shared/templates") + path.sep
-  );
   for (const skill of skillNames) {
     next = next.replaceAll(
       `../skills/${skill}/SKILL.md`,
@@ -438,10 +411,6 @@ function transformAgentAsSkill(content, name) {
   }
   return next;
 }
-
-const sharedDest = path.join(skillsOut, "hicode-shared");
-resetTarget(sharedDest, "hicode-shared");
-copyDir(path.join(root, "skills/_shared"), sharedDest);
 
 for (const skill of skillNames) {
   const dest = path.join(skillsOut, `hicode-${skill}`);

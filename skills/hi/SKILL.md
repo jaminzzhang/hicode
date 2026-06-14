@@ -94,11 +94,12 @@ description: Use when a target project needs the hicode global entrypoint, first
 
 ## 需要读取的规则
 
-默认不读取所有规则。只有当前回答需要具体依据、风险分级或输出口径时，按需读取：
+默认不读取所有规则。只有当前回答需要具体依据、风险分级或输出口径时，按需读取目标项目规则：
 
-1. 当前稳定规则 interface：`../_shared/rules/coding_rules.md`
+1. `docs/rules/` 下由 `hicode:init` 创建或更新的项目规则文件。
+2. 目标项目已有的 `docs/CODING_RULES.md`、`docs/TESTING_GUIDE.md`、`docs/REVIEW_RULES.md`、`docs/RELEASE_GUIDE.md` 或同等规则文件。
 
-不得引用尚不存在的规则子目录作为当前规则依据。
+缺少目标项目规则时，不读取本仓库 `references/` 或其他 Skill 内置文件替代；应将初始化状态标记为未完成，并建议进入 `hicode:init`。
 
 ## 安全边界
 

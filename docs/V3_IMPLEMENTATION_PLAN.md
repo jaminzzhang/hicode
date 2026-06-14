@@ -189,7 +189,7 @@ V3 工作包编号使用 `V3-P<阶段号>-WP<序号>`。
 3. `references/rules/tdd/`
 4. `references/rules/review/`
 5. `references/rules/release/`
-6. `references/templates/project/`
+6. `references/`
 7. `references/templates/scope/`
 8. `references/templates/tdd/`
 9. `references/templates/review/`
@@ -207,8 +207,9 @@ V3 后续维护已将上述 P3 中间目录进一步收敛：
 
 1. 当前稳定规则 interface 为 `references/rules/coding_rules.md`，不再维护 `references/rules/shared/`、`init/`、`scope/`、`tdd/`、`review/` 或 `release/` 作为当前规则目录。
 2. 当前模板目录按文档生命周期收敛为 `references/templates/project/` 和 `references/templates/feature/`，不再维护 `references/templates/scope/`、`tdd/`、`review/` 或 `release/` 作为当前目录。
-3. `references/templates/README.md` 维护单需求文档生命周期规则，`scope`、`tdd`、`review` 和 `release` Skill 按需引用，不在各 Skill 中复制完整写入规则。
-4. 本节保留 P3 原工作包描述作为历史执行计划；当前新资产必须以 `AGENTS.md`、`CONTEXT.md`、`references/README.md` 和实际文件结构为准。
+3. `references/templates/project/hicode-entry-section.md` 维护单需求文档生命周期、写入边界和审批边界，并由 `hicode:init` 写入目标项目入口；`scope`、`tdd`、`review` 和 `release` Skill 不再携带 `README.md` 副本。
+4. `references/rules/` 和 `references/templates/` 是维护源；`hicode:init` 执行时读取 `skills/init/coding_rules.md` 作为目标项目 `docs/rules/` 种子，其他场景 Skill 执行时读取目标项目入口规则、目标项目规则文件和本 Skill 根目录中的具体模板文档；Agent 共性安全、权限、输出和停止条件写入各 Agent 正文，不再维护共享运行镜像。
+5. 本节保留 P3 原工作包描述作为历史执行计划；当前新资产必须以 `AGENTS.md`、`CONTEXT.md`、`references/templates/project/hicode-entry-section.md` 和实际文件结构为准。
 
 ## 9. V3-P4 Skill 直接执行化
 

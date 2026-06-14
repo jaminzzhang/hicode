@@ -22,11 +22,11 @@ description: 初始化目标后端项目的 hicode 使用入口，优先使用 A
 
 按当前步骤读取必要材料，不默认全量读取：
 
-1. `../_shared/rules/coding_rules.md`
-2. `../_shared/templates/project/hicode-entry-section.md`
-3. `../_shared/templates/project/DOMAIN_KNOWLEDGE.md`
-4. `../_shared/templates/project/PROJ_CONTEXT.md`
-5. `../_shared/templates/project/ADR-template.md`
+1. `coding_rules.md`
+2. `hicode-entry-section.md`
+3. `DOMAIN_KNOWLEDGE.md`
+4. `PROJ_CONTEXT.md`
+5. `ADR-template.md`
 
 目标项目中已有的 `AGENTS.md`、`CLAUDE.md`、`docs/rules/`、`docs/DOMAIN_KNOWLEDGE.md`、`docs/PROJ_CONTEXT.md` 和 `docs/adr/` 必须优先保留。发现冲突时先列出冲突，不得直接覆盖。
 
@@ -73,7 +73,7 @@ description: 初始化目标后端项目的 hicode 使用入口，优先使用 A
 入口文件已存在时：
 
 1. 保留用户已有内容和平台生成内容。
-2. 基于 `../_shared/templates/project/hicode-entry-section.md` 补充或刷新 hicode section。
+2. 基于 `hicode-entry-section.md` 补充或刷新 hicode section。
 3. hicode section 应说明项目文档路径、`docs/rules/`、单需求目录和推荐 hicode Skill。
 
 ### 3. 初始化项目规则
@@ -83,7 +83,7 @@ description: 初始化目标后端项目的 hicode 使用入口，优先使用 A
 处理规则：
 
 1. 在目标项目 `docs/rules/` 下创建或更新项目规则。
-2. 适用且无需改写的规则可以从 `../_shared/rules/` 复制。
+2. 适用且无需改写的规则可以从 `coding_rules.md` 复制。
 3. 只部分适用的规则应生成项目版，并用 `待确认` 标注差异。
 4. 项目规则只能补充或加严 hicode 内置规则，不能放宽安全、合规、审计、幂等、事务、状态流转、异常防御、测试和回滚要求。
 5. 已有 `docs/rules/` 文件优先保留；冲突未确认前不得覆盖。

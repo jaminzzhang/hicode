@@ -2,10 +2,10 @@
 
 ## 1. 当前状态
 
-最近更新时间：2026-06-12
+最近更新时间：2026-06-14
 当前阶段：V3 后续维护
-当前工作包：V3-MAINT-WP24 OpenCode `/init` 边界修正
-总体状态：V1 已完成；V2-P1 至 V2-P5 已完成；V2-P6-WP1 待验收；V3 已完成；V3-MAINT-WP1 待验收；V3-MAINT-WP2 待验收；V3-MAINT-WP3 待验收；V3-MAINT-WP4 待验收；V3-MAINT-WP5 待验收；V3-MAINT-WP6 待验收；V3-MAINT-WP7 待验收；V3-MAINT-WP8 待验收；V3-MAINT-WP9 待验收；V3-MAINT-WP10 待验收；V3-MAINT-WP11 待验收；V3-MAINT-WP12 待验收；V3-MAINT-WP13 待验收；V3-MAINT-WP14 待验收；V3-MAINT-WP15 待验收；V3-MAINT-WP16 待验收；V3-MAINT-WP17 待验收；V3-MAINT-WP18 待验收；V3-MAINT-WP19 待验收；V3-MAINT-WP20 待验收；V3-MAINT-WP21 待验收；V3-MAINT-WP22 待验收；V3-MAINT-WP23 待验收；V3-MAINT-WP24 待验收
+当前工作包：V3-MAINT-WP29 场景 README 生命周期约束上移
+总体状态：V1 已完成；V2-P1 至 V2-P5 已完成；V2-P6-WP1 待验收；V3 已完成；V3-MAINT-WP1 待验收；V3-MAINT-WP2 待验收；V3-MAINT-WP3 待验收；V3-MAINT-WP4 待验收；V3-MAINT-WP5 待验收；V3-MAINT-WP6 待验收；V3-MAINT-WP7 待验收；V3-MAINT-WP8 待验收；V3-MAINT-WP9 待验收；V3-MAINT-WP10 待验收；V3-MAINT-WP11 待验收；V3-MAINT-WP12 待验收；V3-MAINT-WP13 待验收；V3-MAINT-WP14 待验收；V3-MAINT-WP15 待验收；V3-MAINT-WP16 待验收；V3-MAINT-WP17 待验收；V3-MAINT-WP18 待验收；V3-MAINT-WP19 待验收；V3-MAINT-WP20 待验收；V3-MAINT-WP21 待验收；V3-MAINT-WP22 待验收；V3-MAINT-WP23 待验收；V3-MAINT-WP24 待验收；V3-MAINT-WP25 待验收；V3-MAINT-WP26 待验收；V3-MAINT-WP27 待验收；V3-MAINT-WP28 待验收；V3-MAINT-WP29 待验收
 
 本台账用于记录 V1、V2 和 V3 工作包推进状态。每次开发 Agent 开始、完成、阻塞、暂缓或提交工作包验收时，必须同步更新本文件。
 
@@ -201,7 +201,7 @@
 177. 已整理 `CONTEXT.md` 的 V3 术语边界和归档策略，并将 `V3-P1-WP1` 提交项目负责人验收。
 178. 项目负责人已确认 `V3-P1-WP1` 验收通过，V3 简化重构计划与入口规则工作包完成；下一步需由项目负责人明确确认是否启动 `V3-P2-WP1`。
 179. 项目负责人已确认继续启动 `V3-P2-WP1` 当前目录骨架与归档目录，工作包进入进行中。
-180. 已创建 `archive/README.md`、`references/rules/README.md` 和 `references/templates/README.md`，并重写 `references/README.md` 与 `references/hooks/README.md` 的当前目录契约；未迁移旧 `references/` 内容，未重写 Skill；已将 `V3-P2-WP1` 提交项目负责人验收。
+180. 已创建 `archive/README.md`、`references/README.md`、`references/rules/README.md` 和 `references/templates/README.md`，并重写 `references/README.md` 与 `references/hooks/README.md` 的当前目录契约；未迁移旧 `references/` 内容，未重写 Skill；已将 `V3-P2-WP1` 提交项目负责人验收。
 181. 项目负责人已确认 `V3-P2-WP1` 验收通过，并确认继续启动 `V3-P2-WP2` 历史资产归档迁移，工作包进入进行中。
 182. 已将旧 `references/docs/`、`references/prompts/`、`references/skills/`、`references/gates/`、`references/schemas/`、`references/examples/`、`references/init/` 和 `references/target-project/` 整体迁入 `archive/references/`，并更新归档说明；未拆解规则和模板，未重写 6 个 Skill；已将 `V3-P2-WP2` 提交项目负责人验收。
 183. 项目负责人已确认 `V3-P2-WP2` 验收通过，并要求提交 Git 后继续启动下一工作包。
@@ -239,7 +239,7 @@
 
 ## 5. 下一步建议
 
-1. 等待项目负责人验收 `V3-MAINT-WP1` 至 `V3-MAINT-WP24`。
+1. 等待项目负责人验收 `V3-MAINT-WP1` 至 `V3-MAINT-WP26`。
 2. 验收通过后再将对应维护工作包标记为已完成。
 3. V2-P6-WP1 仍保留待验收状态，未被 V3 或本次维护工作自动标记为已完成。
 4. 后续若进入真实试点运行效果验收，必须基于真实试点数据补充，不能用本仓库模板资产替代。
@@ -305,7 +305,7 @@
 |---|---|---|---|---|---|
 | V3-P1-WP1 | V3 实施计划与入口规则 | 已完成 | `docs/V3_IMPLEMENTATION_PLAN.md`、更新后的 `AGENTS.md`、`CONTEXT.md`、`docs/PROGRESS.md`、`docs/adr/0003-simplify-hicode-reference-assets-and-direct-skills.md` | 项目负责人确认启动 V3 | 项目负责人已确认验收通过；本工作包未移动 `references/` 文件、未创建归档迁移内容、未重写 6 个 Skill |
 | V3-P2-WP1 | 当前目录骨架与归档目录 | 已完成 | `archive/README.md`、`references/README.md`、`references/rules/README.md`、`references/templates/README.md`、更新后的 `references/hooks/README.md` | V3-P1-WP1 | 项目负责人已确认验收通过；未迁移旧 `references/` 内容，未重写 6 个 Skill |
-| V3-P2-WP2 | 历史资产归档迁移 | 已完成 | `archive/references/docs/`、`prompts/`、`skills/`、`gates/`、`schemas/`、`examples/`、`init/`、`target-project/`，更新后的 `archive/README.md` 和 `references/README.md` | V3-P2-WP1 | 项目负责人已确认验收通过；未拆解规则和模板，未重写 6 个 Skill |
+| V3-P2-WP2 | 历史资产归档迁移 | 已完成 | `archive/references/docs/`、`prompts/`、`skills/`、`gates/`、`schemas/`、`examples/`、`init/`、`target-project/`，更新后的 `archive/README.md` 和 `references/templates/README.md` | V3-P2-WP1 | 项目负责人已确认验收通过；未拆解规则和模板，未重写 6 个 Skill |
 | V3-P3-WP1 | 共享规则与结构化输出规则 | 已完成 | `references/rules/shared/README.md`、`safety-and-risk.md`、`permissions.md`、`output.md`、更新后的 `references/rules/README.md` | V3-P2 | 项目负责人已确认验收通过；只提炼共享规则和 Markdown 结构化输出规则，不进入场景模板；不保留当前 JSON Schema |
 | V3-P3-WP2 | 场景规则与模板 | 已完成 | `references/rules/init/`、`scope/`、`tdd/`、`review/`、`release/`；`references/templates/project/`、`scope/`、`tdd/`、`review/`、`release/` | V3-P3-WP1 | 项目负责人已确认验收通过；当前完整入口模板已在 V3-MAINT-WP13 收敛为 `hicode-entry-section.md`；模板只保存可填写骨架；未重写 6 个根目录 Skill |
 | V3-P4-WP1 | `hi` 与 `init` Skill 重写 | 已完成 | `skills/hi/SKILL.md`、`skills/init/SKILL.md` | V3-P3 | 项目负责人已确认验收通过；不引用归档资产；不恢复 `.hicode` 固化、manifest/profile 或默认加载项目模板旧口径 |
@@ -337,21 +337,31 @@
 | V3-MAINT-WP15 | `scope` Skill 写作优化 | 待验收 | `skills/scope/SKILL.md`、`docs/PROGRESS.md` | 用户要求使用 `write-a-skill` 优化 `skills/scope`，并将行数限制放宽至 160 行 | 已将 `scope` Skill 重写为 160 行以内的中文主文档，强化 description 触发条件、快速示例、需求目录固定、Scope 模式、需求评审、澄清追问、方案比较、小任务拆分、分流停止条件和输出要求；等待项目负责人验收 |
 | V3-MAINT-WP16 | `tdd` Skill 写作优化 | 待验收 | `skills/tdd/SKILL.md`、`docs/PROGRESS.md` | 用户要求使用 `write-a-skill` 优化 `skills/tdd`，并将行数限制放宽至 160 行左右 | 已将 `tdd` Skill 优化为 160 行左右的中文主文档，强化 description 触发条件、快速示例、文档规则、任务模式、TDD 核心原则、tracer bullet、RED-GREEN-REFACTOR、Mock/测试数据、本地验证、停止条件和输出要求；等待项目负责人验收 |
 | V3-MAINT-WP17 | `review` Skill 写作优化 | 待验收 | `skills/review/SKILL.md`、`docs/PROGRESS.md` | 用户要求使用 `write-a-skill` 优化 `skills/review`，并将行数限制放宽至 150 行 | 已将 `review` Skill 优化为 150 行以内的中文主文档，强化 description 触发条件、快速示例、文档规则、三轴审查、专项审查、问题分级、阻断建议、本地验证、停止条件和输出要求；同时修正不存在的规则路径引用；等待项目负责人验收 |
-| V3-MAINT-WP18 | 当前规则 Module 架构收敛 | 待验收 | `CONTEXT.md`、`agents/*.md`、`agents/README.md`、`references/rules/coding_rules.md`、`references/README.md`、`references/hooks/`、`docs/HICODE_ARCHITECTURE_OPTIMIZATION_SUGGESTIONS.md`、`docs/PROGRESS.md` | 用户要求基于架构优化优选项使用 `grill-with-docs` 分析并优化；已确认不恢复多目录规则结构，当前稳定规则 interface 收敛为 `references/rules/coding_rules.md` | 已将 Agent、Hook、`hi` 和 references 入口中的失效规则路径统一收敛到 `references/rules/coding_rules.md`；已将 Agent 共性规则收敛进 `coding_rules.md` 并收缩 8 个 Agent 与模板重复内容；已同步术语上下文和优化建议报告；等待项目负责人验收 |
+| V3-MAINT-WP18 | 当前规则 Module 架构收敛 | 待验收 | `CONTEXT.md`、`agents/*.md`、`agents/README.md`、`references/rules/coding_rules.md`、`references/templates/README.md`、`references/hooks/`、`docs/HICODE_ARCHITECTURE_OPTIMIZATION_SUGGESTIONS.md`、`docs/PROGRESS.md` | 用户要求基于架构优化优选项使用 `grill-with-docs` 分析并优化；已确认不恢复多目录规则结构，当前稳定规则 interface 收敛为 `references/rules/coding_rules.md` | 已将 Agent、Hook、`hi` 和 references 入口中的失效规则路径统一收敛到 `references/rules/coding_rules.md`；已将 Agent 共性规则收敛进 `coding_rules.md` 并收缩 8 个 Agent 与模板重复内容；已同步术语上下文和优化建议报告；等待项目负责人验收 |
 | V3-MAINT-WP19 | 当前资产健康检查 Module | 待验收 | `scripts/health-check.sh`、`docs/HICODE_HEALTH_CHECK.md`、`README.md`、`CONTEXT.md`、`docs/HICODE_ARCHITECTURE_OPTIMIZATION_SUGGESTIONS.md`、`docs/PROGRESS.md` | 用户确认候选 5 直接脚本化，不只保留 Markdown 命令清单 | 已新增可重复运行的健康检查脚本，覆盖旧路径依赖、安装边界、Agent 共性规则收敛、安全红线覆盖、JSON 解析、install dry-run、shell 语法和 diff 空白检查；等待项目负责人验收 |
-| V3-MAINT-WP20 | 单需求文档生命周期与 V3 计划漂移收敛 | 待验收 | `references/templates/README.md`、`skills/scope/SKILL.md`、`skills/tdd/SKILL.md`、`skills/review/SKILL.md`、`skills/release/SKILL.md`、`CONTEXT.md`、`docs/V3_IMPLEMENTATION_PLAN.md`、`docs/HICODE_ARCHITECTURE_OPTIMIZATION_SUGGESTIONS.md`、`docs/PROGRESS.md` | 用户要求继续处理架构优化候选；候选 2 和 6 可从仓库直接判断并优化 | 已将单需求文档生命周期规则集中到 `references/templates/README.md`，四个场景 Skill 改为引用该规则；已在 V3 计划追加当前收敛形态说明，解释历史中间目录与当前实际结构的关系；等待项目负责人验收 |
+| V3-MAINT-WP20 | 单需求文档生命周期与 V3 计划漂移收敛 | 待验收 | `references/templates/README.md`、`skills/scope/SKILL.md`、`skills/tdd/SKILL.md`、`skills/review/SKILL.md`、`skills/release/SKILL.md`、`CONTEXT.md`、`docs/V3_IMPLEMENTATION_PLAN.md`、`docs/HICODE_ARCHITECTURE_OPTIMIZATION_SUGGESTIONS.md`、`docs/PROGRESS.md` | 用户要求继续处理架构优化候选；候选 2 和 6 可从仓库直接判断并优化 | 历史工作包：曾将单需求文档生命周期规则集中到 `references/templates/README.md` 并由四个场景 Skill 引用；该规则已在 V3-MAINT-WP29 上移到 `hicode-entry-section.md`，当前场景 Skill 不再携带 README 副本；等待项目负责人验收 |
 | V3-MAINT-WP21 | 编码规则分区与 Hook 一致性检查 | 待验收 | `references/rules/coding_rules.md`、`scripts/health-check.sh`、`docs/HICODE_HEALTH_CHECK.md`、`docs/HICODE_ARCHITECTURE_OPTIMIZATION_SUGGESTIONS.md`、`docs/PROGRESS.md` | 用户要求继续处理架构优化候选；候选 3 和 4 可做低风险收敛 | 已在单一 `coding_rules.md` 内区分 Agent 共性规则、编码强制规则、Review 与测试证据规则；已把 Hook ID、默认模式、规则依据、blocking 条件和禁止动作一致性纳入健康检查脚本；等待项目负责人验收 |
-| V3-MAINT-WP22 | Skill 运行时共享资产镜像 | 待验收 | `skills/_shared/`、`skills/*/SKILL.md`、`install.sh`、`scripts/health-check.sh`、`AGENTS.md`、`CONTEXT.md`、`references/README.md`、`docs/HICODE_HEALTH_CHECK.md`、`docs/PROGRESS.md` | 用户反馈目标项目使用 Skill 时读取 `references/` 会多次请求授权 | 已新增 `skills/_shared/` 运行时镜像，Skill 改为读取 `../_shared/`；安装器校验共享资产存在；健康检查校验 Skill 不再读取 `../../references/` 且镜像与源文件一致；等待项目负责人验收 |
+| V3-MAINT-WP22 | Skill 运行时共享资产镜像 | 待验收 | 共享运行目录、`skills/*/SKILL.md`、`install.sh`、`scripts/health-check.sh`、`AGENTS.md`、`CONTEXT.md`、`references/templates/README.md`、`docs/HICODE_HEALTH_CHECK.md`、`docs/PROGRESS.md` | 用户反馈目标项目使用 Skill 时读取 `references/` 会多次请求授权 | 历史工作包：曾新增共享运行镜像并调整 Skill 引用；该共享目录已在 V3-MAINT-WP27 删除，当前口径以 WP27 为准 |
 | V3-MAINT-WP23 | 安装器双平台支持 | 待验收 | `install.sh`、`.claude-plugin/plugin.json`、`scripts/health-check.sh`、`README.md`、`AGENTS.md`、`CONTEXT.md`、`docs/HICODE_HEALTH_CHECK.md`、`docs/PROGRESS.md` | 用户要求优化安装命令，同时支持 Claude Code 安装 plugin，以及 OpenCode 安装 agents 和 skill | 已将 Claude manifest 扩展为 `agents/` + `skills/`；`install.sh` 新增 `--opencode`、`--all`、OpenCode 用户级/项目级 scope 和运行时转换复制；健康检查新增 OpenCode 与双平台 dry-run；等待项目负责人验收 |
-| V3-MAINT-WP24 | OpenCode `/init` 边界修正 | 待验收 | `skills/init/SKILL.md`、`references/templates/README.md`、`references/templates/project/hicode-entry-section.md`、`skills/_shared/templates/README.md`、`skills/_shared/templates/project/hicode-entry-section.md`、`CONTEXT.md`、`docs/V3_IMPLEMENTATION_PLAN.md`、`docs/PROGRESS.md` | 用户确认 OpenCode TUI `/init` 是用户手工命令，不属于 Agent 可执行初始化能力；入口缺失时允许推荐生成最小 `AGENTS.md`，但必须先问用户确认 | 已将初始化口径收敛为优先使用 Agent 可执行初始化能力；OpenCode `/init` 不能由 Agent 代替执行，入口缺失时提示用户手工执行或推荐确认后生成最小 `AGENTS.md`；等待项目负责人验收 |
+| V3-MAINT-WP24 | OpenCode `/init` 边界修正 | 待验收 | `skills/init/SKILL.md`、`references/templates/README.md`、`references/templates/project/hicode-entry-section.md`、`CONTEXT.md`、`docs/V3_IMPLEMENTATION_PLAN.md`、`docs/PROGRESS.md` | 用户确认 OpenCode TUI `/init` 是用户手工命令，不属于 Agent 可执行初始化能力；入口缺失时允许推荐生成最小 `AGENTS.md`，但必须先问用户确认 | 已将初始化口径收敛为优先使用 Agent 可执行初始化能力；OpenCode `/init` 不能由 Agent 代替执行，入口缺失时提示用户手工执行或推荐确认后生成最小 `AGENTS.md`；等待项目负责人验收 |
+| V3-MAINT-WP25 | Skill 本地运行资产与目标 docs 引用收敛 | 待验收 | `skills/init/coding_rules.md`、各 Skill 根目录本地模板文档、`skills/*/SKILL.md`、`install.sh`、`.claude-plugin/plugin.json`、`scripts/health-check.sh`、`README.md`、`references/templates/README.md`、`docs/HICODE_HEALTH_CHECK.md`、`docs/V3_IMPLEMENTATION_PLAN.md`、`CONTEXT.md`、`AGENTS.md`、`docs/PROGRESS.md` | 用户反馈 Skill 引用 reference 文档混乱，目标项目执行时需要不断请求读取共享运行目录权限；要求把 Skill 必需文档拷贝到 Skill 目录，并把目标项目生成文档改为读取目标 `docs` | 已将 Skill 模板本地化，`init` 保留规则种子；目标项目事实文档统一改为读取 `docs/`，模板仅用于缺失文档创建；非 init Skill 本地规则副本已在 V3-MAINT-WP26 收敛移除；本地文档已在 V3-MAINT-WP28 改为平铺；等待项目负责人验收 |
+| V3-MAINT-WP26 | 非 init Skill 目标项目规则读取收敛 | 待验收 | `skills/hi/SKILL.md`、`skills/scope/SKILL.md`、`skills/tdd/SKILL.md`、`skills/review/SKILL.md`、`skills/release/SKILL.md`、`skills/init/coding_rules.md`、`agents/*.md`、`agents/README.md`、`install.sh`、`scripts/health-check.sh`、`AGENTS.md`、`CONTEXT.md`、`README.md`、`references/templates/README.md`、`docs/HICODE_HEALTH_CHECK.md`、`docs/V3_IMPLEMENTATION_PLAN.md`、`docs/PROGRESS.md` | 用户确认 `coding_rules.md` 只应由 `hicode:init` 使用；其他 Skill 应读取并遵守 init 在目标项目中创建的 rule 文件 | 已移除非 init Skill 的本地 `coding_rules.md` 副本和正文引用；`hi/scope/tdd/review/release` 改为读取目标项目 `docs/rules/` 或等价规则文件，缺失时提示补 `hicode:init`；Agent 共性规则已在 V3-MAINT-WP27 改为正文自包含；等待项目负责人验收 |
+| V3-MAINT-WP27 | 删除共享运行目录与引用清理 | 待验收 | `skills/`、`agents/*.md`、`agents/README.md`、`install.sh`、`scripts/health-check.sh`、`AGENTS.md`、`CONTEXT.md`、`README.md`、`references/templates/README.md`、`docs/HICODE_HEALTH_CHECK.md`、`docs/V3_IMPLEMENTATION_PLAN.md`、`docs/PROGRESS.md` | 用户确认共享运行目录无用，要求删除并清除相应引用 | 已删除共享运行目录文件；Agent 共性安全、权限、输出和停止条件改为正文自包含；安装器不再生成共享运行资产；健康检查改为校验共享目录不存在且运行资产无旧共享路径；等待项目负责人验收 |
+| V3-MAINT-WP28 | Skill 本地文档平铺 | 待验收 | `skills/*`、`skills/*/SKILL.md`、`install.sh`、`scripts/health-check.sh`、`AGENTS.md`、`CONTEXT.md`、`README.md`、`references/README.md`、`references/templates/README.md`、`docs/HICODE_HEALTH_CHECK.md`、`docs/V3_IMPLEMENTATION_PLAN.md`、`docs/PROGRESS.md` | 用户要求 `skills/` 下所有子 Skill 文档放到各自 Skill 根目录，不需要分文件夹 | 已将 `init` 规则种子和各场景模板文档平铺到各 Skill 根目录；同步更新 Skill 正文、安装器、健康检查和文档引用；健康检查新增禁止 Skill 内二级目录校验；等待项目负责人验收 |
+| V3-MAINT-WP29 | 场景 README 生命周期约束上移 | 待验收 | `references/templates/project/hicode-entry-section.md`、`skills/init/hicode-entry-section.md`、`skills/scope/SKILL.md`、`skills/tdd/SKILL.md`、`skills/review/SKILL.md`、`skills/release/SKILL.md`、`install.sh`、`scripts/health-check.sh`、`AGENTS.md`、`CONTEXT.md`、`README.md`、`references/README.md`、`references/templates/README.md`、`docs/HICODE_HEALTH_CHECK.md`、`docs/V3_IMPLEMENTATION_PLAN.md`、`docs/PROGRESS.md` | 用户指出各 Skill 下的 `README.md` 是重复约定，应与 `hicode-entry-section.md` 对比整合，让约定写入目标 `CLAUDE.md` 或 `AGENTS.md` | 已将单需求文档生命周期、写入边界、缺失材料处理和审批边界整合进 `hicode-entry-section.md`；删除 `scope/tdd/review/release` 的重复 `README.md`；场景 Skill 改为读取目标项目入口 hicode section；安装器和健康检查同步更新；等待项目负责人验收 |
 
 ## 10. 最近变更记录
 
 | 日期 | 操作者 | 变更 | 关联工作包 |
 |---|---|---|---|
-| 2026-06-12 | Codex | 修正 OpenCode `/init` 初始化边界：确认 OpenCode TUI `/init` 需要用户手工执行，不属于 Agent 可执行初始化能力；`hicode:init` 改为提示用户手工执行或推荐在确认后生成最小 `AGENTS.md`，并同步模板源、运行时镜像、术语上下文和 V3 计划 | V3-MAINT-WP24 |
-| 2026-06-12 | Codex | 优化 `install.sh` 为双平台安装入口：默认保持 Claude Code plugin 安装，新增 `--opencode` 安装 OpenCode agents/skills，`--all` 同时安装；OpenCode 侧转换为 `hicode-*` Skill/Agent 和 `hicode-shared` 运行时共享资产，并同步健康检查和文档边界 | V3-MAINT-WP23 |
-| 2026-06-12 | Codex | 新增 `skills/_shared/` 运行时共享资产镜像，6 个 Skill 改为读取 `../_shared/`，减少目标项目运行时跨 plugin 目录访问授权；健康检查新增镜像一致性和 Skill 引用边界校验 | V3-MAINT-WP22 |
+| 2026-06-14 | Codex | 盘点并删除 `scope/tdd/review/release` 下重复的 `README.md` 生命周期说明；将单需求文档生命周期、写入边界、缺失材料处理和审批边界整合进 `hicode-entry-section.md`，由 `hicode:init` 写入目标 `AGENTS.md` 或 `CLAUDE.md` | V3-MAINT-WP29 |
+| 2026-06-14 | Codex | 将 `skills/` 下各子 Skill 的本地规则和模板文档平铺到 Skill 根目录；同步更新 Skill 正文、安装器、健康检查和文档口径，并新增 Skill 内二级目录禁止校验 | V3-MAINT-WP28 |
+| 2026-06-14 | Codex | 删除共享运行目录并清理运行引用：Agent 共性安全、权限、输出和停止条件改为正文自包含；安装器不再生成共享运行资产；健康检查改为校验共享目录不存在且运行资产无旧共享路径 | V3-MAINT-WP27 |
+| 2026-06-14 | Codex | 根据用户反馈进一步收敛规则读取边界：`coding_rules.md` 只保留为 `hicode:init` 创建目标项目 `docs/rules/` 的种子规则；`hi/scope/tdd/review/release` 改为读取目标项目规则文件；健康检查新增非 init Skill 不读取/不携带本地规则种子校验 | V3-MAINT-WP26 |
+| 2026-06-14 | Codex | 收敛 Skill 运行资产引用：将 Skill 创建目标文档所需模板复制到各自 Skill 目录，并把目标项目已生成文档改为读取目标 `docs/`；后续 WP26 将规则种子进一步限定为仅 `hicode:init` 使用，WP27 删除共享运行目录 | V3-MAINT-WP25 |
+| 2026-06-12 | Codex | 修正 OpenCode `/init` 初始化边界：确认 OpenCode TUI `/init` 需要用户手工执行，不属于 Agent 可执行初始化能力；`hicode:init` 改为提示用户手工执行或推荐在确认后生成最小 `AGENTS.md`，并同步模板源、术语上下文和 V3 计划 | V3-MAINT-WP24 |
+| 2026-06-12 | Codex | 优化 `install.sh` 为双平台安装入口：默认保持 Claude Code plugin 安装，新增 `--opencode` 安装 OpenCode agents/skills，`--all` 同时安装；OpenCode 侧转换为 `hicode-*` Skill/Agent，并同步健康检查和文档边界 | V3-MAINT-WP23 |
+| 2026-06-12 | Codex | 历史工作包：曾新增运行时共享资产镜像以减少目标项目运行时跨 plugin 目录访问授权；该设计已在 WP27 删除 | V3-MAINT-WP22 |
 | 2026-06-12 | Codex | 完成编码规则分区与 Hook 一致性检查：`coding_rules.md` 在单一稳定 interface 内区分编码强制规则和 Review/测试证据规则；`scripts/health-check.sh` 新增 Hook JSON 与 Markdown 一致性校验 | V3-MAINT-WP21 |
 | 2026-06-12 | Codex | 收敛单需求文档生命周期与 V3 计划漂移：在 `references/templates/README.md` 增加生命周期规则，`scope`/`tdd`/`review`/`release` 改为引用该规则，并在 V3 计划追加当前收敛形态说明 | V3-MAINT-WP20 |
 | 2026-06-12 | Codex | 将当前资产健康检查脚本化：新增 `scripts/health-check.sh` 和 `docs/HICODE_HEALTH_CHECK.md`，覆盖旧路径依赖、安装边界、Agent 共性规则收敛、安全红线覆盖、JSON 解析、install dry-run、shell 语法和 diff 空白检查；同步 README、CONTEXT 和架构优化建议报告 | V3-MAINT-WP19 |
