@@ -14,13 +14,19 @@ description: Use when the current or specified Git branch needs release analysis
 
 执行前按需读取：
 
-1. `../_shared/rules/coding_rules.md`
-2. `../_shared/templates/README.md`
-3. `../_shared/templates/feature/release-report.md`
+本 Skill 内置材料：
 
-同时读取目标项目中与本次发布直接相关的材料：`AGENTS.md` 或 `CLAUDE.md`、`docs/DOMAIN_KNOWLEDGE.md`、`docs/PROJ_CONTEXT.md`、`docs/rules/`、`docs/adr/`、`docs/features/<feature-id>/` 下的 feature 上下文和各阶段报告，以及分支、Commit、MR/PR、CI、测试、缺陷、SQL、配置、脚本、制品和发布材料。
+1. `release-report.md`
 
-按 `../_shared/templates/README.md` 的单需求文档生命周期执行。若 `feature-id` 不明确，不得编造；可以先基于分支和 diff 输出临时报告，并把“需求目录未确认”列为证据缺口。需要落盘到 `docs/features/<feature-id>/release-report.md` 时，必须先确认 `feature-id`。
+目标项目事实文档：
+
+1. `AGENTS.md` 或 `CLAUDE.md`。
+2. `docs/rules/` 下由 `hicode:init` 创建或更新的项目规则文件，以及目标项目已有的等价规则文件；缺少时提示先补 `hicode:init`，不得读取本仓库规则替代。
+3. `docs/DOMAIN_KNOWLEDGE.md`、`docs/PROJ_CONTEXT.md`、`docs/adr/`。
+4. `docs/features/<feature-id>/` 下的 feature 上下文和各阶段报告；存在时读取目标项目文件，不读取模板代替事实。
+5. 分支、Commit、MR/PR、CI、测试、缺陷、SQL、配置、脚本、制品和发布材料。
+
+按目标项目 `AGENTS.md` 或 `CLAUDE.md` 中的 hicode 单需求文档生命周期执行；入口缺少 hicode section 时，先提示补 `hicode:init`。若 `feature-id` 不明确，不得编造；可以先基于分支和 diff 输出临时报告，并把“需求目录未确认”列为证据缺口。需要落盘到 `docs/features/<feature-id>/release-report.md` 时，必须先确认 `feature-id`，再读取本 Skill 内置模板。
 
 不得读取 `.env`、密钥文件、生产配置、生产凭证、未脱敏客户信息、未脱敏生产数据或生产日志原文。
 
@@ -62,7 +68,7 @@ description: Use when the current or specified Git branch needs release analysis
 
 ### 5. 生成发布报告
 
-默认在回复中生成 Markdown 发布报告。若用户要求写入文件且 `feature-id` 已确认，基于 `../_shared/templates/feature/release-report.md` 创建或更新 `docs/features/<feature-id>/release-report.md`，且只汇总已知证据、风险、验证计划和回滚计划。
+默认在回复中生成 Markdown 发布报告。若用户要求写入文件且 `feature-id` 已确认，基于 `release-report.md` 创建或更新 `docs/features/<feature-id>/release-report.md`，且只汇总已知证据、风险、验证计划和回滚计划。
 
 报告必须包含：
 

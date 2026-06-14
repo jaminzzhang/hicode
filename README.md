@@ -4,7 +4,7 @@
 
 本仓库根目录是 hicode 的设计中心，也是面向 Claude Code 的原生 plugin root，并提供 OpenCode agents/skills 本地安装入口。
 
-Claude Code 通过 plugin marketplace 安装；OpenCode 通过 `install.sh --opencode` 把 hicode 的 agents、skills 和共享运行时资产转换复制到 OpenCode 用户级或项目级目录。
+Claude Code 通过 plugin marketplace 安装；OpenCode 通过 `install.sh --opencode` 把 hicode 的 agents 和 skills 转换复制到 OpenCode 用户级或项目级目录。
 
 本 plugin 安装动作不执行目标项目初始化，不扫描代码，不生成 `CLAUDE.md`、`AGENTS.md` 或项目本地运行目录。
 
@@ -76,9 +76,11 @@ bash scripts/health-check.sh
 本仓库按以下官方机制组织：
 
 1. Claude Code plugin 使用插件根目录下的 `.claude-plugin/plugin.json`、`agents/` 和 `skills/<name>/SKILL.md`。
-2. `skills/` 下每个目录都是一个 Claude Code Skill，`skills/_shared/` 是随 Skill 安装的运行时共享镜像。
-3. OpenCode 安装时将 `skills/` 转换为 `hicode-*` Skill，将 `agents/` 转换为 `hicode-*.md` Agent，并把内部引用指向 `hicode-shared`。
-4. `references/` 是本仓库维护源，不是目标平台默认上下文。
+2. `skills/init/coding_rules.md` 是 `hicode:init` 创建或更新目标项目 `docs/rules/` 的种子规则；其他场景 Skill 遵守目标项目规则文件。
+3. 每个 `skills/<skill>/` 目录只使用根目录文件承载本地具体模板和规则种子，不维护 Skill 内部子目录，也不为场景生命周期复制重复 `README.md`。
+4. Agent 共性安全、权限、输出和停止条件写入各 Agent 正文，不再通过共享运行目录读取。
+5. OpenCode 安装时将场景 Skill 转换为 `hicode-*` Skill，将 `agents/` 转换为 `hicode-*.md` Agent。
+6. `references/` 是本仓库维护源，不是目标平台默认上下文。
 
 参考资料：
 

@@ -79,12 +79,22 @@ check_no_match \
   skills agents references/rules references/templates references/hooks
 
 check_no_match \
-  "skills use runtime shared assets instead of reading repository references directly" \
-  '\.\./\.\./references/(rules|templates)' \
-  skills
+  "skill entries do not read shared or repository references directly" \
+  '(_shared|hicode-shared|references/(rules|templates))' \
+  skills/hi/SKILL.md skills/init/SKILL.md skills/scope/SKILL.md skills/tdd/SKILL.md skills/review/SKILL.md skills/release/SKILL.md
 
 check_no_match \
-  "agents use runtime shared assets instead of reading repository references directly" \
+  "runtime assets do not reference removed shared runtime assets" \
+  '(_shared|hicode-shared)' \
+  skills agents install.sh .claude-plugin/plugin.json
+
+check_no_match \
+  "non-init skill entries do not read local coding_rules seed" \
+  'coding_rules\.md' \
+  skills/hi/SKILL.md skills/scope/SKILL.md skills/tdd/SKILL.md skills/review/SKILL.md skills/release/SKILL.md
+
+check_no_match \
+  "agents do not read repository references directly" \
   'references/(rules|templates)' \
   agents
 
@@ -124,8 +134,36 @@ check_cmd \
   node -e "const p=JSON.parse(require('fs').readFileSync('.claude-plugin/plugin.json','utf8')); if (!Array.isArray(p.skills) || p.skills.length !== 1 || p.skills[0] !== './skills/') process.exit(1); if (!Array.isArray(p.agents) || p.agents.length !== 1 || p.agents[0] !== './agents/') process.exit(1)"
 
 check_cmd \
-  "runtime shared assets mirror references source files" \
-  bash -c "diff -qr references/rules skills/_shared/rules >/dev/null && diff -qr references/templates skills/_shared/templates >/dev/null"
+  "removed shared runtime directory is absent" \
+  bash -c "[ ! -e skills/_shared ]"
+
+check_cmd \
+  "skill runtime documents are flat under each skill root" \
+  bash -c "[ -z \"\$(find skills -mindepth 2 -type d -print -quit)\" ]"
+
+check_cmd \
+  "scenario skills do not carry duplicated README lifecycle copies" \
+  bash -c "for skill in scope tdd review release; do [ ! -e skills/\$skill/README.md ] || exit 1; done"
+
+check_cmd \
+  "scenario skill entries do not reference local README lifecycle copies" \
+  bash -c "! rg -n 'README\\.md' skills/scope/SKILL.md skills/tdd/SKILL.md skills/review/SKILL.md skills/release/SKILL.md"
+
+check_cmd \
+  "hicode entry section carries feature document lifecycle rules" \
+  node -e "const fs=require('fs'); for (const f of ['references/templates/project/hicode-entry-section.md','skills/init/hicode-entry-section.md']) { const s=fs.readFileSync(f,'utf8'); for (const needle of ['## hicode 单需求文档生命周期','docs/features/<feature-id>/','不得编造','不代表最终审批']) { if (!s.includes(needle)) process.exit(1); } }"
+
+check_cmd \
+  "init seed rule mirrors references source file" \
+  bash -c "diff -q references/rules/coding_rules.md skills/init/coding_rules.md >/dev/null"
+
+check_cmd \
+  "non-init skills do not carry local coding_rules seed copies" \
+  bash -c "for skill in hi scope tdd review release; do [ ! -e skills/\$skill/coding_rules.md ] || exit 1; done"
+
+check_cmd \
+  "skill-local template copies mirror references source files" \
+  bash -c "diff -q references/templates/project/hicode-entry-section.md skills/init/hicode-entry-section.md >/dev/null && diff -q references/templates/project/DOMAIN_KNOWLEDGE.md skills/init/DOMAIN_KNOWLEDGE.md >/dev/null && diff -q references/templates/project/PROJ_CONTEXT.md skills/init/PROJ_CONTEXT.md >/dev/null && diff -q references/templates/project/ADR-template.md skills/init/ADR-template.md >/dev/null && diff -q references/templates/feature/feature_context.md skills/scope/feature_context.md >/dev/null && diff -q references/templates/feature/requirement-review-report.md skills/scope/requirement-review-report.md >/dev/null && diff -q references/templates/feature/scope-report.md skills/scope/scope-report.md >/dev/null && diff -q references/templates/feature/task-split-plan.md skills/scope/task-split-plan.md >/dev/null && diff -q references/templates/project/ADR-template.md skills/scope/ADR-template.md >/dev/null && diff -q references/templates/feature/tdd-report.md skills/tdd/tdd-report.md >/dev/null && diff -q references/templates/feature/review-report.md skills/review/review-report.md >/dev/null && diff -q references/templates/feature/release-report.md skills/release/release-report.md >/dev/null"
 
 check_cmd "hook config parses as JSON" node -e "JSON.parse(require('fs').readFileSync('references/hooks/hook.json','utf8'))"
 check_cmd "hook catalog and documentation stay aligned" node -e "

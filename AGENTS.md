@@ -56,8 +56,9 @@
 7. `references/rules/`：当前有效的执行规则、流程、门禁判断、Review 细则和 Markdown 结构化输出约束源文件；按场景维护，不默认全量加载。
 8. `references/templates/`：当前可复制填写的目标项目模板和场景输出模板源文件；只由相关 Skill 按需使用。
 9. `references/hooks/`：当前 Hook 行为说明、配置示例、触发条件、阻断建议和审计字段；不由安装器自动启用。
-10. `skills/_shared/`：随 `skills/` 一起进入 Claude Code plugin 安装边界的运行时共享规则和模板镜像；目标项目执行 Skill 时优先读取这里，避免跨 plugin 运行资产边界反复授权。
-11. 根目录 `archive/`：历史归档区，非运行、非安装、非默认检索；当前 Skill、Agent、Rule、Template 和 Hook 不得依赖归档资产。
+10. `skills/<skill>/`：每个 Skill 的 `SKILL.md`、规则种子和具体模板文档均平铺在各自 Skill 根目录；不再在 Skill 内维护 `rules/`、`templates/` 或重复说明类 `README.md`。
+11. `skills/init/coding_rules.md`：`hicode:init` 用于创建或更新目标项目 `docs/rules/` 的种子规则；其他场景 Skill 不直接读取本文件。
+12. 根目录 `archive/`：历史归档区，非运行、非安装、非默认检索；当前 Skill、Agent、Rule、Template 和 Hook 不得依赖归档资产。
 
 不要在本仓库产出隐藏源目录 `.hicode/`。当前 `hicode:init` 只初始化目标项目入口、上下文和项目规则文档，不复制 hicode plugin 内置资产到目标项目 `.hicode/`；`install.sh` 只安装 Claude Code plugin 或 OpenCode agents/skills，不执行业务项目初始化。
 
