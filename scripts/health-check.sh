@@ -75,12 +75,12 @@ require_command git
 
 check_no_match \
   "current runtime assets do not reference archive or retired references paths" \
-  '(archive/|references/(prompts|skills|gates|schemas|examples|init|target-project)|\.hicode/(prompts|skills|gates|schemas|agents|hooks)|docs/review-rules|AGENT_PROMPT_INTEGRATION)' \
-  skills agents references/rules references/templates references/hooks
+  '(archive/|references/|\.hicode/(prompts|skills|gates|schemas|agents|hooks)|docs/review-rules|AGENT_PROMPT_INTEGRATION)' \
+  skills agents hooks
 
 check_no_match \
   "skill entries do not read shared or repository references directly" \
-  '(_shared|hicode-shared|references/(rules|templates))' \
+  '(_shared|hicode-shared|references/)' \
   skills/hi/SKILL.md skills/init/SKILL.md skills/scope/SKILL.md skills/tdd/SKILL.md skills/review/SKILL.md skills/release/SKILL.md
 
 check_no_match \
@@ -95,12 +95,12 @@ check_no_match \
 
 check_no_match \
   "agents do not read repository references directly" \
-  'references/(rules|templates)' \
+  'references/' \
   agents
 
 check_no_match \
   "plugin manifest does not expose docs, archive, or retired references" \
-  '("\./docs/?|"docs/"|"\./archive/?|"archive/"|"references/(prompts|skills|gates|schemas|examples|init|target-project))' \
+  '(\./docs/?|docs/|\./archive/?|archive/|references/)' \
   .claude-plugin/plugin.json
 
 check_no_match \
@@ -116,7 +116,7 @@ check_no_match \
 check_match \
   "current assets retain safety and production red-line language" \
   '安全红线|生产|密钥|客户敏感|自动合并|自动发布' \
-  skills agents references/rules references/templates references/hooks
+  skills agents hooks
 
 agent_common_count="$(rg -l '^## 2\. Agent 共性规则$' agents/*.md | wc -l | tr -d ' ')"
 if [ "$agent_common_count" = "9" ]; then
@@ -151,24 +151,28 @@ check_cmd \
 
 check_cmd \
   "hicode entry section carries feature document lifecycle rules" \
-  node -e "const fs=require('fs'); for (const f of ['references/templates/project/hicode-entry-section.md','skills/init/hicode-entry-section.md']) { const s=fs.readFileSync(f,'utf8'); for (const needle of ['## hicode 单需求文档生命周期','docs/features/<feature-id>/','不得编造','不代表最终审批']) { if (!s.includes(needle)) process.exit(1); } }"
+  node -e "const fs=require('fs'); const s=fs.readFileSync('skills/init/hicode-entry-section.md','utf8'); for (const needle of ['## hicode 单需求文档生命周期','docs/features/<feature-id>/','不得编造','不代表最终审批']) { if (!s.includes(needle)) process.exit(1); }"
 
 check_cmd \
-  "init seed rule mirrors references source file" \
-  bash -c "diff -q references/rules/coding_rules.md skills/init/coding_rules.md >/dev/null"
+  "init seed rule exists only under init skill root" \
+  bash -c "[ -f skills/init/coding_rules.md ] && [ ! -e references ]"
 
 check_cmd \
   "non-init skills do not carry local coding_rules seed copies" \
   bash -c "for skill in hi scope tdd review release; do [ ! -e skills/\$skill/coding_rules.md ] || exit 1; done"
 
 check_cmd \
-  "skill-local template copies mirror references source files" \
-  bash -c "diff -q references/templates/project/hicode-entry-section.md skills/init/hicode-entry-section.md >/dev/null && diff -q references/templates/project/DOMAIN_KNOWLEDGE.md skills/init/DOMAIN_KNOWLEDGE.md >/dev/null && diff -q references/templates/project/PROJ_CONTEXT.md skills/init/PROJ_CONTEXT.md >/dev/null && diff -q references/templates/project/ADR-template.md skills/init/ADR-template.md >/dev/null && diff -q references/templates/feature/feature_context.md skills/scope/feature_context.md >/dev/null && diff -q references/templates/feature/requirement-review-report.md skills/scope/requirement-review-report.md >/dev/null && diff -q references/templates/feature/scope-report.md skills/scope/scope-report.md >/dev/null && diff -q references/templates/feature/task-split-plan.md skills/scope/task-split-plan.md >/dev/null && diff -q references/templates/project/ADR-template.md skills/scope/ADR-template.md >/dev/null && diff -q references/templates/feature/tdd-report.md skills/tdd/tdd-report.md >/dev/null && diff -q references/templates/feature/review-report.md skills/review/review-report.md >/dev/null && diff -q references/templates/feature/release-report.md skills/release/release-report.md >/dev/null"
+  "skill-local runtime documents are present and duplicate references directory is absent" \
+  bash -c "for f in skills/init/hicode-entry-section.md skills/init/DOMAIN_KNOWLEDGE.md skills/init/PROJ_CONTEXT.md skills/init/ADR-template.md skills/scope/feature_context.md skills/scope/requirement-review-report.md skills/scope/scope-report.md skills/scope/task-split-plan.md skills/scope/ADR-template.md skills/tdd/tdd-report.md skills/review/review-report.md skills/release/release-report.md; do [ -f \"\$f\" ] || exit 1; done; [ ! -e references ]"
 
-check_cmd "hook config parses as JSON" node -e "JSON.parse(require('fs').readFileSync('references/hooks/hook.json','utf8'))"
+check_cmd \
+  "unreferenced hook template is absent" \
+  bash -c "[ ! -e hooks/_hook-template.md ]"
+
+check_cmd "hook config parses as JSON" node -e "JSON.parse(require('fs').readFileSync('hooks/hook.json','utf8'))"
 check_cmd "hook catalog and documentation stay aligned" node -e "
 const fs = require('fs');
-const catalog = JSON.parse(fs.readFileSync('references/hooks/hook.json','utf8'));
+const catalog = JSON.parse(fs.readFileSync('hooks/hook.json','utf8'));
 if (catalog.default_mode !== 'advisory' || catalog.auto_enable !== false) process.exit(1);
 const tick = String.fromCharCode(96);
 for (const hook of catalog.hooks || []) {

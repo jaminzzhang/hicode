@@ -15,19 +15,20 @@ bash scripts/health-check.sh
 ## 覆盖范围
 
 1. 当前运行资产不引用 `archive/` 或旧 `references/` 目录。
-2. `.claude-plugin/plugin.json` 只暴露 `agents/` 和 `skills/`，不暴露本仓库 `docs/`、`archive/` 或历史 references 目录。
+2. `.claude-plugin/plugin.json` 只暴露 `agents/` 和 `skills/`，不暴露本仓库 `docs/`、`archive/` 或 `references/` 目录。
 3. `install.sh` 不复制 `.hicode/`，不初始化目标项目，不生成 `CLAUDE.md` 或 `AGENTS.md`。
 4. Agent 不复制旧通用规则全文，Agent 共性安全、权限、输出和停止条件写入各 Agent 正文。
 5. 当前资产保留安全红线、生产禁止事项、敏感信息保护和人工审批边界。
 6. plugin manifest、marketplace manifest 和 Hook 配置能被解析为 JSON。
-7. `references/hooks/hook.json` 与 Hook Markdown 说明中的 Hook ID、默认模式、规则依据、blocking 条件和禁止动作保持一致。
+7. `hooks/hook.json` 与 Hook Markdown 说明中的 Hook ID、默认模式、规则依据、blocking 条件和禁止动作保持一致。
 8. `install.sh --dry-run --yes`、`install.sh --opencode --dry-run --yes` 和 `install.sh --all --dry-run --yes` 可运行。
 9. `git diff --check` 无空白错误。
-10. 6 个场景 Skill 的 `SKILL.md` 不再引用旧共享路径或仓库 `references/rules`、`references/templates`。
-11. 非 init Skill 不读取也不携带本地 `coding_rules.md` 种子规则；只有 `skills/init/coding_rules.md` 与 `references/rules/coding_rules.md` 保持一致。
-12. Skill 本地模板副本与 `references/templates/` 源文件保持一致，并平铺在各自 `skills/<skill>/` 根目录；场景 Skill 不携带重复 `README.md` 生命周期说明。
-13. `hicode-entry-section.md` 承载单需求文档生命周期、写入边界和审批边界，并同步到 `skills/init/hicode-entry-section.md`。
-14. 旧共享运行目录已移除；运行资产、安装器和 manifest 不得引用旧共享路径。
+10. 6 个场景 Skill 的 `SKILL.md` 不再引用旧共享路径或仓库 `references/`。
+11. 非 init Skill 不读取也不携带本地 `coding_rules.md` 种子规则；`skills/init/coding_rules.md` 是唯一内置规则种子，根目录 `references/` 不再存在。
+12. Skill 本地模板文档平铺在各自 `skills/<skill>/` 根目录，根目录 `references/` 不再存在；场景 Skill 不携带重复 `README.md` 生命周期说明。
+13. `skills/init/hicode-entry-section.md` 承载单需求文档生命周期、写入边界和审批边界，并由 `hicode:init` 写入目标项目入口。
+14. 旧共享运行目录已移除；运行资产、安装器和 manifest 不得引用旧共享路径或恢复 `references/` 目录。
+15. 未被 Hook 目录使用的 `_hook-template.md` 不再保留。
 
 ## 失败处理
 
@@ -37,4 +38,4 @@ bash scripts/health-check.sh
 
 1. `docs/V3_INSTALL_BOUNDARY_CHECK.md` 和 `docs/V3_PATH_CONSISTENCY_CHECK.md` 是历史验收记录。
 2. `scripts/health-check.sh` 是当前可重复运行的健康检查入口。
-3. 后续修改 `skills/`、`agents/`、`references/`、`.claude-plugin/`、OpenCode 安装转换逻辑或 `install.sh` 后，应重新运行健康检查。
+3. 后续修改 `skills/`、`agents/`、`hooks/`、`.claude-plugin/`、OpenCode 安装转换逻辑或 `install.sh` 后，应重新运行健康检查。

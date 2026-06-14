@@ -43,7 +43,7 @@
 
 ## 4. 资产目录规则
 
-本仓库根目录是 hicode 设计中心和 Claude Code plugin root，并提供 OpenCode agents/skills 本地安装入口。可直接被 Coding Agent 调用或安装的入口资产放在根目录一等目录中；支撑材料放在 `references/` 下。
+本仓库根目录是 hicode 设计中心和 Claude Code plugin root，并提供 OpenCode agents/skills 本地安装入口。可直接被 Coding Agent 调用或安装的入口资产放在根目录一等目录中；Hook 支撑说明放在根目录 `hooks/` 下。
 
 目录边界：
 
@@ -53,16 +53,14 @@
 4. 根目录 `install.sh`：Claude Code plugin 与 OpenCode agents/skills 安装器；不初始化目标项目、不复制本仓库 `docs/`、不创建 `.hicode/`。
 5. 根目录 `skills/`：Claude Code 可直接调用的 6 个 hicode 直接执行型 Skill：`hi`、`init`、`scope`、`tdd`、`review`、`release`；其中 `hi` 是总入口，`hicode:init`、`hicode:scope`、`hicode:tdd`、`hicode:review`、`hicode:release` 是场景路由表达。
 6. 根目录 `agents/`：hicode 专业子 Agent 源资产。
-7. `references/rules/`：当前有效的执行规则、流程、门禁判断、Review 细则和 Markdown 结构化输出约束源文件；按场景维护，不默认全量加载。
-8. `references/templates/`：当前可复制填写的目标项目模板和场景输出模板源文件；只由相关 Skill 按需使用。
-9. `references/hooks/`：当前 Hook 行为说明、配置示例、触发条件、阻断建议和审计字段；不由安装器自动启用。
-10. `skills/<skill>/`：每个 Skill 的 `SKILL.md`、规则种子和具体模板文档均平铺在各自 Skill 根目录；不再在 Skill 内维护 `rules/`、`templates/` 或重复说明类 `README.md`。
-11. `skills/init/coding_rules.md`：`hicode:init` 用于创建或更新目标项目 `docs/rules/` 的种子规则；其他场景 Skill 不直接读取本文件。
-12. 根目录 `archive/`：历史归档区，非运行、非安装、非默认检索；当前 Skill、Agent、Rule、Template 和 Hook 不得依赖归档资产。
+7. 根目录 `hooks/`：当前 Hook 行为说明、配置示例、触发条件、阻断建议和审计字段；不由安装器自动启用。
+8. `skills/<skill>/`：每个 Skill 的 `SKILL.md`、规则种子和具体模板文档均平铺在各自 Skill 根目录；不再在 Skill 内维护 `rules/`、`templates/` 或重复说明类 `README.md`。
+9. `skills/init/coding_rules.md`：`hicode:init` 用于创建或更新目标项目 `docs/rules/` 的种子规则；其他场景 Skill 不直接读取本文件。
+10. 根目录 `archive/`：历史归档区，非运行、非安装、非默认检索；当前 Skill、Agent、Rule、Template 和 Hook 不得依赖归档资产。
 
 不要在本仓库产出隐藏源目录 `.hicode/`。当前 `hicode:init` 只初始化目标项目入口、上下文和项目规则文档，不复制 hicode plugin 内置资产到目标项目 `.hicode/`；`install.sh` 只安装 Claude Code plugin 或 OpenCode agents/skills，不执行业务项目初始化。
 
-以下旧目录不再作为当前 `references/` 一级目录新增或维护：`references/docs/`、`references/prompts/`、`references/skills/`、`references/gates/`、`references/schemas/`、`references/examples/`、`references/init/`、`references/target-project/`。历史内容应按 V3 计划拆解或归档。
+根目录 `references/` 已删除，不再作为当前资产目录新增或维护。历史 `references/docs/`、`references/prompts/`、`references/skills/`、`references/gates/`、`references/schemas/`、`references/examples/`、`references/init/`、`references/target-project/`、`references/rules/`、`references/templates/` 和 `references/hooks/` 内容应按 V3 计划拆解、归档或迁移；当前规则种子和模板文档放在对应 Skill 根目录，当前 Hook 说明放在根目录 `hooks/`。
 
 ## 5. Agent 职责
 
