@@ -2,9 +2,9 @@
 
 ## 1. 定位
 
-本仓库根目录是 hicode 的设计中心，也是面向 Claude Code 的原生 plugin root，并提供 OpenCode agents/skills 本地安装入口。
+本仓库根目录是 hicode 的设计中心，也是面向 Claude Code 的原生 plugin root，并提供 OpenCode agents/skills 与 Codex direct skills 本地安装入口。
 
-Claude Code 通过 plugin marketplace 安装；OpenCode 通过 `install.sh --opencode` 把 hicode 的 agents 和 skills 转换复制到 OpenCode 用户级或项目级目录。
+Claude Code 通过 plugin marketplace 安装；OpenCode 通过 `install.sh --opencode` 把 hicode 的 agents 和 skills 转换复制到 OpenCode 用户级或项目级目录；Codex 通过 `install.sh --codex` 把 hicode skills 复制到 `.agents/skills` 兼容目录。
 
 本 plugin 安装动作不执行目标项目初始化，不扫描代码，不生成 `CLAUDE.md`、`AGENTS.md` 或项目本地运行目录。
 
@@ -42,7 +42,12 @@ OpenCode 安装使用显式参数：
 
 1. `./install.sh --opencode --yes`：安装到当前用户 OpenCode 配置目录。
 2. `./install.sh --opencode --opencode-scope project --opencode-project-dir /path/to/project --yes`：安装到目标项目 `.opencode/` 目录。
-3. `./install.sh --all --yes`：同时安装 Claude Code plugin 和 OpenCode 本地运行资产。
+
+Codex 安装使用显式参数：
+
+1. `./install.sh --codex --yes`：安装到当前用户 `~/.agents/skills` 目录，或由 `CODEX_SKILLS_DIR` 覆盖。
+2. `./install.sh --codex --codex-scope project --codex-project-dir /path/to/project --yes`：安装到目标项目 `.agents/skills` 目录。
+3. `./install.sh --all --yes`：同时安装 Claude Code plugin、OpenCode 本地运行资产和 Codex direct skills。
 
 安装器不修改业务仓库，不读取生产配置，不处理生产数据或客户敏感信息。
 
@@ -53,6 +58,7 @@ OpenCode 安装使用显式参数：
 ```bash
 ./install.sh --dry-run
 ./install.sh --opencode --dry-run
+./install.sh --codex --dry-run
 ./install.sh --all --dry-run
 ./install.sh --yes
 bash scripts/health-check.sh
@@ -75,14 +81,16 @@ bash scripts/health-check.sh
 
 本仓库按以下官方机制组织：
 
-1. Claude Code plugin 使用插件根目录下的 `.claude-plugin/plugin.json`、`agents/` 和 `skills/<name>/SKILL.md`。
+1. Claude Code plugin 使用插件根目录下的 `.claude-plugin/plugin.json`、`agents/` 和 `skills/<name>/SKILL.md`；当前 manifest 只声明 validator 支持的 `skills` 路径，`agents/` 作为 plugin root 约定目录保留。
 2. `skills/init/coding_rules.md` 是 `hicode:init` 创建或更新目标项目 `docs/rules/` 的种子规则；其他场景 Skill 遵守目标项目规则文件。
 3. 每个 `skills/<skill>/` 目录只使用根目录文件承载本地具体模板和规则种子，不维护 Skill 内部子目录，也不为场景生命周期复制重复 `README.md`。
 4. Agent 共性安全、权限、输出和停止条件写入各 Agent 正文，不再通过共享运行目录读取。
-5. OpenCode 安装时将场景 Skill 转换为 `hicode-*` Skill，将 `agents/` 转换为 `hicode-*.md` Agent。
-6. `hooks/` 只保留 Hook 行为说明和目录索引，不是目标平台默认上下文，也不维护与 `skills/` 重复的规则或模板源。
+5. OpenCode 安装时将场景 Skill 转换为 `hicode-*` Skill，将 `agents/` 转换为 `hicode-*.md` Agent，Agent 文件名即 OpenCode agent name。
+6. Codex 安装时将场景 Skill 转换为 `.agents/skills/hicode-*`，并将专业 Agent 转换为 `hicode-agent-*` Skill。
+7. `hooks/` 只保留 Hook 行为说明和目录索引，不是目标平台默认上下文，也不维护与 `skills/` 重复的规则或模板源。
 
 参考资料：
 
 1. Claude Code Plugins：`https://code.claude.com/docs/en/plugins#create-your-first-plugin`
-2. OpenCode Plugins：`https://opencode.ai/docs/zh-cn/plugins/`，本仓库当前采用本地 agents/skills 安装方式，不把 OpenCode plugin 规范混入 Claude Code plugin root。
+2. OpenCode Agent Skills：`https://opencode.ai/docs/skills/`
+3. Codex Agent Skills：`https://developers.openai.com/codex/skills`

@@ -2,10 +2,10 @@
 
 ## 1. 当前状态
 
-最近更新时间：2026-06-14
+最近更新时间：2026-06-15
 当前阶段：V3 后续维护
-当前工作包：V3-MAINT-WP31 Hook 根目录提升与 references 删除
-总体状态：V1 已完成；V2-P1 至 V2-P5 已完成；V2-P6-WP1 待验收；V3 已完成；V3-MAINT-WP1 待验收；V3-MAINT-WP2 待验收；V3-MAINT-WP3 待验收；V3-MAINT-WP4 待验收；V3-MAINT-WP5 待验收；V3-MAINT-WP6 待验收；V3-MAINT-WP7 待验收；V3-MAINT-WP8 待验收；V3-MAINT-WP9 待验收；V3-MAINT-WP10 待验收；V3-MAINT-WP11 待验收；V3-MAINT-WP12 待验收；V3-MAINT-WP13 待验收；V3-MAINT-WP14 待验收；V3-MAINT-WP15 待验收；V3-MAINT-WP16 待验收；V3-MAINT-WP17 待验收；V3-MAINT-WP18 待验收；V3-MAINT-WP19 待验收；V3-MAINT-WP20 待验收；V3-MAINT-WP21 待验收；V3-MAINT-WP22 待验收；V3-MAINT-WP23 待验收；V3-MAINT-WP24 待验收；V3-MAINT-WP25 待验收；V3-MAINT-WP26 待验收；V3-MAINT-WP27 待验收；V3-MAINT-WP28 待验收；V3-MAINT-WP29 待验收；V3-MAINT-WP30 待验收；V3-MAINT-WP31 待验收
+当前工作包：V3-MAINT-WP32 安装器多平台规范对齐
+总体状态：V1 已完成；V2-P1 至 V2-P5 已完成；V2-P6-WP1 待验收；V3 已完成；V3-MAINT-WP1 待验收；V3-MAINT-WP2 待验收；V3-MAINT-WP3 待验收；V3-MAINT-WP4 待验收；V3-MAINT-WP5 待验收；V3-MAINT-WP6 待验收；V3-MAINT-WP7 待验收；V3-MAINT-WP8 待验收；V3-MAINT-WP9 待验收；V3-MAINT-WP10 待验收；V3-MAINT-WP11 待验收；V3-MAINT-WP12 待验收；V3-MAINT-WP13 待验收；V3-MAINT-WP14 待验收；V3-MAINT-WP15 待验收；V3-MAINT-WP16 待验收；V3-MAINT-WP17 待验收；V3-MAINT-WP18 待验收；V3-MAINT-WP19 待验收；V3-MAINT-WP20 待验收；V3-MAINT-WP21 待验收；V3-MAINT-WP22 待验收；V3-MAINT-WP23 待验收；V3-MAINT-WP24 待验收；V3-MAINT-WP25 待验收；V3-MAINT-WP26 待验收；V3-MAINT-WP27 待验收；V3-MAINT-WP28 待验收；V3-MAINT-WP29 待验收；V3-MAINT-WP30 待验收；V3-MAINT-WP31 待验收；V3-MAINT-WP32 待验收
 
 本台账用于记录 V1、V2 和 V3 工作包推进状态。每次开发 Agent 开始、完成、阻塞、暂缓或提交工作包验收时，必须同步更新本文件。
 
@@ -239,7 +239,7 @@
 
 ## 5. 下一步建议
 
-1. 等待项目负责人验收 `V3-MAINT-WP1` 至 `V3-MAINT-WP31`。
+1. 等待项目负责人验收 `V3-MAINT-WP1` 至 `V3-MAINT-WP32`。
 2. 验收通过后再将对应维护工作包标记为已完成。
 3. V2-P6-WP1 仍保留待验收状态，未被 V3 或本次维护工作自动标记为已完成。
 4. 后续若进入真实试点运行效果验收，必须基于真实试点数据补充，不能用本仓库模板资产替代。
@@ -351,11 +351,13 @@
 | V3-MAINT-WP29 | 场景 README 生命周期约束上移 | 待验收 | `skills/init/hicode-entry-section.md`、`skills/scope/SKILL.md`、`skills/tdd/SKILL.md`、`skills/review/SKILL.md`、`skills/release/SKILL.md`、`install.sh`、`scripts/health-check.sh`、`AGENTS.md`、`CONTEXT.md`、`README.md`、`docs/HICODE_HEALTH_CHECK.md`、`docs/V3_IMPLEMENTATION_PLAN.md`、`docs/PROGRESS.md` | 用户指出各 Skill 下的 `README.md` 是重复约定，应与 `hicode-entry-section.md` 对比整合，让约定写入目标 `CLAUDE.md` 或 `AGENTS.md` | 已将单需求文档生命周期、写入边界、缺失材料处理和审批边界整合进 `skills/init/hicode-entry-section.md`；删除 `scope/tdd/review/release` 的重复 `README.md`；场景 Skill 改为读取目标项目入口 hicode section；安装器和健康检查同步更新；Hook 说明已在 V3-MAINT-WP31 迁移到 `hooks/`；等待项目负责人验收 |
 | V3-MAINT-WP30 | references 重复文档清理 | 待验收 | `skills/*`、`scripts/health-check.sh`、`AGENTS.md`、`CONTEXT.md`、`README.md`、`docs/HICODE_HEALTH_CHECK.md`、`docs/V3_IMPLEMENTATION_PLAN.md`、`docs/PROGRESS.md` | 用户要求删除 `references/` 下所有与 `skills/` 重复的文档，并同步清理未再引用的文档 | 已删除 `references/rules/` 和 `references/templates/` 下与 Skill 根目录重复的规则/模板文档，并删除未再引用的 Hook 模板；Hook 规则依据改为 `skills/init/coding_rules.md` 与目标项目 `docs/rules/`；后续 V3-MAINT-WP31 已将剩余 Hook 说明迁移到根目录 `hooks/` 并删除 `references/`；等待项目负责人验收 |
 | V3-MAINT-WP31 | Hook 根目录提升与 references 删除 | 待验收 | `hooks/`、`scripts/health-check.sh`、`install.sh`、`AGENTS.md`、`CONTEXT.md`、`README.md`、`docs/HICODE_HEALTH_CHECK.md`、`docs/V3_IMPLEMENTATION_PLAN.md`、`docs/HICODE_ARCHITECTURE_OPTIMIZATION_SUGGESTIONS.md`、`docs/PROGRESS.md` | 用户要求既然 `references/` 只剩 Hook，则把 Hook 放到根目录并删除 `references/` | 已将 `references/hooks/` 提升为根目录 `hooks/`，删除根目录 `references/`；同步 Hook 行为目录路径、健康检查、安装边界提示和当前资产边界文档；等待项目负责人验收 |
+| V3-MAINT-WP32 | 安装器多平台规范对齐 | 待验收 | `install.sh`、`.claude-plugin/plugin.json`、`scripts/health-check.sh`、`README.md`、`CONTEXT.md`、`docs/HICODE_HEALTH_CHECK.md`、`docs/PROGRESS.md` | 用户要求根据 Claude Code plugin 规范和 OpenCode/Codex Skill 规范重新梳理完善 `install.sh` | 已移除 Claude validator 不接受的 manifest `agents` 字段，Claude 安装同时校验 plugin/marketplace manifest 并透传 marketplace/install scope；Codex direct skills 安装目录改为 `.agents/skills` 并支持 user/project scope；OpenCode agent 转换改为文件名定名并写入 `mode: subagent`；健康检查新增规范回归项；等待项目负责人验收 |
 
 ## 10. 最近变更记录
 
 | 日期 | 操作者 | 变更 | 关联工作包 |
 |---|---|---|---|
+| 2026-06-15 | Codex | 对齐 Claude Code plugin validator、OpenCode agent/skill 和 Codex direct skills 规范：修正 `plugin.json`、`install.sh`、健康检查和安装说明；Codex 安装目标改为 `.agents/skills`，Claude marketplace 注册与 plugin install 统一透传 scope | V3-MAINT-WP32 |
 | 2026-06-14 | Codex | 将 `references/hooks/` 提升为根目录 `hooks/`，删除根目录 `references/`；同步 Hook JSON/Markdown 路径、健康检查、安装边界提示和当前资产边界文档 | V3-MAINT-WP31 |
 | 2026-06-14 | Codex | 删除 `references/rules/` 与 `references/templates/` 下已由 `skills/` 根目录承载的重复规则和模板文档，并删除未再引用的 Hook 模板；`references/` 收敛为 Hook 说明目录；同步 Hook 规则依据、健康检查和目录边界文档 | V3-MAINT-WP30 |
 | 2026-06-14 | Codex | 盘点并删除 `scope/tdd/review/release` 下重复的 `README.md` 生命周期说明；将单需求文档生命周期、写入边界、缺失材料处理和审批边界整合进 `hicode-entry-section.md`，由 `hicode:init` 写入目标 `AGENTS.md` 或 `CLAUDE.md` | V3-MAINT-WP29 |
