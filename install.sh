@@ -9,6 +9,9 @@ INSTALL_SCOPE="user"
 OPENCODE_SCOPE="user"
 OPENCODE_CONFIG_DIR="${OPENCODE_CONFIG_DIR:-$HOME/.config/opencode}"
 OPENCODE_PROJECT_DIR="$PWD"
+CODEX_SCOPE="user"
+CODEX_USER_SKILLS_DIR="${CODEX_SKILLS_DIR:-$HOME/.agents/skills}"
+CODEX_PROJECT_DIR="$PWD"
 
 INSTALL_CLAUDE=0
 INSTALL_OPENCODE=0
@@ -21,7 +24,7 @@ usage() {
 hicode Coding Agent installer
 
 Usage:
-  install.sh [--claude-code] [--opencode] [--codex] [--all] [--scope user|local|project] [--opencode-scope user|project] [--dry-run] [--yes]
+  install.sh [--claude-code] [--opencode] [--codex] [--all] [--scope user|local|project] [--opencode-scope user|project] [--codex-scope user|project] [--dry-run] [--yes]
 
 Options:
   --claude-code          Install the hicode Claude Code plugin.
@@ -33,6 +36,8 @@ Options:
   --opencode-config-dir OpenCode user config directory. Default: $OPENCODE_CONFIG_DIR or ~/.config/opencode.
   --opencode-project-dir
                        Target project directory for --opencode-scope project. Default: current directory.
+  --codex-scope        Codex direct skill install scope: user or project. Default: user.
+  --codex-project-dir  Target project directory for --codex-scope project. Default: current directory.
   --dry-run             Print the installation plan without changing user configuration.
   --yes                 Run without interactive confirmation. Without platform flags, defaults to Claude Code.
   -h, --help            Show this help.
@@ -41,8 +46,8 @@ When no platform flag is specified and --yes is not used, an interactive menu pr
 for platform selection. With --yes and no platform flag, Claude Code is installed by default.
 
 This installer supports Claude Code plugin installation, OpenCode local agents/skills installation,
-and Codex CLI skills installation.
-It exposes only runtime assets declared in .claude-plugin/plugin.json or transformed runtime assets copied from skills/ and agents/.
+and Codex CLI direct skills installation.
+It exposes only Claude Code plugin runtime assets or transformed runtime assets copied from skills/ and agents/.
 It does not install this repository's docs/ or archive/ as runtime assets.
 It does not scan projects, generate CLAUDE.md or AGENTS.md, or create .hicode/.
 USAGE
@@ -72,6 +77,13 @@ validate_opencode_scope() {
   case "$OPENCODE_SCOPE" in
     user|project) ;;
     *) die "Invalid --opencode-scope value: $OPENCODE_SCOPE. Expected user or project." ;;
+  esac
+}
+
+validate_codex_scope() {
+  case "$CODEX_SCOPE" in
+    user|project) ;;
+    *) die "Invalid --codex-scope value: $CODEX_SCOPE. Expected user or project." ;;
   esac
 }
 
@@ -143,23 +155,25 @@ install_claude_code() {
   log "  Marketplace manifest: $CLAUDE_PLUGIN_DIR/.claude-plugin/marketplace.json"
   log "  Plugin: $PLUGIN_NAME@$MARKETPLACE_NAME"
   log "  Scope: $INSTALL_SCOPE"
-  log "  Runtime assets: agents/ and skills/ declared by .claude-plugin/plugin.json"
+  log "  Runtime assets: skills/ declared by .claude-plugin/plugin.json; agents/ loaded from Claude Code plugin root conventions"
   log "  Init seed rule: skills/init/coding_rules.md"
   log "  Skill-local documents: concrete templates only; lifecycle rules live in target entry"
   log "  Excluded from runtime: docs/, archive/, references/"
   log "  Action: validate manifests, register local marketplace, install plugin"
 
   if [ "$DRY_RUN" -eq 1 ]; then
+    log "+ claude plugin validate \"$CLAUDE_PLUGIN_DIR/.claude-plugin/plugin.json\""
     log "+ claude plugin validate \"$CLAUDE_PLUGIN_DIR/.claude-plugin/marketplace.json\""
-    log "+ claude plugin marketplace add \"$CLAUDE_PLUGIN_DIR\""
+    log "+ claude plugin marketplace add \"$CLAUDE_PLUGIN_DIR\" --scope \"$INSTALL_SCOPE\""
     log "+ claude plugin install \"$PLUGIN_NAME@$MARKETPLACE_NAME\" --scope \"$INSTALL_SCOPE\""
     return 0
   fi
 
   require_command claude
 
+  run_cmd claude plugin validate "$CLAUDE_PLUGIN_DIR/.claude-plugin/plugin.json"
   run_cmd claude plugin validate "$CLAUDE_PLUGIN_DIR/.claude-plugin/marketplace.json"
-  run_cmd claude plugin marketplace add "$CLAUDE_PLUGIN_DIR"
+  run_cmd claude plugin marketplace add "$CLAUDE_PLUGIN_DIR" --scope "$INSTALL_SCOPE"
   run_cmd claude plugin install "$PLUGIN_NAME@$MARKETPLACE_NAME" --scope "$INSTALL_SCOPE"
 }
 
@@ -249,12 +263,29 @@ function upsertFrontmatterName(content, name) {
   return `---\nname: ${name}\n${lines.join("\n")}\n---\n${body}`;
 }
 
+function setFrontmatterFields(content, fields, removeKeys = []) {
+  const match = content.match(/^---\n([\s\S]*?)\n---\n?/);
+  const keys = new Set([...Object.keys(fields), ...removeKeys]);
+  const body = match ? content.slice(match[0].length) : content;
+  const lines = match ? match[1].split("\n") : [];
+  const filtered = lines.filter((line) => {
+    const keyMatch = line.match(/^([A-Za-z0-9_-]+)\s*:/);
+    return !keyMatch || !keys.has(keyMatch[1]);
+  });
+
+  for (const [key, value] of Object.entries(fields)) {
+    filtered.push(`${key}: ${value}`);
+  }
+
+  return `---\n${filtered.join("\n")}\n---\n${body.startsWith("\n") ? body : `\n${body}`}`;
+}
+
 function transformSkillContent(content, name) {
   return upsertFrontmatterName(content, name);
 }
 
 function transformAgentContent(content, name) {
-  let next = upsertFrontmatterName(content, name);
+  let next = setFrontmatterFields(content, { mode: "subagent" }, ["name"]);
   for (const skill of skillNames) {
     next = next.replaceAll(
       `../skills/${skill}/SKILL.md`,
@@ -324,12 +355,18 @@ select_platforms() {
 
 install_codex() {
   validate_plugin_assets
+  validate_codex_scope
 
-  local codex_config_dir="${CODEX_HOME:-$HOME/.codex}"
-  local codex_skills_dir="$codex_config_dir/skills"
+  local codex_skills_dir
+  if [ "$CODEX_SCOPE" = "user" ]; then
+    codex_skills_dir="$CODEX_USER_SKILLS_DIR"
+  else
+    codex_skills_dir="$CODEX_PROJECT_DIR/.agents/skills"
+  fi
 
   log ""
   log "Codex CLI plan:"
+  log "  Scope: $CODEX_SCOPE"
   log "  Skills target: $codex_skills_dir"
   log "  Skills installed as: hicode-hi, hicode-init, hicode-scope, hicode-tdd, hicode-review, hicode-release"
   log "  Agents: installed as skills (Codex CLI uses SKILL.md format)"
@@ -472,6 +509,16 @@ while [ "$#" -gt 0 ]; do
       OPENCODE_PROJECT_DIR="$2"
       shift
       ;;
+    --codex-scope)
+      [ "$#" -ge 2 ] || die "Missing value for --codex-scope"
+      CODEX_SCOPE="$2"
+      shift
+      ;;
+    --codex-project-dir)
+      [ "$#" -ge 2 ] || die "Missing value for --codex-project-dir"
+      CODEX_PROJECT_DIR="$2"
+      shift
+      ;;
     --dry-run)
       DRY_RUN=1
       ;;
@@ -506,8 +553,11 @@ log "OpenCode install scope: $OPENCODE_SCOPE"
 log "OpenCode config dir: $OPENCODE_CONFIG_DIR"
 log "OpenCode project dir: $OPENCODE_PROJECT_DIR"
 log "Codex: $INSTALL_CODEX"
+log "Codex install scope: $CODEX_SCOPE"
+log "Codex user skills dir: $CODEX_USER_SKILLS_DIR"
+log "Codex project dir: $CODEX_PROJECT_DIR"
 log ""
-log "This installer exposes only plugin runtime assets declared in .claude-plugin/plugin.json or transformed OpenCode runtime assets."
+log "This installer exposes only Claude Code plugin runtime assets or transformed OpenCode/Codex runtime assets."
 log "This installer will not install repository docs/archive as runtime assets."
 log "This installer will not scan code, generate CLAUDE.md, generate AGENTS.md, or create .hicode/."
 
