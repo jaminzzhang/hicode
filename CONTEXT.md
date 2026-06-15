@@ -345,23 +345,23 @@ _Avoid_: 让用户先学习 profile 才能初始化、无证据套用 full-libra
 _Avoid_: 默认全仓扫描、低复杂度项目默认使用 graphify、扫描 `.env` 或密钥/生产配置、跳过用户确认安装 graphify、把图谱推断写成事实、在入口文件中引用不存在的结果文件
 
 **hicode Coding Agent Plugin**:
-当前指安装到 Coding Agent 平台的 hicode 运行资产。Claude Code 通过仓库根目录的 `.claude-plugin/`、`agents/` 和 `skills/` 作为 plugin root 安装；OpenCode 通过 `install.sh --opencode` 把 `agents/` 和 6 个场景 `skills/` 转换复制为 OpenCode 本地 agents/skills；Codex 通过 `install.sh --codex` 把场景 Skill 和专业 Agent 转换复制到 `.agents/skills` 兼容目录。该安装资产不等同于目标项目 `.hicode/` 运行目录，不在安装阶段扫描目标项目代码，不生成 `CLAUDE.md`、`AGENTS.md` 或项目上下文。
+当前指安装到 Coding Agent 平台的 hicode 运行资产。Claude Code 通过仓库根目录的 `.claude-plugin/`、`agents/` 和 `skills/` 作为 plugin root 安装；OpenCode 通过 `install.sh --opencode` 把 `agents/` 和 6 个场景 `skills/` 转换复制为 OpenCode 本地 agents/skills；Codex 通过仓库根目录 `.codex-plugin/plugin.json`、`skills/` 和本地 marketplace 按 plugin 安装，暂不安装根目录 `agents/`。该安装资产不等同于目标项目 `.hicode/` 运行目录，不在安装阶段扫描目标项目代码，不生成 `CLAUDE.md`、`AGENTS.md` 或项目上下文。
 _Avoid_: 目标项目初始化结果、业务项目代码扫描器、生产环境插件、把平台插件安装和项目初始化混为一步
 
 **hicode plugin 内部分层**:
-当前对外只维护一个 Claude Code 规范的 `hicode plugin`，以仓库根目录作为 plugin root；内部再区分入口层和能力层。入口层提供 hicode 定位、安全边界和后续初始化入口；能力层直接维护可调用的 hicode Skill、Agent、规则和流程入口，不再维护二级 plugin 副本。OpenCode 适配不复用 Claude marketplace 流程，而是由安装器生成 `hicode-*` 本地 Skill/Agent；Codex 适配不新增 `.codex-plugin/`，而是由安装器生成 `.agents/skills/hicode-*` direct skills。
-_Avoid_: 混用 Claude Code 与 OpenCode 的 plugin 安装规范、拆成多个对外 plugin 增加安装心智、替代目标项目初始化、全量默认加载所有资产、绕过人工确认或门禁、自动合并发布或操作生产
+当前对外维护 Claude Code 与 Codex 各自规范的 plugin manifest，并共用仓库根目录的 `skills/` 作为能力层来源；内部再区分入口层和能力层。入口层提供 hicode 定位、安全边界和后续初始化入口；能力层直接维护可调用的 hicode Skill、Agent、规则和流程入口，不再维护二级 plugin 副本。OpenCode 适配不复用 plugin marketplace 流程，而是由安装器生成 `hicode-*` 本地 Skill/Agent；Codex 适配使用 `.codex-plugin/plugin.json` 和 `.agents/plugins/marketplace.json`，不再生成 `.agents/skills/hicode-*` direct skills，也不把 `agents/` 打进 Codex plugin bundle。
+_Avoid_: 混用 Claude Code、Codex 与 OpenCode 的安装规范、拆成多个对外 plugin 增加安装心智、替代目标项目初始化、全量默认加载所有资产、绕过人工确认或门禁、自动合并发布或操作生产
 
 **hicode plugin 能力场景包**:
 hicode plugin 第一版能力层按初始化入口和能力场景打包，而不是把 `references/` 全量作为默认上下文。首批入口包括目标项目初始化，以及需求到编码前链路、TDD 与辅助编码链路、Review 与提交链路、发布与回归链路。每个场景只选择稳定、可直接调用、低噪音且能保留安全红线的 Agent、Skill、规则和流程入口。
 _Avoid_: 把 docs/prompts/skills/gates/schemas/examples 整目录默认塞入平台插件、让平台插件替代目标项目初始化、把低频模板和回归样例默认加载进每次会话
 
 **hicode Plugin 安装器**:
-仓库根目录 `install.sh`，用于安装 hicode Coding Agent 运行资产。默认安装 Claude Code plugin；显式传入 `--opencode` 时，把 hicode agents/skills 安装到 OpenCode 用户级配置目录或目标项目 `.opencode/` 目录；显式传入 `--codex` 时，把 hicode skills 安装到用户级或项目级 `.agents/skills` 目录。安装器不执行目标项目初始化、不扫描代码、不生成项目级入口文件或 `.hicode/` 运行资产。
+仓库根目录 `install.sh`，用于安装 hicode Coding Agent 运行资产。默认安装 Claude Code plugin；显式传入 `--opencode` 时，把 hicode agents/skills 安装到 OpenCode 用户级配置目录或目标项目 `.opencode/` 目录；显式传入 `--codex` 时，把包含 `.codex-plugin/` 和 `skills/` 的 hicode Codex plugin bundle 写入用户级 `~/plugins/hicode` 或目标项目 `plugins/hicode`，更新对应 `.agents/plugins/marketplace.json`，并执行 `codex plugin add`。安装器不执行目标项目初始化、不扫描代码、不生成项目级入口文件或 `.hicode/` 运行资产。
 _Avoid_: 目标项目初始化脚本、代码扫描脚本、生产发布脚本、自动修改业务仓库的工具
 
 **hicode Plugin 安装资产边界**:
-`.claude-plugin/plugin.json` 和 `install.sh` 必须避免把本仓库项目管理文档、历史文档或归档材料安装为目标 Coding Agent 的运行资产。当前 Claude plugin manifest 只声明当前 validator 支持的 `skills/` 路径，`agents/` 作为 Claude Code plugin root 约定目录保留；`hicode:init` 的规则种子和各 Skill 的本地模板放在对应 `skills/<skill>/` 目录。OpenCode 和 Codex 安装时只复制转换后的 `hicode-*` Agent/Skill，不复制 `docs/`、`archive/` 或历史 references。根目录 `docs/`、`archive/` 和本仓库进度/实施计划/ADR 不应作为目标 Coding Agent 默认安装或默认读取内容。
+`.claude-plugin/plugin.json`、`.codex-plugin/plugin.json` 和 `install.sh` 必须避免把本仓库项目管理文档、历史文档或归档材料安装为目标 Coding Agent 的运行资产。当前 Claude plugin manifest 只声明当前 validator 支持的 `skills/` 路径，`agents/` 作为 Claude Code plugin root 约定目录保留；Codex plugin manifest 只声明 `skills: "./skills/"`，不声明 unsupported `agents` 字段，并通过 marketplace entry 指向 plugin bundle；`hicode:init` 的规则种子和各 Skill 的本地模板放在对应 `skills/<skill>/` 目录。OpenCode 安装时只复制转换后的 `hicode-*` Agent/Skill；Codex 安装时只复制 `.codex-plugin/` 和 `skills/` 到 plugin bundle，不复制 `agents/`、`docs/`、`archive/` 或历史 references。根目录 `docs/`、`archive/` 和本仓库进度/实施计划/ADR 不应作为目标 Coding Agent 默认安装或默认读取内容。
 _Avoid_: 把本仓库 `docs/` 当作目标项目知识库安装、把 V1/V2 进度和历史 ADR 暴露为运行规则、安装器复制 archive 或 `.hicode/`
 
 **目标项目 Harness 运行目录**:

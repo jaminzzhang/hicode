@@ -73,6 +73,7 @@ require_command node
 require_command bash
 require_command git
 require_command claude
+require_command codex
 
 check_no_match \
   "current runtime assets do not reference archive or retired references paths" \
@@ -87,7 +88,7 @@ check_no_match \
 check_no_match \
   "runtime assets do not reference removed shared runtime assets" \
   '(_shared|hicode-shared)' \
-  skills agents install.sh .claude-plugin/plugin.json
+  skills agents install.sh .claude-plugin/plugin.json .codex-plugin/plugin.json
 
 check_no_match \
   "non-init skill entries do not read local coding_rules seed" \
@@ -100,9 +101,9 @@ check_no_match \
   agents
 
 check_no_match \
-  "plugin manifest does not expose docs, archive, or retired references" \
+  "plugin manifests do not expose docs, archive, or retired references" \
   '(\./docs/?|docs/|\./archive/?|archive/|references/)' \
-  .claude-plugin/plugin.json
+  .claude-plugin/plugin.json .codex-plugin/plugin.json
 
 check_no_match \
   "installer does not create .hicode or generate entry files" \
@@ -128,7 +129,7 @@ fi
 
 check_cmd \
   "plugin manifests parse as JSON" \
-  node -e "JSON.parse(require('fs').readFileSync('.claude-plugin/plugin.json','utf8')); JSON.parse(require('fs').readFileSync('.claude-plugin/marketplace.json','utf8'))"
+  node -e "JSON.parse(require('fs').readFileSync('.claude-plugin/plugin.json','utf8')); JSON.parse(require('fs').readFileSync('.claude-plugin/marketplace.json','utf8')); JSON.parse(require('fs').readFileSync('.codex-plugin/plugin.json','utf8'))"
 
 check_cmd \
   "Claude plugin manifest validates directly" \
@@ -141,6 +142,15 @@ check_cmd \
 check_cmd \
   "plugin manifest exposes only supported runtime path declarations" \
   node -e "const p=JSON.parse(require('fs').readFileSync('.claude-plugin/plugin.json','utf8')); if (!Array.isArray(p.skills) || p.skills.length !== 1 || p.skills[0] !== './skills/') process.exit(1); if (Object.prototype.hasOwnProperty.call(p, 'agents')) process.exit(1);"
+
+check_cmd \
+  "Codex plugin manifest exposes skills through plugin schema" \
+  node -e "const p=JSON.parse(require('fs').readFileSync('.codex-plugin/plugin.json','utf8')); if (p.name !== 'hicode' || p.skills !== './skills/') process.exit(1); if (Object.prototype.hasOwnProperty.call(p, 'agents') || Object.prototype.hasOwnProperty.call(p, 'hooks')) process.exit(1); const i=p.interface || {}; for (const key of ['displayName','shortDescription','longDescription','developerName','category']) { if (typeof i[key] !== 'string' || !i[key].trim()) process.exit(1); } if (!Array.isArray(i.capabilities) || i.capabilities.length === 0) process.exit(1); const prompts=i.defaultPrompt || i.default_prompt; if (!Array.isArray(prompts) || prompts.length === 0 || prompts.length > 3) process.exit(1);"
+
+check_no_match \
+  "scenario skills do not read root agents support assets" \
+  '\.\./\.\./agents/' \
+  skills/hi/SKILL.md skills/scope/SKILL.md skills/tdd/SKILL.md skills/review/SKILL.md skills/release/SKILL.md
 
 check_cmd \
   "Claude install dry-run scopes marketplace registration and plugin install consistently" \
@@ -203,11 +213,11 @@ check_cmd "install.sh shell syntax is valid" bash -n install.sh
 check_cmd "install dry-run succeeds without touching target projects" bash install.sh --dry-run --yes
 check_cmd "opencode install dry-run succeeds without touching target projects" bash install.sh --opencode --dry-run --yes
 check_cmd "dual-platform install dry-run succeeds without touching target projects" bash install.sh --all --dry-run --yes
-check_cmd "codex install dry-run targets global agent skills directory" bash -c "bash install.sh --codex --dry-run --yes | rg \"Skills target: $HOME/.agents/skills\" >/dev/null"
-check_cmd "codex project install dry-run targets project agent skills directory" bash -c "tmp=\"\$(mktemp -d)\"; bash install.sh --codex --codex-scope project --codex-project-dir \"\$tmp\" --dry-run --yes | rg \"Skills target: \$tmp/.agents/skills\" >/dev/null"
+check_cmd "codex install dry-run uses marketplace-backed plugin install" bash -c "out=\"\$(bash install.sh --codex --dry-run --yes)\"; printf '%s\n' \"\$out\" | rg 'Marketplace file: .*/\\.agents/plugins/marketplace\\.json' >/dev/null && printf '%s\n' \"\$out\" | rg 'Plugin bundle target: .*/plugins/hicode' >/dev/null && printf '%s\n' \"\$out\" | rg 'copy \\.codex-plugin/ and skills/ to' >/dev/null && printf '%s\n' \"\$out\" | rg 'codex plugin add \"hicode@' >/dev/null && ! printf '%s\n' \"\$out\" | rg 'Skills target|\\.agents/skills|copy .+agents/' >/dev/null"
+check_cmd "codex project install dry-run uses repo marketplace path" bash -c "tmp=\"\$(mktemp -d)\"; out=\"\$(bash install.sh --codex --codex-scope project --codex-project-dir \"\$tmp\" --dry-run --yes)\"; printf '%s\n' \"\$out\" | rg \"Marketplace file: \$tmp/.agents/plugins/marketplace.json\" >/dev/null && printf '%s\n' \"\$out\" | rg \"Plugin bundle target: \$tmp/plugins/hicode\" >/dev/null && printf '%s\n' \"\$out\" | rg \"cd \\\"\$tmp\\\" && codex plugin add \\\"hicode@\" >/dev/null"
+check_cmd "codex project plugin install writes marketplace-backed bundle" bash -c "tmp=\"\$(mktemp -d)\"; HICODE_CODEX_SKIP_ADD=1 bash install.sh --codex --codex-scope project --codex-project-dir \"\$tmp\" --yes >/dev/null; node -e \"const fs=require('fs'),path=require('path'); const root=process.argv[1]; const market=JSON.parse(fs.readFileSync(path.join(root,'.agents/plugins/marketplace.json'),'utf8')); const entry=market.plugins.find(p=>p.name==='hicode'); if (!entry || entry.source.source !== 'local' || entry.source.path !== './plugins/hicode') process.exit(1); if (!entry.policy || entry.policy.installation !== 'AVAILABLE' || entry.policy.authentication !== 'ON_INSTALL') process.exit(1); const pluginRoot=path.join(root,'plugins/hicode'); const manifest=JSON.parse(fs.readFileSync(path.join(pluginRoot,'.codex-plugin/plugin.json'),'utf8')); if (manifest.name !== 'hicode' || manifest.skills !== './skills/' || Object.prototype.hasOwnProperty.call(manifest,'agents')) process.exit(1); if (!fs.existsSync(path.join(pluginRoot,'skills/init/SKILL.md'))) process.exit(1); if (fs.existsSync(path.join(pluginRoot,'agents')) || fs.existsSync(path.join(pluginRoot,'docs')) || fs.existsSync(path.join(pluginRoot,'archive'))) process.exit(1);\" \"\$tmp\""
 check_cmd "opencode transformed skill frontmatter names match directories" bash -c "tmp=\"\$(mktemp -d)\"; bash install.sh --opencode --opencode-config-dir \"\$tmp\" --yes >/dev/null; node -e \"const fs=require('fs'),path=require('path'); const dir=process.argv[1]; for (const entry of fs.readdirSync(dir,{withFileTypes:true})) { if (!entry.isDirectory()) continue; const skill=path.join(dir,entry.name,'SKILL.md'); const text=fs.readFileSync(skill,'utf8'); const match=text.match(/^---\\n([\\s\\S]*?)\\n---/); if (!match || !match[1].split('\\n').some(line => line.trim() === 'name: '+entry.name)) process.exit(1); }\" \"\$tmp/skills\""
 check_cmd "opencode transformed agents use filename identity and subagent mode" bash -c "tmp=\"\$(mktemp -d)\"; bash install.sh --opencode --opencode-config-dir \"\$tmp\" --yes >/dev/null; node -e \"const fs=require('fs'),path=require('path'); const dir=process.argv[1]; for (const entry of fs.readdirSync(dir,{withFileTypes:true})) { if (!entry.isFile() || !entry.name.endsWith('.md')) continue; const text=fs.readFileSync(path.join(dir,entry.name),'utf8'); const match=text.match(/^---\\n([\\s\\S]*?)\\n---/); if (!match) process.exit(1); const lines=match[1].split('\\n').map(line => line.trim()); if (lines.some(line => line.startsWith('name:'))) process.exit(1); if (!lines.includes('mode: subagent')) process.exit(1); }\" \"\$tmp/agents\""
-check_cmd "codex transformed skill frontmatter names match directories" bash -c "tmp=\"\$(mktemp -d)\"; bash install.sh --codex --codex-scope project --codex-project-dir \"\$tmp\" --yes >/dev/null; node -e \"const fs=require('fs'),path=require('path'); const dir=process.argv[1]; for (const entry of fs.readdirSync(dir,{withFileTypes:true})) { if (!entry.isDirectory()) continue; const skill=path.join(dir,entry.name,'SKILL.md'); const text=fs.readFileSync(skill,'utf8'); const match=text.match(/^---\\n([\\s\\S]*?)\\n---/); if (!match || !match[1].split('\\n').some(line => line.trim() === 'name: '+entry.name)) process.exit(1); }\" \"\$tmp/.agents/skills\""
 check_cmd "git diff has no whitespace errors" git diff --check
 
 if [ "$failures" -gt 0 ]; then

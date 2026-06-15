@@ -4,8 +4,8 @@
 
 最近更新时间：2026-06-15
 当前阶段：V3 后续维护
-当前工作包：V3-MAINT-WP32 安装器多平台规范对齐
-总体状态：V1 已完成；V2-P1 至 V2-P5 已完成；V2-P6-WP1 待验收；V3 已完成；V3-MAINT-WP1 待验收；V3-MAINT-WP2 待验收；V3-MAINT-WP3 待验收；V3-MAINT-WP4 待验收；V3-MAINT-WP5 待验收；V3-MAINT-WP6 待验收；V3-MAINT-WP7 待验收；V3-MAINT-WP8 待验收；V3-MAINT-WP9 待验收；V3-MAINT-WP10 待验收；V3-MAINT-WP11 待验收；V3-MAINT-WP12 待验收；V3-MAINT-WP13 待验收；V3-MAINT-WP14 待验收；V3-MAINT-WP15 待验收；V3-MAINT-WP16 待验收；V3-MAINT-WP17 待验收；V3-MAINT-WP18 待验收；V3-MAINT-WP19 待验收；V3-MAINT-WP20 待验收；V3-MAINT-WP21 待验收；V3-MAINT-WP22 待验收；V3-MAINT-WP23 待验收；V3-MAINT-WP24 待验收；V3-MAINT-WP25 待验收；V3-MAINT-WP26 待验收；V3-MAINT-WP27 待验收；V3-MAINT-WP28 待验收；V3-MAINT-WP29 待验收；V3-MAINT-WP30 待验收；V3-MAINT-WP31 待验收；V3-MAINT-WP32 待验收
+当前工作包：V3-MAINT-WP35 Codex plugin Agent 支持暂缓
+总体状态：V1 已完成；V2-P1 至 V2-P5 已完成；V2-P6-WP1 待验收；V3 已完成；V3-MAINT-WP1 待验收；V3-MAINT-WP2 待验收；V3-MAINT-WP3 待验收；V3-MAINT-WP4 待验收；V3-MAINT-WP5 待验收；V3-MAINT-WP6 待验收；V3-MAINT-WP7 待验收；V3-MAINT-WP8 待验收；V3-MAINT-WP9 待验收；V3-MAINT-WP10 待验收；V3-MAINT-WP11 待验收；V3-MAINT-WP12 待验收；V3-MAINT-WP13 待验收；V3-MAINT-WP14 待验收；V3-MAINT-WP15 待验收；V3-MAINT-WP16 待验收；V3-MAINT-WP17 待验收；V3-MAINT-WP18 待验收；V3-MAINT-WP19 待验收；V3-MAINT-WP20 待验收；V3-MAINT-WP21 待验收；V3-MAINT-WP22 待验收；V3-MAINT-WP23 待验收；V3-MAINT-WP24 待验收；V3-MAINT-WP25 待验收；V3-MAINT-WP26 待验收；V3-MAINT-WP27 待验收；V3-MAINT-WP28 待验收；V3-MAINT-WP29 待验收；V3-MAINT-WP30 待验收；V3-MAINT-WP31 待验收；V3-MAINT-WP32 待验收；V3-MAINT-WP33 待验收；V3-MAINT-WP34 待验收；V3-MAINT-WP35 待验收
 
 本台账用于记录 V1、V2 和 V3 工作包推进状态。每次开发 Agent 开始、完成、阻塞、暂缓或提交工作包验收时，必须同步更新本文件。
 
@@ -239,7 +239,7 @@
 
 ## 5. 下一步建议
 
-1. 等待项目负责人验收 `V3-MAINT-WP1` 至 `V3-MAINT-WP32`。
+1. 等待项目负责人验收 `V3-MAINT-WP1` 至 `V3-MAINT-WP35`。
 2. 验收通过后再将对应维护工作包标记为已完成。
 3. V2-P6-WP1 仍保留待验收状态，未被 V3 或本次维护工作自动标记为已完成。
 4. 后续若进入真实试点运行效果验收，必须基于真实试点数据补充，不能用本仓库模板资产替代。
@@ -352,11 +352,17 @@
 | V3-MAINT-WP30 | references 重复文档清理 | 待验收 | `skills/*`、`scripts/health-check.sh`、`AGENTS.md`、`CONTEXT.md`、`README.md`、`docs/HICODE_HEALTH_CHECK.md`、`docs/V3_IMPLEMENTATION_PLAN.md`、`docs/PROGRESS.md` | 用户要求删除 `references/` 下所有与 `skills/` 重复的文档，并同步清理未再引用的文档 | 已删除 `references/rules/` 和 `references/templates/` 下与 Skill 根目录重复的规则/模板文档，并删除未再引用的 Hook 模板；Hook 规则依据改为 `skills/init/coding_rules.md` 与目标项目 `docs/rules/`；后续 V3-MAINT-WP31 已将剩余 Hook 说明迁移到根目录 `hooks/` 并删除 `references/`；等待项目负责人验收 |
 | V3-MAINT-WP31 | Hook 根目录提升与 references 删除 | 待验收 | `hooks/`、`scripts/health-check.sh`、`install.sh`、`AGENTS.md`、`CONTEXT.md`、`README.md`、`docs/HICODE_HEALTH_CHECK.md`、`docs/V3_IMPLEMENTATION_PLAN.md`、`docs/HICODE_ARCHITECTURE_OPTIMIZATION_SUGGESTIONS.md`、`docs/PROGRESS.md` | 用户要求既然 `references/` 只剩 Hook，则把 Hook 放到根目录并删除 `references/` | 已将 `references/hooks/` 提升为根目录 `hooks/`，删除根目录 `references/`；同步 Hook 行为目录路径、健康检查、安装边界提示和当前资产边界文档；等待项目负责人验收 |
 | V3-MAINT-WP32 | 安装器多平台规范对齐 | 待验收 | `install.sh`、`.claude-plugin/plugin.json`、`scripts/health-check.sh`、`README.md`、`CONTEXT.md`、`docs/HICODE_HEALTH_CHECK.md`、`docs/PROGRESS.md` | 用户要求根据 Claude Code plugin 规范和 OpenCode/Codex Skill 规范重新梳理完善 `install.sh` | 已移除 Claude validator 不接受的 manifest `agents` 字段，Claude 安装同时校验 plugin/marketplace manifest 并透传 marketplace/install scope；Codex direct skills 安装目录改为 `.agents/skills` 并支持 user/project scope；OpenCode agent 转换改为文件名定名并写入 `mode: subagent`；健康检查新增规范回归项；等待项目负责人验收 |
+| V3-MAINT-WP33 | Codex plugin 安装机制对齐 | 待验收 | `.codex-plugin/plugin.json`、`install.sh`、`scripts/health-check.sh`、`README.md`、`AGENTS.md`、`CONTEXT.md`、`docs/HICODE_HEALTH_CHECK.md`、`docs/V3_IMPLEMENTATION_PLAN.md`、`docs/PROGRESS.md`、`skills/*/SKILL.md` | 用户要求参考 Codex plugin 规范，优化 `install.sh`，支持 Codex 按 plugin 安装而不是 skill | 已新增 Codex plugin manifest；`install.sh --codex` 改为复制 `.codex-plugin/` 与 `skills/` 到 `plugins/hicode`、更新 `.agents/plugins/marketplace.json` 并执行 `codex plugin add`；不再把专业 Agent 转换为 Codex Skill；补齐 Codex validator 要求的 Skill frontmatter `name` 字段；健康检查新增 Codex marketplace-backed plugin 回归；等待项目负责人验收 |
+| V3-MAINT-WP34 | Codex plugin 专业 Agent 支持资产收敛 | 待验收 | `install.sh`、`.codex-plugin/plugin.json`、`scripts/health-check.sh`、`skills/hi/SKILL.md`、`skills/scope/SKILL.md`、`skills/tdd/SKILL.md`、`skills/review/SKILL.md`、`skills/release/SKILL.md`、`AGENTS.md`、`README.md`、`CONTEXT.md`、`docs/HICODE_HEALTH_CHECK.md`、`docs/PROGRESS.md` | 用户要求继续优化并解决 Codex plugin 安装后专业 Agent 未纳入 plugin bundle 的残余点 | 已在不新增 unsupported manifest `agents` 字段的前提下，将 `agents/` 作为 Codex plugin bundle 支持资产复制；`scope/tdd/review/release` 按需引用对应 `../../agents/*.md`；健康检查新增场景 Skill 引用和 Codex project bundle 中 8 个 Agent 文件校验；等待项目负责人验收 |
+| V3-MAINT-WP35 | Codex plugin Agent 支持暂缓 | 待验收 | `install.sh`、`.codex-plugin/plugin.json`、`scripts/health-check.sh`、`skills/hi/SKILL.md`、`skills/scope/SKILL.md`、`skills/tdd/SKILL.md`、`skills/review/SKILL.md`、`skills/release/SKILL.md`、`README.md`、`CONTEXT.md`、`docs/HICODE_HEALTH_CHECK.md`、`docs/PROGRESS.md` | 用户确认 Codex 对 Agents 不支持，要求暂时去掉 Codex Agent 相关支持 | 已将 Codex plugin bundle 收敛回 `.codex-plugin/` 和 `skills/`，不再复制 `agents/`；移除场景 Skill 的 `../../agents/` 引用；健康检查新增 Codex bundle 不生成 `agents/` 和场景 Skill 不读取根目录 Agent 的回归校验；当前有效口径覆盖 WP34 临时方案；等待项目负责人验收 |
 
 ## 10. 最近变更记录
 
 | 日期 | 操作者 | 变更 | 关联工作包 |
 |---|---|---|---|
+| 2026-06-15 | Codex | 根据项目负责人确认 Codex 不支持 Agents，暂缓 Codex Agent 支持：`install.sh --codex` 只复制 `.codex-plugin/` 和 `skills/`，场景 Skill 移除 `../../agents/` 引用，健康检查禁止 Codex bundle 生成 `agents/` | V3-MAINT-WP35 |
+| 2026-06-15 | Codex | 继续收敛 Codex plugin 残余点：`install.sh --codex` 将 `agents/` 作为 plugin 内支持资产打包，场景 Skill 显式引用对应专业 Agent，健康检查校验 manifest 不声明 `agents` 且 project bundle 包含 8 个 Agent 文件 | V3-MAINT-WP34 |
+| 2026-06-15 | Codex | 参考 Codex plugin 规范将 Codex 安装从 direct skills 转为 plugin marketplace 流程：新增 `.codex-plugin/plugin.json`，`install.sh --codex` 复制 plugin bundle、更新 `.agents/plugins/marketplace.json` 并调用 `codex plugin add`；同步健康检查、README、入口规则、术语和 V3 计划 | V3-MAINT-WP33 |
 | 2026-06-15 | Codex | 对齐 Claude Code plugin validator、OpenCode agent/skill 和 Codex direct skills 规范：修正 `plugin.json`、`install.sh`、健康检查和安装说明；Codex 安装目标改为 `.agents/skills`，Claude marketplace 注册与 plugin install 统一透传 scope | V3-MAINT-WP32 |
 | 2026-06-14 | Codex | 将 `references/hooks/` 提升为根目录 `hooks/`，删除根目录 `references/`；同步 Hook JSON/Markdown 路径、健康检查、安装边界提示和当前资产边界文档 | V3-MAINT-WP31 |
 | 2026-06-14 | Codex | 删除 `references/rules/` 与 `references/templates/` 下已由 `skills/` 根目录承载的重复规则和模板文档，并删除未再引用的 Hook 模板；`references/` 收敛为 Hook 说明目录；同步 Hook 规则依据、健康检查和目录边界文档 | V3-MAINT-WP30 |

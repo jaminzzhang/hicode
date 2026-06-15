@@ -1,4 +1,5 @@
 ---
+name: tdd
 description: 以测试先行方式完成受控实现、缺陷修复、行为保护重构和本地验证。Use when 用户要求 TDD、RED-GREEN-REFACTOR、先写测试、复现 bug、小步实现、tracer bullet、行为测试、补测试后改代码，或需要把 hicode:scope 的任务落到代码。
 ---
 

@@ -1,4 +1,5 @@
 ---
+name: review
 description: 审查代码变更、提交前风险、专项安全/Java/SQL/保险业务问题，并整理合并前证据。Use when 用户要求 review、代码审查、提交检查、pre-commit、MR/PR 风险、diff 审查、安全审查、SQL/配置/脚本审查、Java 专项审查或保险核心业务专项审查。
 ---
 

@@ -22,7 +22,7 @@ V3 的核心目标不是新增业务能力，而是降低当前资产目录、Sk
 10. 旧 JSON Schema 归档，当前使用 Markdown 结构化输出规则。
 11. 目标项目入口补充片段由 `skills/init/hicode-entry-section.md` 承载；完整 `AGENTS.md` 或 `CLAUDE.md` 入口主体优先由 Agent 可执行初始化能力生成。OpenCode TUI `/init` 等用户手工命令不能由 Agent 代替执行。
 12. `hicode:init` 只初始化目标项目入口、上下文和项目规则文档，不复制 hicode plugin 资产到目标项目 `.hicode/`。
-13. `.claude-plugin/plugin.json` 和 `install.sh` 不得把本仓库 `docs/`、历史文档或 `archive/` 安装为目标 Coding Agent 运行资产。
+13. `.claude-plugin/plugin.json`、`.codex-plugin/plugin.json` 和 `install.sh` 不得把本仓库 `docs/`、历史文档或 `archive/` 安装为目标 Coding Agent 运行资产。
 14. V3 按工作包推进，工作包完成后先标记为 `待验收`，项目负责人确认后才能进入下一包。
 
 ## 3. 范围边界
@@ -35,7 +35,7 @@ V3 的核心目标不是新增业务能力，而是降低当前资产目录、Sk
 4. 将旧 Prompt、Gate、Schema、Example、Guide、manifest/profile 中仍有效内容拆解到当前资产。
 5. 重写 6 个根目录 Skill，使其成为直接执行型说明。
 6. 更新 8 个 Agent 的旧路径引用，保持短角色入口。
-7. 检查 `.claude-plugin/plugin.json` 和 `install.sh` 的安装边界。
+7. 检查 `.claude-plugin/plugin.json`、`.codex-plugin/plugin.json` 和 `install.sh` 的安装边界。
 8. 做路径、一致性、归档依赖和安全红线验收。
 
 ### 3.2 本轮范围外
@@ -295,13 +295,14 @@ V3 后续维护已将上述 P3 中间目录进一步收敛：
 
 ### V3-P6-WP1 安装边界检查
 
-目标：确认 Claude Code plugin 只暴露必要可调用入口，不安装本仓库管理文档或归档资产。
+目标：确认 Claude Code 与 Codex plugin 只暴露必要可调用入口，不安装本仓库管理文档或归档资产。
 
 输出：
 
 1. `.claude-plugin/plugin.json` 检查或修正
-2. `install.sh` 检查或修正
-3. 安装边界检查记录
+2. `.codex-plugin/plugin.json` 检查或修正
+3. `install.sh` 检查或修正
+4. 安装边界检查记录
 
 验收标准：
 

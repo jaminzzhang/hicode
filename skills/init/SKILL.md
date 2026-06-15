@@ -1,4 +1,5 @@
 ---
+name: init
 description: 初始化目标后端项目的 hicode 使用入口，优先使用 Agent 可执行初始化能力生成 AGENTS.md 或 CLAUDE.md；OpenCode TUI /init 需用户手工执行，Agent 不能代替调用。随后补充 hicode section、项目规则、上下文文档，并按需建议 graphify 代码结构扫描。Use when 用户要求初始化 hicode、补齐 AGENTS.md/CLAUDE.md、创建 docs/rules、建立项目上下文，或准备目标项目进入 hicode 工作流。
 ---
 

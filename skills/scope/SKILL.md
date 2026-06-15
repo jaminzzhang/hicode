@@ -1,4 +1,5 @@
 ---
+name: scope
 description: 评审和澄清需求、收敛范围、拆分可执行小任务，并为 hicode:tdd 准备编码前证据。Use when 用户需要需求评审、范围界定、模糊点追问、feature_context 更新、ADR 草稿、任务拆分、编码准入判断，或说需求还不清楚、范围太大、需要拆任务。
 ---
 

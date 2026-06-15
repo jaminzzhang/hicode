@@ -1,0 +1,40 @@
+{
+  "name": "hicode",
+  "version": "0.1.4",
+  "description": "hicode Codex plugin for insurance and financial core system Coding Agent workflows",
+  "author": {
+    "name": "hicode"
+  },
+  "license": "UNLICENSED",
+  "keywords": [
+    "hicode",
+    "insurance-core",
+    "financial-core",
+    "coding-agent",
+    "skills",
+    "init",
+    "scope",
+    "tdd",
+    "review",
+    "release"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "hicode",
+    "shortDescription": "Insurance and financial core coding workflows.",
+    "longDescription": "Reusable Codex skills for target-project initialization, scope clarification, TDD implementation, review, and release checks under financial core safety boundaries.",
+    "developerName": "hicode",
+    "category": "Productivity",
+    "capabilities": [
+      "Skills",
+      "Code review",
+      "Workflow"
+    ],
+    "defaultPrompt": [
+      "Use hicode to initialize this project.",
+      "Use hicode scope for this requirement.",
+      "Use hicode review on this branch."
+    ],
+    "brandColor": "#1F6FEB"
+  }
+}

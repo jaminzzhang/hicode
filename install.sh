@@ -10,7 +10,8 @@ OPENCODE_SCOPE="user"
 OPENCODE_CONFIG_DIR="${OPENCODE_CONFIG_DIR:-$HOME/.config/opencode}"
 OPENCODE_PROJECT_DIR="$PWD"
 CODEX_SCOPE="user"
-CODEX_USER_SKILLS_DIR="${CODEX_SKILLS_DIR:-$HOME/.agents/skills}"
+CODEX_USER_MARKETPLACE_PATH="${CODEX_MARKETPLACE_PATH:-$HOME/.agents/plugins/marketplace.json}"
+CODEX_USER_PLUGIN_ROOT="${CODEX_PLUGIN_ROOT:-$HOME/plugins}"
 CODEX_PROJECT_DIR="$PWD"
 
 INSTALL_CLAUDE=0
@@ -29,14 +30,14 @@ Usage:
 Options:
   --claude-code          Install the hicode Claude Code plugin.
   --opencode            Install hicode agents and skills for OpenCode.
-  --codex               Install hicode skills for Codex CLI.
+  --codex               Install the hicode Codex plugin through a local marketplace.
   --all                 Install for all supported platforms (Claude Code, OpenCode, Codex).
   --scope               Claude Code install scope. Default: user.
   --opencode-scope      OpenCode install scope: user or project. Default: user.
   --opencode-config-dir OpenCode user config directory. Default: $OPENCODE_CONFIG_DIR or ~/.config/opencode.
   --opencode-project-dir
                        Target project directory for --opencode-scope project. Default: current directory.
-  --codex-scope        Codex direct skill install scope: user or project. Default: user.
+  --codex-scope        Codex plugin install scope: user or project. Default: user.
   --codex-project-dir  Target project directory for --codex-scope project. Default: current directory.
   --dry-run             Print the installation plan without changing user configuration.
   --yes                 Run without interactive confirmation. Without platform flags, defaults to Claude Code.
@@ -46,8 +47,8 @@ When no platform flag is specified and --yes is not used, an interactive menu pr
 for platform selection. With --yes and no platform flag, Claude Code is installed by default.
 
 This installer supports Claude Code plugin installation, OpenCode local agents/skills installation,
-and Codex CLI direct skills installation.
-It exposes only Claude Code plugin runtime assets or transformed runtime assets copied from skills/ and agents/.
+and Codex plugin installation through a local marketplace.
+It exposes only Claude Code plugin assets, Codex plugin skill assets, or transformed OpenCode runtime assets.
 It does not install this repository's docs/ or archive/ as runtime assets.
 It does not scan projects, generate CLAUDE.md or AGENTS.md, or create .hicode/.
 USAGE
@@ -91,6 +92,8 @@ validate_plugin_assets() {
   [ -d "$CLAUDE_PLUGIN_DIR/.claude-plugin" ] || die "Missing Claude plugin manifest directory: $CLAUDE_PLUGIN_DIR/.claude-plugin"
   [ -f "$CLAUDE_PLUGIN_DIR/.claude-plugin/plugin.json" ] || die "Missing Claude plugin manifest: $CLAUDE_PLUGIN_DIR/.claude-plugin/plugin.json"
   [ -f "$CLAUDE_PLUGIN_DIR/.claude-plugin/marketplace.json" ] || die "Missing Claude marketplace manifest: $CLAUDE_PLUGIN_DIR/.claude-plugin/marketplace.json"
+  [ -d "$CLAUDE_PLUGIN_DIR/.codex-plugin" ] || die "Missing Codex plugin manifest directory: $CLAUDE_PLUGIN_DIR/.codex-plugin"
+  [ -f "$CLAUDE_PLUGIN_DIR/.codex-plugin/plugin.json" ] || die "Missing Codex plugin manifest: $CLAUDE_PLUGIN_DIR/.codex-plugin/plugin.json"
 
   for skill in hi init scope tdd review release; do
     [ -f "$CLAUDE_PLUGIN_DIR/skills/$skill/SKILL.md" ] || die "Missing skill entry: $CLAUDE_PLUGIN_DIR/skills/$skill/SKILL.md"
@@ -117,11 +120,16 @@ validate_plugin_assets() {
 }
 
 validate_install_boundary() {
-  local plugin_manifest="$CLAUDE_PLUGIN_DIR/.claude-plugin/plugin.json"
+  local plugin_manifest
 
-  if grep -Eq '("\./docs/?|"docs/"|"\./archive/?|"archive/"|"references/)' "$plugin_manifest"; then
-    die "Plugin manifest must not expose repository docs, archive, or references as runtime assets"
-  fi
+  for plugin_manifest in \
+    "$CLAUDE_PLUGIN_DIR/.claude-plugin/plugin.json" \
+    "$CLAUDE_PLUGIN_DIR/.codex-plugin/plugin.json"
+  do
+    if grep -Eq '("\./docs/?|"docs/"|"\./archive/?|"archive/"|"references/)' "$plugin_manifest"; then
+      die "Plugin manifest must not expose repository docs, archive, or references as runtime assets: $plugin_manifest"
+    fi
+  done
 }
 
 confirm() {
@@ -353,59 +361,115 @@ select_platforms() {
   fi
 }
 
+read_codex_marketplace_name() {
+  local marketplace_path="$1"
+  local default_name="$2"
+
+  node - "$marketplace_path" "$default_name" <<'NODE'
+const fs = require("fs");
+
+const marketplacePath = process.argv[2];
+const defaultName = process.argv[3];
+let name = defaultName;
+
+try {
+  const marketplace = JSON.parse(fs.readFileSync(marketplacePath, "utf8"));
+  if (typeof marketplace.name === "string" && marketplace.name.trim()) {
+    name = marketplace.name.trim();
+  }
+} catch {
+  // Missing marketplace files use the installer's default marketplace name.
+}
+
+process.stdout.write(name);
+NODE
+}
+
+run_cmd_in_dir() {
+  local dir="$1"
+  shift
+
+  log "+ (cd \"$dir\" && $*)"
+  if [ "$DRY_RUN" -eq 0 ]; then
+    (cd "$dir" && "$@")
+  fi
+}
+
 install_codex() {
   validate_plugin_assets
+  validate_install_boundary
   validate_codex_scope
 
-  local codex_skills_dir
+  local marketplace_path
+  local plugin_target
+  local marketplace_default_name
+  local marketplace_display_name
+  local install_command_dir="$PWD"
+
   if [ "$CODEX_SCOPE" = "user" ]; then
-    codex_skills_dir="$CODEX_USER_SKILLS_DIR"
+    marketplace_path="$CODEX_USER_MARKETPLACE_PATH"
+    plugin_target="$CODEX_USER_PLUGIN_ROOT/$PLUGIN_NAME"
+    marketplace_default_name="personal"
+    marketplace_display_name="Personal"
   else
-    codex_skills_dir="$CODEX_PROJECT_DIR/.agents/skills"
+    marketplace_path="$CODEX_PROJECT_DIR/.agents/plugins/marketplace.json"
+    plugin_target="$CODEX_PROJECT_DIR/plugins/$PLUGIN_NAME"
+    marketplace_default_name="$PLUGIN_NAME-project"
+    marketplace_display_name="hicode Project"
+    install_command_dir="$CODEX_PROJECT_DIR"
   fi
+
+  local marketplace_name
+  marketplace_name="$(read_codex_marketplace_name "$marketplace_path" "$marketplace_default_name")"
 
   log ""
   log "Codex CLI plan:"
   log "  Scope: $CODEX_SCOPE"
-  log "  Skills target: $codex_skills_dir"
-  log "  Skills installed as: hicode-hi, hicode-init, hicode-scope, hicode-tdd, hicode-review, hicode-release"
-  log "  Agents: installed as skills (Codex CLI uses SKILL.md format)"
+  log "  Marketplace file: $marketplace_path"
+  log "  Marketplace name: $marketplace_name"
+  log "  Plugin bundle target: $plugin_target"
+  log "  Plugin selector: $PLUGIN_NAME@$marketplace_name"
+  log "  Runtime assets: .codex-plugin/plugin.json and skills/"
+  log "  Agents: omitted for Codex because Codex plugin manifests do not support agents"
   log "  Excluded from runtime: docs/, archive/, references/"
-  log "  Action: copy transformed hicode skills into Codex CLI skills directory"
+  log "  Action: copy hicode Codex plugin bundle, update local marketplace, install plugin"
 
   if [ "$DRY_RUN" -eq 1 ]; then
-    log "+ mkdir -p \"$codex_skills_dir\""
-    log "+ install transformed skills/{hi,init,scope,tdd,review,release} to \"$codex_skills_dir/hicode-*\""
-    log "+ install transformed agents as skills to \"$codex_skills_dir/hicode-agent-*\""
+    log "+ mkdir -p \"$(dirname "$marketplace_path")\" \"$(dirname "$plugin_target")\""
+    log "+ copy .codex-plugin/ and skills/ to \"$plugin_target\""
+    log "+ upsert marketplace entry \"$PLUGIN_NAME\" with source.path \"./plugins/$PLUGIN_NAME\""
+    if [ "$CODEX_SCOPE" = "user" ]; then
+      log "+ codex plugin add \"$PLUGIN_NAME@$marketplace_name\""
+    else
+      log "+ (cd \"$install_command_dir\" && codex plugin add \"$PLUGIN_NAME@$marketplace_name\")"
+    fi
     return 0
   fi
 
-  run_cmd mkdir -p "$codex_skills_dir"
-
-  node - "$CLAUDE_PLUGIN_DIR" "$codex_skills_dir" <<'NODE'
+  local generated_marketplace_name
+  generated_marketplace_name="$(
+    node - "$CLAUDE_PLUGIN_DIR" "$plugin_target" "$marketplace_path" "$marketplace_default_name" "$marketplace_display_name" "$PLUGIN_NAME" <<'NODE'
 const fs = require("fs");
 const path = require("path");
 
 const root = process.argv[2];
-const skillsOut = process.argv[3];
-const skillNames = ["hi", "init", "scope", "tdd", "review", "release"];
-const agentNames = [
-  "requirement-reviewer",
-  "coding-planner",
-  "tdd-guide",
-  "coding-assistant",
-  "code-reviewer",
-  "security-reviewer",
-  "java-reviewer",
-  "release-reviewer",
-];
+const pluginTarget = process.argv[3];
+const marketplacePath = process.argv[4];
+const marketplaceDefaultName = process.argv[5];
+const marketplaceDisplayName = process.argv[6];
+const pluginName = process.argv[7];
 
-function resetTarget(target, allowedPrefix) {
+function assertSafeOwnedTarget(target, expectedBase) {
   const base = path.basename(target);
-  if (base !== allowedPrefix && !base.startsWith(`${allowedPrefix}-`)) {
-    throw new Error(`Refusing to replace non-hicode target: ${target}`);
+  if (base !== expectedBase) {
+    throw new Error(`Refusing to replace non-hicode plugin target: ${target}`);
   }
+}
+
+function resetTarget(target, expectedBase) {
+  assertSafeOwnedTarget(target, expectedBase);
   fs.rmSync(target, { recursive: true, force: true });
+  fs.mkdirSync(target, { recursive: true });
 }
 
 function copyDir(src, dest) {
@@ -421,56 +485,75 @@ function copyDir(src, dest) {
   }
 }
 
-function upsertFrontmatterName(content, name) {
-  const match = content.match(/^---\n([\s\S]*?)\n---\n?/);
-  if (!match) return `---\nname: ${name}\n---\n\n${content}`;
-
-  const body = content.slice(match[0].length);
-  const lines = match[1].split("\n").filter((line) => !line.match(/^name\s*:/));
-  return `---\nname: ${name}\n${lines.join("\n")}\n---\n${body}`;
-}
-
-function transformSkillContent(content, name) {
-  return upsertFrontmatterName(content, name);
-}
-
-function transformAgentAsSkill(content, name) {
-  let next = upsertFrontmatterName(content, name);
-  for (const skill of skillNames) {
-    next = next.replaceAll(
-      `../skills/${skill}/SKILL.md`,
-      path.join(skillsOut, `hicode-${skill}/SKILL.md`)
-    );
-    next = next.replaceAll(
-      `skills/${skill}/SKILL.md`,
-      path.join(skillsOut, `hicode-${skill}/SKILL.md`)
-    );
+function readMarketplace(filePath) {
+  if (!fs.existsSync(filePath)) {
+    return {
+      name: marketplaceDefaultName,
+      interface: { displayName: marketplaceDisplayName },
+      plugins: [],
+    };
   }
-  return next;
+
+  const parsed = JSON.parse(fs.readFileSync(filePath, "utf8"));
+  if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
+    throw new Error(`${filePath} must contain a JSON object`);
+  }
+  if (typeof parsed.name !== "string" || !parsed.name.trim()) {
+    parsed.name = marketplaceDefaultName;
+  }
+  if (!parsed.interface || typeof parsed.interface !== "object" || Array.isArray(parsed.interface)) {
+    parsed.interface = { displayName: marketplaceDisplayName };
+  } else if (typeof parsed.interface.displayName !== "string" || !parsed.interface.displayName.trim()) {
+    parsed.interface.displayName = marketplaceDisplayName;
+  }
+  if (!Array.isArray(parsed.plugins)) {
+    throw new Error(`${filePath} field plugins must be an array`);
+  }
+  return parsed;
 }
 
-for (const skill of skillNames) {
-  const dest = path.join(skillsOut, `hicode-${skill}`);
-  resetTarget(dest, "hicode");
-  copyDir(path.join(root, "skills", skill), dest);
-  const skillPath = path.join(dest, "SKILL.md");
-  fs.writeFileSync(
-    skillPath,
-    transformSkillContent(fs.readFileSync(skillPath, "utf8"), `hicode-${skill}`)
-  );
-}
+resetTarget(pluginTarget, pluginName);
+copyDir(path.join(root, ".codex-plugin"), path.join(pluginTarget, ".codex-plugin"));
+copyDir(path.join(root, "skills"), path.join(pluginTarget, "skills"));
 
-for (const agent of agentNames) {
-  const destDir = path.join(skillsOut, `hicode-agent-${agent}`);
-  resetTarget(destDir, "hicode");
-  fs.mkdirSync(destDir, { recursive: true });
-  const source = path.join(root, "agents", `${agent}.md`);
-  fs.writeFileSync(
-    path.join(destDir, "SKILL.md"),
-    transformAgentAsSkill(fs.readFileSync(source, "utf8"), `hicode-agent-${agent}`)
-  );
-}
+fs.mkdirSync(path.dirname(marketplacePath), { recursive: true });
+const marketplace = readMarketplace(marketplacePath);
+const nextEntry = {
+  name: pluginName,
+  source: {
+    source: "local",
+    path: `./plugins/${pluginName}`,
+  },
+  policy: {
+    installation: "AVAILABLE",
+    authentication: "ON_INSTALL",
+  },
+  category: "Productivity",
+};
+
+marketplace.plugins = marketplace.plugins.filter((entry) => {
+  return !entry || entry.name !== pluginName;
+});
+marketplace.plugins.push(nextEntry);
+
+fs.writeFileSync(marketplacePath, `${JSON.stringify(marketplace, null, 2)}\n`);
+process.stdout.write(marketplace.name);
 NODE
+  )"
+
+  log "+ generated Codex marketplace entry: $PLUGIN_NAME@$generated_marketplace_name"
+
+  if [ "${HICODE_CODEX_SKIP_ADD:-0}" = "1" ]; then
+    log "+ skip codex plugin add because HICODE_CODEX_SKIP_ADD=1"
+    return 0
+  fi
+
+  require_command codex
+  if [ "$CODEX_SCOPE" = "user" ]; then
+    run_cmd codex plugin add "$PLUGIN_NAME@$generated_marketplace_name"
+  else
+    run_cmd_in_dir "$install_command_dir" codex plugin add "$PLUGIN_NAME@$generated_marketplace_name"
+  fi
 }
 
 while [ "$#" -gt 0 ]; do
@@ -554,10 +637,11 @@ log "OpenCode config dir: $OPENCODE_CONFIG_DIR"
 log "OpenCode project dir: $OPENCODE_PROJECT_DIR"
 log "Codex: $INSTALL_CODEX"
 log "Codex install scope: $CODEX_SCOPE"
-log "Codex user skills dir: $CODEX_USER_SKILLS_DIR"
+log "Codex user marketplace: $CODEX_USER_MARKETPLACE_PATH"
+log "Codex user plugin root: $CODEX_USER_PLUGIN_ROOT"
 log "Codex project dir: $CODEX_PROJECT_DIR"
 log ""
-log "This installer exposes only Claude Code plugin runtime assets or transformed OpenCode/Codex runtime assets."
+log "This installer exposes only Claude Code/Codex plugin runtime assets or transformed OpenCode runtime assets."
 log "This installer will not install repository docs/archive as runtime assets."
 log "This installer will not scan code, generate CLAUDE.md, generate AGENTS.md, or create .hicode/."
 

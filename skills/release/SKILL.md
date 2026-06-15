@@ -1,4 +1,5 @@
 ---
+name: release
 description: Use when the current or specified Git branch needs release analysis, release-report generation, SQL/config/script risk review, validation planning, rollback planning, or release-readiness evidence without granting approval.
 ---
 
