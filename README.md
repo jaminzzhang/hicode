@@ -51,6 +51,15 @@ Codex 安装使用显式参数：
 2. `./install.sh --codex --codex-scope project --codex-project-dir /path/to/project --yes`：复制 `.codex-plugin/` 和 `skills/` plugin bundle 到目标项目 `plugins/hicode`，更新目标项目 `.agents/plugins/marketplace.json`，并在目标项目目录执行 `codex plugin add hicode@<marketplace>`。
 3. `./install.sh --all --yes`：同时安装 Claude Code plugin、OpenCode 本地运行资产和 Codex plugin。
 
+卸载使用 `--uninstall` 搭配同一组平台和 scope 参数：
+
+1. `./install.sh --uninstall --claude-code --yes`：调用 `claude plugin uninstall hicode@hicode`。
+2. `./install.sh --uninstall --opencode --yes`：只删除 OpenCode 目录下安装器生成的 `hicode-*` Skill 和 Agent。
+3. `./install.sh --uninstall --codex --yes`：调用 `codex plugin remove hicode@<marketplace>`，并删除本地 marketplace 条目和 `plugins/hicode` bundle。
+4. `./install.sh --uninstall --all --yes`：同时卸载三类平台资产。
+
+Claude Code 或 Codex CLI 返回 plugin 已不存在时，卸载视为幂等成功并继续清理其他 hicode-owned 资产；其他命令错误仍会失败。
+
 安装器不修改业务仓库，不读取生产配置，不处理生产数据或客户敏感信息。
 
 目标项目初始化应在业务仓库中显式调用 `hicode:init`。默认只创建或补充 `CLAUDE.md` / `AGENTS.md`、项目上下文和 RULES 文档；不复制 plugin 内置能力到目标项目运行目录。
@@ -62,6 +71,7 @@ Codex 安装使用显式参数：
 ./install.sh --opencode --dry-run
 ./install.sh --codex --dry-run
 ./install.sh --all --dry-run
+./install.sh --uninstall --all --dry-run
 ./install.sh --yes
 bash scripts/health-check.sh
 ```
@@ -90,7 +100,8 @@ bash scripts/health-check.sh
 5. OpenCode 安装时将场景 Skill 转换为 `hicode-*` Skill，将 `agents/` 转换为 `hicode-*.md` Agent，Agent 文件名即 OpenCode agent name。
 6. Codex 安装时使用 `.codex-plugin/plugin.json` 和本地 marketplace；manifest 只声明 `skills: "./skills/"`，不声明 Codex manifest 不支持的 `agents` 字段，也暂不复制根目录 `agents/`。
 7. Codex 安装不复制 `docs/`、`archive/`、`agents/` 或历史资料。
-8. `hooks/` 只保留 Hook 行为说明和目录索引，不是目标平台默认上下文，也不维护与 `skills/` 重复的规则或模板源。
+8. 卸载只移除 hicode 明确拥有的插件、bundle、marketplace 条目和 `hicode-*` OpenCode 资产，不删除目标项目入口、上下文文档、规则文档或业务代码。
+9. `hooks/` 只保留 Hook 行为说明和目录索引，不是目标平台默认上下文，也不维护与 `skills/` 重复的规则或模板源。
 
 参考资料：
 

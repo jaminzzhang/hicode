@@ -22,7 +22,7 @@ bash scripts/health-check.sh
 6. 当前资产保留安全红线、生产禁止事项、敏感信息保护和人工审批边界。
 7. plugin manifest、marketplace manifest 和 Hook 配置能被解析为 JSON，Claude marketplace manifest 也能被 validator 校验通过。
 8. `hooks/hook.json` 与 Hook Markdown 说明中的 Hook ID、默认模式、规则依据、blocking 条件和禁止动作保持一致。
-9. `install.sh --dry-run --yes`、`install.sh --opencode --dry-run --yes`、`install.sh --codex --dry-run --yes` 和 `install.sh --all --dry-run --yes` 可运行；Claude marketplace 注册和 plugin install 使用一致 scope；Codex dry-run 必须展示 marketplace-backed `codex plugin add`，并只复制 `.codex-plugin/` 和 `skills/` 到 plugin bundle，不得回退到 `.agents/skills` direct skill 安装，也不得复制 `agents/`。
+9. `install.sh --dry-run --yes`、`install.sh --opencode --dry-run --yes`、`install.sh --codex --dry-run --yes`、`install.sh --all --dry-run --yes` 和 `install.sh --uninstall --all --dry-run --yes` 可运行；`scripts/install-opencode.js` 和 `scripts/install-codex.js` 语法有效；Claude marketplace 注册和 plugin install/uninstall 使用一致 scope；Codex dry-run 必须展示 marketplace-backed `codex plugin add/remove`，并只复制 `.codex-plugin/` 和 `skills/` 到 plugin bundle，不得回退到 `.agents/skills` direct skill 安装，也不得复制 `agents/`。
 10. `git diff --check` 无空白错误。
 11. 6 个场景 Skill 的 `SKILL.md` 不再引用旧共享路径或仓库 `references/`。
 12. 非 init Skill 不读取也不携带本地 `coding_rules.md` 种子规则；`skills/init/coding_rules.md` 是唯一内置规则种子，根目录 `references/` 不再存在。
@@ -33,6 +33,7 @@ bash scripts/health-check.sh
 17. OpenCode 转换后的 Skill frontmatter `name` 必须与安装目录一致；OpenCode Agent 使用文件名作为身份，frontmatter 不写 `name`，并显式写入 `mode: subagent`。
 18. Codex project scope 安装写入临时项目时，必须生成 `plugins/hicode/.codex-plugin/plugin.json`、`plugins/hicode/skills/` 和 `.agents/plugins/marketplace.json`，不得生成 `plugins/hicode/agents/`；marketplace entry 使用 `source: local`、`path: "./plugins/hicode"`、`policy.installation: AVAILABLE` 和 `policy.authentication: ON_INSTALL`。
 19. `hi`、`scope`、`tdd`、`review` 和 `release` 场景 Skill 不得引用 `../../agents/`，避免 Codex plugin bundle 出现不支持的 Agent 依赖。
+20. `install.sh --uninstall` 只删除 hicode-owned 资产：Claude/Codex 平台插件、Codex marketplace entry、Codex `plugins/hicode` bundle、OpenCode `hicode-*` Skill/Agent；Claude/Codex 平台返回插件已不存在时必须视为幂等成功并继续清理；不得删除目标项目入口、上下文、规则文档或非 hicode 命名资产。
 
 ## 失败处理
 
