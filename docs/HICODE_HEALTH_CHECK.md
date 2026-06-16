@@ -22,7 +22,7 @@ bash scripts/health-check.sh
 6. 当前资产保留安全红线、生产禁止事项、敏感信息保护和人工审批边界。
 7. plugin manifest、marketplace manifest 和 Hook 配置能被解析为 JSON，Claude marketplace manifest 也能被 validator 校验通过。
 8. `hooks/hook.json` 与 Hook Markdown 说明中的 Hook ID、默认模式、规则依据、blocking 条件和禁止动作保持一致。
-9. `install.sh --dry-run --yes`、`install.sh --opencode --dry-run --yes`、`install.sh --codex --dry-run --yes`、`install.sh --all --dry-run --yes` 和 `install.sh --uninstall --all --dry-run --yes` 可运行；`scripts/install-opencode.js` 和 `scripts/install-codex.js` 语法有效；Claude marketplace 注册和 plugin install/uninstall 使用一致 scope；Codex dry-run 必须展示 marketplace-backed `codex plugin add/remove`，并只复制 `.codex-plugin/` 和 `skills/` 到 plugin bundle，不得回退到 `.agents/skills` direct skill 安装，也不得复制 `agents/`。
+9. `install.sh --dry-run --yes`、`install.sh --opencode --dry-run --yes`、`install.sh --codex --dry-run --yes`、`install.sh --all --dry-run --yes` 和 `install.sh --uninstall --all --dry-run --yes` 可运行；`install.sh` 必须委托跨平台 Node 核心 `scripts/install.js`，`install.ps1` 必须作为 Windows PowerShell 入口委托同一 Node 核心；`scripts/install.js`、`scripts/install-opencode.js` 和 `scripts/install-codex.js` 语法有效；dry-run 必须展示 host platform；Claude marketplace 注册和 plugin install/uninstall 使用一致 scope；Codex dry-run 必须展示 marketplace-backed `codex plugin add/remove`，并只复制 `.codex-plugin/` 和 `skills/` 到 plugin bundle，不得回退到 `.agents/skills` direct skill 安装，也不得复制 `agents/`。
 10. `git diff --check` 无空白错误。
 11. 6 个场景 Skill 的 `SKILL.md` 不再引用旧共享路径或仓库 `references/`。
 12. 非 init Skill 不读取也不携带本地 `coding_rules.md` 种子规则；`skills/init/coding_rules.md` 是唯一内置规则种子，根目录 `references/` 不再存在。
