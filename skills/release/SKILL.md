@@ -1,6 +1,6 @@
 ---
 name: release
-description: 汇总发布分支证据并分析 hicode 目标项目的发布风险、验证计划和回滚方案。Use when 当前或指定 Git 分支需要 release-report、发布前风险判断、需求追溯、测试与 Review 证据汇总、SQL/配置/脚本风险、生产验证点或回滚计划。
+description: 汇总发布分支证据并分析项目的发布风险、验证计划和回滚方案。Use when 当前或指定 Git 分支需要 release-report、发布前风险判断、需求追溯、测试与 Review 证据汇总、SQL/配置/脚本风险、生产验证点或回滚计划。
 ---
 
 # hicode release

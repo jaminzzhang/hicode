@@ -1,6 +1,6 @@
 ---
 name: review
-description: 审查 hicode 目标项目代码变更的规范、需求一致性、安全和保险核心风险。Use when 用户要求 review diff、MR/PR、当前工作区、提交前检查或合并前证据，尤其涉及 SQL/配置/脚本、Java/Spring、权限、金额、状态、幂等、测试缺口或回归风险。
+description: 审查代码变更的规范、需求一致性、安全和保险核心风险。Use when 用户要求代码审查、 review diff、MR/PR、当前工作区、提交前检查或合并前证据，尤其涉及 SQL/配置/脚本、Java/Spring、权限、金额、状态、幂等、测试缺口或回归风险。
 ---
 
 # hicode review

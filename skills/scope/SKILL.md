@@ -1,6 +1,6 @@
 ---
 name: scope
-description: 评审需求、澄清范围并拆分可交给 hicode:tdd 的小任务。Use when hicode 目标项目的需求目标、业务规则、验收标准或影响范围不清楚，或用户要求需求评审、范围界定、TDD 输入准备、ADR 草稿或任务拆分。
+description: 评审需求、澄清范围并拆分可交给 hicode:tdd 的小任务。Use when 需求目标、业务规则、验收标准或影响范围不清楚，或用户要求需求评审、范围界定、TDD 输入准备、ADR 草稿或任务拆分。
 ---
 
 # hicode scope
