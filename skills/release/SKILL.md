@@ -1,6 +1,6 @@
 ---
 name: release
-description: Use when the current or specified Git branch needs release analysis, release-report generation, SQL/config/script risk review, validation planning, rollback planning, or release-readiness evidence without granting approval.
+description: 汇总发布分支证据并分析 hicode 目标项目的发布风险、验证计划和回滚方案。Use when 当前或指定 Git 分支需要 release-report、发布前风险判断、需求追溯、测试与 Review 证据汇总、SQL/配置/脚本风险、生产验证点或回滚计划。
 ---
 
 # hicode release
@@ -11,7 +11,7 @@ description: Use when the current or specified Git branch needs release analysis
 
 本 Skill 只输出发布风险建议和证据缺口，不替代发布负责人、测试负责人、审批流程、CI/CD、发布平台、生产验证或回滚执行。
 
-## 必读材料
+## 按需加载材料
 
 执行前按需读取：
 
@@ -30,6 +30,12 @@ description: Use when the current or specified Git branch needs release analysis
 按目标项目 `AGENTS.md` 或 `CLAUDE.md` 中的 hicode 单需求文档生命周期执行；入口缺少 hicode section 时，先提示补 `hicode:init`。若 `feature-id` 不明确，不得编造；可以先基于分支和 diff 输出临时报告，并把“需求目录未确认”列为证据缺口。需要落盘到 `docs/features/<feature-id>/release-report.md` 时，必须先确认 `feature-id`，再读取本 Skill 内置模板。
 
 不得读取 `.env`、密钥文件、生产配置、生产凭证、未脱敏客户信息、未脱敏生产数据或生产日志原文。
+
+## 专项 Agent 委托
+
+当前平台可用 hicode 子 Agent，且分支复杂、长期分支、跨需求发布或命中 SQL/配置/脚本/回滚风险时，按需委托 `release-reviewer` 做发布范围、证据、验证计划和回滚计划专项审查。
+
+子 Agent 不可用时，由本 Skill 直接执行，并在输出中说明未委托的专项角色、降级影响和人工补齐建议。不得因缺少 Agent 降低 P0/P1 风险等级。
 
 ## 执行流程
 
@@ -73,7 +79,7 @@ description: Use when the current or specified Git branch needs release analysis
 
 报告必须包含：
 
-1. 发布建议结论：`PASS`、`CONDITIONAL_PASS`、`BLOCKED` 或 `NEEDS_CONFIRMATION`。
+1. 发布建议结论：`NO_BLOCKING_FINDINGS`、`CONDITIONAL_RECOMMENDATION`、`BLOCKED` 或 `NEEDS_CONFIRMATION`。
 2. 最高风险等级和一句话依据。
 3. 发布分支范围、分叉时间、主干风险和未提交变更。
 4. 主要实现需求分析：需求文档、实现过程证据、diff 对应关系、遗漏/错误/范围不明确。
@@ -84,6 +90,18 @@ description: Use when the current or specified Git branch needs release analysis
 9. 回滚计划：触发条件、回滚对象、回滚动作类型、数据补偿、负责人和待确认事项。
 10. 受限命令执行记录或未执行原因。
 11. 本次创建、更新、跳过或缺失的 feature 文档清单。
+
+`NO_BLOCKING_FINDINGS` 只表示已分析范围内未发现发布阻断项；`CONDITIONAL_RECOMMENDATION` 表示仍需补证据、人工确认或关闭条件。二者都不是发布审批或上线许可。
+
+## 停止条件
+
+命中以下情况时停止推进，输出 `NEEDS_CONFIRMATION` 或 `BLOCKED`：
+
+1. 发布分支、对比基准、分叉点或发布范围无法解析。
+2. 用户要求自动发布、自动回滚、自动合并、自动提交、checkout、reset、rebase、merge、push、删除文件或修改生产发布材料。
+3. 需要连接生产、读取生产日志、执行生产 SQL、调用生产接口、修改生产配置、发布或回滚。
+4. 输入包含密钥、生产凭证、未脱敏客户信息、未脱敏生产数据或生产日志原文。
+5. SQL、配置、脚本、回滚计划或生产验证点涉及 P0/P1 风险且缺少证据，无法判断发布风险。
 
 ## 禁止事项
 

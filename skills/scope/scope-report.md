@@ -4,7 +4,7 @@
 
 | 项 | 内容 |
 |---|---|
-| 建议结论 | READY_FOR_TDD / NEEDS_CONFIRMATION / SPLIT_REQUIRED / BLOCKED |
+| 建议结论 | TDD_INPUT_READY / NEEDS_CONFIRMATION / SPLIT_REQUIRED / BLOCKED |
 | 最高风险等级 | P0 / P1 / P2 / P3 / NONE |
 | 一句话依据 | 待填写 |
 | 下一步建议 | 继续澄清 / 拆分子需求 / 进入 hicode:tdd / 暂停推进 |
@@ -19,7 +19,7 @@
 | 项 | 内容 |
 |---|---|
 | 报告路径或正文 | 待填写 |
-| 评审结论 | PASS / NEEDS_CONFIRMATION / SPLIT_REQUIRED / BLOCKED |
+| 评审结论 | NO_BLOCKING_GAPS / NEEDS_CONFIRMATION / SPLIT_REQUIRED / BLOCKED |
 | 需求分析输入 | 待填写 |
 
 ## 4. 需求分析与范围边界
@@ -61,7 +61,7 @@
 | 项 | 内容 |
 |---|---|
 | 计划路径或正文 | 待填写 |
-| 计划结论 | READY_FOR_TDD / NEEDS_CONFIRMATION / SPLIT_REQUIRED / BLOCKED |
+| 计划结论 | TDD_INPUT_READY / NEEDS_CONFIRMATION / SPLIT_REQUIRED / BLOCKED |
 | 下一步路由 | hicode:tdd / 继续 Scope 澄清 / 转人工安全流程 |
 
 ## 10. TDD 输入与测试重点

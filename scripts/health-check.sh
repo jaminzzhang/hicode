@@ -211,6 +211,8 @@ for (const hook of catalog.hooks || []) {
 "
 check_cmd "install.sh shell syntax is valid" bash -n install.sh
 check_cmd "cross-platform Node installer syntax is valid" node --check scripts/install.js
+check_cmd "skill trigger regression checker syntax is valid" node --check scripts/check-skill-trigger-regression.js
+check_cmd "skill description and trigger regression contract is complete" node scripts/check-skill-trigger-regression.js
 check_cmd "PowerShell installer delegates to Node core" bash -c "[ -f install.ps1 ] && rg 'scripts/install\\.js' install.ps1 >/dev/null"
 check_cmd "installer node adapters are syntactically valid" node --check scripts/install-opencode.js
 check_cmd "codex installer node adapter is syntactically valid" node --check scripts/install-codex.js

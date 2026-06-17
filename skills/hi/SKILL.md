@@ -1,6 +1,6 @@
 ---
 name: hi
-description: Use when a target project needs the hicode global entrypoint, first-use diagnosis, initialization check, workflow routing, or a brief usage guide for insurance and financial core system Coding Agent work. Trigger when the user says only "hi", asks how to use hicode, needs initialization, or needs routing to hicode:init, hicode:scope, hicode:tdd, hicode:review, or hicode:release.
+description: 引导 hicode 目标项目的首次使用诊断、初始化状态检查和场景路由。Use when 用户只输入 hi、询问 hicode 怎么用、首次使用 hicode、检查初始化状态，或不确定应使用 hicode:init、hicode:scope、hicode:tdd、hicode:review 还是 hicode:release。
 ---
 
 # hi

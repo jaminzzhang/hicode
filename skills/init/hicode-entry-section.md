@@ -31,7 +31,7 @@
 
 | 阶段 | 负责入口 | 可创建或更新 | 写入边界 | 缺失材料处理 |
 |---|---|---|---|---|
-| Scope | `hicode:scope` | `feature_context.md`、`requirement-review-report.md`、`scope-report.md`、`task-split-plan.md` | 只写已确认事实、证据、待确认问题、范围边界、风险判断、ADR 草稿和拆分任务 | 缺少目标、范围、规则、验收标准或 P0/P1 风险证据时，不输出 `READY_FOR_TDD` |
+| Scope | `hicode:scope` | `feature_context.md`、`requirement-review-report.md`、`scope-report.md`、`task-split-plan.md` | 只写已确认事实、证据、待确认问题、范围边界、风险判断、ADR 草稿和拆分任务 | 缺少目标、范围、规则、验收标准或 P0/P1 风险证据时，不输出 `TDD_INPUT_READY` |
 | TDD | `hicode:tdd` | `tdd-report.md`，必要时补充 `feature_context.md` 的过程证据 | 只写真实测试设计、命令、结果、修改文件、风险和待确认问题 | 缺少 Scope 产物、任务范围或测试重点时，说明缺口并回到 `hicode:scope` 或只做测试设计 |
 | Review | `hicode:review` | `review-report.md` | 只写真 diff、审查证据、问题、命令结果、未覆盖范围和待确认问题 | 缺少需求、Scope、TDD、diff 或验证结果时，标注需求轴或证据轴降级 |
 | Release | `hicode:release` | `release-report.md` | 只汇总已知分支范围、需求证据、测试/Review 证据、SQL/配置/脚本风险、验证计划和回滚计划 | `feature-id` 不明确时只能输出临时报告；落盘前必须确认目录 |
@@ -61,4 +61,4 @@
 
 禁止读取或输出密钥、Token、Cookie、Session、连接串、生产账号、生产 IP、内部密钥、生产配置、生产凭证、未脱敏客户信息、未脱敏生产数据或生产日志原文。禁止连接生产、执行生产 SQL、修改生产配置、自动提交、自动推送、自动合并、自动发布、自动回滚、删除测试、降低断言、跳过 Review 或替代负责人审批。
 
-分析、计划、测试、Review 和发布类输出应包含建议结论、依据或证据来源、最高风险等级、建议动作、待确认问题、验证动作或未执行原因，以及上下文更新建议。
+分析、计划、测试、Review 和发布类输出应包含建议性质结论、依据或证据来源、最高风险等级、建议动作、待确认问题、验证动作或未执行原因，以及上下文更新建议；建议性质结论不得写成审批通过、允许合并、允许发布或可以上线。

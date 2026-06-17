@@ -1,6 +1,6 @@
 ---
 name: init
-description: 初始化目标后端项目的 hicode 使用入口，优先使用 Agent 可执行初始化能力生成 AGENTS.md 或 CLAUDE.md；OpenCode TUI /init 需用户手工执行，Agent 不能代替调用。随后补充 hicode section、项目规则、上下文文档，并按需建议 graphify 代码结构扫描。Use when 用户要求初始化 hicode、补齐 AGENTS.md/CLAUDE.md、创建 docs/rules、建立项目上下文，或准备目标项目进入 hicode 工作流。
+description: 初始化或补齐目标项目的 hicode 入口、规则目录和基础上下文文档。Use when 用户明确要求初始化 hicode、补充 AGENTS.md/CLAUDE.md hicode section、创建 docs/rules、DOMAIN_KNOWLEDGE.md、PROJ_CONTEXT.md 或 docs/adr，或处理首次使用入口缺失。
 ---
 
 # hicode init
@@ -19,7 +19,7 @@ description: 初始化目标后端项目的 hicode 使用入口，优先使用 A
 
 本 Skill 不安装 hicode plugin，不复制 plugin 内置 Skill、Agent、Rule、Template 或 Hook 到目标项目本地运行目录，不创建 `.hicode/`，不扫描生产数据，不操作生产环境。
 
-## 必读材料
+## 按需加载材料
 
 按当前步骤读取必要材料，不默认全量读取：
 
@@ -44,6 +44,10 @@ description: 初始化目标后端项目的 hicode 使用入口，优先使用 A
 5. 创建或更新 `docs/rules/` 和项目级上下文文档。
 6. 判断是否需要 graphify；只有复杂项目且用户同意时才扫描。
 7. 输出初始化结论、写入清单、未执行原因、风险和下一步问题。
+
+## 委托与降级
+
+当前平台可用 hicode 子 Agent 时，`hicode:init` 仍由本 Skill 编排，不把初始化流程交给 Agent 替代。涉及代码结构梳理时，优先按本 Skill 的 graphify 规则执行；graphify 或子 Agent 不可用时，只做轻量目录梳理，并在输出中说明降级影响。
 
 ## 执行流程
 

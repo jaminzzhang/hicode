@@ -4,7 +4,7 @@
 
 | 项 | 内容 |
 |---|---|
-| 计划结论 | READY_FOR_TDD / NEEDS_CONFIRMATION / SPLIT_REQUIRED / BLOCKED |
+| 计划结论 | TDD_INPUT_READY / NEEDS_CONFIRMATION / SPLIT_REQUIRED / BLOCKED |
 | 需求来源 | 需求文档 / 需求评审报告 / feature_context.md / 用户确认 |
 | 最高风险等级 | P0 / P1 / P2 / P3 / NONE |
 | 下一步路由 | hicode:tdd / 继续 Scope 澄清 / 转人工安全流程 |

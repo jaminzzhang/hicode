@@ -4,7 +4,7 @@
 
 | 项 | 内容 |
 |---|---|
-| 评审结论 | PASS / NEEDS_CONFIRMATION / SPLIT_REQUIRED / BLOCKED |
+| 评审结论 | NO_BLOCKING_GAPS / NEEDS_CONFIRMATION / SPLIT_REQUIRED / BLOCKED |
 | 最高风险等级 | P0 / P1 / P2 / P3 / NONE |
 | 一句话依据 | 待填写 |
 | 后续输入用途 | 作为需求分析、范围确认和拆分任务计划输入 |
