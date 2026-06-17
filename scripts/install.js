@@ -25,6 +25,8 @@ const state = {
   installClaude: false,
   installOpenCode: false,
   installCodex: false,
+  installMoss: false,
+  check: false,
   uninstall: false,
   dryRun: false,
   yes: false,
@@ -37,6 +39,7 @@ const state = {
     process.env.CODEX_MARKETPLACE_PATH || path.join(os.homedir(), ".agents", "plugins", "marketplace.json"),
   codexUserPluginRoot: process.env.CODEX_PLUGIN_ROOT || path.join(os.homedir(), "plugins"),
   codexProjectDir: process.cwd(),
+  mossAgentId: "zhangdalong",
 };
 
 function usage() {
@@ -52,7 +55,9 @@ Options:
   --claude-code          Target the hicode Claude Code plugin.
   --opencode            Target hicode agents and skills for OpenCode.
   --codex               Target the hicode Codex plugin through a local marketplace.
-  --all                 Target all supported platforms (Claude Code, OpenCode, Codex).
+  --moss                Target hicode skills and agents for Moss (learned-skills).
+  --moss-agent-id       Moss agent ID. Default: zhangdalong.
+  --all                 Target all supported platforms (Claude Code, OpenCode, Codex, Moss).
   --scope               Claude Code scope. Default: user.
   --opencode-scope      OpenCode scope: user or project. Default: user.
   --opencode-config-dir OpenCode user config directory. Default: $OPENCODE_CONFIG_DIR or ~/.config/opencode.
@@ -60,6 +65,7 @@ Options:
                        Target project directory for --opencode-scope project. Default: current directory.
   --codex-scope        Codex plugin scope: user or project. Default: user.
   --codex-project-dir  Target project directory for --codex-scope project. Default: current directory.
+  --check               Verify hicode installation on Moss. Run after install + server restart.
   --dry-run             Print the operation plan without changing user configuration.
   --yes                 Run without interactive confirmation. Without platform flags, defaults to Claude Code.
   -h, --help            Show this help.
@@ -72,8 +78,9 @@ When no platform flag is specified and --yes is not used, an interactive menu pr
 for platform selection. With --yes and no platform flag, Claude Code is installed by default.
 
 This installer supports Claude Code plugin installation, OpenCode local agents/skills installation,
-and Codex plugin installation through a local marketplace. With --uninstall, it removes only
-hicode-owned plugin entries, bundles, and hicode-* OpenCode assets.
+Codex plugin installation through a local marketplace, and Moss learned-skills installation.
+With --uninstall, it removes only
+hicode-owned plugin entries, bundles, and hicode-* OpenCode/Moss assets.
 It exposes only Claude Code plugin assets, Codex plugin skill assets, or transformed OpenCode runtime assets.
 It does not install this repository's docs/ or archive/ as runtime assets.
 It does not scan projects, generate CLAUDE.md or AGENTS.md, or create .hicode/.
@@ -518,10 +525,17 @@ function parseArgs(argv) {
       case "--codex":
         state.installCodex = true;
         break;
+      case "--moss":
+        state.installMoss = true;
+        break;
+      case "--check":
+        state.check = true;
+        break;
       case "--all":
         state.installClaude = true;
         state.installOpenCode = true;
         state.installCodex = true;
+        state.installMoss = true;
         break;
       case "--scope":
         state.installScope = nextValue();
@@ -541,6 +555,8 @@ function parseArgs(argv) {
       case "--codex-project-dir":
         state.codexProjectDir = nextValue();
         break;
+      case "--moss-agent-id":
+        state.mossAgentId = nextValue();
       case "--dry-run":
         state.dryRun = true;
         break;
@@ -572,6 +588,7 @@ async function selectPlatforms() {
   log("  1) Claude Code");
   log("  2) OpenCode");
   log("  3) Codex CLI");
+  log("  4) Moss");
   log("  a) All platforms");
   log("");
   const answer = await ask('Enter choice(s), space-separated (e.g. "1 3" for Claude Code + Codex): ');
@@ -587,24 +604,245 @@ async function selectPlatforms() {
       case "3":
         state.installCodex = true;
         break;
+      case "4":
+        state.installMoss = true;
+        break;
       case "a":
       case "A":
         state.installClaude = true;
         state.installOpenCode = true;
         state.installCodex = true;
+        state.installMoss = true;
         break;
       default:
-        die(`Invalid choice: ${choice}. Expected 1, 2, 3, or a.`);
+        die(`Invalid choice: ${choice}. Expected 1, 2, 3, 4, or a.`);
     }
   }
 
-  if (!state.installClaude && !state.installOpenCode && !state.installCodex) die("No platform selected.");
+  if (!state.installClaude && !state.installOpenCode && !state.installCodex && !state.installMoss) die("No platform selected.");
 }
 
 async function confirm() {
   if (state.yes || state.dryRun) return;
   const answer = await ask(state.uninstall ? "Proceed with hicode plugin uninstallation? [y/N] " : "Proceed with hicode plugin installation? [y/N] ");
   if (!["y", "Y", "yes", "YES"].includes(answer)) die("Installation cancelled");
+}
+
+// ========== Moss 安装 / 卸载 ==========
+
+/** 修正 SKILL.md 的 name frontmatter 为指定值 */
+function fixSkillName(skillDir, expectedName) {
+  const skPath = path.join(skillDir, "SKILL.md");
+  if (!fs.existsSync(skPath)) return;
+  let content = fs.readFileSync(skPath, "utf8");
+  // 检查是否有 frontmatter
+  const match = content.match(/^---\n([\s\S]*?)\n---/);
+  if (match) {
+    const frontmatter = match[1];
+    const lines = frontmatter.split("\n");
+    let nameFound = false;
+    const newLines = lines.map((line) => {
+      if (line.startsWith("name:")) {
+        nameFound = true;
+        return `name: ${expectedName}`;
+      }
+      return line;
+    });
+    if (!nameFound) {
+      newLines.unshift(`name: ${expectedName}`);
+    }
+    content = `---\n${newLines.join("\n")}\n---${content.slice(match[0].length)}`;
+  } else {
+    content = `---\nname: ${expectedName}\n---\n${content}`;
+  }
+  fs.writeFileSync(skPath, content, "utf8");
+}
+
+/** 将 skill 名称追加到 Moss config.yaml 的 skills.enabled 列表 */
+function enableSkillInConfig(configPath, skillName) {
+  if (!fs.existsSync(configPath)) return;
+  let content = fs.readFileSync(configPath, "utf8");
+  // 检查是否已在 enabled 列表中
+  const pattern = new RegExp(`^    - ${escapeRegExp(skillName)}$`, "m");
+  if (pattern.test(content)) return false; // 已存在
+
+  // 找到最后一个 - 开头的 enabled 项，在其后追加
+  const lastDashMatch = content.match(/^(    - .+)$/m);
+  if (lastDashMatch) {
+    const lastIndex = content.lastIndexOf(lastDashMatch[1]);
+    content = content.slice(0, lastIndex + lastDashMatch[1].length) +
+      `\n    - ${skillName}` +
+      content.slice(lastIndex + lastDashMatch[1].length);
+  } else if (/^skills:/m.test(content)) {
+    // 有 skills: 但没有 enabled 列表
+    content = content.replace(/^(skills:)$/m, "$1\n  enabled:\n    - " + skillName);
+  } else {
+    // 没有 skills 段落
+    content += `\nskills:\n  enabled:\n    - ${skillName}\n`;
+  }
+  fs.writeFileSync(configPath, content, "utf8");
+  return true;
+}
+
+function escapeRegExp(string) {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function mossSkillsDir() {
+  return path.join(os.homedir(), ".moss", "agents", state.mossAgentId, "learned-skills");
+}
+
+function mossConfigPath() {
+  return path.join(os.homedir(), ".moss", "agents", state.mossAgentId, "config.yaml");
+}
+
+const mossSkillNames = ["hi", "init", "scope", "tdd", "review", "release"];
+const mossAgentNames = [
+  "requirement-reviewer", "coding-planner", "tdd-guide", "coding-assistant",
+  "code-reviewer", "security-reviewer", "java-reviewer", "release-reviewer",
+];
+
+function allMossSkillIdentifiers() {
+  const skills = mossSkillNames.map((s) => `hicode-${s}`);
+  const agents = mossAgentNames.map((a) => `hicode-agent-${a}`);
+  return [...skills, ...agents];
+}
+
+function installMoss() {
+  const learnDir = mossSkillsDir();
+  const configPath = mossConfigPath();
+
+  if (!fs.existsSync(configPath)) {
+    die(`未找到 Moss config.yaml (${configPath})，请先初始化 Moss agent: ${state.mossAgentId}`);
+  }
+
+  log("");
+  log("Moss install plan:");
+  log(`  Agent ID: ${state.mossAgentId}`);
+  log(`  Target dir: ${learnDir}`);
+  log("  Action: copy skills/ and agents/ to Moss learned-skills, fix name fields, enable in config.yaml");
+
+  if (state.dryRun) {
+    log(`+ mkdir -p ${learnDir}/hicode-{hi,init,scope,tdd,review,release}`);
+    log(`+ mkdir -p ${learnDir}/hicode-agent-{${mossAgentNames.join(",")}}`);
+    log(`+ copy skills/{hi,init,scope,tdd,review,release}/. to ${learnDir}/hicode-*`);
+    log(`+ copy agents/*.md to ${learnDir}/hicode-agent-*/SKILL.md`);
+    log(`+ fix name frontmatter in all SKILL.md`);
+    log(`+ append ${allMossSkillIdentifiers().length} entries to ${configPath} skills.enabled`);
+    return;
+  }
+
+  log("");
+  log("[1/4] 安装 6 个 hicode Skill...");
+  for (const skill of mossSkillNames) {
+    const targetDir = path.join(learnDir, `hicode-${skill}`);
+    fs.rmSync(targetDir, { recursive: true, force: true });
+    fs.mkdirSync(targetDir, { recursive: true });
+    const srcDir = path.join(repoRoot, "skills", skill);
+    for (const entry of fs.readdirSync(srcDir)) {
+      const srcPath = path.join(srcDir, entry);
+      const destPath = path.join(targetDir, entry);
+      if (fs.statSync(srcPath).isDirectory()) {
+        fs.cpSync(srcPath, destPath, { recursive: true });
+      } else {
+        fs.copyFileSync(srcPath, destPath);
+      }
+    }
+    log(`  ✅ hicode-${skill}`);
+  }
+
+  log("[2/4] 安装 8 个 hicode Agent...");
+  for (const agent of mossAgentNames) {
+    const targetDir = path.join(learnDir, `hicode-agent-${agent}`);
+    fs.rmSync(targetDir, { recursive: true, force: true });
+    fs.mkdirSync(targetDir, { recursive: true });
+    fs.copyFileSync(path.join(repoRoot, "agents", `${agent}.md`), path.join(targetDir, "SKILL.md"));
+    log(`  ✅ hicode-agent-${agent}`);
+  }
+
+  log("[3/4] 修正 SKILL.md name 字段（目录名 = name）...");
+  for (const skill of mossSkillNames) {
+    fixSkillName(path.join(learnDir, `hicode-${skill}`), `hicode-${skill}`);
+    log(`  ✅ hicode-${skill}`);
+  }
+  for (const agent of mossAgentNames) {
+    fixSkillName(path.join(learnDir, `hicode-agent-${agent}`), `hicode-agent-${agent}`);
+    log(`  ✅ hicode-agent-${agent}`);
+  }
+
+  log("[4/4] 启用 hicode Skill（写入 config.yaml）...");
+  let addedCount = 0;
+  for (const id of allMossSkillIdentifiers()) {
+    if (enableSkillInConfig(configPath, id)) {
+      log(`  ➕ ${id}`);
+      addedCount++;
+    } else {
+      log(`  ✅ ${id} (已存在)`);
+    }
+  }
+
+  log("");
+  log("==========================================");
+  log("  ✅ 安装完成！");
+  log("==========================================");
+  log("");
+  log("下一步：重启 Moss server");
+  log("");
+  log("  方式一（推荐）：关闭 Moss 桌面端再重新打开");
+  log("");
+  log("  方式二：杀死 server 进程（GUI 会自动重启）");
+  log(`    kill \$(pgrep -f "server/bootstrap.js" | tail -1)`);
+  log("");
+  log("重启后验证：");
+  log("    node scripts/install.js --check");
+  log("==========================================");
+}
+
+function uninstallMoss() {
+  const learnDir = mossSkillsDir();
+  const configPath = mossConfigPath();
+
+  log("");
+  log("Moss uninstall plan:");
+  log(`  Agent ID: ${state.mossAgentId}`);
+  log(`  Target dir: ${learnDir}`);
+  log("  Action: remove hicode-* directories from Moss learned-skills");
+
+  if (state.dryRun) {
+    log(`+ rm -rf ${learnDir}/hicode-*`);
+    return;
+  }
+
+  // 删除 hicode-* 目录
+  for (const id of allMossSkillIdentifiers()) {
+    const targetDir = path.join(learnDir, id);
+    if (fs.existsSync(targetDir)) {
+      fs.rmSync(targetDir, { recursive: true, force: true });
+      log(`  🗑️  ${id}`);
+    }
+  }
+
+  // 从 config.yaml 移除
+  if (fs.existsSync(configPath)) {
+    let content = fs.readFileSync(configPath, "utf8");
+    let changed = false;
+    for (const id of allMossSkillIdentifiers()) {
+      const pattern = new RegExp(`^    - ${escapeRegExp(id)}$`, "gm");
+      if (pattern.test(content)) {
+        content = content.replace(pattern, "");
+        changed = true;
+        log(`  🗑️  从 config.yaml 移除 ${id}`);
+      }
+    }
+    if (changed) {
+      // 清理空行冗余
+      content = content.replace(/\n{3,}/g, "\n\n");
+      fs.writeFileSync(configPath, content, "utf8");
+    }
+  }
+
+  log("");
+  log("✅ Moss hicode 卸载完成。重启 Moss server 后生效。");
 }
 
 function hostPlatformLabel() {
@@ -624,7 +862,53 @@ function runPlatform(enabled, installFn, uninstallFn) {
 async function main() {
   parseArgs(process.argv.slice(2));
 
-  if (!state.installClaude && !state.installOpenCode && !state.installCodex) {
+  // --check 模式：验证 Moss 安装
+  if (state.check) {
+    const serverInfo = path.join(os.homedir(), ".moss", "server-info.json");
+    if (!fs.existsSync(serverInfo)) die("Moss 未运行（未找到 server-info.json）");
+
+    const info = JSON.parse(fs.readFileSync(serverInfo, "utf8"));
+    const { token, port } = info;
+
+    log(`检查 Moss Server (端口 ${port})...`);
+
+    const http = require("http");
+    const url = `http://localhost:${port}/api/skills?agentId=${state.mossAgentId}`;
+
+    http.get(url, { headers: { Authorization: `Bearer ${token}` } }, (res) => {
+      let body = "";
+      res.on("data", (chunk) => { body += chunk; });
+      res.on("end", () => {
+        try {
+          const data = JSON.parse(body);
+          const hicode = data.skills.filter((s) => s.name.startsWith("hicode"));
+          const enabled = hicode.filter((s) => s.enabled);
+          const disabled = hicode.filter((s) => !s.enabled);
+
+          log("");
+          log("hicode 技能状态：");
+          for (const s of hicode) {
+            log(`  ${s.enabled ? "✅" : "❌"} ${s.name}  (source=${s.source || "-"})`);
+          }
+          log("");
+          if (disabled.length > 0) {
+            log(`  ⚠️  有 ${disabled.length} 个技能未启用`);
+            process.exit(1);
+          } else {
+            log(`  ✅ 全部 ${hicode.length} 个 hicode 技能已启用！`);
+            process.exit(0);
+          }
+        } catch (err) {
+          die(`解析 Moss API 响应失败: ${err.message}`);
+        }
+      });
+    }).on("error", (err) => {
+      die(`Moss API 无响应: ${err.message}，是否重启了 server？`);
+    });
+    return; // 让事件循环处理回调
+  }
+
+  if (!state.installClaude && !state.installOpenCode && !state.installCodex && !state.installMoss) {
     if (state.yes) state.installClaude = true;
     else await selectPlatforms();
   }
@@ -644,6 +928,8 @@ async function main() {
   log(`Codex user marketplace: ${state.codexUserMarketplacePath}`);
   log(`Codex user plugin root: ${state.codexUserPluginRoot}`);
   log(`Codex project dir: ${state.codexProjectDir}`);
+  log(`Moss: ${state.installMoss ? 1 : 0}`);
+  log(`Moss agent ID: ${state.mossAgentId}`);
   log("");
   log("This installer exposes only Claude Code/Codex plugin runtime assets or transformed OpenCode runtime assets.");
   log("This installer will not install repository docs/archive as runtime assets.");
@@ -654,6 +940,7 @@ async function main() {
   runPlatform(state.installClaude, installClaudeCode, uninstallClaudeCode);
   runPlatform(state.installOpenCode, installOpenCode, uninstallOpenCode);
   runPlatform(state.installCodex, installCodex, uninstallCodex);
+  runPlatform(state.installMoss, installMoss, uninstallMoss);
 
   log("");
   if (state.dryRun) log("Dry run complete. No files or user configuration were changed.");

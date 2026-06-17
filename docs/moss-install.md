@@ -18,16 +18,22 @@ Moss 通过以下机制管理技能：
 
 ## 一键安装
 
-仓库里已经有现成的安装脚本，直接运行即可：
+```bash
+cd /path/to/hicode
+node scripts/install.js --moss   # 一键安装
+# 重启 Moss 后...
+node scripts/install.js --check  # 验证
+```
+
+也支持通过 `install.sh` 调用（会自动委托到 `scripts/install.js`）：
 
 ```bash
 cd /path/to/hicode
-bash install-moss.sh      # 一键安装
-# 重启 Moss 后...
-bash install-moss.sh --check  # 验证
+./install.sh --moss             # 一键安装
+./install.sh --check             # 验证
 ```
 
-**安装脚本做了三件事：**
+**--moss 做了三件事：**
 1. 复制文件到 `~/.moss/agents/zhangdalong/learned-skills/hicode-*/`
 2. 修正 SKILL.md 的 `name` 字段（目录名 = name）
 3. 追加到 `config.yaml` 的 `skills.enabled` 列表
@@ -123,7 +129,7 @@ kill $(pgrep -f "server/bootstrap.js" | tail -1)
 重启后，通过 `--check` 验证：
 
 ```bash
-bash install-moss.sh --check
+node scripts/install.js --check
 ```
 
 或通过 API 手动验证：
