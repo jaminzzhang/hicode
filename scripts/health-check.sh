@@ -72,6 +72,7 @@ require_command rg
 require_command node
 require_command bash
 require_command git
+require_command uv
 require_command claude
 require_command codex
 
@@ -106,9 +107,19 @@ check_no_match \
   .claude-plugin/plugin.json .codex-plugin/plugin.json
 
 check_no_match \
+  "plugin manifests do not expose skill-opt management assets" \
+  'skill-opt' \
+  .claude-plugin/plugin.json .codex-plugin/plugin.json
+
+check_no_match \
   "installer does not create .hicode or generate entry files" \
   'mkdir .*\.hicode|touch .*CLAUDE|touch .*AGENTS|cat >.*CLAUDE|cat >.*AGENTS' \
   install.sh
+
+check_no_match \
+  "installer does not copy skill-opt management assets" \
+  'skill-opt' \
+  install.sh scripts/install.js scripts/install-opencode.js scripts/install-codex.js
 
 check_no_match \
   "agents do not duplicate old generic rule sections" \
@@ -187,6 +198,59 @@ check_cmd \
 check_cmd \
   "skill-local runtime documents are present and duplicate references directory is absent" \
   bash -c "for f in skills/init/hicode-entry-section.md skills/init/DOMAIN_KNOWLEDGE.md skills/init/PROJ_CONTEXT.md skills/init/ADR-template.md skills/scope/feature_context.md skills/scope/requirement-review-report.md skills/scope/scope-report.md skills/scope/task-split-plan.md skills/scope/ADR-template.md skills/tdd/tdd-report.md skills/review/review-report.md skills/release/release-report.md; do [ -f \"\$f\" ] || exit 1; done; [ ! -e references ]"
+
+check_cmd \
+  "skill-opt planning skeleton is present" \
+  bash -c "for f in skill-opt/docs/IMPLEMENTATION_PLAN.md skill-opt/docs/DATASET_SPEC.md skill-opt/docs/EVALUATOR_SPEC.md skill-opt/docs/ADOPTION_PROCESS.md skill-opt/scripts/README.md skill-opt/outputs/README.md; do [ -f \"\$f\" ] || exit 1; done"
+
+check_cmd \
+  "skill-opt outputs are gitignored except README" \
+  bash -c "git check-ignore -q skill-opt/outputs/local-run.log && ! git check-ignore -q skill-opt/outputs/README.md"
+
+check_no_match \
+  "skill-opt docs and seed data do not include obvious secret-like examples" \
+  '(sk-[A-Za-z0-9]{12,}|AKIA[0-9A-Z]{16}|BEGIN (RSA |OPENSSH |EC )?PRIVATE KEY|password\s*=|jdbc:[^[:space:]]+@|://[^[:space:]]+:[^[:space:]@]+@)' \
+  skill-opt/docs skill-opt/data
+
+check_cmd \
+  "skill-opt script syntax is valid" \
+  bash -c "for f in skill-opt/scripts/*.js; do node --check \"\$f\" || exit 1; done"
+
+check_cmd \
+  "skill-opt shell script syntax is valid" \
+  bash -c "for f in skill-opt/scripts/*.sh skill-opt/tests/*.sh; do bash -n \"\$f\" || exit 1; done"
+
+check_cmd \
+  "skill-opt unit tests pass" \
+  node --test skill-opt/tests/*.test.js
+
+check_cmd \
+  "skill-opt Python runner syntax is valid" \
+  bash -c "uv run python -m py_compile skill-opt/scripts/run-review-eval.py skill-opt/scripts/python/hicode_review/*.py"
+
+check_cmd \
+  "skill-opt Python runner unit tests pass" \
+  uv run python -m unittest discover -s skill-opt/tests/python
+
+check_cmd \
+  "skill-opt review seed dataset validates" \
+  node skill-opt/scripts/validate-review-dataset.js skill-opt/data/review-golden/items.jsonl
+
+check_cmd \
+  "skill-opt run summary handles missing outputs" \
+  bash -c "tmp=\"\$(mktemp -d)\"; node skill-opt/scripts/evaluate-review-run.js health-check-missing --outputs-root \"\$tmp/outputs\" --docs-runs-dir \"\$tmp/docs/runs\" >/dev/null; rg 'missing_output' \"\$tmp/docs/runs/health-check-missing.md\" >/dev/null"
+
+check_cmd \
+  "skill-opt candidate summary handles missing candidate" \
+  bash -c "tmp=\"\$(mktemp -d)\"; node skill-opt/scripts/summarize-review-candidate.js health-check-missing --outputs-root \"\$tmp/outputs\" --docs-runs-dir \"\$tmp/docs/runs\" >/dev/null; rg 'WAIT_FOR_CANDIDATE' \"\$tmp/docs/runs/health-check-missing-candidate.md\" >/dev/null"
+
+check_cmd \
+  "skill-opt P5A dry-run runner writes split and messages without model calls" \
+  bash -c "tmp=\"\$(mktemp -d)\"; uv run python skill-opt/scripts/run-review-eval.py --run-id health-check-dry-run --outputs-root \"\$tmp/outputs\" --dry-run --target-model smoke-model --azure-openai-endpoint https://example.openai.azure.com >/dev/null && [ -f \"\$tmp/outputs/health-check-dry-run/split/train/items.json\" ] && [ -f \"\$tmp/outputs/health-check-dry-run/run.json\" ] && [ -f \"\$tmp/outputs/health-check-dry-run/dry-run.json\" ] && [ ! -e \"\$tmp/outputs/health-check-dry-run/review-outputs\" ] && node -e \"const fs=require('fs'); const p='\$tmp/outputs/health-check-dry-run/dry-run.json'; const d=JSON.parse(fs.readFileSync(p,'utf8')); if (!Array.isArray(d.items) || d.items.length === 0) process.exit(1); if (!Array.isArray(d.items[0].messages) || d.items[0].messages.length !== 2) process.exit(1);\""
+
+check_cmd \
+  "skill-opt DeepSeek wrapper dry-run parses allowlisted env file only" \
+  bash skill-opt/tests/test_deepseek_wrapper.sh
 
 check_cmd \
   "unreferenced hook template is absent" \

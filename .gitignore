@@ -55,6 +55,8 @@ out/
 .ai-harness/tmp/
 .ai-harness/cache/
 .ai-harness/output/
+skill-opt/outputs/*
+!skill-opt/outputs/README.md
 
 # Coding Agent
 .claude/

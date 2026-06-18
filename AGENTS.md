@@ -50,9 +50,10 @@
 5. 根目录 `skills/`：Claude Code 可直接调用的 6 个 hicode 直接执行型 Skill：`hi`、`init`、`scope`、`tdd`、`review`、`release`；其中 `hi` 是总入口，`hicode:init`、`hicode:scope`、`hicode:tdd`、`hicode:review`、`hicode:release` 是场景路由表达。
 6. 根目录 `agents/`：hicode 专业子 Agent 源资产。
 7. 根目录 `hooks/`：当前 Hook 行为说明、配置示例、触发条件、阻断建议和审计字段；不由安装器自动启用。
-8. `skills/<skill>/`：每个 Skill 的 `SKILL.md`、规则种子和具体模板文档均平铺在各自 Skill 根目录；不再在 Skill 内维护 `rules/`、`templates/` 或重复说明类 `README.md`。
-9. `skills/init/coding_rules.md`：`hicode:init` 用于创建或更新目标项目 `docs/rules/` 的种子规则；其他场景 Skill 不直接读取本文件。
-10. 根目录 `archive/`：历史归档区，非运行、非安装、非默认检索；当前 Skill、Agent、Rule、Template 和 Hook 不得依赖归档资产。
+8. 根目录 `skill-opt/`：SkillOpt 管理侧离线评估优化目录，用于保存规划文档、脱敏样例规范、评估脚本说明和本地输出约定；非运行、非安装、非目标项目初始化资产，不保存未脱敏真实数据。
+9. `skills/<skill>/`：每个 Skill 的 `SKILL.md`、规则种子和具体模板文档均平铺在各自 Skill 根目录；不再在 Skill 内维护 `rules/`、`templates/` 或重复说明类 `README.md`。
+10. `skills/init/coding_rules.md`：`hicode:init` 用于创建或更新目标项目 `docs/rules/` 的种子规则；其他场景 Skill 不直接读取本文件。
+11. 根目录 `archive/`：历史归档区，非运行、非安装、非默认检索；当前 Skill、Agent、Rule、Template 和 Hook 不得依赖归档资产。
 
 不要在本仓库产出隐藏源目录 `.hicode/`。当前 `hicode:init` 只初始化目标项目入口、上下文和项目规则文档，不复制 hicode plugin 内置资产到目标项目 `.hicode/`；`install.sh` 只安装 Claude Code plugin、Codex plugin 或 OpenCode agents/skills，不执行业务项目初始化。
 

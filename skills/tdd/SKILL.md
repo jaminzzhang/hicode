@@ -1,6 +1,6 @@
 ---
 name: tdd
-description: 用测试先行和小步实现完成已澄清的需求、缺陷修复或行为保护重构。Use when 用户要求按需求、计划进行编码实现、先写失败测试、RED-GREEN-REFACTOR、复现 bug、tracer bullet、补行为测试后改代码或受控重构。
+description: 用 hicode 测试先行和小步实现完成已澄清的需求、缺陷修复或行为保护重构。Use when 用户要求按需求、计划进行编码实现、先写失败测试、RED-GREEN-REFACTOR、复现 bug、tracer bullet、补行为测试后改代码或受控重构。
 ---
 
 # hicode tdd

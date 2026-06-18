@@ -712,10 +712,6 @@ function installMoss() {
   const learnDir = mossSkillsDir();
   const configPath = mossConfigPath();
 
-  if (!fs.existsSync(configPath)) {
-    die(`未找到 Moss config.yaml (${configPath})，请先初始化 Moss agent: ${state.mossAgentId}`);
-  }
-
   log("");
   log("Moss install plan:");
   log(`  Agent ID: ${state.mossAgentId}`);
@@ -730,6 +726,10 @@ function installMoss() {
     log(`+ fix name frontmatter in all SKILL.md`);
     log(`+ append ${allMossSkillIdentifiers().length} entries to ${configPath} skills.enabled`);
     return;
+  }
+
+  if (!fs.existsSync(configPath)) {
+    die(`未找到 Moss config.yaml (${configPath})，请先初始化 Moss agent: ${state.mossAgentId}`);
   }
 
   log("");
