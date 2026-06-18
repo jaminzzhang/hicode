@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import json
 from pathlib import Path
 
@@ -9,9 +11,9 @@ class DatasetError(ValueError):
     pass
 
 
-def load_jsonl(path):
+def load_jsonl(path: str | Path) -> list[dict]:
     path = Path(path)
-    items = []
+    items: list[dict] = []
     for line_number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), start=1):
         if not line.strip():
             continue
@@ -24,11 +26,11 @@ def load_jsonl(path):
     return items
 
 
-def validate_items(items):
+def validate_items(items: list[dict]) -> None:
     if not items:
         raise DatasetError("dataset must contain at least one item")
 
-    seen = set()
+    seen: set[str] = set()
     for index, item in enumerate(items):
         item_id = item.get("id")
         if not isinstance(item_id, str) or not item_id.strip():
@@ -53,7 +55,7 @@ def validate_items(items):
             raise DatasetError(f"{item_id} missing review_materials.diff")
 
 
-def write_split(items, split_root):
+def write_split(items: list[dict], split_root: str | Path) -> None:
     split_root = Path(split_root)
     for split in SPLITS:
         split_dir = split_root / split
@@ -63,4 +65,3 @@ def write_split(items, split_root):
             json.dumps(split_items, ensure_ascii=False, indent=2) + "\n",
             encoding="utf-8",
         )
-

@@ -36,9 +36,9 @@ bash scripts/health-check.sh
 20. `install.sh --uninstall` 只删除 hicode-owned 资产：Claude/Codex 平台插件、Codex marketplace entry、Codex `plugins/hicode` bundle、OpenCode `hicode-*` Skill/Agent；Claude/Codex 平台返回插件已不存在时必须视为幂等成功并继续清理；不得删除目标项目入口、上下文、规则文档或非 hicode 命名资产。
 21. `docs/HICODE_SKILL_TRIGGER_REGRESSION.md` 必须覆盖 6 个 Skill 的 `SHOULD_TRIGGER`、`SHOULD_NOT_TRIGGER` 和 `SAFETY_REDLINE` 样例；`scripts/check-skill-trigger-regression.js` 必须校验 Skill description 采用“能力边界短句 + `Use when ...` 触发语”的两句式、路由表达、安全红线词汇和建议结论枚举，避免旧 `PASS`、`CONDITIONAL_PASS`、`READY_FOR_TDD` 或旧双轴审查表述回流。
 22. `skill-opt/` 是管理侧离线评估优化目录，不得被 plugin manifest 暴露，不得被安装器复制到目标项目；`skill-opt/outputs/` 默认被 Git 忽略且只保留 `README.md`；`skill-opt/` 文档和 seed 数据不得示例化密钥、生产凭证、未脱敏客户信息或生产数据。
-23. `skill-opt/scripts/*.js` 必须语法有效，`skill-opt/tests/*.test.js` 必须通过，`skill-opt/data/review-golden/items.jsonl` 必须通过本地数据集校验，P4A run 汇总脚本必须能在缺少 Review 输出时生成 `missing_output` 摘要，P4B 候选摘要脚本必须能在缺少候选时生成 `WAIT_FOR_CANDIDATE` 摘要。
-24. P5A Python runner 必须能通过 `uv run python -m py_compile`、`uv run python -m unittest discover -s skill-opt/tests/python`，且 `--dry-run` 必须能生成派生 split、`run.json` 和包含完整 direct chat messages 的 `dry-run.json`，同时不得调用模型或生成 `review-outputs/`；同一 `run-id` 重跑不得残留旧 `review-outputs/` 或 `failures/`。
-25. DeepSeek wrapper 必须能通过 shell 语法检查和 dry-run 测试，可以 allowlist 解析 env 文件中的 DeepSeek 变量，并将已知 DeepSeek 模型名规范化为 API 接受的小写形式，但不得 `source` 整份 env 文件、加载无关变量或打印凭证。
+23. `skill-opt/scripts/*.js` 必须语法有效，`skill-opt/tests/*.test.js` 必须通过，`skill-opt/data/review-golden/items.jsonl` 必须通过本地数据集校验，候选摘要脚本必须能在缺少候选时生成 `WAIT_FOR_CANDIDATE` 摘要。
+24. SkillOpt train/eval Python wrapper 必须能通过 `uv run python -m py_compile`、`uv run python -m unittest discover -s skill-opt/tests/python`，且 train `--dry-run` 必须能生成派生 split 和 `train-dry-run.json`，同时不得调用模型或生成 `review-outputs/`。
+25. DeepSeek train wrapper 必须能通过 shell 语法检查和 dry-run 测试，按 SkillOpt 官方 `.env` 方式加载 `AZURE_OPENAI_*` 变量，并将已知 DeepSeek 模型名规范化为 API 接受的小写形式；不得打印凭证或把凭证写入 tracked 文件、运行摘要或候选 Skill。
 
 ## 失败处理
 

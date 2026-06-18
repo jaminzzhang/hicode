@@ -225,56 +225,60 @@ SkillOpt 产出的候选 `best_skill.md` 或优化建议只能作为人工审查
 _Avoid_: 自动覆盖 `skills/review/SKILL.md`、绕过人工审查、绕过健康检查、只因训练分数更高就采纳、把候选文件当作已发布 Skill
 
 **hicode SkillOpt 首轮规划骨架**:
-SkillOpt 引入任务的首轮交付形态，只建立 `skill-opt/` 下的规划文档、数据规范、evaluator 规范、采纳流程、脚本目录说明和本地输出目录说明，不实现真实训练脚本、benchmark adapter 或自动采纳流程。
-_Avoid_: 首轮直接训练、首轮接入真实会话、首轮实现全量 adapter、首轮自动覆盖运行 Skill、把规划骨架当作已完成优化效果
+SkillOpt 引入任务早期 P1 的交付形态，只建立 `skill-opt/` 下的规划文档、数据规范、evaluator 规范、采纳流程、脚本目录说明和本地输出目录说明，不代表真实训练已经完成。当前真实接入已收敛为基于 SkillOpt CLI 的 `hicode_review` train/eval wrapper。
+_Avoid_: 把规划骨架当作已完成优化效果、把早期 P1 范围误读为当前 P5 能力、首轮自动覆盖运行 Skill
 
 **hicode SkillOpt hicode_review adapter**:
-面向 `hicode:review` 离线评估训练规划的自定义 SkillOpt adapter 形态，用于把脱敏 diff、需求证据、TDD/验证证据、期望风险点、禁止结论、最高风险等级和安全红线转换为可 rollout、可评分的 Review 任务。它不复用 QA 类 benchmark 的 exact-match 口径，也不在首轮规划骨架中实现。
-_Avoid_: 强行套 SearchQA 或 DocVQA、把 Review 简化成单答案问答、只比对字符串答案、首轮直接实现 adapter
+面向 `hicode:review` 离线评估训练的自定义 SkillOpt adapter，用于把脱敏 diff、需求证据、TDD/验证证据、期望风险点、禁止结论、最高风险等级和安全红线转换为可 rollout、可评分、可反思的 Review 任务。它复用本地 Node evaluator，将 `hard_pass` 映射为 SkillOpt `hard`，将连续 `score` 映射为 `soft`，不复用 QA 类 benchmark 的 exact-match 口径。
+_Avoid_: 强行套 SearchQA 或 DocVQA、把 Review 简化成单答案问答、只比对字符串答案、维护两套不一致评分器
+
+**hicode SkillOpt SearchQA 参考边界**:
+SearchQA 是 SkillOpt 上游内置的问答 benchmark，可作为理解 split directory、训练命令、输出目录和基线 smoke 的参考对象，但不是 `hicode:review` 的训练任务、验证门禁或候选采纳依据。`hicode:review` 的主训练链路应保持 Review 专用 adapter 和金融核心风险 evaluator 口径。
+_Avoid_: 把 SearchQA 数据混入 Review golden dataset、用 SearchQA exact-match 分数评估 Review、用 SearchQA config 作为 Review 主训练配置、把 SearchQA smoke 当作 Review 优化结果
 
 **hicode SkillOpt direct chat rollout**:
-`hicode_review` 首版真实接入采用的 rollout 形态，把 `skills/review/SKILL.md` 作为 Skill 文档上下文，把脱敏样例中的提示、diff、需求证据和 TDD/验证证据作为用户任务直接交给 target chat 模型输出 Review 报告。它用于训练 Review 判断和输出结构，不读取真实仓库文件、不运行 shell、不访问目标项目，也不验证 Codex 或 Claude Code exec 后端的工具执行能力。
+`hicode_review` SkillOpt adapter 采用的 rollout 形态，把 `skills/review/SKILL.md` 或候选 `best_skill.md` 作为 Skill 文档上下文，把脱敏样例中的提示、diff、需求证据和 TDD/验证证据作为用户任务直接交给 target chat 模型输出 Review 报告。它用于训练 Review 判断和输出结构，不读取真实仓库文件、不运行 shell、不访问目标项目，也不验证 Codex 或 Claude Code exec 后端的工具执行能力。
 _Avoid_: `codex_exec` 首版训练、`claude_code_exec` 首版训练、真实目标项目仓库 rollout、工具调用能力评估、让模型自行读取仓库补证据
 
-**hicode SkillOpt P5A eval-only runner**:
-真实 SkillOpt 接入前半段的基线评估 runner，用 direct chat target 在脱敏样例上运行当前 `skills/review/SKILL.md`，生成派生 split、保存每条 Review 输出并复用本地 evaluator 生成脱敏运行摘要。它不执行 SkillOpt 训练、不产出 `best_skill.md`，用于验证数据、prompt 拼接、模型后端、输出落盘和评分链路。同一 `run-id` 重跑时，runner 应先清理该 run 下自身生成的 `split/`、`review-outputs/`、`failures/`、`run.json` 和 `dry-run.json`，避免旧成功输出或旧失败记录污染新的摘要。
-_Avoid_: 直接训练、候选 Skill 生成、人工采纳、真实 agent harness、把 eval-only 分数当作优化结果、同 run-id 重跑混用旧输出、把人工备注放进 runner 自动清理目录
+**hicode SkillOpt 评分复用边界**:
+`hicode_review` SkillOpt adapter 通过本地 Node evaluator 对单条输出评分，并把结果映射为 SkillOpt `hard`/`soft`。Python wrapper 只负责数据、split、prompt、模型调用、输出落盘、adapter 注册、候选摘要和 held-out eval 接线。
+_Avoid_: 同时维护 Node 和 Python 两套评分口径、重写已测试 evaluator、让评分差异影响 baseline 或 train gate 判断
 
-**hicode SkillOpt P5A dry-run**:
-P5A runner 的离线 wiring 检查模式，读取并校验 JSONL，生成派生 split，读取当前 `skills/review/SKILL.md`，为每条样例构造 direct chat messages，并写出 `run.json` 与 `dry-run.json`。它不调用模型、不要求 API key、不生成 `review-outputs/*.md`，也不生成 P4A 评分摘要。
-_Avoid_: dry-run 调用模型、dry-run 要求凭证、dry-run 伪造 Review 输出、dry-run 生成评分摘要
+**hicode SkillOpt 极小训练 runner**:
+基于 SkillOpt CLI 的首个训练 runner，用小样例、小 epoch 和低并发参数接入 SkillOpt 优化循环，产出候选 `best_skill.md` 后进入候选摘要、held-out eval 和人工采纳流程。它用于验证训练闭环，不用于证明大规模优化效果。
+_Avoid_: 放大 epoch 或样例前跳过验证、自动采纳候选、用训练分数替代 held-out eval
 
-**hicode SkillOpt dry-run messages 记录**:
-P5A `dry-run.json` 默认保存完整 direct chat messages，用于调试 prompt 拼接；该文件只位于 ignored 的 `skill-opt/outputs/<run-id>/` 下，不转写到 `docs/runs/` 摘要。messages 不得包含 API key、环境变量值或凭证；若未来样例来源不是人工脱敏 JSONL，应先拒绝入库而不是依赖 dry-run 遮掩。
-_Avoid_: tracked 摘要展示完整 messages、保存凭证或环境变量值、用 hash-only 输出替代 prompt 拼接调试、让未脱敏输入进入 dry-run
+**hicode SkillOpt CLI 集成边界**:
+训练接入以 `skillopt-train` 和 `skillopt-eval` 作为上游 SkillOpt 的稳定调用边界，由 hicode 管理侧 wrapper 负责准备 split、配置、输出目录、候选摘要和本地验证。它不直接调用 `ReflACTTrainer` 等上游内部 trainer API，以降低上游内部接口漂移对本仓库脚本的影响。
+_Avoid_: 直接 import 上游内部 trainer 作为首版主入口、绕开 SkillOpt CLI、把 wrapper 做成新的训练框架、让训练输出自动采纳到运行 Skill
 
-**hicode SkillOpt P5A eval 摘要**:
-P5A 非 dry-run 完成 direct chat 输出后默认生成的 P4A 脱敏运行摘要，路径为 `skill-opt/docs/runs/<run-id>.md`。部分样例调用失败时只能记录失败或缺失，不得伪造成通过；可提供 `--no-summary` 调试选项，但默认应保留摘要证据。
-_Avoid_: 模型跑完无摘要、失败样例伪造输出、摘要包含原始模型轨迹或密钥、默认跳过 P4A 评分
+**hicode SkillOpt env 注册 wrapper**:
+由于 SkillOpt 0.1.0 的 CLI 只静态注册内置 benchmark，`hicode_review` 首版通过本仓库 wrapper 在调用 `skillopt-train` 或 `skillopt-eval` 前把本地 `HicodeReviewAdapter` 注入 CLI registry。该 wrapper 只负责注册 adapter 和传递 CLI 参数，不 patch `.venv/site-packages`，不复制上游 CLI 源码，不 fork SkillOpt。
+_Avoid_: 修改已安装 SkillOpt 包、vendoring 上游 train/eval 脚本、依赖不可复现的动态 monkey patch、绕过官方 CLI 配置和输出目录语义
 
-**hicode SkillOpt P5A 评分复用边界**:
-P5A 不重写 Python evaluator，真实 eval 输出落盘后复用现有 Node 脚本 `skill-opt/scripts/evaluate-review-run.js` 生成 P4A 摘要。Python runner 只负责数据、split、prompt、模型调用和输出落盘；P5B 训练接入时再评估是否需要 Python adapter 内评分实现。
-_Avoid_: P5A 同时维护 Node 和 Python 两套评分口径、重写已测试 evaluator、让评分差异影响 baseline 判断
+**hicode SkillOpt Review gate 指标**:
+`hicode_review` 首版训练把本地 Review evaluator 映射为 SkillOpt gate 指标：`hard` 来自 `hard_pass`，`soft` 来自连续 `score`，训练 gate 默认使用 `mixed` 以便在小 validation split 上同时保留硬门禁和部分改进信号。人工采纳仍以硬门禁、held-out eval、候选摘要和人工审查优先，不因 mixed 分数提升自动合入。
+_Avoid_: 只用格式分数放行、安全红线被 soft 分抵消、把 mixed 分数当最终审批、训练 gate 和采纳门禁混为一谈
 
-**hicode SkillOpt P5A 失败策略**:
-P5A 真实 eval 对单样例模型调用采用 best effort，单个样例失败时写入 `skill-opt/outputs/<run-id>/failures/<sample-id>.json` 并继续后续样例；只要任一样例失败，CLI 最终退出码必须非 0。配置级错误，例如缺少 API key、endpoint、model 或数据校验失败，应直接失败且不运行任何样例。
-_Avoid_: 单样例失败中断全部默认流程、部分失败仍退出 0、配置错误后继续调用模型、失败样例伪造成输出
+**hicode SkillOpt 极小训练默认参数**:
+首次真实训练默认使用极小规模验证闭环：`num_epochs=1`、`batch_size=3`、`minibatch_size=3`、`learning_rate=2`、`train_size=6`、`sel_env_num=6`、`test_env_num=6`、`use_slow_update=false`、`use_meta_skill=false`、`failure_only=true`，并限制 analyst/target 并发，避免模型调用成本和候选变化失控。该参数组用于验证训练链路，不用于证明最佳优化效果。
+_Avoid_: 首次训练直接多 epoch、大 batch、高并发、启用 slow/meta 后难以诊断、把极小训练结果当作最终调参结论
 
-**hicode SkillOpt P5A Python runner 目录**:
-P5A Python 代码放在 `skill-opt/scripts/python/hicode_review/`，命令入口放在 `skill-opt/scripts/run-review-eval.py`。该目录是 SkillOpt 管理侧脚本目录的一部分，不在仓库根目录新增 `src/`，也不把 runner 安装成 hicode 运行包。
-_Avoid_: 根目录 `src/`、根目录应用入口、把 `skill-opt` 当 Python 包名、目标项目安装 runner
+**hicode SkillOpt 首轮数据边界**:
+首轮训练复用当前 `skill-opt/data/review-golden/items.jsonl` 和派生 split。若 baseline 满分导致训练无失败轨迹、无有效 patch 或无候选改进，应先记录为训练诊断结果，再在后续数据增强阶段补充更有区分度的脱敏样例。
+_Avoid_: 同时改 adapter 和大幅改数据、为追求训练改进临时造未审查样例、把无候选改进误判为接入失败
 
-**hicode SkillOpt P5B 极小训练 runner**:
-P5A baseline 跑通后的首个 SkillOpt 训练 runner，用小样例、小 epoch 和低并发参数接入 SkillOpt 优化循环，产出候选 `best_skill.md` 后进入 P4B 候选摘要和人工采纳流程。它用于验证训练闭环，不用于证明大规模优化效果。
-_Avoid_: 未跑通 P5A 就训练、放大 epoch 或样例前跳过验证、自动采纳候选、用训练分数替代 held-out eval
+**hicode SkillOpt 候选验证策略**:
+SkillOpt train 产出的 `best_skill.md` 只作为候选输入，不自动覆盖 `skills/review/SKILL.md`。训练完成后应评估候选在 held-out test split 的表现，生成候选差异摘要，并与 baseline 的硬门禁、P0/P1 漏报、安全红线、禁止结论和建议性枚举结果对比；只有候选摘要未建议拒绝且人工审查通过后，才可通过普通补丁流程采纳。
+_Avoid_: train 完就覆盖运行 Skill、只看 train 分数、跳过 held-out eval、跳过候选摘要、用 SkillOpt gate 接受替代人工采纳
 
 **hicode SkillOpt 模型凭证入口**:
-`hicode_review` 首版 runner 只支持 OpenAI-compatible 或 Azure OpenAI chat 后端，模型名称、端点和 API version 可通过显式 CLI 参数传入，API key 默认来自当前 shell 环境变量。runner 可以检查凭证是否存在，但不得把密钥写入配置文件、日志或摘要；DeepSeek wrapper 只能通过 allowlist 解析 env 文件中的指定变量。
-_Avoid_: YAML/JSON/Markdown 中保存密钥、命令参数中传 API key、打印环境变量值、首版同时支持多类模型后端、把凭证写入运行摘要、无 allowlist 地加载整份 env 文件
+`hicode_review` runner 只支持 OpenAI-compatible 或 Azure OpenAI chat 后端，模型名称、端点和 API version 可通过 SkillOpt 官方环境变量或显式 CLI 参数传入。真实 SkillOpt train/eval 按官方文档加载 `.env` 中的 `AZURE_OPENAI_*` 配置；runner 可以检查凭证是否存在，但不得把密钥写入 tracked 配置、日志、摘要或候选 Skill。
+_Avoid_: YAML/JSON/Markdown 中保存密钥、命令参数中传 API key、打印环境变量值、首版同时支持多类模型后端、把凭证写入运行摘要
 
 **hicode SkillOpt DeepSeek shell wrapper**:
-P5A 可通过 `skill-opt/scripts/run-review-eval-deepseek.sh` 调用 DeepSeek 的 OpenAI-compatible chat 接口；该 wrapper 可从当前 shell 环境变量或 env 文件中读取 `DEEPSEEK_API_KEY`、`DEEPSEEK_BASE_URL`、`DEEPSEEK_MODEL` 和 `DEEPSEEK_API_KEY_ENV`，并转换为 P5A runner 参数。它必须用 allowlist 解析，不得 `source` 整份 env 文件，不得打印凭证，也不得把无关密钥带入子进程；对已知 DeepSeek 模型名应规范化为 API 接受的小写形式，例如 `DeepSeek-V4-Flash` 转为 `deepseek-v4-flash`。
-_Avoid_: `source .env`、加载无关变量、把 DeepSeek key 写入命令参数、把模型配置提交到 tracked config、用 wrapper 绕过 P5A 输出和摘要边界、原样传入 DeepSeek 不接受的大小写模型名
+`skill-opt/scripts/run-review-train-deepseek.sh` 用于通过 OpenAI-compatible/Azure OpenAI 路径调用 DeepSeek。DeepSeek 作为 OpenAI-compatible 后端时，`.env` 应使用 SkillOpt 官方变量名，例如 `AZURE_OPENAI_ENDPOINT`、`AZURE_OPENAI_API_KEY` 和 `AZURE_OPENAI_AUTH_MODE=openai_compatible`。wrapper 不得打印凭证或把密钥写入 tracked 配置、运行摘要或候选 Skill。
+_Avoid_: 把 DeepSeek key 写入命令参数、把模型配置提交到 tracked config、用 wrapper 绕过 SkillOpt train/eval 输出和摘要边界、原样传入 DeepSeek 不接受的大小写模型名
 
 **hicode SkillOpt Review JSONL 样例格式**:
 `hicode_review` 评估样例的源数据格式，每条 JSONL 记录包含样例 ID、split、标签、Review 提示、脱敏评审材料、必识别风险、禁止结论、最低风险等级和允许的建议结论。Markdown 只用于说明数据规范和人工审查，不作为 evaluator 的主要机器读取格式。

@@ -60,6 +60,64 @@ test("analyzeCandidate flags forbidden approval claims", () => {
   assert.deepEqual(report.risks.forbidden_claims, ["准许合并", "审批通过"]);
 });
 
+test("analyzeCandidate ignores forbidden words in prohibition context", () => {
+  const root = makeTempRoot();
+  const baselinePath = path.join(root, "review.md");
+  const candidatePath = path.join(root, "best_skill.md");
+  fs.writeFileSync(baselinePath, baseline);
+  fs.writeFileSync(
+    candidatePath,
+    `${baseline}\n新增要求：不得输出准许合并、审批通过或可以上线等最终审批语言。`
+  );
+
+  const report = analyzeCandidate({
+    runId: "candidate-contextual-forbidden",
+    baselinePath,
+    candidatePath,
+  });
+
+  assert.equal(report.status, "candidate_present");
+  assert.equal(report.recommendation, "HUMAN_REVIEW_REQUIRED");
+  assert.deepEqual(report.risks.forbidden_claims, []);
+});
+
+test("analyzeCandidate does not flag unchanged baseline prohibition wording", () => {
+  const root = makeTempRoot();
+  const baselinePath = path.join(root, "review.md");
+  const candidatePath = path.join(root, "best_skill.md");
+  const withProhibition = `${baseline}\n禁止输出准许合并、审批通过、可以上线。`;
+  fs.writeFileSync(baselinePath, withProhibition);
+  fs.writeFileSync(candidatePath, withProhibition);
+
+  const report = analyzeCandidate({
+    runId: "candidate-unchanged",
+    baselinePath,
+    candidatePath,
+  });
+
+  assert.equal(report.status, "candidate_present");
+  assert.equal(report.recommendation, "HUMAN_REVIEW_REQUIRED");
+  assert.deepEqual(report.risks.forbidden_claims, []);
+});
+
+test("analyzeCandidate flags changed approval wording even when baseline prohibited it", () => {
+  const root = makeTempRoot();
+  const baselinePath = path.join(root, "review.md");
+  const candidatePath = path.join(root, "best_skill.md");
+  fs.writeFileSync(baselinePath, `${baseline}\n禁止输出准许合并。`);
+  fs.writeFileSync(candidatePath, `${baseline}\n候选新增：审查后可以输出准许合并。`);
+
+  const report = analyzeCandidate({
+    runId: "candidate-changed-approval",
+    baselinePath,
+    candidatePath,
+  });
+
+  assert.equal(report.status, "candidate_flagged");
+  assert.equal(report.recommendation, "REJECT_RECOMMENDED");
+  assert.deepEqual(report.risks.forbidden_claims, ["准许合并"]);
+});
+
 test("analyzeCandidate marks safe-looking candidate as needs human review", () => {
   const root = makeTempRoot();
   const baselinePath = path.join(root, "review.md");

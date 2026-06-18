@@ -226,7 +226,7 @@ check_cmd \
 
 check_cmd \
   "skill-opt Python runner syntax is valid" \
-  bash -c "uv run python -m py_compile skill-opt/scripts/run-review-eval.py skill-opt/scripts/python/hicode_review/*.py"
+  bash -c "uv run python -m py_compile skill-opt/scripts/run-review-train.py skill-opt/scripts/run-review-skillopt-eval.py skill-opt/scripts/python/hicode_review_skillopt/*.py"
 
 check_cmd \
   "skill-opt Python runner unit tests pass" \
@@ -237,19 +237,15 @@ check_cmd \
   node skill-opt/scripts/validate-review-dataset.js skill-opt/data/review-golden/items.jsonl
 
 check_cmd \
-  "skill-opt run summary handles missing outputs" \
-  bash -c "tmp=\"\$(mktemp -d)\"; node skill-opt/scripts/evaluate-review-run.js health-check-missing --outputs-root \"\$tmp/outputs\" --docs-runs-dir \"\$tmp/docs/runs\" >/dev/null; rg 'missing_output' \"\$tmp/docs/runs/health-check-missing.md\" >/dev/null"
-
-check_cmd \
   "skill-opt candidate summary handles missing candidate" \
   bash -c "tmp=\"\$(mktemp -d)\"; node skill-opt/scripts/summarize-review-candidate.js health-check-missing --outputs-root \"\$tmp/outputs\" --docs-runs-dir \"\$tmp/docs/runs\" >/dev/null; rg 'WAIT_FOR_CANDIDATE' \"\$tmp/docs/runs/health-check-missing-candidate.md\" >/dev/null"
 
 check_cmd \
-  "skill-opt P5A dry-run runner writes split and messages without model calls" \
-  bash -c "tmp=\"\$(mktemp -d)\"; uv run python skill-opt/scripts/run-review-eval.py --run-id health-check-dry-run --outputs-root \"\$tmp/outputs\" --dry-run --target-model smoke-model --azure-openai-endpoint https://example.openai.azure.com >/dev/null && [ -f \"\$tmp/outputs/health-check-dry-run/split/train/items.json\" ] && [ -f \"\$tmp/outputs/health-check-dry-run/run.json\" ] && [ -f \"\$tmp/outputs/health-check-dry-run/dry-run.json\" ] && [ ! -e \"\$tmp/outputs/health-check-dry-run/review-outputs\" ] && node -e \"const fs=require('fs'); const p='\$tmp/outputs/health-check-dry-run/dry-run.json'; const d=JSON.parse(fs.readFileSync(p,'utf8')); if (!Array.isArray(d.items) || d.items.length === 0) process.exit(1); if (!Array.isArray(d.items[0].messages) || d.items[0].messages.length !== 2) process.exit(1);\""
+  "skill-opt train dry-run writes split and SkillOpt args without model calls" \
+  bash -c "tmp=\"\$(mktemp -d)\"; uv run python skill-opt/scripts/run-review-train.py --run-id health-check-train-dry-run --outputs-root \"\$tmp/outputs\" --dry-run --target-model smoke-model >/dev/null && [ -f \"\$tmp/outputs/health-check-train-dry-run/split/train/items.json\" ] && [ -f \"\$tmp/outputs/health-check-train-dry-run/train-dry-run.json\" ] && [ ! -e \"\$tmp/outputs/health-check-train-dry-run/review-outputs\" ] && node -e \"const fs=require('fs'); const p='\$tmp/outputs/health-check-train-dry-run/train-dry-run.json'; const d=JSON.parse(fs.readFileSync(p,'utf8')); if (!Array.isArray(d.skillopt_args) || !d.skillopt_args.includes('hicode_review')) process.exit(1);\""
 
 check_cmd \
-  "skill-opt DeepSeek wrapper dry-run parses allowlisted env file only" \
+  "skill-opt DeepSeek train wrapper dry-run uses official SkillOpt env" \
   bash skill-opt/tests/test_deepseek_wrapper.sh
 
 check_cmd \

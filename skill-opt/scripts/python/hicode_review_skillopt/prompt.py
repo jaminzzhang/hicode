@@ -1,4 +1,7 @@
-def build_messages(skill_text, item):
+from __future__ import annotations
+
+
+def build_messages(skill_text: str, item: dict) -> list[dict[str, str]]:
     materials = item.get("review_materials", {})
     user_content = "\n\n".join(
         [
@@ -20,4 +23,3 @@ def build_messages(skill_text, item):
         {"role": "system", "content": system_content},
         {"role": "user", "content": user_content},
     ]
-

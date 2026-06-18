@@ -60,8 +60,23 @@ function diffLines(baselineText, candidateText) {
   };
 }
 
-function detectForbiddenClaims(text) {
-  return FORBIDDEN_CLAIMS.filter((claim) => String(text || "").includes(claim));
+function forbiddenClaimIsContextual(line, claim) {
+  if (/(不代表|不是|不得|不能|禁止|无权|非).{0,16}(合并|审批|发布|上线|许可|通过)/.test(line)) return true;
+  if (/(禁止|不得|不能).{0,12}(输出|写出|声称|给出).{0,12}/.test(line)) return true;
+  if (/(最终|实际).{0,12}(合并|上线|发布|审批|决策).{0,18}(负责人|人工|QA|既有流程|平台)/i.test(line)) return true;
+  if (/(由|需|需要|等待|交由).{0,12}(负责人|人工|QA|安全|项目).{0,12}(审批|确认|决策)/i.test(line)) return true;
+  if (claim === "审批通过" && /(如|例如|前置|条件|校验|流程|是否|确认|状态|业务)/.test(line)) return true;
+  return false;
+}
+
+function detectForbiddenClaims(lines) {
+  const hits = [];
+  for (const line of lines) {
+    for (const claim of FORBIDDEN_CLAIMS) {
+      if (line.includes(claim) && !forbiddenClaimIsContextual(line, claim)) hits.push(claim);
+    }
+  }
+  return hits;
 }
 
 function detectRemovedRequiredTerms(baselineText, candidateText) {
@@ -124,7 +139,7 @@ function analyzeCandidate({
   const candidateText = fs.readFileSync(candidatePath, "utf8");
   const lineDiff = diffLines(baselineText, candidateText);
   const risks = {
-    forbidden_claims: unique(detectForbiddenClaims(candidateText)),
+    forbidden_claims: unique(detectForbiddenClaims(lineDiff.added_lines)),
     removed_required_terms: unique(detectRemovedRequiredTerms(baselineText, candidateText)),
     forbidden_paths: unique(detectForbiddenPaths(candidateText)),
   };
