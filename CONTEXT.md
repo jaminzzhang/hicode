@@ -5,7 +5,7 @@ This context defines the project language for building the hicode engineering sy
 ## Language
 
 **hicode 工程化体系**:
-面向意健险研发团队的 AI 辅助研发工程体系，用于规范 Agent 如何读取上下文、使用模板、执行检查和沉淀资产。
+面向金融保险系统的 AI 辅助研发工程体系，用于规范 Agent 如何读取上下文、使用模板、执行检查和沉淀资产。
 _Avoid_: 保险核心系统、业务系统实现、单一 Prompt 集合
 
 **保险/金融核心系统服务对象**:
