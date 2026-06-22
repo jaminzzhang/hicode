@@ -49,8 +49,8 @@
 
 | 阶段 | 入口 | 可创建或更新 | 缺失材料处理 |
 |---|---|---|---|
-| Scope | `hicode:scope` | `feature_context.md`、`requirement-review-report.md`、`scope-report.md`、`task-split-plan.md` | 缺少目标、范围、规则、验收标准或 P0/P1 风险证据时，不输出 `TDD_INPUT_READY` |
-| TDD | `hicode:tdd` | `tdd-report.md`，必要时补充 `feature_context.md` 的过程证据 | 缺少 Scope 产物、任务范围或测试重点时，说明缺口并回到 `hicode:scope` 或只做测试设计 |
+| Scope | `hicode:scope` | `feature_context.md`、`scope-plan.md` | 缺少目标、范围、规则、验收标准、设计树或 P0/P1 风险证据时，不输出 `TDD_INPUT_READY` |
+| TDD | `hicode:tdd` | `tdd-report.md`，必要时补充 `feature_context.md` 的过程证据 | 缺少 `scope-plan.md`、任务范围或测试重点时，说明缺口并回到 `hicode:scope` 或只做测试设计 |
 
 ## hicode Review 与 Release 报告
 

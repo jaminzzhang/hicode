@@ -38,16 +38,8 @@ const requiredConclusionTokens = [
     tokens: ["TDD_INPUT_READY"],
   },
   {
-    filePath: "skills/scope/scope-report.md",
+    filePath: "skills/scope/scope-plan.md",
     tokens: ["TDD_INPUT_READY", "NO_BLOCKING_GAPS"],
-  },
-  {
-    filePath: "skills/scope/requirement-review-report.md",
-    tokens: ["NO_BLOCKING_GAPS"],
-  },
-  {
-    filePath: "skills/scope/task-split-plan.md",
-    tokens: ["TDD_INPUT_READY"],
   },
   {
     filePath: "skills/tdd/SKILL.md",
