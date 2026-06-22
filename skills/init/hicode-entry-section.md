@@ -9,7 +9,7 @@
 | 路径 | 用途 | 维护规则 |
 |---|---|---|
 | `docs/DOMAIN_KNOWLEDGE.md` | 领域术语、业务域、保险核心场景和可复用业务规则 | 负责人确认后写入 |
-| `docs/PROJ_CONTEXT.md` | 项目定位、模块结构、核心流程、接口依赖、数据状态、局部命令和历史风险 | 负责人确认后写入 |
+| `docs/PROJ_CONTEXT.md` | 项目定位、Feature 索引、模块结构、核心流程、接口依赖、数据状态、局部命令和历史风险 | 负责人确认后写入 |
 | `docs/adr/` | 架构、治理或难逆决策记录 | 决策人确认后写入 |
 | `docs/rules/` | 目标项目本地规则 | 只能补充或加严 hicode 内置规则 |
 
@@ -24,6 +24,18 @@
 | `docs/features/<feature-id>/tdd-report.md` | `hicode:tdd` |
 | `docs/features/<feature-id>/review-report.md` | `hicode:review` |
 | `docs/features/<feature-id>/release-report.md` | `hicode:release` |
+
+## hicode Feature 索引
+
+`docs/PROJ_CONTEXT.md` 中维护 Feature 索引，用于在用户输入不清晰时定位候选 `feature-id`，并在 Scope、TDD、Review 和 Release 时按需参考历史需求上下文。
+
+使用规则：
+
+1. 索引只记录 `feature-id`、需求名称、状态、关联模块/流程、关键上下文摘要、文档路径、最高风险等级和最近更新。
+2. 用户只给模糊描述、分支名、模块名或交接线索时，先查 Feature 索引；命中多个候选时列出候选和依据，再请用户确认。
+3. 进入 `hicode:scope`、`hicode:tdd`、`hicode:review` 或 `hicode:release` 后，历史 feature 只能作为定位、对比和风险提示；当前事实仍以本次 `docs/features/<feature-id>/` 文档、diff、测试和负责人确认为准。
+4. 新建、改名、完成、暂停或发现重要交接信息时，只输出 Feature 索引更新建议；正式写入 `PROJ_CONTEXT.md` 前必须由负责人确认。
+5. 索引不得保存未脱敏客户信息、生产数据、密钥、生产配置、生产凭证或生产日志原文。
 
 ## hicode 单需求文档生命周期
 
