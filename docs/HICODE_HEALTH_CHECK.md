@@ -27,7 +27,7 @@ bash scripts/health-check.sh
 11. 6 个场景 Skill 的 `SKILL.md` 不再引用旧共享路径或仓库 `references/`。
 12. 非 init Skill 不读取也不携带本地 `coding_rules.md` 种子规则；`skills/init/coding_rules.md` 是唯一内置规则种子，根目录 `references/` 不再存在。
 13. Skill 本地模板文档平铺在各自 `skills/<skill>/` 根目录，根目录 `references/` 不再存在；场景 Skill 不携带重复 `README.md` 生命周期说明。
-14. `skills/init/hicode-entry-section.md` 承载单需求文档生命周期、写入边界和审批边界，并由 `hicode:init` 写入目标项目入口。
+14. `skills/init/hicode-entry-section.md` 承载单需求文档生命周期、`doc/versions/` 下带日期时间戳的 Review/Release 报告路径、写入边界和审批边界，并由 `hicode:init` 写入目标项目入口。
 15. 旧共享运行目录已移除；运行资产、安装器和 manifest 不得引用旧共享路径或恢复 `references/` 目录。
 16. 未被 Hook 目录使用的 `_hook-template.md` 不再保留。
 17. OpenCode 转换后的 Skill frontmatter `name` 必须与安装目录一致；OpenCode Agent 使用文件名作为身份，frontmatter 不写 `name`，并显式写入 `mode: subagent`。

@@ -184,8 +184,8 @@ check_cmd \
   bash -c "! rg -n 'README\\.md' skills/scope/SKILL.md skills/tdd/SKILL.md skills/review/SKILL.md skills/release/SKILL.md"
 
 check_cmd \
-  "hicode entry section carries feature document lifecycle rules" \
-  node -e "const fs=require('fs'); const s=fs.readFileSync('skills/init/hicode-entry-section.md','utf8'); for (const needle of ['## hicode 单需求文档生命周期','docs/features/<feature-id>/','不得编造','不代表最终审批']) { if (!s.includes(needle)) process.exit(1); }"
+  "hicode entry section carries feature lifecycle and project report rules" \
+  node -e "const fs=require('fs'); const s=fs.readFileSync('skills/init/hicode-entry-section.md','utf8'); for (const needle of ['## hicode 单需求文档生命周期','docs/features/<feature-id>/','doc/versions/review-report-<YYYYMMDD-HHmm>.md','doc/versions/release-report-<YYYYMMDD-HHmm>.md','不放入某个 feature 目录','不得编造','不代表最终审批']) { if (!s.includes(needle)) process.exit(1); }"
 
 check_cmd \
   "init seed rule exists only under init skill root" \

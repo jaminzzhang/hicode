@@ -66,7 +66,7 @@ Scope、TDD、Review、Release 都在各自 Skill 中描述 `docs/features/<feat
 
 **Solution**
 
-把单需求特性文档的生命周期规则沉淀成一个更深的规则 Module：定义 feature 文档清单、创建时机、缺失材料处理、可写事实范围、证据降级和各阶段交接关系。当前已集中到 `skills/init/hicode-entry-section.md`，由 `hicode:init` 写入目标项目入口；`scope`、`tdd`、`review` 和 `release` Skill 只保留本阶段动作并读取目标项目入口中的 hicode section。
+把单需求特性文档的生命周期规则沉淀成一个更深的规则 Module：定义 feature 文档清单、创建时机、缺失材料处理、可写事实范围、证据降级和阶段交接关系。当前已集中到 `skills/init/hicode-entry-section.md`，由 `hicode:init` 写入目标项目入口；`scope`、`tdd` 只写入单需求目录，`review`、`release` 生成 `doc/versions/` 下带日期时间戳的项目级报告，并按需引用 feature 证据。
 
 **Benefits**
 
