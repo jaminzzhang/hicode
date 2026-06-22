@@ -1,0 +1,10 @@
+[project]
+name = "hicode-skill-opt"
+version = "0.1.0"
+description = "Management-side SkillOpt runner and adapter assets for hicode skill evaluation."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "datasets>=5.0.0",
+    "skillopt==0.1.0",
+]

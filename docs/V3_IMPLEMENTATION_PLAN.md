@@ -22,20 +22,20 @@ V3 的核心目标不是新增业务能力，而是降低当前资产目录、Sk
 10. 旧 JSON Schema 归档，当前使用 Markdown 结构化输出规则。
 11. 目标项目入口补充片段由 `skills/init/hicode-entry-section.md` 承载；完整 `AGENTS.md` 或 `CLAUDE.md` 入口主体优先由 Agent 可执行初始化能力生成。OpenCode TUI `/init` 等用户手工命令不能由 Agent 代替执行。
 12. `hicode:init` 只初始化目标项目入口、上下文和项目规则文档，不复制 hicode plugin 资产到目标项目 `.hicode/`。
-13. `.claude-plugin/plugin.json` 和 `install.sh` 不得把本仓库 `docs/`、历史文档或 `archive/` 安装为目标 Coding Agent 运行资产。
-14. V3 按工作包推进，工作包完成后先标记为 `待验收`，项目负责人确认后才能进入下一包。
+13. `.claude-plugin/plugin.json`、`.codex-plugin/plugin.json` 和 `install.sh` 不得把本仓库 `docs/`、历史文档或 `archive/` 安装为目标 Coding Agent 运行资产。
+14. V3 按工作包推进，工作包只保留目标、输入、输出、依赖和验收标准；当前推进以用户最新指令和本计划为准。
 
 ## 3. 范围边界
 
 ### 3.1 本轮范围内
 
-1. 更新本仓库入口规则、术语上下文、进度台账和 V3 实施计划。
+1. 更新本仓库入口规则、术语上下文和 V3 实施计划。
 2. 历史上曾重组 `references/` 为 `rules/`、`templates/`、`hooks/`；当前规则和模板已收敛到 `skills/`，Hook 已提升到根目录 `hooks/`。
 3. 建立根目录 `archive/` 并归档历史资产。
 4. 将旧 Prompt、Gate、Schema、Example、Guide、manifest/profile 中仍有效内容拆解到当前资产。
 5. 重写 6 个根目录 Skill，使其成为直接执行型说明。
 6. 更新 8 个 Agent 的旧路径引用，保持短角色入口。
-7. 检查 `.claude-plugin/plugin.json` 和 `install.sh` 的安装边界。
+7. 检查 `.claude-plugin/plugin.json`、`.codex-plugin/plugin.json` 和 `install.sh` 的安装边界。
 8. 做路径、一致性、归档依赖和安全红线验收。
 
 ### 3.2 本轮范围外
@@ -59,47 +59,38 @@ V3 工作包编号使用 `V3-P<阶段号>-WP<序号>`。
 4. 依赖。
 5. 验收标准。
 
-工作包状态由 `docs/PROGRESS.md` 维护，固定状态为：
-
-1. `未开始`
-2. `进行中`
-3. `阻塞`
-4. `待验收`
-5. `已完成`
-6. `暂缓`
+工作包不再维护独立动态状态文档。是否启动、暂缓或验收某个工作包，以用户最新指令和本计划中的目标、输出、依赖、验收标准为准。
 
 ## 5. 阶段总览
 
 | 阶段 | 名称 | 目标 | 主要交付物 |
 |---|---|---|---|
-| V3-P1 | 规划与入口规则 | 固化 V3 决策、计划和本仓库入口规则 | `docs/V3_IMPLEMENTATION_PLAN.md`、`AGENTS.md`、`docs/PROGRESS.md`、`CONTEXT.md`、ADR 0003 |
+| V3-P1 | 规划与入口规则 | 固化 V3 决策、计划和本仓库入口规则 | `docs/V3_IMPLEMENTATION_PLAN.md`、`AGENTS.md`、`CONTEXT.md`、ADR 0003 |
 | V3-P2 | 目录结构与归档迁移 | 建立新目录骨架并归档历史资产 | `archive/`、`references/rules/`、`references/templates/`、`references/hooks/`、`references/README.md` |
 | V3-P3 | 规则与模板重组 | 从旧资产中提炼当前规则和模板 | 场景 rules、项目模板、输出模板、Markdown 结构化输出规则 |
 | V3-P4 | Skill 直接执行化 | 重写 6 个根目录 Skill，移除旧引用链路 | `skills/hi`、`init`、`scope`、`tdd`、`review`、`release` |
 | V3-P5 | Agent 与 Hook 边界修正 | 修正 Agent 旧路径引用并收敛 Hook 说明 | 8 个 Agent、`hooks/` |
-| V3-P6 | 安装边界与一致性验收 | 验证当前资产不依赖归档和旧目录 | 检查报告、路径检查、安装边界检查、进度收口 |
+| V3-P6 | 安装边界与一致性验收 | 验证当前资产不依赖归档和旧目录 | 检查报告、路径检查、安装边界检查 |
 
 ## 6. V3-P1 规划与入口规则
 
 ### V3-P1-WP1 V3 实施计划与入口规则
 
-目标：建立 V3 简化重构执行基准，并同步本仓库入口规则和进度台账。
+目标：建立 V3 简化重构执行基准，并同步本仓库入口规则。
 
 输入：
 
 1. `AGENTS.md`
 2. `CONTEXT.md`
-3. `docs/PROGRESS.md`
-4. `docs/adr/0003-simplify-hicode-reference-assets-and-direct-skills.md`
-5. 本轮 grill-with-docs 已确认决策
+3. `docs/adr/0003-simplify-hicode-reference-assets-and-direct-skills.md`
+4. 本轮 grill-with-docs 已确认决策
 
 输出：
 
 1. `docs/V3_IMPLEMENTATION_PLAN.md`
 2. 更新后的 `AGENTS.md`
-3. 更新后的 `docs/PROGRESS.md`
-4. 已整理 V3 术语边界的 `CONTEXT.md`
-5. `docs/adr/0003-simplify-hicode-reference-assets-and-direct-skills.md`
+3. 已整理 V3 术语边界的 `CONTEXT.md`
+4. `docs/adr/0003-simplify-hicode-reference-assets-and-direct-skills.md`
 
 依赖：项目负责人确认启动 V3。
 
@@ -107,9 +98,8 @@ V3 工作包编号使用 `V3-P<阶段号>-WP<序号>`。
 
 1. V3 计划明确当前资产边界、范围内外、阶段、工作包和验收口径。
 2. `AGENTS.md` 的默认读取顺序和目录边界不再把 V1 计划或旧 `references/` 子目录作为当前执行基准。
-3. `docs/PROGRESS.md` 当前状态更新为 V3，并记录本工作包为 `待验收`。
-4. `CONTEXT.md` 已记录 V3 已确认术语边界。
-5. 本工作包不移动 `references/` 文件，不创建归档迁移内容，不重写 6 个 Skill。
+3. `CONTEXT.md` 已记录 V3 已确认术语边界。
+4. 本工作包不移动 `references/` 文件，不创建归档迁移内容，不重写 6 个 Skill。
 
 ## 7. V3-P2 目录结构与归档迁移
 
@@ -151,7 +141,6 @@ V3 工作包编号使用 `V3-P<阶段号>-WP<序号>`。
 输出：
 
 1. `archive/references/` 下的历史资产归档
-2. 更新后的 `docs/PROGRESS.md`
 
 依赖：V3-P2-WP1 已完成。
 
@@ -295,13 +284,14 @@ V3 后续维护已将上述 P3 中间目录进一步收敛：
 
 ### V3-P6-WP1 安装边界检查
 
-目标：确认 Claude Code plugin 只暴露必要可调用入口，不安装本仓库管理文档或归档资产。
+目标：确认 Claude Code 与 Codex plugin 只暴露必要可调用入口，不安装本仓库管理文档或归档资产。
 
 输出：
 
 1. `.claude-plugin/plugin.json` 检查或修正
-2. `install.sh` 检查或修正
-3. 安装边界检查记录
+2. `.codex-plugin/plugin.json` 检查或修正
+3. `install.sh` 检查或修正
+4. 安装边界检查记录
 
 验收标准：
 
@@ -316,7 +306,6 @@ V3 后续维护已将上述 P3 中间目录进一步收敛：
 
 1. 路径检查记录
 2. 归档依赖检查记录
-3. V3 收口更新后的 `docs/PROGRESS.md`
 
 验收标准：
 

@@ -4,7 +4,7 @@
 
 | 项 | 内容 |
 |---|---|
-| 建议结论 | PASS / CONDITIONAL_PASS / BLOCKED / NEEDS_CONFIRMATION |
+| 建议结论 | LOCAL_VERIFIED / PARTIAL_VERIFICATION / BLOCKED / NEEDS_CONFIRMATION |
 | 最高风险等级 | P0 / P1 / P2 / P3 / NONE |
 | 模式 | 测试设计 / 本地修改 / 补丁草案 / 只读解释 |
 

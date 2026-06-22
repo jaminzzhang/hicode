@@ -4,7 +4,7 @@
 
 | 项 | 内容 |
 |---|---|
-| 建议结论 | PASS / CONDITIONAL_PASS / BLOCKED / NEEDS_CONFIRMATION |
+| 建议结论 | NO_BLOCKING_FINDINGS / CONDITIONAL_RECOMMENDATION / BLOCKED / NEEDS_CONFIRMATION |
 | 最高风险等级 | P0 / P1 / P2 / P3 / NONE |
 | 一句话依据 | 待填写 |
 
@@ -21,7 +21,7 @@
 | 材料 | 来源 | 是否读取 | 缺口 |
 |---|---|---|---|
 
-## 4. 双轴审查结果
+## 4. 三轴审查结果
 
 | 审查轴 | 结果 | 依据 | 风险等级 |
 |---|---|---|---|

@@ -1,0 +1,49 @@
+model:
+  backend: azure_openai
+  optimizer_backend: openai_chat
+  target_backend: openai_chat
+  optimizer: deepseek-chat
+  target: deepseek-chat
+  reasoning_effort: ""
+  rewrite_reasoning_effort: ""
+  rewrite_max_completion_tokens: 4096
+
+train:
+  num_epochs: 1
+  train_size: 6
+  batch_size: 3
+  accumulation: 1
+  seed: 42
+
+gradient:
+  minibatch_size: 3
+  merge_batch_size: 3
+  analyst_workers: 1
+  failure_only: true
+  max_analyst_rounds: 1
+
+optimizer:
+  learning_rate: 2
+  min_learning_rate: 1
+  lr_scheduler: constant
+  lr_control_mode: fixed
+  skill_update_mode: patch
+  use_slow_update: false
+  use_meta_skill: false
+
+evaluation:
+  use_gate: true
+  gate_metric: mixed
+  gate_mixed_weight: 0.5
+  sel_env_num: 6
+  test_env_num: 6
+  eval_test: true
+
+env:
+  name: hicode_review
+  skill_init: skills/review/SKILL.md
+  out_root: skill-opt/outputs/review-train-minimal
+  split_mode: split_dir
+  split_dir: skill-opt/outputs/review-train-minimal/split
+  workers: 1
+  max_completion_tokens: 4096

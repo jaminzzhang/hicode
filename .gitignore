@@ -55,6 +55,12 @@ out/
 .ai-harness/tmp/
 .ai-harness/cache/
 .ai-harness/output/
+skill-opt/outputs/*
+!skill-opt/outputs/README.md
+skill-opt/docs/runs/
+skill-opt/data/review-dataset2/train/
+skill-opt/data/review-dataset2/val/
+skill-opt/data/review-dataset2/test/
 
 # Coding Agent
 .claude/

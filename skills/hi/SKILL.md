@@ -1,6 +1,6 @@
 ---
 name: hi
-description: Use when a target project needs the hicode global entrypoint, first-use diagnosis, initialization check, workflow routing, or a brief usage guide for insurance and financial core system Coding Agent work. Trigger when the user says only "hi", asks how to use hicode, needs initialization, or needs routing to hicode:init, hicode:scope, hicode:tdd, hicode:review, or hicode:release.
+description: 引导 hicode 目标项目的首次使用诊断、初始化状态检查和场景路由。Use when 用户只输入 hi、询问 hicode 怎么用、首次使用 hicode、检查初始化状态，或不确定应使用 hicode:init、hicode:scope、hicode:tdd、hicode:review 还是 hicode:release。
 ---
 
 # hi
@@ -53,10 +53,11 @@ description: Use when a target project needs the hicode global entrypoint, first
 1. 是否存在目标项目入口：`AGENTS.md` 或 `CLAUDE.md`。
 2. 是否存在项目级共享文档：`docs/PROJ_CONTEXT.md`、`docs/DOMAIN_KNOWLEDGE.md`、`docs/adr/` 或同等文件。
 3. 是否存在项目规则：`docs/rules/`、`docs/CODING_RULES.md`、`docs/TESTING_GUIDE.md`、`docs/REVIEW_RULES.md`、`docs/RELEASE_GUIDE.md` 或同等文件。
-4. 若任务已指向具体需求，是否存在单需求目录：`docs/features/<feature-id>/feature_context.md` 或同等文件。
-5. 是否能识别当前任务属于初始化、需求范围、TDD/实现、Review 或发布检查。
+4. 若用户输入不清晰但像在指代历史需求，是否可以通过 `docs/PROJ_CONTEXT.md` 的 Feature 索引定位候选 `feature-id`。
+5. 若任务已指向具体需求，是否存在单需求目录：`docs/features/<feature-id>/feature_context.md` 或同等文件。
+6. 是否能识别当前任务属于初始化、需求范围、TDD/实现、Review 或发布检查。
 
-诊断只检查必要文件名和用户输入。缺少上下文时，不编造业务规则，不把推断写成事实。
+诊断只检查必要文件名、Feature 索引和用户输入。Feature 索引只用于定位候选需求和交接上下文；缺少上下文时，不编造业务规则，不把推断写成事实。
 
 ## 初始化状态
 

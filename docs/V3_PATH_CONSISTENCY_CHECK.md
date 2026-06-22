@@ -40,7 +40,7 @@
 
 ## 4. 残余风险
 
-1. `docs/PROGRESS.md`、V1/V2 计划和历史 ADR 中仍保留历史路径，属于项目管理追溯材料，不是当前运行资产。
+1. V1/V2 计划和历史 ADR 中仍保留历史路径，属于项目管理追溯材料，不是当前运行资产。
 2. `install.sh` 保留 `docs/`、`archive/` 和历史 references 的负向校验表达，属于安装边界防护，不是运行依赖。
 3. 若后续新增 Skill、Agent、Rule、Template 或 Hook，必须重新运行本记录中的路径扫描。
 

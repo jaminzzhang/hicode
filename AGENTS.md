@@ -4,7 +4,7 @@
 
 ## 1. 项目定位
 
-本仓库用于为意健险研发团队建设 hicode 工程化体系，交付可复用的 Claude Code plugin、Agent 入口规则、上下文文档、直接执行型 Skill、专业子 Agent、规则、模板、Hook 说明和验收资产。
+本仓库用于建设面向金融保险系统的 hicode 工程化体系，交付可复用的 Claude Code plugin、Agent 入口规则、上下文文档、直接执行型 Skill、专业子 Agent、规则、模板、Hook 说明和验收资产。
 
 本体系的默认服务对象是保险/金融核心系统研发。后续 hicode 资产设计必须按金融核心系统的高风险标准处理保险核心业务逻辑严谨性、金额精度、交易一致性、状态流转、幂等、权限、审计、客户隐私、监管合规、生产变更、回滚和发布准入。
 
@@ -16,8 +16,7 @@
 
 1. `AGENTS.md`
 2. `CONTEXT.md`
-3. `docs/PROGRESS.md`
-4. 当前工作包对应的实施计划；当前 V3 简化重构使用 `docs/V3_IMPLEMENTATION_PLAN.md`
+3. 当前任务相关的实施计划；当前 V3 简化重构使用 `docs/V3_IMPLEMENTATION_PLAN.md`
 
 不要默认读取 `docs/研发 AI 工程化方案V1.1.md`。该文件是需求草案，后续可能持续调整。
 
@@ -25,40 +24,38 @@
 
 1. 当前工作包明确把需求草案作为输入。
 2. 需要追溯某个资产设计是否来自原始方案。
-3. 当前实施计划、`docs/PROGRESS.md` 或已生成资产存在范围冲突。
+3. 当前实施计划或已生成资产存在范围冲突。
 4. 用户明确要求分析、校对或更新需求草案。
 
-若需求草案与已确认的计划、进度或用户最新指令冲突，优先以用户最新指令和 `docs/PROGRESS.md` 为准，并在输出中说明冲突。
+若需求草案与已确认的计划或用户最新指令冲突，优先以用户最新指令为准，并在输出中说明冲突。
 
 ## 3. 工作包执行规则
 
 执行 Harness 工作时：
 
-1. 从 `docs/PROGRESS.md` 确认当前阶段、当前工作包、状态和下一步。
-2. 从当前工作包对应的实施计划确认该工作包的目标、输出、依赖和验收标准；V3 简化重构默认读取 `docs/V3_IMPLEMENTATION_PLAN.md`。
-3. 若当前工作包为 `待验收`，不要自动启动下一个工作包，除非用户明确确认。
-4. 只实现当前工作包要求的资产，不扩大范围。
-5. 产出完成后，把工作包标记为 `待验收`；只有用户确认后才能标记为 `已完成`。
-6. 工作包开始、阻塞、待验收、完成或暂缓时，必须更新 `docs/PROGRESS.md`。
+1. 从当前任务相关实施计划确认目标、输出、依赖和验收标准；V3 简化重构默认读取 `docs/V3_IMPLEMENTATION_PLAN.md`。
+2. 只实现用户当前要求和相关实施计划要求的资产，不扩大范围。
+3. 若用户要求删除、暂缓或替换某个治理机制，以用户最新指令为准，并同步清理当前入口规则和文档引用。
 
 ## 4. 资产目录规则
 
-本仓库根目录是 hicode 设计中心和 Claude Code plugin root，并提供 OpenCode agents/skills 本地安装入口。可直接被 Coding Agent 调用或安装的入口资产放在根目录一等目录中；Hook 支撑说明放在根目录 `hooks/` 下。
+本仓库根目录是 hicode 设计中心和 Claude Code / Codex plugin root，并提供 OpenCode agents/skills 本地安装入口。可直接被 Coding Agent 调用或安装的入口资产放在根目录一等目录中；Hook 支撑说明放在根目录 `hooks/` 下。
 
 目录边界：
 
-1. 根目录 `docs/`：本仓库项目管理文档，如实施计划、进度台账、需求草案和 ADR；不得作为目标 Coding Agent 默认运行资产安装。
+1. 根目录 `docs/`：本仓库项目管理文档，如实施计划、需求草案和 ADR；不得作为目标 Coding Agent 默认运行资产安装。
 2. 根目录 `CONTEXT.md`：项目术语表，只记录概念边界。
-3. 根目录 `.claude-plugin/`：Claude Code plugin manifest。
-4. 根目录 `install.sh`：Claude Code plugin 与 OpenCode agents/skills 安装器；不初始化目标项目、不复制本仓库 `docs/`、不创建 `.hicode/`。
+3. 根目录 `.claude-plugin/`：Claude Code plugin manifest；根目录 `.codex-plugin/`：Codex plugin manifest。
+4. 根目录 `install.sh`：Claude Code plugin、Codex plugin 与 OpenCode agents/skills 安装器；不初始化目标项目、不复制本仓库 `docs/`、不创建 `.hicode/`。
 5. 根目录 `skills/`：Claude Code 可直接调用的 6 个 hicode 直接执行型 Skill：`hi`、`init`、`scope`、`tdd`、`review`、`release`；其中 `hi` 是总入口，`hicode:init`、`hicode:scope`、`hicode:tdd`、`hicode:review`、`hicode:release` 是场景路由表达。
 6. 根目录 `agents/`：hicode 专业子 Agent 源资产。
 7. 根目录 `hooks/`：当前 Hook 行为说明、配置示例、触发条件、阻断建议和审计字段；不由安装器自动启用。
-8. `skills/<skill>/`：每个 Skill 的 `SKILL.md`、规则种子和具体模板文档均平铺在各自 Skill 根目录；不再在 Skill 内维护 `rules/`、`templates/` 或重复说明类 `README.md`。
-9. `skills/init/coding_rules.md`：`hicode:init` 用于创建或更新目标项目 `docs/rules/` 的种子规则；其他场景 Skill 不直接读取本文件。
-10. 根目录 `archive/`：历史归档区，非运行、非安装、非默认检索；当前 Skill、Agent、Rule、Template 和 Hook 不得依赖归档资产。
+8. 根目录 `skill-opt/`：SkillOpt 管理侧离线评估优化目录，用于保存规划文档、脱敏样例规范、评估脚本说明和本地输出约定；非运行、非安装、非目标项目初始化资产，不保存未脱敏真实数据。
+9. `skills/<skill>/`：每个 Skill 的 `SKILL.md`、规则种子和具体模板文档均平铺在各自 Skill 根目录；不再在 Skill 内维护 `rules/`、`templates/` 或重复说明类 `README.md`。
+10. `skills/init/coding_rules.md`：`hicode:init` 用于创建或更新目标项目 `docs/rules/` 的种子规则；其他场景 Skill 不直接读取本文件。
+11. 根目录 `archive/`：历史归档区，非运行、非安装、非默认检索；当前 Skill、Agent、Rule、Template 和 Hook 不得依赖归档资产。
 
-不要在本仓库产出隐藏源目录 `.hicode/`。当前 `hicode:init` 只初始化目标项目入口、上下文和项目规则文档，不复制 hicode plugin 内置资产到目标项目 `.hicode/`；`install.sh` 只安装 Claude Code plugin 或 OpenCode agents/skills，不执行业务项目初始化。
+不要在本仓库产出隐藏源目录 `.hicode/`。当前 `hicode:init` 只初始化目标项目入口、上下文和项目规则文档，不复制 hicode plugin 内置资产到目标项目 `.hicode/`；`install.sh` 只安装 Claude Code plugin、Codex plugin 或 OpenCode agents/skills，不执行业务项目初始化。
 
 根目录 `references/` 已删除，不再作为当前资产目录新增或维护。历史 `references/docs/`、`references/prompts/`、`references/skills/`、`references/gates/`、`references/schemas/`、`references/examples/`、`references/init/`、`references/target-project/`、`references/rules/`、`references/templates/` 和 `references/hooks/` 内容应按 V3 计划拆解、归档或迁移；当前规则种子和模板文档放在对应 Skill 根目录，当前 Hook 说明放在根目录 `hooks/`。
 

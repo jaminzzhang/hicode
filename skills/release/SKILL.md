@@ -1,5 +1,6 @@
 ---
-description: Use when the current or specified Git branch needs release analysis, release-report generation, SQL/config/script risk review, validation planning, rollback planning, or release-readiness evidence without granting approval.
+name: release
+description: 用 hicode 汇总发布分支证据并分析项目的发布风险、验证计划和回滚方案。Use when 当前或指定 Git 分支需要 release-report、发布前风险判断、需求追溯、测试与 Review 证据汇总、SQL/配置/脚本风险、生产验证点或回滚计划。
 ---
 
 # hicode release
@@ -10,7 +11,7 @@ description: Use when the current or specified Git branch needs release analysis
 
 本 Skill 只输出发布风险建议和证据缺口，不替代发布负责人、测试负责人、审批流程、CI/CD、发布平台、生产验证或回滚执行。
 
-## 必读材料
+## 按需加载材料
 
 执行前按需读取：
 
@@ -22,13 +23,19 @@ description: Use when the current or specified Git branch needs release analysis
 
 1. `AGENTS.md` 或 `CLAUDE.md`。
 2. `docs/rules/` 下由 `hicode:init` 创建或更新的项目规则文件，以及目标项目已有的等价规则文件；缺少时提示先补 `hicode:init`，不得读取本仓库规则替代。
-3. `docs/DOMAIN_KNOWLEDGE.md`、`docs/PROJ_CONTEXT.md`、`docs/adr/`。
+3. `docs/DOMAIN_KNOWLEDGE.md`、`docs/PROJ_CONTEXT.md` 的 Feature 索引、`docs/adr/`。
 4. `docs/features/<feature-id>/` 下的 feature 上下文和各阶段报告；存在时读取目标项目文件，不读取模板代替事实。
-5. 分支、Commit、MR/PR、CI、测试、缺陷、SQL、配置、脚本、制品和发布材料。
+5. `doc/versions/release-report-<YYYYMMDD-HHmm>.md`，以及分支、Commit、MR/PR、CI、测试、缺陷、SQL、配置、脚本、制品和发布材料。
 
-按目标项目 `AGENTS.md` 或 `CLAUDE.md` 中的 hicode 单需求文档生命周期执行；入口缺少 hicode section 时，先提示补 `hicode:init`。若 `feature-id` 不明确，不得编造；可以先基于分支和 diff 输出临时报告，并把“需求目录未确认”列为证据缺口。需要落盘到 `docs/features/<feature-id>/release-report.md` 时，必须先确认 `feature-id`，再读取本 Skill 内置模板。
+按目标项目 `AGENTS.md` 或 `CLAUDE.md` 中的 hicode Review 与 Release 报告规则执行；入口缺少 hicode section 时，先提示补 `hicode:init`。Release 报告统一写入 `doc/versions/`，文件名必须为 `release-report-<YYYYMMDD-HHmm>.md`；时间戳使用当前本地时间，若用户指定报告时间，以用户指定时间为准。Release 报告可以引用一个或多个 `docs/features/<feature-id>/` 作为需求证据，但不落盘到 feature 目录。
 
 不得读取 `.env`、密钥文件、生产配置、生产凭证、未脱敏客户信息、未脱敏生产数据或生产日志原文。
+
+## 专项 Agent 委托
+
+当前平台可用 hicode 子 Agent，且分支复杂、长期分支、跨需求发布或命中 SQL/配置/脚本/回滚风险时，按需委托 `release-reviewer` 做发布范围、证据、验证计划和回滚计划专项审查。
+
+子 Agent 不可用时，由本 Skill 直接执行，并在输出中说明未委托的专项角色、降级影响和人工补齐建议。不得因缺少 Agent 降低 P0/P1 风险等级。
 
 ## 执行流程
 
@@ -50,7 +57,7 @@ description: Use when the current or specified Git branch needs release analysis
 
 读取 Git diff、commit 列表和变更文件清单，按业务代码、测试代码、接口、批处理、消息、任务、前端、SQL/DDL/DML/数据修复、配置、开关、权限、网关、CI/CD、构建、容器、部署、定时任务、文档和发布材料归类。
 
-结合 `docs/features/` 中相关需求文档核对：本次改动是否能追溯到需求目标、范围、验收口径、风险基线和测试发布关注点。缺少对应需求文档、实现过程证据或需求与 diff 不匹配时，明确列为遗漏、错误或范围不明确风险。
+结合 Feature 索引和 `docs/features/` 中相关需求文档核对：本次改动是否能追溯到需求目标、范围、验收口径、风险基线和测试发布关注点。缺少对应需求文档、实现过程证据或需求与 diff 不匹配时，明确列为遗漏、错误或范围不明确风险。
 
 ### 3. 汇总已知验证信息
 
@@ -68,11 +75,11 @@ description: Use when the current or specified Git branch needs release analysis
 
 ### 5. 生成发布报告
 
-默认在回复中生成 Markdown 发布报告。若用户要求写入文件且 `feature-id` 已确认，基于 `release-report.md` 创建或更新 `docs/features/<feature-id>/release-report.md`，且只汇总已知证据、风险、验证计划和回滚计划。
+默认在回复中生成 Markdown 发布报告。若用户要求写入文件，基于 `release-report.md` 创建 `doc/versions/release-report-<YYYYMMDD-HHmm>.md`，且只汇总已知证据、风险、验证计划和回滚计划。
 
 报告必须包含：
 
-1. 发布建议结论：`PASS`、`CONDITIONAL_PASS`、`BLOCKED` 或 `NEEDS_CONFIRMATION`。
+1. 发布建议结论：`NO_BLOCKING_FINDINGS`、`CONDITIONAL_RECOMMENDATION`、`BLOCKED` 或 `NEEDS_CONFIRMATION`。
 2. 最高风险等级和一句话依据。
 3. 发布分支范围、分叉时间、主干风险和未提交变更。
 4. 主要实现需求分析：需求文档、实现过程证据、diff 对应关系、遗漏/错误/范围不明确。
@@ -82,7 +89,19 @@ description: Use when the current or specified Git branch needs release analysis
 8. 发布建议和阻断建议。
 9. 回滚计划：触发条件、回滚对象、回滚动作类型、数据补偿、负责人和待确认事项。
 10. 受限命令执行记录或未执行原因。
-11. 本次创建、更新、跳过或缺失的 feature 文档清单。
+11. 本次创建、更新、跳过或缺失的 Release 报告清单，以及引用的 feature 证据清单。
+
+`NO_BLOCKING_FINDINGS` 只表示已分析范围内未发现发布阻断项；`CONDITIONAL_RECOMMENDATION` 表示仍需补证据、人工确认或关闭条件。二者都不是发布审批或上线许可。
+
+## 停止条件
+
+命中以下情况时停止推进，输出 `NEEDS_CONFIRMATION` 或 `BLOCKED`：
+
+1. 发布分支、对比基准、分叉点或发布范围无法解析。
+2. 用户要求自动发布、自动回滚、自动合并、自动提交、checkout、reset、rebase、merge、push、删除文件或修改生产发布材料。
+3. 需要连接生产、读取生产日志、执行生产 SQL、调用生产接口、修改生产配置、发布或回滚。
+4. 输入包含密钥、生产凭证、未脱敏客户信息、未脱敏生产数据或生产日志原文。
+5. SQL、配置、脚本、回滚计划或生产验证点涉及 P0/P1 风险且缺少证据，无法判断发布风险。
 
 ## 禁止事项
 
