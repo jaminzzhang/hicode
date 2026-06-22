@@ -1,0 +1,159 @@
+{
+  "generated_at": "2026-06-18T08:50:44.184Z",
+  "retrieved_at": "2026-06-18",
+  "target_counts": {
+    "train": 180,
+    "val": 60,
+    "test": 60
+  },
+  "actual_counts_by_repo": {
+    "apache/rocketmq": 128,
+    "mybatis/mybatis-3": 121,
+    "mybatis/spring": 19,
+    "spring-projects/spring-boot": 32
+  },
+  "sources": [
+    {
+      "repo": "apache/rocketmq",
+      "license": "Apache-2.0",
+      "api": "https://api.github.com/repos/apache/rocketmq/pulls/comments",
+      "html": "https://github.com/apache/rocketmq/pulls",
+      "tech_stack": [
+        "Java",
+        "RocketMQ",
+        "Netty",
+        "JUnit"
+      ],
+      "domain": "消息中间件"
+    },
+    {
+      "repo": "mybatis/mybatis-3",
+      "license": "Apache-2.0",
+      "api": "https://api.github.com/repos/mybatis/mybatis-3/pulls/comments",
+      "html": "https://github.com/mybatis/mybatis-3/pulls",
+      "tech_stack": [
+        "Java",
+        "MyBatis",
+        "SQL",
+        "JUnit"
+      ],
+      "domain": "MyBatis SQL 映射"
+    },
+    {
+      "repo": "mybatis/spring",
+      "license": "Apache-2.0",
+      "api": "https://api.github.com/repos/mybatis/spring/pulls/comments",
+      "html": "https://github.com/mybatis/spring/pulls",
+      "tech_stack": [
+        "Java",
+        "Spring",
+        "MyBatis",
+        "Transactions"
+      ],
+      "domain": "Spring 与 MyBatis 集成"
+    },
+    {
+      "repo": "spring-projects/spring-boot",
+      "license": "Apache-2.0",
+      "api": "https://api.github.com/repos/spring-projects/spring-boot/pulls/comments",
+      "html": "https://github.com/spring-projects/spring-boot/pulls",
+      "tech_stack": [
+        "Java",
+        "Spring Boot",
+        "Configuration",
+        "Testing"
+      ],
+      "domain": "Spring Boot 框架"
+    },
+    {
+      "repo": "spring-projects/spring-framework",
+      "license": "Apache-2.0",
+      "api": "https://api.github.com/repos/spring-projects/spring-framework/pulls/comments",
+      "html": "https://github.com/spring-projects/spring-framework/pulls",
+      "tech_stack": [
+        "Java",
+        "Spring Framework",
+        "Transactions",
+        "Testing"
+      ],
+      "domain": "Spring Framework 框架"
+    },
+    {
+      "repo": "alibaba/nacos",
+      "license": "Apache-2.0",
+      "api": "https://api.github.com/repos/alibaba/nacos/pulls/comments",
+      "html": "https://github.com/alibaba/nacos/pulls",
+      "tech_stack": [
+        "Java",
+        "Spring Boot",
+        "Nacos",
+        "Configuration"
+      ],
+      "domain": "配置中心与服务发现"
+    },
+    {
+      "repo": "alibaba/Sentinel",
+      "license": "Apache-2.0",
+      "api": "https://api.github.com/repos/alibaba/Sentinel/pulls/comments",
+      "html": "https://github.com/alibaba/Sentinel/pulls",
+      "tech_stack": [
+        "Java",
+        "Sentinel",
+        "Flow Control",
+        "Spring Cloud"
+      ],
+      "domain": "限流降级"
+    },
+    {
+      "repo": "apache/shardingsphere",
+      "license": "Apache-2.0",
+      "api": "https://api.github.com/repos/apache/shardingsphere/pulls/comments",
+      "html": "https://github.com/apache/shardingsphere/pulls",
+      "tech_stack": [
+        "Java",
+        "SQL",
+        "ShardingSphere",
+        "Database"
+      ],
+      "domain": "数据库中间件"
+    },
+    {
+      "repo": "redisson/redisson",
+      "license": "Apache-2.0",
+      "api": "https://api.github.com/repos/redisson/redisson/pulls/comments",
+      "html": "https://github.com/redisson/redisson/pulls",
+      "tech_stack": [
+        "Java",
+        "Redis",
+        "Redisson",
+        "Distributed Lock"
+      ],
+      "domain": "Redis 客户端与分布式锁"
+    },
+    {
+      "repo": "keycloak/keycloak",
+      "license": "Apache-2.0",
+      "api": "https://api.github.com/repos/keycloak/keycloak/pulls/comments",
+      "html": "https://github.com/keycloak/keycloak/pulls",
+      "tech_stack": [
+        "Java",
+        "Security",
+        "Authentication",
+        "Authorization"
+      ],
+      "domain": "认证与权限"
+    }
+  ],
+  "normalized_at": "2026-06-18T08:50:44.188Z",
+  "category_counts": {
+    "security": 6,
+    "maintainability": 24,
+    "idempotency": 111,
+    "transaction_consistency": 25,
+    "exception_handling": 53,
+    "sql": 48,
+    "test_gap": 19,
+    "cache_lock": 2,
+    "java_spring": 12
+  }
+}
