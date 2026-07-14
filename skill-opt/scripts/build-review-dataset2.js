@@ -270,8 +270,8 @@ function toItem(comment, repoInfo, index, split) {
     context: {
       related_files: [comment.path],
       business_constraints: [
-        "训练数据来自公开开源项目 PR review comment，不包含真实金融保险客户数据",
-        "用于 hicode:review 训练时应结合金融核心系统风险标准重新判断严重级别",
+        "训练数据来自公开开源项目 PR review comment，不包含目标项目内部数据、未脱敏敏感信息或生产数据",
+        "用于 hicode:review 训练时应结合高严谨业务系统风险标准和具体领域证据重新判断严重级别",
         `原始 reviewer comment: ${reviewBody}`,
       ],
     },
@@ -286,7 +286,7 @@ function toItem(comment, repoInfo, index, split) {
     negative_findings: [
       "不要只评论命名风格",
       "不要输出准许合并、审批通过或可以上线",
-      "不要把公开开源项目评论误写成内部金融保险真实缺陷",
+      "不要把公开开源项目评论误写成目标项目内部真实缺陷",
     ],
     source,
     tags,
@@ -294,7 +294,7 @@ function toItem(comment, repoInfo, index, split) {
     skill_under_test: "hicode:review",
     review_materials: {
       requirement: `公开开源项目 ${repoInfo.repo} PR review comment 转换样例。目标是识别 reviewer 指出的风险点，并按 hicode:review 的三轴审查与建议性结论输出。`,
-      scope_summary: "只审查本条 diff_hunk 和公开 reviewer comment 对应的风险，不推断内部金融保险生产事实。",
+      scope_summary: "只审查本条 diff_hunk 和公开 reviewer comment 对应的风险，不推断目标项目内部或生产事实。",
       tdd_evidence: "公开数据未提供本地测试运行结果；若风险依赖测试证据，应标注证据缺口。",
       diff,
       source_review_comment: reviewBody,
@@ -350,9 +350,16 @@ function normalizeExistingItem(item) {
   const findingText = findingComment(category, sourceBody);
   item.diff = diff;
   item.tech_stack = item.tech_stack || repoInfo.techStack;
-  item.context.business_constraints = (item.context.business_constraints || []).map((entry) =>
-    sanitizePublicText(entry)
-  );
+  item.context.business_constraints = [
+    "训练数据来自公开开源项目 PR review comment，不包含目标项目内部数据、未脱敏敏感信息或生产数据",
+    "用于 hicode:review 训练时应结合高严谨业务系统风险标准和具体领域证据重新判断严重级别",
+    `原始 reviewer comment: ${sourceBody}`,
+  ];
+  item.negative_findings = [
+    "不要只评论命名风格",
+    "不要输出准许合并、审批通过或可以上线",
+    "不要把公开开源项目评论误写成目标项目内部真实缺陷",
+  ];
   item.expected_findings = [
     {
       ...(item.expected_findings && item.expected_findings[0] ? item.expected_findings[0] : {}),
@@ -364,6 +371,7 @@ function normalizeExistingItem(item) {
   item.tags = tagsFor(category, risk);
   item.review_materials = {
     ...item.review_materials,
+    scope_summary: "只审查本条 diff_hunk 和公开 reviewer comment 对应的风险，不推断目标项目内部或生产事实。",
     diff,
     source_review_comment: sourceBody,
   };

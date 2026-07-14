@@ -2,7 +2,7 @@
 
 ## 1. 定位
 
-本文件记录 `V3-P6-WP2` 路径与一致性验收结果，用于确认 hicode 当前运行资产不依赖归档区、历史 references 目录或旧路径链路，并保留金融核心系统风险标准、安全红线、人工审批边界和生产禁止事项。
+本文件记录 `V3-P6-WP2` 路径与一致性验收结果，用于确认 hicode 当前运行资产不依赖归档区、历史 references 目录或旧路径链路，并保留高严谨业务系统风险标准、安全红线、人工审批边界和生产禁止事项。
 
 本记录覆盖当前运行资产：
 
@@ -23,7 +23,7 @@
 1. 当前运行资产未引用 `archive/` 作为执行依据。
 2. 当前运行资产未引用历史 `references/prompts`、`references/skills`、`references/gates`、`references/schemas`、`references/examples`、`references/init` 或 `references/target-project`。
 3. 当前运行资产未引用旧 `.hicode` 运行资产子路径、`docs/review-rules` 或 Agent-Prompt 整合文档。
-4. 当前运行资产仍保留安全红线、生产禁止事项、人工审批边界、敏感信息保护和金融核心系统风险基线。
+4. 当前运行资产仍保留安全红线、生产禁止事项、人工审批边界、敏感信息保护和高严谨业务系统风险基线。
 5. `.claude-plugin/plugin.json` 未声明本仓库 `docs/`、`archive/` 或历史 references 目录为运行资产。
 
 ## 3. 检查项

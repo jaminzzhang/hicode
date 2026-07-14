@@ -2,6 +2,8 @@
 
 Status: accepted
 
+服务对象范围已由 [ADR 0005](./0005-adopt-high-integrity-business-system-scope.md) 部分替代；本 ADR 关于 ECC 模式取舍、子 Agent 和安全边界的决策继续有效。
+
 hicode will evolve toward an ECC-inspired, insurance-core-focused architecture: introduce delegated subagents under `harness-assets/agents/`, integrate each subagent with existing Prompt/Skill/Gate/Schema assets, add `harness-assets/init/` for DAILY/LIBRARY selective installation, and plan for advisory-first gate Hook integration. We will not copy ECC's full generic agent catalog; hicode remains a vertical harness for insurance and financial core system development, with strict boundaries against automatic release, automatic merge, production operations, production configuration changes, production SQL, production log access, and unmasked production or customer data.
 
 **Considered Options**

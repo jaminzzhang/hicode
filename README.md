@@ -4,6 +4,8 @@
 
 本仓库根目录是 hicode 的设计中心，也是面向 Claude Code 与 Codex 的 plugin root，并提供 OpenCode agents/skills 和 **Moss learned-skills** 安装入口。
 
+hicode 默认面向金融、保险、支付、清结算、账务、计费、订单履约等金融或类金融高严谨业务系统，也适用于其他对业务规则严谨性、逻辑边界、交易或数据一致性、可审计性有同等级要求的系统。
+
 Claude Code 通过 plugin marketplace 安装；OpenCode 通过 `install.sh --opencode` 把 hicode 的 agents 和 skills 转换复制到 OpenCode 用户级或项目级目录；Codex 通过 `install.sh --codex` 把 hicode 作为 `.codex-plugin` plugin bundle 写入本地 marketplace 并执行 `codex plugin add`；**Moss** 通过 `node scripts/install.js --moss` 安装到 Moss 的 learned-skills 目录。
 
 本 plugin 安装动作不执行目标项目初始化，不扫描代码，不生成 `CLAUDE.md`、`AGENTS.md` 或项目本地运行目录。
@@ -414,7 +416,7 @@ release 做完：发布报告生成，可以上线了
 
 1. **每个 Skill 都有安全红线：** 不看生产数据、不碰密钥、不自动发布、不自动合并。
 2. **输出都是建议，不是审批：** review 不替代人工审批，release 不代替发布决策。
-3. **保险核心系统默认更严格：** 涉及金额、状态流转、幂等、事务一致性的，风险评级默认更高。
+3. **高严谨业务系统默认更严格：** 金融、保险、支付、清结算、账务、计费、订单履约等金融或类金融场景，以及其他涉及关键数值、状态流转、幂等、并发、交易或数据一致性的系统，风险评级默认更高。
 4. **所有文档只记录事实：** 不编造测试结果、不编造业务规则、不编造结论。
 
 ---

@@ -10,7 +10,7 @@
   "plugins": [
     {
       "name": "hicode",
-      "description": "hicode Claude Code plugin for insurance and financial core system Coding Agent workflows",
+      "description": "hicode Claude Code plugin for high-integrity business and transactional system Coding Agent workflows",
       "source": "./",
       "version": "0.1.2"
     }

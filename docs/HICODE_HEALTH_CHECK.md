@@ -2,7 +2,7 @@
 
 ## 定位
 
-本文档说明当前资产健康检查 Module。健康检查用于重复验证 hicode 当前运行资产是否仍符合 V3 简化后的资产边界、安全红线和安装边界。
+本文档说明当前资产健康检查 Module。健康检查用于重复验证 hicode 当前运行资产是否仍符合 V3 简化后的资产边界、高严谨业务系统目标范围、安全红线和安装边界。
 
 健康检查不扫描目标项目，不读取 `.env`、密钥文件、生产配置、生产凭证、未脱敏客户信息或未脱敏生产数据，不连接生产环境。
 
@@ -27,7 +27,7 @@ bash scripts/health-check.sh
 11. 6 个场景 Skill 的 `SKILL.md` 不再引用旧共享路径或仓库 `references/`。
 12. 非 init Skill 不读取也不携带本地 `coding_rules.md` 种子规则；`skills/init/coding_rules.md` 是唯一内置规则种子，根目录 `references/` 不再存在。
 13. Skill 本地模板文档平铺在各自 `skills/<skill>/` 根目录，根目录 `references/` 不再存在；场景 Skill 不携带重复 `README.md` 生命周期说明。
-14. `skills/init/hicode-entry-section.md` 承载单需求文档生命周期、`doc/versions/` 下带日期时间戳的 Review/Release 报告路径、写入边界和审批边界，并由 `hicode:init` 写入目标项目入口。
+14. `skills/init/hicode-entry-section.md` 承载高严谨业务风险基线、单需求文档生命周期、`doc/versions/` 下带日期时间戳的 Review/Release 报告路径、写入边界和审批边界，并由 `hicode:init` 写入目标项目入口。
 15. 旧共享运行目录已移除；运行资产、安装器和 manifest 不得引用旧共享路径或恢复 `references/` 目录。
 16. 未被 Hook 目录使用的 `_hook-template.md` 不再保留。
 17. OpenCode 转换后的 Skill frontmatter `name` 必须与安装目录一致；OpenCode Agent 使用文件名作为身份，frontmatter 不写 `name`，并显式写入 `mode: subagent`。
@@ -39,6 +39,7 @@ bash scripts/health-check.sh
 23. `skill-opt/scripts/*.js` 必须语法有效，`skill-opt/tests/*.test.js` 必须通过，`skill-opt/data/review-golden/items.jsonl` 必须通过本地数据集校验，候选摘要脚本必须能在缺少候选时生成 `WAIT_FOR_CANDIDATE` 摘要。
 24. SkillOpt train/eval Python wrapper 必须能通过 `uv run python -m py_compile`、`uv run python -m unittest discover -s skill-opt/tests/python`，且 train `--dry-run` 必须能生成派生 split 和 `train-dry-run.json`，同时不得调用模型或生成 `review-outputs/`。
 25. DeepSeek train wrapper 必须能通过 shell 语法检查和 dry-run 测试，按 SkillOpt 官方 `.env` 方式加载 `AZURE_OPENAI_*` 变量，并将已知 DeepSeek 模型名规范化为 API 接受的小写形式；不得打印凭证或把凭证写入 tracked 文件、运行摘要或候选 Skill。
+26. `AGENTS.md`、`CONTEXT.md`、`README.md`、V3 计划和 ADR 0005 必须声明“高严谨业务系统”目标范围；Plugin 描述必须使用 `high-integrity` 口径并包含类金融适用范围；Review 触发回归必须覆盖非保险的高严谨业务场景。
 
 ## 失败处理
 

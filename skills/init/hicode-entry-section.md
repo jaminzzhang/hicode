@@ -17,7 +17,7 @@
 | 首次使用、状态诊断、不确定用哪个 hicode 能力 | `hi` | 初始化状态、路由建议 |
 | 初始化入口、补齐项目规则、创建项目上下文 | `hicode:init` | 入口 hicode section、`docs/rules/`、项目级上下文 |
 | 需求评审、范围界定、澄清问题、任务拆分 | `hicode:scope` | `docs/features/<feature-id>/` 下的 Scope 产物 |
-| TDD、测试先行、复现 bug、受控实现 | `hicode:tdd` | `docs/features/<feature-id>/tdd-report.md` |
+| TDD、测试先行、复现 bug、受控实现 | `hicode:tdd` | 简单任务为代码、测试和对话验证结果；完整留痕任务为 `docs/features/<feature-id>/tdd-report.md` |
 | 代码审查、diff/MR/PR/提交前检查、专项风险审查 | `hicode:review` | `doc/versions/review-report-<YYYYMMDD-HHmm>.md` |
 | 分支发布分析、验证计划、回滚计划、发布风险判断 | `hicode:release` | `doc/versions/release-report-<YYYYMMDD-HHmm>.md` |
 
@@ -32,25 +32,29 @@
 
 不得读取 `.env`、密钥文件、生产配置、生产凭证、未脱敏客户信息、未脱敏生产数据或生产日志原文。
 
+## hicode 高严谨业务风险基线
+
+按系统特征和项目证据判断风险，不只按行业名称判断。金融、保险及类金融系统是重点场景；其他对业务规则严谨性、逻辑边界、交易或数据一致性、可审计性有同等级要求的系统，必须同样检查领域业务逻辑、金额与关键数值、交易与数据一致性、状态流转、幂等、并发、权限、审计、隐私、适用监管与合规、生产变更和回滚风险。具体领域规则必须来自目标项目事实，证据不足时标注 `待确认`，不得套用或编造。
+
 ## hicode 文档路径
 
 项目级共享文档：
 
 | 路径 | 用途 |
 |---|---|
-| `docs/DOMAIN_KNOWLEDGE.md` | 领域术语、业务域、保险核心场景、可复用业务规则 |
+| `docs/DOMAIN_KNOWLEDGE.md` | 领域术语、业务域、高严谨业务场景、可复用业务规则 |
 | `docs/PROJ_CONTEXT.md` | 项目定位、Feature 索引、模块结构、核心流程、接口依赖、历史风险 |
 | `docs/adr/` | 架构、治理或难逆决策记录 |
 | `docs/rules/` | 目标项目本地规则，只能补充或加严 hicode 规则 |
 
 ## hicode 单需求文档生命周期
 
-单需求目录固定为 `docs/features/<feature-id>/`。`feature-id` 不明确时先查 Feature 索引；仍不明确时问用户，不得编造。
+完整留痕任务的单需求目录固定为 `docs/features/<feature-id>/`。此类任务的 `feature-id` 不明确时先查 Feature 索引；仍不明确时问用户，不得编造。简单 TDD 任务不要求 `feature-id`，不进入本生命周期。
 
 | 阶段 | 入口 | 可创建或更新 | 缺失材料处理 |
 |---|---|---|---|
 | Scope | `hicode:scope` | `feature_context.md`、`scope-plan.md` | 缺少目标、范围、规则、验收标准、设计树或 P0/P1 风险证据时，不输出 `TDD_INPUT_READY` |
-| TDD | `hicode:tdd` | `tdd-report.md`，必要时补充 `feature_context.md` 的过程证据 | 缺少 `scope-plan.md`、任务范围或测试重点时，说明缺口并回到 `hicode:scope` 或只做测试设计 |
+| TDD | `hicode:tdd` | 简单任务不创建阶段文档；复杂、高风险、需交接审计或用户要求报告时创建 `tdd-report.md`，必要时补充 `feature_context.md` 的过程证据 | 简单任务按 `hicode:tdd` 的流程分级直接执行；完整留痕任务缺少 `scope-plan.md`、任务范围或测试重点时，说明缺口并回到 `hicode:scope` 或只做测试设计 |
 
 ## hicode Review 与 Release 报告
 

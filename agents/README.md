@@ -4,7 +4,7 @@
 
 本目录保存 hicode 子 Agent 源资产，用于为目标项目提供可委托的专门角色入口。
 
-子 Agent 参考 ECC `agents/` 的 subagent delegation 模式，但只吸收适合保险/金融核心系统研发的角色委托、审查纪律和安全边界。子 Agent 不替代 Skill、Rule、Template、人工负责人或生产审批。
+子 Agent 参考 ECC `agents/` 的 subagent delegation 模式，但只吸收适合高严谨业务系统研发的角色委托、审查纪律和安全边界。金融、保险及类金融系统是重点场景，但不是唯一范围。子 Agent 不替代 Skill、Rule、Template、人工负责人或生产审批。
 
 子 Agent 的职责是：
 
@@ -159,7 +159,7 @@ Agent 输出必须高信号、可追溯、可执行。
 | `java-reviewer.md` | Java/Spring/核心后端专项审查委托角色 |
 | `release-reviewer.md` | 发布前证据汇总和发布风险审查委托角色 |
 
-不要在首批引入低频、非核心或与保险核心研发流程无关的通用 Agent。
+不要在首批引入低频、非核心或与高严谨业务研发流程无关的通用 Agent。
 
 ## 11. 安全红线
 

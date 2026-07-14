@@ -24,7 +24,7 @@
 | `init` | 中 | 初始化边界清晰，但“必读材料”容易诱导过度加载；Agent 委托和不可用降级不明确。 | 改为按需加载；说明 `graphify` / 结构扫描可降级；继续禁止复制 `.hicode/` 和旧共享资产。 |
 | `scope` | 高 | `READY_FOR_TDD` 容易被误解为批准编码；需求评审、拆分和 ADR 草稿之间边界需要更明确。 | 改为 `TDD_INPUT_READY`；明确它只是进入 TDD 的证据建议；补充 requirement-reviewer / coding-planner 委托与降级。 |
 | `tdd` | 高 | 直接实现请求下的授权边界容易过窄或过宽；`PASS` 类结论容易被误读成合并许可。 | 明确清晰范围下可执行本地代码、测试和文档改动；结论改为 `LOCAL_VERIFIED` / `PARTIAL_VERIFICATION`，并声明不代表合并或发布许可。 |
-| `review` | 高 | 原“双轴”表述不足以覆盖保险核心业务、安全和金融风险；`PASS` 类结论有审批误导。 | 改为三轴审查；结论改为 `NO_BLOCKING_FINDINGS` / `CONDITIONAL_RECOMMENDATION`；强调不自动合并、不替代人工审批。 |
+| `review` | 高 | 原“双轴”表述不足以覆盖高严谨领域业务、安全和交易一致性风险；`PASS` 类结论有审批误导。 | 改为三轴审查；结论改为 `NO_BLOCKING_FINDINGS` / `CONDITIONAL_RECOMMENDATION`；强调不自动合并、不替代人工审批。 |
 | `release` | 高 | 发布建议容易被误读成上线许可；生产变更、回滚和证据缺口需要更强停止条件。 | 使用建议性结论；增加停止条件；明确 release 只做风险分析、验证计划和回滚建议，不执行发布或回滚。 |
 
 ## 已落地改造

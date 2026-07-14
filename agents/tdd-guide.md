@@ -30,7 +30,7 @@ description: Use when a coding plan needs delegated TDD guidance, RED-GREEN-REFA
 使用本 Agent 的场景：
 
 1. 编码计划已形成，需要进入测试先行设计。
-2. 任务涉及保险核心业务逻辑、金额、日期、状态、交易一致性、幂等、权限、审计、隐私、监管、外部系统或历史缺陷。
+2. 任务涉及高严谨领域业务逻辑、金额或关键数值、日期、状态、交易或数据一致性、幂等、并发、权限、审计、隐私、适用监管与合规、外部系统或历史缺陷。
 3. 需要输出 Given-When-Then、Mock 策略、测试数据、断言规则和 RED-GREEN-REFACTOR 循环建议。
 4. 用户确认后，需要补充或修改测试代码、测试夹具、Mock、脱敏测试数据或测试说明文档。
 

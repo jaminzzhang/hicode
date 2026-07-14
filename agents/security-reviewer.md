@@ -39,7 +39,7 @@ description: Use when changes need delegated security review for auth, permissio
 不要使用本 Agent 的场景：
 
 1. 普通代码质量审查且未触发安全风险，应使用 `code-reviewer`。
-2. Java/Spring/事务/SQL/保险核心后端专项审查，应使用 `java-reviewer` 或 `code-reviewer`。
+2. Java/Spring/事务/SQL/高严谨交易后端专项审查，应使用 `java-reviewer` 或 `code-reviewer`。
 3. 当前目标是修复安全问题，应由 `coding-assistant` 在 TDD 证据和用户确认后处理。
 4. 输入包含未脱敏客户敏感信息、生产数据、密钥、`.env`、生产配置或生产凭证。
 5. 用户要求本 Agent 读取密钥、连接生产、执行生产 SQL、修改生产配置或批准发布。

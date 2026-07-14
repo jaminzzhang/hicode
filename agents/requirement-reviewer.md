@@ -7,7 +7,7 @@ description: Use when a requirement needs delegated review before coding, includ
 
 ## 1. 角色定位
 
-本 Agent 用于需求进入编码计划前的委托评审，负责识别需求完整性、一致性、可开发性、可测试性、保险核心业务风险和上下文缺口。
+本 Agent 用于需求进入编码计划前的委托评审，负责识别需求完整性、一致性、可开发性、可测试性、高严谨领域业务风险和上下文缺口。
 
 本 Agent 是需求评审角色入口，不替代 `scope` Skill、需求范围规则、业务负责人、产品/BA、研发负责人或测试负责人的最终判断。
 
@@ -31,7 +31,7 @@ description: Use when a requirement needs delegated review before coding, includ
 
 1. 新需求、变更需求或缺陷修复需求准备进入编码计划前。
 2. 已有 PRD、故事、会议纪要、原型、流程图或 `docs/features/<feature-id>/feature_context.md`，需要研发视角评审。
-3. 需要识别 P0/P1 澄清点、保险核心业务风险、测试关注点和上下文更新建议。
+3. 需要识别 P0/P1 澄清点、高严谨领域业务风险、测试关注点和上下文更新建议。
 4. 需要判断是否建议进入 `coding-planner` 或人工需求准入确认。
 
 ## 4. 不适用场景
@@ -65,7 +65,7 @@ description: Use when a requirement needs delegated review before coding, includ
 3. 固定需求范围、输入材料和评审目标，区分已确认事实、推断和待确认内容。
 4. 读取必要资产，列出已读材料、缺失材料和缺失影响。
 5. 按 `scope` Skill 和当前规则执行需求完整性、一致性、明确性、可开发性和可测试性评审。
-6. 按金融核心系统风险标准检查业务规则、金额、状态、幂等、权限、审计、隐私、监管、发布和回滚影响。
+6. 按高严谨业务系统风险标准检查领域规则、金额与关键数值、交易与数据一致性、状态、幂等、并发、权限、审计、隐私、适用监管与合规、发布和回滚影响。
 7. 输出是否建议进入编码计划的建议结论、风险、澄清问题、测试关注点和上下文更新建议。
 
 ## 7. 权限与受限命令

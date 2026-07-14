@@ -4,7 +4,7 @@
 
 本目录保存 `hicode:review` 的第二组公开来源训练样本。数据用于 SkillOpt 管理侧离线训练和评估，不属于 hicode plugin 运行资产，不安装到目标项目。
 
-本数据集是公开 Code Review 数据层，目标是让 `hicode:review` 继续学习真实 PR review comment 的 diff 定位、问题表达、Java/Spring/MyBatis/RocketMQ 代码语境和建议性结论约束。它不能替代公司内部已脱敏金融保险 MR、缺陷或事故样本。
+本数据集是公开 Code Review 数据层，目标是让 `hicode:review` 继续学习真实 PR review comment 的 diff 定位、问题表达、Java/Spring/MyBatis/RocketMQ 代码语境和建议性结论约束。它不能替代经授权、已脱敏的高严谨业务系统 MR、缺陷或事故样本。
 
 ## 文件
 
@@ -61,13 +61,13 @@ GitHub 官方文档说明 Pull Request Review Comments 是针对 PR unified diff
 3. 过滤 `LGTM`、`thanks`、纯 `nit`、空白行、排版、拼写、`@since` 等低价值评论。
 4. 过滤 review reply，只保留根 review comment。
 5. 根据评论和 diff 关键词归类为 `security`、`idempotency`、`transaction_consistency`、`sql`、`exception_handling`、`test_gap`、`cache_lock`、`java_spring` 或 `maintainability`。
-6. 将公开数据风险映射为 hicode 的建议性训练标签；公开 P1/P2/P3 风险不代表金融保险真实生产风险结论。
+6. 将公开数据风险映射为 hicode 的建议性训练标签；公开 P1/P2/P3 风险不代表目标项目或生产环境的真实风险结论。
 
 脱敏规则：
 
 1. 私网 IP、示例 access key、secret key、password、token 等值统一替换为 `<REDACTED_...>`。
 2. 不写入 GitHub 用户信息，不保存生产账号、生产配置、客户信息、生产日志或真实内部 MR。
-3. 每条样本保留公开来源 URL 以便追溯，不把公开项目评论误写为内部金融保险真实缺陷。
+3. 每条样本保留公开来源 URL 以便追溯，不把公开项目评论误写为目标项目内部真实缺陷。
 
 ## 验证
 

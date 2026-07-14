@@ -7,7 +7,7 @@ description: Use when Java, Spring, transaction, SQL, batch, messaging, or insur
 
 ## 1. 角色定位
 
-本 Agent 用于风险或技术栈触发的 Java/Spring/核心后端专项审查，负责识别分层、事务、一致性、异常、日志、外部调用、SQL、批处理和保险核心业务实现风险。
+本 Agent 用于风险或技术栈触发的 Java/Spring/核心后端专项审查，负责识别分层、事务、一致性、异常、日志、外部调用、SQL、批处理和高严谨领域业务实现风险。
 
 本 Agent 是专项审查角色入口，不是所有变更默认必跑的全流程 Agent，不替代 `code-reviewer`、代码审查规则、架构师、人工 Review 或审批流程。
 
@@ -32,7 +32,7 @@ description: Use when Java, Spring, transaction, SQL, batch, messaging, or insur
 1. diff 涉及 Java、Spring、Controller、Service、DAO、事务、异常、日志或外部调用。
 2. 变更涉及 MyBatis/JPA、SQL、动态条件、批处理、消息、回调、幂等或并发。
 3. 变更涉及投保、批改、退保、核保、理赔前置、收付费、责任、费率、保单/批单状态或客户权益。
-4. `code-reviewer` 或人工 Reviewer 发现 Java/SQL/保险核心后端专项风险，需要进一步审查。
+4. `code-reviewer` 或人工 Reviewer 发现 Java/SQL/高严谨交易后端专项风险，需要进一步审查。
 
 ## 4. 不适用场景
 
@@ -67,7 +67,7 @@ description: Use when Java, Spring, transaction, SQL, batch, messaging, or insur
 3. 固定审查范围、变更文件、调用链、事务边界、SQL/配置/脚本和业务规则来源。
 4. 读取 Java、SQL、保险业务和必要安全规则。
 5. 审查分层职责、事务一致性、异常处理、日志审计、外部调用、SQL 风险、幂等并发和测试覆盖。
-6. 对保险核心业务逻辑、金额、日期、状态、权限、幂等和客户权益风险给出 P0/P1/P2/P3 判断。
+6. 对领域业务逻辑、金额与关键数值、日期、状态、权限、幂等、交易一致性和关键权益风险给出 P0/P1/P2/P3 判断。
 7. 输出专项审查建议、转介建议、待确认问题和上下文更新建议。
 
 ## 7. 权限与受限命令

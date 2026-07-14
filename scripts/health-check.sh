@@ -131,6 +131,19 @@ check_match \
   '安全红线|生产|密钥|客户敏感|自动合并|自动发布' \
   skills agents hooks
 
+check_cmd \
+  "project entry and decision assets declare high-integrity business system scope" \
+  node -e "const fs=require('fs'); for (const p of ['AGENTS.md','CONTEXT.md','README.md','docs/V3_IMPLEMENTATION_PLAN.md','docs/adr/0005-adopt-high-integrity-business-system-scope.md']) { if (!fs.readFileSync(p,'utf8').includes('高严谨业务系统')) process.exit(1); }"
+
+check_cmd \
+  "plugin descriptions expose the broadened high-integrity scope" \
+  node -e "const fs=require('fs'); const c=JSON.parse(fs.readFileSync('.claude-plugin/plugin.json','utf8')); const m=JSON.parse(fs.readFileSync('.claude-plugin/marketplace.json','utf8')); const x=JSON.parse(fs.readFileSync('.codex-plugin/plugin.json','utf8')); for (const value of [c.description,m.plugins[0].description,x.description,x.interface.shortDescription,x.interface.longDescription]) { if (!/high-integrity/i.test(value)) process.exit(1); } if (!/quasi-financial/i.test(x.interface.longDescription)) process.exit(1);"
+
+check_match \
+  "review trigger regression covers a non-insurance high-integrity scenario" \
+  '计费与履约规则、关键数值、交易一致性' \
+  docs/HICODE_SKILL_TRIGGER_REGRESSION.md
+
 agent_common_count="$(rg -l '^## 2\. Agent 共性规则$' agents/*.md | wc -l | tr -d ' ')"
 if [ "$agent_common_count" = "9" ]; then
   pass "all 8 agents and agent template reference Agent common rules"
@@ -185,7 +198,7 @@ check_cmd \
 
 check_cmd \
   "hicode entry section carries feature lifecycle and project report rules" \
-  node -e "const fs=require('fs'); const s=fs.readFileSync('skills/init/hicode-entry-section.md','utf8'); for (const needle of ['## hicode 单需求文档生命周期','docs/features/<feature-id>/','doc/versions/review-report-<YYYYMMDD-HHmm>.md','doc/versions/release-report-<YYYYMMDD-HHmm>.md','不放入某个 feature 目录','不得编造','不代表最终审批']) { if (!s.includes(needle)) process.exit(1); }"
+  node -e "const fs=require('fs'); const s=fs.readFileSync('skills/init/hicode-entry-section.md','utf8'); for (const needle of ['## hicode 高严谨业务风险基线','按系统特征和项目证据判断风险','## hicode 单需求文档生命周期','docs/features/<feature-id>/','doc/versions/review-report-<YYYYMMDD-HHmm>.md','doc/versions/release-report-<YYYYMMDD-HHmm>.md','不放入某个 feature 目录','不得编造','不代表最终审批']) { if (!s.includes(needle)) process.exit(1); }"
 
 check_cmd \
   "init seed rule exists only under init skill root" \

@@ -50,11 +50,11 @@
 | R3 | Codex | Codex plugin bundle 只包含 `.codex-plugin/` 与 `skills/`，不得复制 `agents/` | `.codex-plugin/`、`skills/` | local marketplace entry 与 plugin bundle | Codex manifest 不支持 agents 时不得绕过 | 已确认 |
 | R4 | OpenCode | OpenCode 安装转换为 `hicode-*` skills 与 agents，卸载只删除 hicode-owned 资产 | `skills/`、`agents/` | OpenCode 配置目录或项目 `.opencode/` | 不删除非 hicode 命名资产 | 已确认 |
 
-## 4. 金融核心系统风险基线
+## 4. 高严谨业务系统风险基线
 
 | 维度 | 是否涉及 | 已知规则/证据 | 待确认问题 | 风险等级 |
 |---|---|---|---|---|
-| 保险核心业务逻辑严谨性 | 否 | 本需求为安装器资产改造，不实现业务逻辑 | 无 | NONE |
+| 领域业务逻辑严谨性 | 否 | 本需求为安装器资产改造，不实现业务逻辑 | 无 | NONE |
 | 金额精度 | 否 | 不涉及金额计算 | 无 | NONE |
 | 交易一致性 | 否 | 不涉及交易处理 | 无 | NONE |
 | 状态流转 | 否 | 不涉及业务状态机 | 无 | NONE |
